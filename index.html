@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora VLSM</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Calculadora de VLSM</h1>
+    <form id="vlsm-form">
+      <label for="network">Red Principal (e.g., 192.168.1.0/24):</label>
+      <input type="text" id="network" placeholder="192.168.1.0/24" required>
+      
+      <label for="hosts">Hosts por Subred (separados por comas):</label>
+      <input type="text" id="hosts" placeholder="50,30,10" required>
+      
+      <button type="submit">Calcular</button>
+    </form>
+    <div id="results"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
