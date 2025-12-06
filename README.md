@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Status](https://img.shields.io/badge/Status-Stable-green)](https://github.com/Medalcode/NetOpsToolkit)
 [![Deploy](https://img.shields.io/badge/Deploy-Netlify-00C7B7)](https://netops-toolkit.netlify.app)
-[![Tests](https://img.shields.io/badge/Tests-34%20passing-success)](https://github.com/Medalcode/NetOpsToolkit)
+[![Tests](https://img.shields.io/badge/Tests-36%20passing-success)](https://github.com/Medalcode/NetOpsToolkit)
 [![CI](https://github.com/Medalcode/NetOpsToolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/Medalcode/NetOpsToolkit/actions)
 
 > **"La Navaja Suiza para Ingenieros de Red"**
