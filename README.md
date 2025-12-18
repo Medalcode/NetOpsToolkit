@@ -20,7 +20,7 @@
 - ✅ **PWA Ready** - Instalable como aplicación
 - ✅ **Internationalization** - Soporte nativo Español 🇪🇸 / Inglés 🇺🇸
 - ✅ **Secure** - CSP headers, XSS prevention
-- ✅ **Tested** - 34 tests unitarios pasando (Validators + VLSM Logic + Converters + DNS Core)
+- ✅ **Tested** - 36 tests unitarios pasando (Validators + VLSM Logic + Converters + DNS Core)
 - ✅ **Open Source** - MIT License
 
 ## 🎯 Herramientas Disponibles
@@ -81,7 +81,7 @@ El proyecto ha sido reestructurado para maximizar la densidad de valor y elimina
 - **Frontend**: HTML5, JavaScript ES6+ (Modular)
 - **Styling**: Tailwind CSS v3
 - **Build**: Vite
-- **Testing**: Jest + jsdom (32 tests pasando)
+- **Testing**: Jest + jsdom (36 tests pasando)
 - **Deploy**: Netlify (Serverless Functions para Geo-IP)
 
 ## 📖 Documentación
@@ -112,21 +112,7 @@ npm run test:watch
 npm run test:coverage
 ```
 
-**Estado actual**: 4 test suites, 34 tests pasando (añadidos tests de conversión el 2026-05-21)
-
-### Cambios Recientes (v4.0.1 - 2026-05-21)
-- **Widgets de UI Auto-Contenidos**: Corregidos fallos de carga en `bandwidth.js`, `base-converter.js`, y `ip_reference.js` que impedían su renderizado al buscar elementos estáticos ausentes.
-- **Estructura e HTML de Navegación**: Corregido el bug de visibilidad persistente de la calculadora al restablecer el contenedor `#view-vlsm`.
-- **Testing**: Añadido soporte de pruebas unitarias para el módulo de conversiones `src/core/convert.js` (34 tests pasando en total).
-
-### Cambios Recientes (v4.0.0 - 2026-05-17)
-- **3 herramientas rescatadas**: Base Converter, Bandwidth Calculator e IP Reference estaban huérfanas (registradas en JS pero sin HTML). Se inyecta su HTML al contenedor dinámicamente.
-- **Geo-IP con datos reales**: Reemplazada la función mock por llamadas a la API pública `ip-api.com`.
-- **Adiós Bootstrap**: Eliminada dependencia de Bootstrap CSS/JS. Todo el estilo usa Tailwind/cyber.
-- **Refactorización Lean**: Eliminación de archivos legados (`index_legacy.html`, `js/` raíz) y consolidación de lógica dispersa.
-- **Estructura de Capas**: Separación clara entre `core/`, `platform/` y `ui/`.
-- **Skills Consilidadas**: Implementación de Super-Skills paramétricas (`identity-service`, `net-analysis-engine`).
-- **Testing**: Actualización de la suite para cubrir las nuevas rutas del core (32 tests pasando).
+**Estado actual**: 4 test suites, 36 tests pasando
 
 Para reproducir los cambios localmente:
 
