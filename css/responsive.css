@@ -1,0 +1,78 @@
+/* ===================================
+   RESPONSIVE DESIGN
+   Media queries y estilos responsivos
+   =================================== */
+
+/* === Tablet (768px y menos) === */
+@media (max-width: 768px) {
+  body {
+    padding: var(--spacing-md);
+  }
+
+  .container {
+    padding: var(--spacing-lg);
+  }
+
+  h1 {
+    font-size: 1.6em;
+  }
+
+  /* Previene zoom en iOS al enfocar inputs */
+  form input,
+  form button {
+    font-size: 16px;
+  }
+}
+
+/* === Mobile (480px y menos) === */
+@media (max-width: 480px) {
+  body {
+    padding: var(--spacing-sm);
+  }
+
+  .container {
+    padding: var(--spacing-md);
+  }
+
+  h1 {
+    font-size: 1.4em;
+  }
+
+  .statistics,
+  .subnet-result {
+    font-size: 0.9em;
+  }
+
+  form button {
+    padding: 12px 20px;
+  }
+}
+
+/* === Print Styles === */
+@media print {
+  body {
+    background: white;
+    padding: 0;
+  }
+
+  .container {
+    box-shadow: none;
+    max-width: 100%;
+  }
+
+  form {
+    display: none;
+  }
+
+  .subnet-result {
+    page-break-inside: avoid;
+  }
+}
+
+/* === High Resolution Displays === */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Estilos para pantallas retina */
+  body {
+    -webkit-font-smoothing: subpixel-antialiased;
+  }
+}

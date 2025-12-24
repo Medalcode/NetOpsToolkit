@@ -63,8 +63,8 @@
       href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>"
     />
 
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css" />
+    <!-- Stylesheet - Modular CSS -->
+    <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
     <div class="container">
@@ -78,8 +78,10 @@
 
         <button type="submit">Calcular</button>
       </form>
-      <div id="results"></div>
+      <div id="results" role="region" aria-live="polite" aria-label="Resultados del cálculo"></div>
     </div>
-    <script src="script.js"></script>
+    
+    <!-- JavaScript - ES6 Modules -->
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>
