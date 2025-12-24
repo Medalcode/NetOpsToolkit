@@ -1,25 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora VLSM</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="container">
-    <h1>Calculadora de VLSM</h1>
-    <form id="vlsm-form">
-      <label for="network">Red Principal (e.g., 192.168.1.0/24):</label>
-      <input type="text" id="network" placeholder="192.168.1.0/24" required>
-      
-      <label for="hosts">Hosts por Subred (separados por comas):</label>
-      <input type="text" id="hosts" placeholder="50,30,10" required>
-      
-      <button type="submit">Calcular</button>
-    </form>
-    <div id="results"></div>
-  </div>
-  <script src="script.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta Tags -->
+    <title>
+      Calculadora VLSM - Variable Length Subnet Mask | CIDR Calculator
+    </title>
+    <meta
+      name="title"
+      content="Calculadora VLSM - Variable Length Subnet Mask | CIDR Calculator"
+    />
+    <meta
+      name="description"
+      content="Calculadora profesional de VLSM (Variable Length Subnet Mask) online. Optimiza el diseño de tu red calculando subredes con diferentes tamaños de forma eficiente y gratuita."
+    />
+    <meta
+      name="keywords"
+      content="VLSM, calculadora VLSM, subnet mask, CIDR, subnetting, calculadora subnet, IP calculator, networking, redes"
+    />
+    <meta name="author" content="MedalCode" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="Spanish" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://myvlsm.netlify.app/" />
+    <meta
+      property="og:title"
+      content="Calculadora VLSM - Variable Length Subnet Mask"
+    />
+    <meta
+      property="og:description"
+      content="Calculadora profesional de VLSM online. Optimiza el diseño de tu red IP de forma gratuita."
+    />
+    <meta
+      property="og:image"
+      content="https://myvlsm.netlify.app/og-image.png"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://myvlsm.netlify.app/" />
+    <meta
+      property="twitter:title"
+      content="Calculadora VLSM - Variable Length Subnet Mask"
+    />
+    <meta
+      property="twitter:description"
+      content="Calculadora profesional de VLSM online. Optimiza el diseño de tu red IP de forma gratuita."
+    />
+    <meta
+      property="twitter:image"
+      content="https://myvlsm.netlify.app/og-image.png"
+    />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>"
+    />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Calculadora de VLSM</h1>
+      <form id="vlsm-form">
+        <label for="network">Red Principal (e.g., 192.168.1.0/24):</label>
+        <input type="text" id="network" placeholder="192.168.1.0/24" required />
+
+        <label for="hosts">Hosts por Subred (separados por comas):</label>
+        <input type="text" id="hosts" placeholder="50,30,10" required />
+
+        <button type="submit">Calcular</button>
+      </form>
+      <div id="results"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
 </html>

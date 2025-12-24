@@ -1,58 +1,379 @@
+/* ===================================
+   CALCULADORA VLSM - MODERN DESIGN
+   Versión: 1.1.0
+   Author: MedalCode
+   =================================== */
+
+/* ------------------- Variables de Diseño ------------------- */
+:root {
+  /* Colores principales */
+  --color-primary: #007bff;
+  --color-primary-dark: #0056b3;
+  --color-primary-light: #4da3ff;
+
+  /* Colores de fondo */
+  --color-bg-main: #f4f7fa;
+  --color-bg-card: #ffffff;
+  --color-bg-input: #ffffff;
+
+  /* Colores de texto */
+  --color-text-primary: #212529;
+  --color-text-secondary: #6c757d;
+
+  /* Colores de estado */
+  --color-success: #28a745;
+  --color-error: #d32f2f;
+  --color-warning: #f57c00;
+
+  /* Sombras */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* Bordes */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+
+  /* Espaciado */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Transiciones */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+/* ------------------- Reset y Base ------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-lg);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+}
+
+/* ------------------- Container ------------------- */
+.container {
+  background: var(--color-bg-card);
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  max-width: 600px;
+  width: 100%;
+  animation: fadeInUp var(--transition-slow) ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ------------------- Typography ------------------- */
+h1 {
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-primary);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+h3 {
+  font-size: 1.3em;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-primary);
+}
+
+h4 {
+  font-size: 1.1em;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text-primary);
+}
+
+/* ------------------- Form Styles ------------------- */
+form {
+  margin-bottom: var(--spacing-lg);
+}
+
+form label {
+  display: block;
+  margin: var(--spacing-md) 0 var(--spacing-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-size: 0.95em;
+}
+
+form input {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: var(--spacing-md);
+  border: 2px solid #e0e0e0;
+  border-radius: var(--border-radius-md);
+  font-size: 1em;
+  font-family: inherit;
+  background: var(--color-bg-input);
+  transition: all var(--transition-fast);
+}
+
+form input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+form input::placeholder {
+  color: #adb5bd;
+}
+
+/* ------------------- Button Styles ------------------- */
+form button {
+  width: 100%;
+  padding: 14px 24px;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-primary-dark) 100%
+  );
+  color: #ffffff;
+  border: none;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  font-size: 1.05em;
+  font-weight: 600;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+form button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+form button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+form button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+form button:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ------------------- Results Section ------------------- */
+#results {
+  margin-top: var(--spacing-lg);
+  animation: fadeIn var(--transition-normal);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+#results > div {
+  margin-bottom: var(--spacing-md);
+  transition: transform var(--transition-fast);
+}
+
+#results > div:hover {
+  transform: translateX(4px);
+}
+
+/* ------------------- Statistics ------------------- */
+.statistics {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-lg);
+  border: 1px solid #90caf9;
+  box-shadow: var(--shadow-sm);
+}
+
+.statistics p {
+  margin: var(--spacing-xs) 0;
+  font-size: 0.95em;
+}
+
+/* ------------------- Subnet Results ------------------- */
+.subnet-result {
+  background: #f8f9fa;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-md);
+  border: 1px solid #dee2e6;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.subnet-result:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary-light);
+}
+
+.subnet-result p {
+  margin: var(--spacing-xs) 0;
+  font-size: 0.95em;
+}
+
+.subnet-result strong {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+/* ------------------- Error & Warning Messages ------------------- */
+.error-message,
+.warning-message {
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-md);
+  animation: shake 0.5s;
+  box-shadow: var(--shadow-sm);
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+.error-message {
+  color: var(--color-error);
+  background-color: #ffebee;
+  border: 1px solid #ef5350;
+}
+
+.warning-message {
+  color: var(--color-warning);
+  background-color: #fff3e0;
+  border: 1px solid #ffb74d;
+}
+
+/* ------------------- Responsive Design ------------------- */
+@media (max-width: 768px) {
+  body {
+    padding: var(--spacing-md);
+  }
+
   .container {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    width: 100%;
+    padding: var(--spacing-lg);
   }
-  
+
   h1 {
-    font-size: 1.5em;
-    text-align: center;
-    margin-bottom: 20px;
+    font-size: 1.6em;
   }
-  
-  form label {
-    display: block;
-    margin: 10px 0 5px;
-  }
-  
-  form input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
+
+  form input,
   form button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    font-size: 16px; /* Previene zoom en iOS */
   }
-  
-  form button:hover {
-    background-color: #0056b3;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: var(--spacing-md);
   }
-  
-  #results {
-    margin-top: 20px;
+
+  h1 {
+    font-size: 1.4em;
+  }
+
+  .statistics,
+  .subnet-result {
     font-size: 0.9em;
   }
-  
+}
+
+/* ------------------- Print Styles ------------------- */
+@media print {
+  body {
+    background: white;
+    padding: 0;
+  }
+
+  .container {
+    box-shadow: none;
+    max-width: 100%;
+  }
+
+  form {
+    display: none;
+  }
+}
+
+/* ------------------- Accessibility ------------------- */
+*:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+button:focus,
+input:focus {
+  outline: none;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
