@@ -5,6 +5,27 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
+## [1.5.0] - 2025-12-24
+
+### Añadido
+
+- 📊 Google Analytics 4 (GA4) integration
+- 📊 Módulo `analytics.js` con tracking de eventos personalizado
+- 📊 Event tracking para cálculos VLSM (`vlsm_calculation`)
+- 📊 Event tracking para exportaciones (`export_data`)
+- 📊 Event tracking para operaciones de portapapeles (`copy_to_clipboard`)
+- 📊 Event tracking para errores de validación (`validation_error`)
+- 📊 Configuración respetuosa con la privacidad (IP anonymization)
+- 📊 Analytics deshabilitado en localhost automáticamente
+- 📚 Guía exhaustiva de configuración (`GOOGLE_ANALYTICS_SETUP.md`)
+- 📈 Dashboard de métricas clave recomendadas
+
+### Cambiado
+
+- 🔄 `index.html` incluye script de Google Analytics
+- 🔄 `main.js` integra tracking en eventos clave
+- 🔄 Versión actualizada a 1.5.0
+
 ## [1.1.0] - 2025-12-24
 
 ### Añadido

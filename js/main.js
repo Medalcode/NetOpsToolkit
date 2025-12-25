@@ -3,7 +3,7 @@
  * Orchestration de todos los módulos y manejo de eventos
  * @module main
  * @author MedalCode
- * @version 1.4.0
+ * @version 1.5.0
  */
 
 // Importar validadores
@@ -47,6 +47,14 @@ import { exportToCSV, exportToJSON } from './exporters.js';
 // Importar portapapeles
 import { copyAllResults, copySubnet } from './clipboard.js';
 
+// Importar analytics
+import {
+  trackCalculation,
+  trackExport,
+  trackCopy,
+  trackValidationError
+} from './analytics.js';
+
 // Importar tema
 import { initTheme, createThemeToggle } from './theme.js';
 
@@ -88,6 +96,7 @@ function handleFormSubmit(e) {
 
     // 1. Validar IP
     if (!validateIPAddress(baseIP)) {
+      trackValidationError('invalid_ip', 'network');
       showError(
         resultsDiv,
         "Dirección IP inválida. Debe tener formato xxx.xxx.xxx.xxx donde cada octeto está entre 0-255."
@@ -97,6 +106,7 @@ function handleFormSubmit(e) {
 
     // 2. Validar prefijo CIDR
     if (!validateCIDRPrefix(prefix)) {
+      trackValidationError('invalid_cidr', 'prefix');
       showError(resultsDiv, "Prefijo CIDR inválido. Debe estar entre 0 y 32 (ej: /24).");
       return;
     }
@@ -109,6 +119,7 @@ function handleFormSubmit(e) {
 
     const hostsValidation = validateHosts(hosts);
     if (!hostsValidation.isValid) {
+      trackValidationError('invalid_hosts', 'hosts');
       showError(resultsDiv, hostsValidation.error);
       return;
     }
@@ -128,6 +139,7 @@ function handleFormSubmit(e) {
 
     const capacityValidation = validateNetworkCapacity(totalAvailable, totalRequired);
     if (!capacityValidation.isValid) {
+      trackValidationError('insufficient_capacity', 'network');
       showError(resultsDiv, capacityValidation.error);
       return;
     }
@@ -143,6 +155,9 @@ function handleFormSubmit(e) {
     // Guardar en cache para exportación
     lastSubnets = subnets;
     lastStats = stats;
+
+    // Track successful calculation
+    trackCalculation(subnets.length, network, totalRequired);
 
     // Guardar en historial
     addToHistory(network, hostsInput, subnets, stats);
@@ -232,6 +247,7 @@ async function handleCopyAll() {
 
   const success = await copyAllResults(lastSubnets, lastStats);
   if (success) {
+    trackCopy('all');
     showToast("✅ Resultados copiados al portapapeles");
   } else {
     showToast("❌ Error al copiar al portapapeles", "error");
@@ -245,6 +261,7 @@ async function handleCopyAll() {
 async function handleCopySubnet(subnet) {
   const success = await copySubnet(subnet);
   if (success) {
+    trackCopy('subnet', subnet.index);
     showToast(`✅ Subred ${subnet.index} copiada al portapapeles`);
   } else {
     showToast("❌ Error al copiar al portapapeles", "error");
@@ -262,6 +279,7 @@ function handleExportCSV() {
 
   const success = exportToCSV(lastSubnets, lastStats);
   if (success) {
+    trackExport('csv', lastSubnets.length);
     showToast("✅ Archivo CSV descargado");
   } else {
     showToast("❌ Error al exportar CSV", "error");
@@ -279,6 +297,7 @@ function handleExportJSON() {
 
   const success = exportToJSON(lastSubnets, lastStats);
   if (success) {
+    trackExport('json', lastSubnets.length);
     showToast("✅ Archivo JSON descargado");
   } else {
     showToast("❌ Error al exportar JSON", "error");
@@ -400,8 +419,8 @@ function init() {
   const form = document.getElementById("vlsm-form");
   if (form) {
     form.addEventListener("submit", handleFormSubmit);
-    console.log("✅ Calculadora VLSM v1.4.0 inicializada correctamente");
-    console.log("✨ Nuevas features: Modo Oscuro + Historial");
+    console.log("✅ Calculadora VLSM v1.5.0 inicializada correctamente");
+    console.log("✨ Nuevas features: Modo Oscuro + Historial + Google Analytics");
   } else {
     console.error("❌ No se encontró el formulario #vlsm-form");
   }
