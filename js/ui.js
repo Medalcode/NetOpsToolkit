@@ -270,3 +270,210 @@ export function showToast(message, type = "success", duration = 3000) {
   }, duration);
 }
 
+/**
+ * Crea el panel de historial
+ * @param {Function} onLoadItem - Callback cuando se carga un item
+ * @param {Function} onDeleteItem - Callback cuando se elimina un item
+ * @param {Function} onClearHistory - Callback cuando se limpia el historial
+ * @returns {Object} Panel y botón toggle
+ */
+export function createHistoryPanel(onLoadItem, onDeleteItem, onClearHistory) {
+  // Crear overlay
+  const overlay = document.createElement("div");
+  overlay.className = "history-overlay";
+  
+  // Crear panel
+  const panel = document.createElement("div");
+  panel.className = "history-panel";
+  panel.setAttribute("role", "dialog");
+  panel.setAttribute("aria-label", "Historial de cálculos");
+  
+  // Header del panel
+  const header = document.createElement("div");
+  header.className = "history-panel-header";
+  
+  const title = document.createElement("h2");
+  title.textContent = "📜 Historial";
+  
+  const closeBtn = document.createElement("button");
+  closeBtn.className = "history-close-btn";
+  closeBtn.innerHTML = "✕";
+  closeBtn.setAttribute("aria-label", "Cerrar historial");
+  closeBtn.addEventListener("click", () => {
+    panel.classList.remove("open");
+    overlay.classList.remove("active");
+  });
+  
+  header.appendChild(title);
+  header.appendChild(closeBtn);
+  panel.appendChild(header);
+  
+  // Contenedor de contenido
+  const content = document.createElement("div");
+  content.className = "history-content";
+  panel.appendChild(content);
+  
+  // Botón toggle
+  const toggleBtn = document.createElement("button");
+  toggleBtn.className = "history-toggle";
+  toggleBtn.innerHTML = "📜 Historial";
+  toggleBtn.setAttribute("aria-label", "Abrir historial de cálculos");
+  toggleBtn.addEventListener("click", () => {
+    panel.classList.add("open");
+    overlay.classList.add("active");
+  });
+  
+  // Cerrar al hacer click en overlay
+  overlay.addEventListener("click", () => {
+    panel.classList.remove("open");
+    overlay.classList.remove("active");
+  });
+  
+  return { panel, overlay, toggleBtn, content, closeBtn };
+}
+
+/**
+ * Actualiza el contenido del panel de historial
+ * @param {HTMLElement} container - Contenedor del historial
+ * @param {Array} history - Array de items del historial
+ * @param {Object} stats - Estadísticas del historial
+ * @param {Function} onLoadItem - Callback para cargar item
+ * @param {Function} onDeleteItem - Callback para eliminar item
+ * @param {Function} onClearHistory - Callback para limpiar historial
+ */
+export function updateHistoryPanel(container, history, stats, onLoadItem, onDeleteItem, onClearHistory) {
+  // Limpiar contenido
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
+  
+  // Si no hay historial
+  if (!history || history.length === 0) {
+    const empty = document.createElement("div");
+    empty.className = "history-empty";
+    empty.innerHTML = "<p>📭</p><p>No hay cálculos en el historial</p><p>Realiza un cálculo para ver aquí tu historial</p>";
+    container.appendChild(empty);
+    return;
+  }
+  
+  // Mostrar estadísticas
+  if (stats) {
+    const statsDiv = document.createElement("div");
+    statsDiv.className = "history-stats";
+    statsDiv.innerHTML = `
+      <p><strong>📊 Estadísticas del Historial</strong></p>
+      <p>Total de cálculos: ${stats.totalCalculations}</p>
+      <p>Subredes creadas: ${stats.totalSubnets}</p>
+      <p>Promedio: ${stats.averageSubnets} subredes/cálculo</p>
+      ${stats.mostUsedNetwork ? `<p>Red más usada: ${stats.mostUsedNetwork}</p>` : ""}
+    `;
+    container.appendChild(statsDiv);
+  }
+  
+  // Botón limpiar historial
+  const clearBtn = document.createElement("button");
+  clearBtn.className = "history-clear-btn";
+  clearBtn.textContent = "🗑️ Limpiar Historial";
+  clearBtn.addEventListener("click", () => {
+    if (confirm("¿Estás seguro de que quieres limpiar todo el historial?")) {
+      onClearHistory();
+    }
+  });
+  container.appendChild(clearBtn);
+  
+  // Mostrar items
+  history.forEach(item => {
+    const itemDiv = createHistoryItem(item, onLoadItem, onDeleteItem);
+    container.appendChild(itemDiv);
+  });
+}
+
+/**
+ * Crea un item del historial
+ * @param {Object} item - Item del historial
+ * @param {Function} onLoad - Callback para cargar
+ * @param {Function} onDelete - Callback para eliminar
+ * @returns {HTMLElement} Elemento del item
+ */
+function createHistoryItem(item, onLoad, onDelete) {
+  const div = document.createElement("div");
+  div.className = "history-item";
+  div.setAttribute("role", "button");
+  div.setAttribute("tabindex", "0");
+  
+  // Header con red y botón eliminar
+  const header = document.createElement("div");
+  header.className = "history-item-header";
+  
+  const network = document.createElement("div");
+  network.className = "history-item-network";
+  network.textContent = item.network;
+  
+  const deleteBtn = document.createElement("button");
+  deleteBtn.className = "history-item-delete";
+  deleteBtn.innerHTML = "🗑️";
+  deleteBtn.setAttribute("aria-label", "Eliminar este cálculo");
+  deleteBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    onDelete(item.id);
+  });
+  
+  header.appendChild(network);
+  header.appendChild(deleteBtn);
+  div.appendChild(header);
+  
+  // Hosts
+  const hosts = document.createElement("div");
+  hosts.className = "history-item-hosts";
+  hosts.textContent = `Hosts: ${item.hosts}`;
+  div.appendChild(hosts);
+  
+  // Resumen
+  const summary = document.createElement("div");
+  summary.className = "history-item-summary";
+  const subnetsCount = item.subnets?.length || 0;
+  summary.textContent = `${subnetsCount} ${subnetsCount === 1 ? "subred" : "subredes"} calculada${subnetsCount === 1 ? "" : "s"}`;
+  div.appendChild(summary);
+  
+  // Timestamp
+  const time = document.createElement("div");
+  time.className = "history-item-time";
+  // La función formatTimestamp viene del módulo history
+  time.textContent = formatHistoryTimestamp(item.timestamp);
+  div.appendChild(time);
+  
+  // Click para cargar
+  div.addEventListener("click", () => onLoad(item));
+  
+  return div;
+}
+
+/**
+ * Formatea timestamp para historial (simplificado)
+ * @param {string} timestamp - Timestamp ISO
+ * @returns {string} Fecha formateada
+ */
+function formatHistoryTimestamp(timestamp) {
+  try {
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diffMs = now - date;
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMs / 3600000);
+    
+    if (diffMins < 1) return "Hace un momento";
+    if (diffMins < 60) return `Hace ${diffMins}min`;
+    if (diffHours < 24) return `Hace ${diffHours}h`;
+    
+    return date.toLocaleDateString("es-ES", { 
+      month: "short", 
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+  } catch (error) {
+    return timestamp;
+  }
+}
+
+

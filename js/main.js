@@ -3,7 +3,7 @@
  * Orchestration de todos los módulos y manejo de eventos
  * @module main
  * @author MedalCode
- * @version 1.3.0
+ * @version 1.4.0
  */
 
 // Importar validadores
@@ -33,12 +33,12 @@ import {
   clearResults,
   showError,
   showWarning,
-  displayResults,
   displayStatistics,
-  displaySubnet,
   createActionsBar,
   addCopyButtonToSubnet,
-  showToast
+  showToast,
+  createHistoryPanel,
+  updateHistoryPanel
 } from './ui.js';
 
 // Importar exportación
@@ -47,9 +47,22 @@ import { exportToCSV, exportToJSON } from './exporters.js';
 // Importar portapapeles
 import { copyAllResults, copySubnet } from './clipboard.js';
 
-// Variables globales para cach de los últimos resultados
+// Importar tema
+import { initTheme, createThemeToggle } from './theme.js';
+
+// Importar historial
+import {
+  getHistory,
+  addToHistory,
+  removeFromHistory,
+  clearHistory,
+  getHistoryStats
+} from './history.js';
+
+// Variables globales para cache de los últimos resultados
 let lastSubnets = null;
 let lastStats = null;
+let historyPanelElements = null;
 
 /**
  * Maneja el evento de submit del formulario
@@ -130,6 +143,12 @@ function handleFormSubmit(e) {
     // Guardar en cache para exportación
     lastSubnets = subnets;
     lastStats = stats;
+
+    // Guardar en historial
+    addToHistory(network, hostsInput, subnets, stats);
+    
+    // Actualizar panel de historial si está abierto
+    refreshHistoryPanel();
 
     // ===== MOSTRAR RESULTADOS =====
     displayResultsWithActions(subnets, stats, resultsDiv);
@@ -267,14 +286,122 @@ function handleExportJSON() {
 }
 
 /**
+ * Handler para cargar un item del historial
+ * @param {Object} item - Item del historial a cargar
+ */
+function handleLoadHistoryItem(item) {
+  // Cerrar panel de historial
+  if (historyPanelElements) {
+    historyPanelElements.panel.classList.remove("open");
+    historyPanelElements.overlay.classList.remove("active");
+  }
+
+  // Llenar formulario
+  document.getElementById("network").value = item.network;
+  document.getElementById("hosts").value = item.hosts;
+
+  // Guardar en cache
+  lastSubnets = item.subnets;
+  lastStats = item.stats;
+
+  // Mostrar resultados
+  const resultsDiv = document.getElementById("results");
+  displayResultsWithActions(item.subnets, item.stats, resultsDiv);
+
+  // Scroll a resultados
+  resultsDiv.scrollIntoView({ behavior: "smooth" });
+
+  showToast("✅ Cálculo cargado desde historial");
+}
+
+/**
+ * Handler para eliminar un item del historial
+ * @param {string} id - ID del item a eliminar
+ */
+function handleDeleteHistoryItem(id) {
+  const success = removeFromHistory(id);
+  if (success) {
+    refreshHistoryPanel();
+    showToast("✅ Cálculo eliminado del historial");
+  } else {
+    showToast("❌ Error al eliminar", "error");
+  }
+}
+
+/**
+ * Handler para limpiar todo el historial
+ */
+function handleClearHistory() {
+  const success = clearHistory();
+  if (success) {
+    refreshHistoryPanel();
+    showToast("✅ Historial limpiado");
+  } else {
+    showToast("❌ Error al limpiar historial", "error");
+  }
+}
+
+/**
+ * Refresca el contenido del panel de historial
+ */
+function refreshHistoryPanel() {
+  if (!historyPanelElements) return;
+
+  const history = getHistory();
+  const stats = getHistoryStats();
+
+  updateHistoryPanel(
+    historyPanelElements.content,
+    history,
+    stats,
+    handleLoadHistoryItem,
+    handleDeleteHistoryItem,
+    handleClearHistory
+  );
+}
+
+/**
+ * Inicializa el sistema de historial
+ */
+function initHistory() {
+  // Crear panel de historial
+  historyPanelElements = createHistoryPanel(
+    handleLoadHistoryItem,
+    handleDeleteHistoryItem,
+    handleClearHistory
+  );
+
+  // Agregar al DOM
+  document.body.appendChild(historyPanelElements.overlay);
+  document.body.appendChild(historyPanelElements.panel);
+  document.body.appendChild(historyPanelElements.toggleBtn);
+
+  // Cargar historial inicial
+  refreshHistoryPanel();
+
+  console.log("✅ Sistema de historial inicializado");
+}
+
+/**
  * Inicializa la aplicación
  */
 function init() {
+  // Inicializar tema PRIMERO (para evitar flash)
+  initTheme();
+
+  // Agregar botón de tema
+  const themeToggle = createThemeToggle();
+  document.body.appendChild(themeToggle);
+
+  // Inicializar historial
+  initHistory();
+
   // Agregar event listener al formulario
   const form = document.getElementById("vlsm-form");
   if (form) {
     form.addEventListener("submit", handleFormSubmit);
-    console.log("✅ Calculadora VLSM v1.3.0 inicializada correctamente");
+    console.log("✅ Calculadora VLSM v1.4.0 inicializada correctamente");
+    console.log("✨ Nuevas features: Modo Oscuro + Historial");
   } else {
     console.error("❌ No se encontró el formulario #vlsm-form");
   }
