@@ -166,3 +166,107 @@ export function showSuccess(container, message) {
   successDiv.appendChild(text);
   container.appendChild(successDiv);
 }
+
+/**
+ * Crea un botón de acción
+ * @param {string} text - Texto del botón
+ * @param {string} icon - Emoji o icono
+ * @param {Function} onClick - Función a ejecutar al hacer click
+ * @param {string} className - Clase CSS adicional
+ * @returns {HTMLButtonElement} Elemento botón
+ */
+export function createActionButton(text, icon, onClick, className = "") {
+  const button = document.createElement("button");
+  button.className = `action-btn ${className}`;
+  button.innerHTML = `${icon} ${text}`;
+  button.addEventListener("click", onClick);
+  return button;
+}
+
+/**
+ * Crea la barra de acciones con botones de exportación y copiar
+ * @param {Function} onCopyAll - Función para copiar todo
+ * @param {Function} onExportCSV - Función para exportar CSV
+ * @param {Function} onExportJSON - Función para exportar JSON
+ * @returns {HTMLElement} Contenedor con botones
+ */
+export function createActionsBar(onCopyAll, onExportCSV, onExportJSON) {
+  const actionsBar = document.createElement("div");
+  actionsBar.className = "actions-bar";
+  actionsBar.setAttribute("role", "toolbar");
+  actionsBar.setAttribute("aria-label", "Acciones de exportación");
+
+  const title = document.createElement("h3");
+  title.textContent = "📥 Exportar Resultados";
+  title.style.marginBottom = "12px";
+  actionsBar.appendChild(title);
+
+  const buttonsContainer = document.createElement("div");
+  buttonsContainer.className = "actions-buttons";
+
+  // Botón copiar todo
+  const copyBtn = createActionButton("Copiar Todo", "📋", onCopyAll, "copy-btn");
+  copyBtn.setAttribute("aria-label", "Copiar todos los resultados al portapapeles");
+  buttonsContainer.appendChild(copyBtn);
+
+  // Botón exportar CSV
+  const csvBtn = createActionButton("Exportar CSV", "📊", onExportCSV, "export-csv-btn");
+  csvBtn.setAttribute("aria-label", "Exportar resultados a formato CSV");
+  buttonsContainer.appendChild(csvBtn);
+
+  // Botón exportar JSON
+  const jsonBtn = createActionButton("Exportar JSON", "📄", onExportJSON, "export-json-btn");
+  jsonBtn.setAttribute("aria-label", "Exportar resultados a formato JSON");
+  buttonsContainer.appendChild(jsonBtn);
+
+  actionsBar.appendChild(buttonsContainer);
+  return actionsBar;
+}
+
+/**
+ * Agrega botón de copiar a una subred específica
+ * @param {Object} subnet - Datos de la subred
+ * @param {HTMLElement} subnetDiv - Contenedor de la subred
+ * @param {Function} onCopy - Función para copiar
+ */
+export function addCopyButtonToSubnet(subnet, subnetDiv, onCopy) {
+  const copyBtn = document.createElement("button");
+  copyBtn.className = "subnet-copy-btn";
+  copyBtn.textContent = "📋 Copiar";
+  copyBtn.setAttribute("aria-label", `Copiar información de subred ${subnet.index}`);
+  copyBtn.addEventListener("click", () => onCopy(subnet));
+  
+  // Insertar botón después del título
+  const title = subnetDiv.querySelector("h4");
+  title.appendChild(copyBtn);
+}
+
+/**
+ * Muestra un toast/notificación temporal
+ * @param {string} message - Mensaje a mostrar
+ * @param {string} type - Tipo: 'success', 'error', 'info'
+ * @param {number} duration - Duración en ms (default: 3000)
+ */
+export function showToast(message, type = "success", duration = 3000) {
+  // Crear toast
+  const toast = document.createElement("div");
+  toast.className = `toast toast-${type}`;
+  toast.setAttribute("role", "status");
+  toast.setAttribute("aria-live", "polite");
+  
+  const icon = type === "success" ? "✅" : type === "error" ? "❌" : "ℹ️";
+  toast.textContent = `${icon} ${message}`;
+  
+  // Agregar al body
+  document.body.appendChild(toast);
+  
+  // Animación de entrada
+  setTimeout(() => toast.classList.add("show"), 10);
+  
+  // Remover después de la duración
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => document.body.removeChild(toast), 300);
+  }, duration);
+}
+

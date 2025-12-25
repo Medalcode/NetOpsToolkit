@@ -3,7 +3,7 @@
  * Orchestration de todos los módulos y manejo de eventos
  * @module main
  * @author MedalCode
- * @version 1.2.0
+ * @version 1.3.0
  */
 
 // Importar validadores
@@ -33,8 +33,23 @@ import {
   clearResults,
   showError,
   showWarning,
-  displayResults
+  displayResults,
+  displayStatistics,
+  displaySubnet,
+  createActionsBar,
+  addCopyButtonToSubnet,
+  showToast
 } from './ui.js';
+
+// Importar exportación
+import { exportToCSV, exportToJSON } from './exporters.js';
+
+// Importar portapapeles
+import { copyAllResults, copySubnet } from './clipboard.js';
+
+// Variables globales para cach de los últimos resultados
+let lastSubnets = null;
+let lastStats = null;
 
 /**
  * Maneja el evento de submit del formulario
@@ -112,8 +127,12 @@ function handleFormSubmit(e) {
     // Calcular estadísticas
     const stats = calculateStatistics(subnets, totalAvailable);
 
+    // Guardar en cache para exportación
+    lastSubnets = subnets;
+    lastStats = stats;
+
     // ===== MOSTRAR RESULTADOS =====
-    displayResults(subnets, stats, resultsDiv);
+    displayResultsWithActions(subnets, stats, resultsDiv);
 
   } catch (error) {
     console.error("Error en cálculo VLSM:", error);
@@ -125,6 +144,129 @@ function handleFormSubmit(e) {
 }
 
 /**
+ * Muestra resultados con barra de acciones
+ * @param {Array<Object>} subnets - Subredes calculadas
+ * @param {Object} stats - Estadísticas
+ * @param {HTMLElement} container - Contenedor
+ */
+function displayResultsWithActions(subnets, stats, container) {
+  // Limpiar
+  clearResults(container);
+
+  // Agregar barra de acciones
+  const actionsBar = createActionsBar(
+    handleCopyAll,
+    handleExportCSV,
+    handleExportJSON
+  );
+  container.appendChild(actionsBar);
+
+  // Mostrar estadísticas
+  displayStatistics(stats, container);
+
+  // Mostrar cada subred con botón de copiar
+  subnets.forEach(subnet => {
+    const subnetDiv = document.createElement("div");
+    subnetDiv.className = "subnet-result";
+    subnetDiv.setAttribute("role", "article");
+    subnetDiv.setAttribute("aria-label", `Subred ${subnet.index}`);
+
+    const title = document.createElement("h4");
+    title.textContent = `Subred ${subnet.index}`;
+    subnetDiv.appendChild(title);
+
+    const details = [
+      { label: "Red", value: `${subnet.network}/${subnet.prefix}` },
+      { label: "Máscara", value: subnet.mask },
+      { label: "Rango de Hosts", value: `${subnet.firstHost} - ${subnet.lastHost}` },
+      { label: "Broadcast", value: subnet.broadcast },
+      { label: "Hosts solicitados", value: subnet.hostsRequested },
+      { label: "Hosts disponibles", value: subnet.hostsAvailable },
+      { label: "Utilización", value: `${subnet.utilizationPercent}% (${subnet.hostsWasted} IPs sin usar)` }
+    ];
+
+    details.forEach(detail => {
+      const p = document.createElement("p");
+      const label = document.createElement("strong");
+      label.textContent = `${detail.label}: `;
+      const value = document.createTextNode(detail.value);
+      p.appendChild(label);
+      p.appendChild(value);
+      subnetDiv.appendChild(p);
+    });
+
+    // Agregar botón de copiar a la subred
+    addCopyButtonToSubnet(subnet, subnetDiv, handleCopySubnet);
+
+    container.appendChild(subnetDiv);
+  });
+}
+
+/**
+ * Handler para copiar todo
+ */
+async function handleCopyAll() {
+  if (!lastSubnets || !lastStats) {
+    showToast("No hay resultados para copiar", "error");
+    return;
+  }
+
+  const success = await copyAllResults(lastSubnets, lastStats);
+  if (success) {
+    showToast("✅ Resultados copiados al portapapeles");
+  } else {
+    showToast("❌ Error al copiar al portapapeles", "error");
+  }
+}
+
+/**
+ * Handler para copiar una subred
+ * @param {Object} subnet - Subred a copiar
+ */
+async function handleCopySubnet(subnet) {
+  const success = await copySubnet(subnet);
+  if (success) {
+    showToast(`✅ Subred ${subnet.index} copiada al portapapeles`);
+  } else {
+    showToast("❌ Error al copiar al portapapeles", "error");
+  }
+}
+
+/**
+ * Handler para exportar a CSV
+ */
+function handleExportCSV() {
+  if (!lastSubnets || !lastStats) {
+    showToast("No hay resultados para exportar", "error");
+    return;
+  }
+
+  const success = exportToCSV(lastSubnets, lastStats);
+  if (success) {
+    showToast("✅ Archivo CSV descargado");
+  } else {
+    showToast("❌ Error al exportar CSV", "error");
+  }
+}
+
+/**
+ * Handler para exportar a JSON
+ */
+function handleExportJSON() {
+  if (!lastSubnets || !lastStats) {
+    showToast("No hay resultados para exportar", "error");
+    return;
+  }
+
+  const success = exportToJSON(lastSubnets, lastStats);
+  if (success) {
+    showToast("✅ Archivo JSON descargado");
+  } else {
+    showToast("❌ Error al exportar JSON", "error");
+  }
+}
+
+/**
  * Inicializa la aplicación
  */
 function init() {
@@ -132,7 +274,7 @@ function init() {
   const form = document.getElementById("vlsm-form");
   if (form) {
     form.addEventListener("submit", handleFormSubmit);
-    console.log("✅ Calculadora VLSM v1.2.0 inicializada correctamente");
+    console.log("✅ Calculadora VLSM v1.3.0 inicializada correctamente");
   } else {
     console.error("❌ No se encontró el formulario #vlsm-form");
   }
