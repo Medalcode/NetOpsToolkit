@@ -3,7 +3,7 @@
  * Orchestration de todos los módulos y manejo de eventos
  * @module main
  * @author MedalCode
- * @version 1.5.0
+ * @version 1.6.0
  */
 
 // Importar validadores
@@ -38,7 +38,10 @@ import {
   addCopyButtonToSubnet,
   showToast,
   createHistoryPanel,
-  updateHistoryPanel
+  updateHistoryPanel,
+  showInputError, // New
+  showInputSuccess, // New
+  resetInputValidation // New
 } from './ui.js';
 
 // Importar exportación
@@ -57,6 +60,14 @@ import {
 
 // Importar tema
 import { initTheme, createThemeToggle } from './theme.js';
+
+// Importar visualización
+import { renderAllocationChart } from './visualization.js';
+
+// Importar tools
+import { initTabs } from './tabs.js';
+import { initConverter } from './converter.js';
+import { initStandardCalc } from './standard_calc.js';
 
 // Importar historial
 import {
@@ -197,6 +208,14 @@ function displayResultsWithActions(subnets, stats, container) {
 
   // Mostrar estadísticas
   displayStatistics(stats, container);
+
+  // Mostrar visualización
+  const vizContainer = document.createElement("div");
+  const networkInput = document.getElementById("network");
+  if (networkInput && networkInput.value) {
+    renderAllocationChart(subnets, networkInput.value, vizContainer);
+    container.appendChild(vizContainer);
+  }
 
   // Mostrar cada subred con botón de copiar
   subnets.forEach(subnet => {
@@ -401,6 +420,121 @@ function initHistory() {
   console.log("✅ Sistema de historial inicializado");
 }
 
+// Debounce helper
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
+// REAL-TIME VALIDATION LOGIC
+function setupRealTimeValidation() {
+  const networkInput = document.getElementById("network");
+  const hostsInput = document.getElementById("hosts");
+
+  if (networkInput) {
+    networkInput.addEventListener("input", debounce(() => {
+      validateNetworkInput(networkInput.value);
+    }, 500));
+  }
+
+  if (hostsInput) {
+    hostsInput.addEventListener("input", debounce(() => {
+      validateHostsInput(hostsInput.value);
+    }, 500));
+  }
+}
+
+function validateNetworkInput(value) {
+  if (!value) {
+    resetInputValidation("network");
+    return;
+  }
+
+  const parts = value.split("/");
+  const baseIP = parts[0];
+  
+  // 1. Validate IP format
+  if (!validateIPAddress(baseIP)) {
+    showInputError("network", "IP inválida (ej: 192.168.1.0)");
+    return false;
+  }
+
+  // 2. Validate CIDR if present
+  if (parts.length > 1 && parts[1] !== "") {
+    const prefix = Number(parts[1]);
+    if (!validateCIDRPrefix(prefix)) {
+      showInputError("network", "Prefijo inválido (0-32)");
+      return false;
+    }
+  } else {
+     showInputError("network", "Falta prefijo CIDR (ej: /24)");
+     return false;
+  }
+
+  showInputSuccess("network");
+  return true;
+}
+
+function validateHostsInput(value) {
+  if (!value) {
+    resetInputValidation("hosts");
+    return;
+  }
+
+  // Basic format check
+  if (!/^[\d,\s]+$/.test(value)) {
+    showInputError("hosts", "Solo números y comas");
+    return false;
+  }
+
+  const hosts = value.split(",").map(h => Number(h.trim())).filter(n => !isNaN(n));
+  
+  if (hosts.length === 0) {
+    showInputError("hosts", "Ingresa al menos un host");
+    return false;
+  }
+
+  const validation = validateHosts(hosts);
+  if (!validation.isValid) {
+    showInputError("hosts", validation.error);
+    return false;
+  }
+
+  showInputSuccess("hosts");
+  return true;
+}
+
+// KEYBOARD SHORTCUTS LOGIC
+function setupKeyboardShortcuts() {
+  document.addEventListener("keydown", (e) => {
+    // Only if no modal is open
+    const historyOverlay = document.querySelector(".history-overlay");
+    if (historyOverlay && historyOverlay.classList.contains("active")) return;
+
+    // ESC to clear
+    if (e.key === "Escape") {
+      document.getElementById("vlsm-form").reset();
+      resetInputValidation("network");
+      resetInputValidation("hosts");
+      clearResults(document.getElementById("results"));
+      showToast("🧹 Formulario limpiado", "info");
+    }
+    
+    // Slash '/' to focus network input
+    if (e.key === "/" && document.activeElement.tagName !== "INPUT") {
+      e.preventDefault();
+      document.getElementById("network").focus();
+    }
+  });
+}
+
 /**
  * Inicializa la aplicación
  */
@@ -414,13 +548,22 @@ function init() {
 
   // Inicializar historial
   initHistory();
+  
+  // Inicializar UX Pro
+  setupRealTimeValidation();
+  setupKeyboardShortcuts();
+  
+  // Inicializar Tabs y Herramientas Nuevas
+  initTabs();
+  initConverter();
+  initStandardCalc();
 
   // Agregar event listener al formulario
   const form = document.getElementById("vlsm-form");
   if (form) {
     form.addEventListener("submit", handleFormSubmit);
-    console.log("✅ Calculadora VLSM v1.5.0 inicializada correctamente");
-    console.log("✨ Nuevas features: Modo Oscuro + Historial + Google Analytics");
+    console.log("✅ Calculadora VLSM v1.6.0 inicializada correctamente");
+    console.log("✨ Nuevas features: Visualización + UX Pro + Analytics");
   } else {
     console.error("❌ No se encontró el formulario #vlsm-form");
   }

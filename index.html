@@ -78,17 +78,171 @@
   </head>
   <body>
     <div class="container">
-      <h1>Calculadora de VLSM</h1>
-      <form id="vlsm-form">
-        <label for="network">Red Principal (e.g., 192.168.1.0/24):</label>
-        <input type="text" id="network" placeholder="192.168.1.0/24" required />
+      <header>
+        <h1>Network Tools Suite</h1>
+      </header>
 
-        <label for="hosts">Hosts por Subred (separados por comas):</label>
-        <input type="text" id="hosts" placeholder="50,30,10" required />
+      <nav>
+        <ul class="nav-tabs">
+          <li class="nav-item"><button class="nav-link active" data-target="tool-vlsm">VLSM Calc</button></li>
+          <li class="nav-item"><button class="nav-link" data-target="tool-hex">Hex Converter</button></li>
+          <li class="nav-item"><button class="nav-link" data-target="tool-subnet" title="Próximamente">Subnet Calc</button></li>
+          <li class="nav-item"><button class="nav-link" data-target="tool-ipv6" title="Próximamente">IPv6 Calc</button></li>
+        </ul>
+      </nav>
 
-        <button type="submit">Calcular</button>
-      </form>
-      <div id="results" role="region" aria-live="polite" aria-label="Resultados del cálculo"></div>
+      <!-- === TOOL 1: VLSM CALCULATOR === -->
+      <div id="tool-vlsm" class="tool-content active">
+        <h2>Calculadora VLSM</h2>
+        <form id="vlsm-form" novalidate>
+          <!-- Campo: Red Principal -->
+          <div class="input-group">
+            <div class="input-label-wrapper">
+              <label for="network">Red Principal (CIDR):</label>
+              <div class="tooltip-icon">?
+                <div class="tooltip-content">
+                  Ingresa la dirección IP de red y su prefijo (ej: 192.168.1.0/24).<br>
+                  El prefijo /24 indica cuántos bits se usan para la red.
+                </div>
+              </div>
+            </div>
+            <div class="input-wrapper">
+              <input 
+                type="text" 
+                id="network" 
+                placeholder="e.g. 192.168.1.0/24" 
+                required 
+                autocomplete="off"
+              />
+              <div class="validation-icon"></div>
+            </div>
+            <div class="validation-feedback" id="network-feedback"></div>
+          </div>
+  
+          <!-- Campo: Hosts -->
+          <div class="input-group">
+            <div class="input-label-wrapper">
+              <label for="hosts">Hosts por Subred:</label>
+              <div class="tooltip-icon">?
+                <div class="tooltip-content">
+                  Lista de hosts necesarios para cada subred, separados por comas.<br>
+                  Ejemplo: "50, 30, 20" creará subredes para soportar esa cantidad de equipos.
+                </div>
+              </div>
+            </div>
+            <div class="input-wrapper">
+              <input 
+                type="text" 
+                id="hosts" 
+                placeholder="e.g. 50, 30, 10" 
+                required 
+                autocomplete="off"
+              />
+              <div class="validation-icon"></div>
+            </div>
+            <div class="validation-feedback" id="hosts-feedback"></div>
+          </div>
+  
+          <button type="submit" id="calculate-btn">Calcular</button>
+        </form>
+        <div id="results" role="region" aria-live="polite" aria-label="Resultados del cálculo"></div>
+      </div>
+
+      <!-- === TOOL 2: HEX CONVERTER === -->
+      <div id="tool-hex" class="tool-content">
+        <h2>Convertidor Base (Hex/Bin/Dec)</h2>
+        <div class="input-group">
+          <label for="converter-input">Número a convertir:</label>
+          <div class="input-wrapper">
+            <input type="text" id="converter-input" placeholder="Ingresa un número (ej: 255, FF, 1010)" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="converter-results">
+          <div class="input-group">
+            <label>Decimal:</label>
+            <input type="text" id="res-dec" readonly>
+          </div>
+          <div class="input-group">
+            <label>Binario:</label>
+            <input type="text" id="res-bin" readonly>
+          </div>
+          <div class="input-group">
+            <label>Hexadecimal:</label>
+            <input type="text" id="res-hex" readonly>
+          </div>
+        </div>
+      </div>
+
+      <!-- === TOOL 3: SUBNET CALCULATOR === -->
+      <div id="tool-subnet" class="tool-content">
+        <h2>Calculadora de Subred (IPv4)</h2>
+        <div class="input-group">
+          <label for="std-ip">Dirección IP o Red (CIDR):</label>
+          <div class="input-wrapper">
+            <input type="text" id="std-ip" placeholder="Ej: 192.168.1.5/24 o 10.0.0.1" autocomplete="off">
+          </div>
+          <small style="color: var(--color-text-secondary); margin-top: 5px; display: block;">
+            Si no especificas la máscara, se usará la máscara por defecto de la clase.
+          </small>
+        </div>
+
+        <button id="std-btn" style="width: 100%; margin-bottom: 20px;">Calcular Detalles</button>
+
+        <div id="std-results" class="subnet-details" style="display:none;">
+           <!-- Results Table -->
+           <table class="results-table">
+             <tbody>
+               <tr>
+                 <th>Dirección IP:</th>
+                 <td id="out-ip"></td>
+               </tr>
+               <tr>
+                 <th>Máscara de Subred:</th>
+                 <td id="out-mask"></td>
+               </tr>
+               <tr>
+                 <th>Wildcard Mask:</th>
+                 <td id="out-wildcard"></td>
+               </tr>
+               <tr>
+                 <th>Red (Network):</th>
+                 <td id="out-network"></td>
+               </tr>
+               <tr>
+                 <th>Broadcast:</th>
+                 <td id="out-broadcast"></td>
+               </tr>
+               <tr>
+                 <th>Clase:</th>
+                 <td id="out-class"></td>
+               </tr>
+               <tr>
+                 <th>Rango de Hosts:</th>
+                 <td id="out-range"></td>
+               </tr>
+               <tr>
+                 <th>Hosts Útiles:</th>
+                 <td id="out-hosts"></td>
+               </tr>
+               <tr>
+                 <th>Tipo:</th>
+                 <td id="out-type"></td>
+               </tr>
+             </tbody>
+           </table>
+           
+           <div class="binary-viz" id="out-binary" style="margin-top:20px; font-family:monospace; background:#f5f5f5; padding:10px; border-radius:4px; overflow-x:auto;">
+             <!-- Binary visualization here -->
+           </div>
+        </div>
+      </div>
+
+       <!-- === TOOL 4: IPv6 CALCULATOR (Placeholder) === -->
+       <div id="tool-ipv6" class="tool-content">
+        <h2>IPv6 Calculator</h2>
+        <p>Próximamente...</p>
+      </div>
     </div>
     
     <!-- JavaScript - ES6 Modules -->

@@ -8,7 +8,10 @@
 @import url('variables.css');
 @import url('base.css');
 @import url('components.css');
-@import url('animations.css');
+@import './animations.css';
+@import './visualization.css';
+@import './tabs.css';
+@import './table_results.css';
 @import url('responsive.css');
 
 /* === Estilos Específicos de la App === */

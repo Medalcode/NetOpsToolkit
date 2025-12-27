@@ -5,6 +5,29 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
+## [1.6.0] - 2025-12-27 (The Professional Update)
+
+### Nuevas Características 🌟
+
+- 🗺️ **Visualización de Red**: Nuevo módulo de mapas de asignación.
+  - Gráfico de barras interactivo que muestra la ocupación de la red.
+  - Diferenciación visual de subredes y espacio libre.
+  - Hover effects interactivos.
+- ⚡ **Validación en Tiempo Real**: Feedback instantáneo (✅/❌) mientras escribes.
+- ℹ️ **Tooltips Educativos**: Explicaciones contextuales al pasar el mouse por los campos.
+- ⌨️ **Atajos de Teclado**:
+  - `/`: Enfocar campo de red.
+  - `Esc`: Limpiar formulario.
+- 🎨 **UX Profesional**: Nuevos estilos de validación y feedback visual mejorado.
+
+### Técnico 🔧
+
+- 🆕 Nuevo módulo `visualization.js` para lógica de gráficos.
+- 🆕 Nuevo archivo `visualization.css` para estilos de gráficos.
+- 🔄 Refactorización de `index.html` con estructura semántica mejorada (`input-group`).
+- 🔄 Optimización de eventos con `debounce` en `main.js`.
+- 🔄 Actualización de `ui.js` para manejar estados de validación dinámicos.
+
 ## [1.5.0] - 2025-12-24
 
 ### Añadido

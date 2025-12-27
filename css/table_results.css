@@ -1,0 +1,41 @@
+/* Tabla de Resultados Estándar */
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #e0e0e0;
+}
+
+.results-table th,
+.results-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.results-table th {
+  background-color: #f9f9f9;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  width: 40%;
+}
+
+.results-table tr:last-child td,
+.results-table tr:last-child th {
+  border-bottom: none;
+}
+
+.results-table td {
+  font-family: monospace;
+  font-size: 1.1em;
+  color: var(--color-text-primary);
+}
+
+.binary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}

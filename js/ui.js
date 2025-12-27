@@ -61,6 +61,72 @@ export function showWarning(container, message) {
 }
 
 /**
+ * Muestra error en un input específico
+ * @param {string} inputId - ID del input
+ * @param {string} message - Mensaje de error
+ */
+export function showInputError(inputId, message) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+
+  const feedbackId = `${inputId}-feedback`;
+  const feedback = document.getElementById(feedbackId);
+
+  // Update input state
+  input.classList.remove("input-valid");
+  input.classList.add("input-invalid");
+
+  // Update feedback message
+  if (feedback) {
+    feedback.textContent = message;
+    feedback.classList.remove("success");
+    feedback.classList.add("error", "show");
+  }
+}
+
+/**
+ * Muestra éxito en un input específico
+ * @param {string} inputId - ID del input
+ */
+export function showInputSuccess(inputId) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+
+  const feedbackId = `${inputId}-feedback`;
+  const feedback = document.getElementById(feedbackId);
+
+  // Update input state
+  input.classList.remove("input-invalid");
+  input.classList.add("input-valid");
+
+  // Update feedback message
+  if (feedback) {
+    feedback.textContent = "Válido";
+    feedback.classList.remove("error");
+    feedback.classList.add("success", "show");
+  }
+}
+
+/**
+ * Resetea el estado de validación de un input
+ * @param {string} inputId - ID del input
+ */
+export function resetInputValidation(inputId) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+
+  const feedbackId = `${inputId}-feedback`;
+  const feedback = document.getElementById(feedbackId);
+
+  input.classList.remove("input-valid", "input-invalid");
+  
+  if (feedback) {
+    feedback.textContent = "";
+    feedback.classList.remove("show", "error", "success");
+  }
+}
+
+/**
  * Muestra las estadísticas de utilización de red
  * @param {Object} stats - Objeto con estadísticas calculadas
  * @param {HTMLElement} container - Contenedor donde mostrar las estadísticas
