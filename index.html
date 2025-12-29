@@ -246,8 +246,10 @@
              <div class="container" style="max-width: 100%; margin: 0;">
                 <div class="input-group">
                     <label for="dns-domain">Dominio</label>
-                    <div style="display:flex; gap:10px;">
-                        <input type="text" id="dns-domain" placeholder="example.com">
+                    <div style="display:flex; gap:10px; align-items:flex-start;">
+                        <div class="input-wrapper" style="flex:1;">
+                            <input type="text" id="dns-domain" placeholder="example.com">
+                        </div>
                         <select id="dns-type" style="padding:10px; border-radius:var(--border-radius-md); border:1px solid var(--color-border); background:var(--color-bg-input); color:var(--color-text-primary);">
                             <option value="A">A</option>
                             <option value="AAAA">AAAA</option>
@@ -259,6 +261,7 @@
                             <option value="PTR">PTR</option>
                         </select>
                     </div>
+                    <div class="validation-feedback" id="dns-domain-feedback"></div>
                 </div>
                 <div class="input-group">
                     <label for="dns-resolver">Resolver</label>

@@ -64,18 +64,9 @@ import { initTheme, createThemeToggle } from './theme.js';
 // Importar visualización
 import { renderAllocationChart } from './visualization.js';
 
-// Importar tools
-import { initConverter } from './converter.js';
-import { initStandardCalc } from './standard_calc.js';
-import { initPortTool } from './tools/ports.js';
-import { initOuiTool } from './tools/oui.js';
-import { initIpRefTool } from './tools/ip_reference.js';
-import { initIPv6Tool } from './tools/ipv6.js';
-import { initBandwidthTool } from './tools/bandwidth.js';
-import { initDnsTool } from './tools/dns.js';
-import { initKeyGenTool } from './tools/keygen.js';
-import { initConfigGenTool } from './tools/config_gen.js';
-import { initPublicIpWidget } from './tools/public_ip.js';
+// Herramientas se cargarán dinámicamente
+// import { initConverter } from './converter.js';
+// ... (removed static imports)
 
 // ...
 
@@ -166,18 +157,62 @@ function init() {
   // Inicializar Navegación Dashboard
   setupNavigation();
   
-  // Inicializar Herramientas
-  initConverter();
-  initStandardCalc();
-  initPortTool();
-  initOuiTool();
-  initIpRefTool();
-  initIPv6Tool();
-  initBandwidthTool();
-  initDnsTool();
-  initKeyGenTool();
-  initConfigGenTool();
-  initPublicIpWidget();
+  // Mapeo de herramientas a sus módulos y funciones de inicialización
+  const toolRegistry = {
+    'tool-hex': { path: './converter.js', init: 'initConverter' },
+    'tool-subnet': { path: './standard_calc.js', init: 'initStandardCalc' },
+    'tool-ports': { path: './tools/ports.js', init: 'initPortTool' },
+    'tool-oui': { path: './tools/oui.js', init: 'initOuiTool' },
+    'tool-ip-ref': { path: './tools/ip_reference.js', init: 'initIpRefTool' },
+    'tool-ipv6': { path: './tools/ipv6.js', init: 'initIPv6Tool' },
+    'tool-bw': { path: './tools/bandwidth.js', init: 'initBandwidthTool' },
+    'tool-dns': { path: './tools/dns.js', init: 'initDnsTool' },
+    'tool-keygen': { path: './tools/keygen.js', init: 'initKeyGenTool' },
+    'tool-config': { path: './tools/config_gen.js', init: 'initConfigGenTool' }
+    // 'tool-dashboard' carga el widget de IP pública por separado
+  };
+
+  const loadedTools = new Set();
+
+  async function loadTool(toolId) {
+    if (loadedTools.has(toolId)) return;
+
+    const config = toolRegistry[toolId];
+    if (!config) return;
+
+    try {
+        // Dynamic import
+        const module = await import(config.path);
+        if (module[config.init]) {
+            module[config.init]();
+            loadedTools.add(toolId);
+            console.log(`✅ Herramienta cargada: ${toolId}`);
+        }
+    } catch (e) {
+        console.error(`❌ Error cargando herramienta ${toolId}:`, e);
+    }
+  }
+
+  // Cargar herramienta inicial si no es dashboard (o si se recarga en una vista específica)
+  // Pero por defecto, vamos a cargar PublicIP para el dashboard
+  import('./tools/public_ip.js').then(m => m.initPublicIpWidget());
+
+  // Interceptar navegación para cargar herramientas
+  const originalSetupNav = setupNavigation; // (We are inside init, setupNavigation is defined above)
+  
+  // Modificar setupNavigation para llamar a loadTool
+  // Como setupNavigation ya está definida arriba, vamos a redefinir el listener logic
+  // O mejor, invocarlo aquí directamente.
+  
+  // Vamos a modificar la función setupNavigation existente usando replace_file_content en el bloque anterior si fuera posible, 
+  // pero ya que estamos en init(), vamos a interceptar los clicks agregando un listener EXTRA (más simple).
+  
+  document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+          const target = item.getAttribute('data-target');
+          if (target) loadTool(target);
+      });
+  });
 
 
   // Agregar event listener al formulario

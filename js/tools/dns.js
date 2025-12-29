@@ -1,4 +1,6 @@
-export function initDnsTool() {
+  import { showInputError, showInputSuccess, resetInputValidation } from '../ui.js';
+
+  export function initDnsTool() {
   const domainInput = document.getElementById('dns-domain');
   const typeSelect = document.getElementById('dns-type');
   const resolverSelect = document.getElementById('dns-resolver');
@@ -10,9 +12,10 @@ export function initDnsTool() {
   async function lookup() {
     const domain = domainInput.value.trim();
     if (!domain) {
-      resultsContainer.innerHTML = '<div class="error-message">Ingresa un dominio.</div>';
+      showInputError('dns-domain', 'Ingresa un dominio válido');
       return;
     }
+    showInputSuccess('dns-domain');
 
     const type = typeSelect.value;
     const resolver = resolverSelect.value; // 'google' or 'cloudflare'
@@ -27,7 +30,7 @@ export function initDnsTool() {
     url.searchParams.append('name', domain);
     url.searchParams.append('type', type);
 
-    resultsContainer.innerHTML = '<div class="loading">Consultando DNS...</div>';
+    resultsContainer.innerHTML = '<div class="loading-msg">Consultando DNS...</div>';
 
     try {
         const headers = { 'Accept': 'application/dns-json' };
@@ -39,7 +42,7 @@ export function initDnsTool() {
         renderResults(data);
 
     } catch (error) {
-        resultsContainer.innerHTML = `<div class="error-message">Error de conexión: ${error.message}</div>`;
+        resultsContainer.innerHTML = `<div class="error-msg">Error de conexión: ${error.message}</div>`;
     }
   }
 
@@ -54,7 +57,10 @@ export function initDnsTool() {
             <td>${record.name}</td>
             <td>${record.type}</td>
             <td>${record.TTL}</td>
-            <td style="font-family:monospace; color:var(--color-text-highlight);">${record.data}</td>
+            <td style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-family:monospace; color:var(--color-text-highlight); overflow-wrap:anywhere; margin-right:8px;">${record.data}</span>
+                <button class="subnet-copy-btn btn-copy-dns" data-copy="${record.data.replace(/"/g, '&quot;')}" style="font-size:0.75rem; padding:2px 6px;">Copy</button>
+            </td>
         </tr>
     `).join('');
 
@@ -79,6 +85,22 @@ export function initDnsTool() {
         </div>
     `;
   }
+
+  // Copy Event Delegation
+  resultsContainer.addEventListener('click', async (e) => {
+    if (e.target.classList.contains('btn-copy-dns')) {
+        const text = e.target.getAttribute('data-copy');
+        const btn = e.target;
+        try {
+            await navigator.clipboard.writeText(text);
+            const originalText = btn.textContent;
+            btn.textContent = '✓';
+            setTimeout(() => btn.textContent = originalText, 1000);
+        } catch (err) {
+            console.error('Error copying', err);
+        }
+    }
+  });
 
   btnLookup.addEventListener('click', lookup);
   domainInput.addEventListener('keypress', (e) => {

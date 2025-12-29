@@ -2,157 +2,223 @@
 
 /* Common Tool Utilities */
 .tool-view h2 {
-    border-bottom: 2px solid var(--color-border);
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    color: var(--color-text-highlight);
+  border-bottom: 2px solid var(--color-border);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: var(--color-text-highlight);
 }
 
 .search-bar {
-    width: 100%;
-    padding: 12px;
-    font-size: 1.1rem;
-    border: 2px solid var(--color-border);
-    background: var(--color-bg-input);
-    color: var(--color-text-primary);
-    border-radius: var(--border-radius-md);
-    transition: border-color var(--transition-fast);
+  width: 100%;
+  padding: 12px;
+  font-size: 1.1rem;
+  border: 2px solid var(--color-border);
+  background: var(--color-bg-input);
+  color: var(--color-text-primary);
+  border-radius: var(--border-radius-md);
+  transition: border-color var(--transition-fast);
 }
 
 .search-bar:focus {
-    border-color: var(--color-primary);
-    outline: none;
+  border-color: var(--color-primary);
+  outline: none;
 }
 
 /* CARDS (Generic) */
 .card {
-    background: var(--color-bg-card);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-md);
-    border: 1px solid var(--color-border);
-    overflow: hidden;
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  background: var(--color-bg-card);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .card:hover {
-    box-shadow: var(--shadow-lg);
-    border-color: var(--color-primary-light);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary-light);
 }
 
 /* BUTTONS */
 .btn-secondary {
-    background: var(--color-bg-secondary); /* Needs fallback or var */
-    background-color: #334155; /* Fallback for dark theme */
-    color: #fff;
-    border: 1px solid var(--color-border);
-    padding: 10px 16px;
-    border-radius: var(--border-radius-md);
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.2s;
+  background: var(--color-bg-secondary); /* Needs fallback or var */
+  background-color: #334155; /* Fallback for dark theme */
+  color: #fff;
+  border: 1px solid var(--color-border);
+  padding: 10px 16px;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
 }
 
 .btn-secondary:hover {
-    background-color: #475569;
-    border-color: #64748b;
-    transform: translateY(-1px);
+  background-color: #475569;
+  border-color: #64748b;
+  transform: translateY(-1px);
 }
 
 /* WIRING (Types T568A/B) */
 .wiring-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 20px;
 }
 
 .wiring-card {
-    background: var(--color-bg-card);
-    border-radius: var(--border-radius-lg);
-    border: 1px solid var(--color-border);
-    padding: 20px;
-    transition: transform var(--transition-fast);
+  background: var(--color-bg-card);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--color-border);
+  padding: 20px;
+  transition: transform var(--transition-fast);
 }
 
 .wiring-card h3 {
-    text-align: center;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--color-border);
+  text-align: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .rj45-pinout {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    font-family: var(--font-mono);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: var(--font-mono);
 }
 
 .wire-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 4px 8px;
-    border-radius: 4px;
-    background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .wire-color {
-    width: 40px;
-    height: 12px;
-    border-radius: 2px;
-    box-shadow: 0 0 2px rgba(0,0,0,0.5);
-    border: 1px solid rgba(255,255,255,0.1);
+  width: 40px;
+  height: 12px;
+  border-radius: 2px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Wire Colors */
-.wire-solid-orange { background: #f97316; }
-.wire-stripe-orange { background: repeating-linear-gradient(90deg, #fff, #fff 5px, #f97316 5px, #f97316 10px); }
-.wire-solid-green { background: #22c55e; }
-.wire-stripe-green { background: repeating-linear-gradient(90deg, #fff, #fff 5px, #22c55e 5px, #22c55e 10px); }
-.wire-solid-blue { background: #3b82f6; }
-.wire-stripe-blue { background: repeating-linear-gradient(90deg, #fff, #fff 5px, #3b82f6 5px, #3b82f6 10px); }
-.wire-solid-brown { background: #a855f7; }
-.wire-stripe-brown { background: repeating-linear-gradient(90deg, #fff, #fff 5px, #a855f7 5px, #a855f7 10px); }
+.wire-solid-orange {
+  background: #f97316;
+}
+.wire-stripe-orange {
+  background: repeating-linear-gradient(90deg, #fff, #fff 5px, #f97316 5px, #f97316 10px);
+}
+.wire-solid-green {
+  background: #22c55e;
+}
+.wire-stripe-green {
+  background: repeating-linear-gradient(90deg, #fff, #fff 5px, #22c55e 5px, #22c55e 10px);
+}
+.wire-solid-blue {
+  background: #3b82f6;
+}
+.wire-stripe-blue {
+  background: repeating-linear-gradient(90deg, #fff, #fff 5px, #3b82f6 5px, #3b82f6 10px);
+}
+.wire-solid-brown {
+  background: #a855f7;
+}
+.wire-stripe-brown {
+  background: repeating-linear-gradient(90deg, #fff, #fff 5px, #a855f7 5px, #a855f7 10px);
+}
 
 /* Reference Tables (IP Ref, etc) */
 .ref-table-container {
-    overflow-x: auto;
-    border-radius: var(--border-radius-md);
-    border: 1px solid var(--color-border);
+  overflow-x: auto;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--color-border);
 }
 
 .ref-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.95rem;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
 }
 
-.ref-table th, .ref-table td {
-    padding: 12px 16px;
-    text-align: left;
-    border-bottom: 1px solid var(--color-border);
+.ref-table th,
+.ref-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .ref-table th {
-    background: var(--color-bg-secondary);
-    color: var(--color-text-highlight);
-    font-weight: 600;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-highlight);
+  font-weight: 600;
 }
 
 .ref-table tr:last-child td {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .ref-table tr:hover {
-    background: rgba(255,255,255,0.02);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 /* OUI Results */
 .oui-card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
-    margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+/* RESULT UTILS (Replaces Inline Styles) */
+.result-card {
+  padding: 20px;
+  border-left: 4px solid var(--color-primary);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.result-card.error {
+  border-left-color: var(--color-error);
+}
+
+.result-card.warning {
+  border-left-color: var(--color-warning);
+}
+
+.result-title {
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+}
+
+.result-code {
+  display: block;
+  font-size: 1.2rem;
+  word-break: break-all;
+  font-family: var(--font-mono);
+  color: var(--color-text-highlight);
+}
+
+.result-grid-row {
+  display: grid;
+  gap: 10px;
+}
+
+.loading-msg {
+  color: var(--color-text-secondary);
+  font-style: italic;
+  padding: 10px;
+  text-align: center;
+}
+
+.error-msg {
+  color: var(--color-error);
+  padding: 10px;
+  background: rgba(239, 68, 68, 0.1);
+  border-radius: var(--border-radius-md);
+  text-align: center;
 }

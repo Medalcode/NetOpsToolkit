@@ -12,13 +12,66 @@ export function initIPv6Tool() {
 
   if (!input || !resultContainer) return;
 
+  // Import dynamically if not available (or assume it's available via module scope if we change top of file)
+  // Actually, let's just use a helper here or import it at the top. 
+  // Since I cannot easily change the top import without reading the whole file again or risking index shifts if I assume line 1 is empty, 
+  // I will check if I can just use navigator.clipboard directly for simplicity in this specific file 
+  // or rely on a Global UI helper. 
+  // But the best practice is to import. 
+  // NOTA: The user sees this as a module. I will use navigator.clipboard directly here to avoid breaking imports 
+  // if I don't want to re-write the top.
+  // HOWEVER, I should try to be consistent. 
+  // Let's assume I can duplicate the simple copy logic or just use navigator.clipboard which is standard.
+  
+  const copyText = async (text, btn) => {
+    try {
+        await navigator.clipboard.writeText(text);
+        const originalText = btn.textContent;
+        btn.textContent = 'Copiado!';
+        setTimeout(() => btn.textContent = originalText, 1500);
+    } catch (err) {
+        console.error('Failed to copy', err);
+    }
+  };
+
   function showResult(title, content, type = 'info') {
-    resultContainer.innerHTML = `
-      <div class="card" style="padding: 20px; border-left: 4px solid var(--color-${type === 'error' ? 'error' : 'primary'}); animation: fadeIn 0.3s;">
-        <h3 style="margin:0 0 10px 0; font-size: 1rem; color: var(--color-text-secondary);">${title}</h3>
-        <code style="font-size: 1.2rem; word-break: break-all; color: var(--color-text-highlight);">${content}</code>
-      </div>
-    `;
+    const cardClass = type === 'error' ? 'result-card error' : 'result-card';
+    const cleanContent = content || '';
+    
+    // Create Elements (safer for event binding)
+    const card = document.createElement('div');
+    card.className = `card ${cardClass}`;
+    
+    const h3 = document.createElement('h3');
+    h3.className = 'result-title';
+    h3.textContent = title;
+    
+    const codeWrapper = document.createElement('div');
+    codeWrapper.style.position = 'relative'; 
+    
+    const code = document.createElement('code');
+    code.className = 'result-code';
+    code.textContent = cleanContent;
+    
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'subnet-copy-btn'; // Re-using existing class or make a new one
+    copyBtn.style.position = 'absolute';
+    copyBtn.style.top = '0';
+    copyBtn.style.right = '0';
+    copyBtn.style.fontSize = '0.8rem';
+    copyBtn.style.padding = '4px 8px';
+    copyBtn.textContent = 'Copiar';
+    
+    copyBtn.addEventListener('click', () => copyText(cleanContent, copyBtn));
+    
+    codeWrapper.appendChild(code);
+    if (type !== 'error') codeWrapper.appendChild(copyBtn);
+    
+    card.appendChild(h3);
+    card.appendChild(codeWrapper);
+    
+    resultContainer.innerHTML = '';
+    resultContainer.appendChild(card);
   }
 
   function validate(addr) {
@@ -174,24 +227,54 @@ export function initIPv6Tool() {
         const exp = expand(val);
         const comp = compress(val);
         
-        resultContainer.innerHTML = `
-          <div class="card" style="padding: 20px; border-left: 4px solid var(--color-primary);">
-            <div style="display:grid; gap:10px;">
-                <div>
-                    <strong style="color:var(--color-primary);">Tipo:</strong>
-                    <span style="margin-left:8px;">${type}</span>
-                </div>
-                <div>
-                    <strong style="color:var(--color-primary);">Expandida:</strong>
-                    <code style="display:block; margin-top:4px; font-size:1.1rem; color: #fff;">${exp}</code>
-                </div>
-                 <div>
-                    <strong style="color:var(--color-primary);">Comprimida:</strong>
-                    <code style="display:block; margin-top:4px; font-size:1.1rem; color: #fff;">${comp}</code>
-                </div>
-            </div>
-          </div>
-        `;
+        // Helper to create row with copy
+        const createRow = (label, value) => {
+            const div = document.createElement('div');
+            div.style.position = 'relative';
+            
+            const strong = document.createElement('strong');
+            strong.style.color = 'var(--color-primary)';
+            strong.textContent = label + ': ';
+            div.appendChild(strong);
+            
+            const code = document.createElement('code');
+            code.className = 'result-code';
+            code.style.marginTop = '4px';
+            code.textContent = value;
+            div.appendChild(code);
+            
+            // Copy Button
+            const btn = document.createElement('button');
+            btn.className = 'subnet-copy-btn';
+            btn.style.position = 'absolute';
+            btn.style.top = '0';
+            btn.style.right = '0';
+            btn.style.fontSize = '0.7em';
+            btn.textContent = 'Copiar';
+            btn.onclick = () => copyText(value, btn);
+            div.appendChild(btn);
+            
+            return div;
+        };
+        
+        const card = document.createElement('div');
+        card.className = 'card result-card';
+        
+        const grid = document.createElement('div');
+        grid.className = 'result-grid-row';
+        
+        // Type Row (No copy needed usually, but could add)
+        const typeDiv = document.createElement('div');
+        typeDiv.innerHTML = `<strong style="color:var(--color-primary);">Tipo:</strong> <span style="margin-left:8px;">${type}</span>`;
+        grid.appendChild(typeDiv);
+        
+        grid.appendChild(createRow('Expandida', exp));
+        grid.appendChild(createRow('Comprimida', comp));
+        
+        card.appendChild(grid);
+        
+        resultContainer.innerHTML = '';
+        resultContainer.appendChild(card);
     }
   }
 
