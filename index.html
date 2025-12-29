@@ -5,97 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NetOps Toolkit | MedalCode</title>
     <meta name="description" content="Suite de herramientas profesionales para Ingeniería de Redes. VLSM, Puertos, Cableado y más." />
-    <link rel="stylesheet" href="css/main.css?v=2.0.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="css/main.css?v=2.1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div class="app-container">
+    <div class="columns is-fullheight m-0">
       <!-- === SIDEBAR NAVIGATION === -->
-      <aside class="sidebar">
-        <div class="sidebar-header">
-          <div class="app-logo">🛡️</div>
-          <div>
-            <div class="app-title">NetOps Toolkit</div>
-            <span class="app-subtitle">Ultimate Network Suite</span>
+      <aside class="column is-2 is-narrow-mobile is-fullheight section is-hidden-mobile" style="background-color: var(--color-bg-sidebar); border-right: 1px solid var(--color-border);">
+        <div class="sidebar-header p-4 mb-4">
+          <div class="is-flex is-align-items-center">
+            <span class="icon is-large has-text-primary mr-2"><i class="fas fa-shield-halved fa-2x"></i></span>
+            <div>
+              <h1 class="title is-5 has-text-white mb-0">NetOps</h1>
+              <p class="subtitle is-7 has-text-grey">Toolkit Pro</p>
+            </div>
           </div>
         </div>
 
-        <nav class="sidebar-nav">
+        <nav class="menu">
           <!-- GROUP: GENERAL -->
-          <div class="nav-group">
-            <div class="nav-group-title">General</div>
-            <a class="nav-item active" data-target="tool-dashboard">
-              <span class="nav-icon">📊</span> Dashboard
-            </a>
-          </div>
+          <p class="menu-label has-text-grey-light">General</p>
+          <ul class="menu-list">
+            <li><a class="nav-item is-active" data-target="tool-dashboard">
+              <span class="icon"><i class="fas fa-chart-line"></i></span> Dashboard
+            </a></li>
+          </ul>
 
-          <!-- GROUP: LAYER 3 (NETWORK) -->
-          <div class="nav-group">
-            <div class="nav-group-title">Layer 3: Network</div>
-            <a class="nav-item" data-target="tool-vlsm">
-              <span class="nav-icon">🔢</span> VLSM Calc
-            </a>
-            <a class="nav-item" data-target="tool-subnet">
-              <span class="nav-icon">🕸️</span> Subnet Analyzer
-            </a>
-            <a class="nav-item" data-target="tool-ip-ref">
-              <span class="nav-icon">📖</span> IP Reference
-            </a>
-            <a class="nav-item" data-target="tool-ipv6">
-              <span class="nav-icon">🌐</span> IPv6 Tools
-            </a>
-            <a class="nav-item" data-target="tool-dns">
-              <span class="nav-icon">🔍</span> DNS Lookup
-            </a>
-          </div>
+          <!-- GROUP: LAYER 3 -->
+          <p class="menu-label has-text-grey-light mt-4">Layer 3: Network</p>
+          <ul class="menu-list">
+            <li><a class="nav-item" data-target="tool-vlsm"><span class="icon"><i class="fas fa-calculator"></i></span> VLSM Calc</a></li>
+            <li><a class="nav-item" data-target="tool-subnet"><span class="icon"><i class="fas fa-network-wired"></i></span> Subnet Analyzer</a></li>
+            <li><a class="nav-item" data-target="tool-ip-ref"><span class="icon"><i class="fas fa-book"></i></span> IP Reference</a></li>
+            <li><a class="nav-item" data-target="tool-ipv6"><span class="icon"><i class="fas fa-globe"></i></span> IPv6 Tools</a></li>
+            <li><a class="nav-item" data-target="tool-dns"><span class="icon"><i class="fas fa-magnifying-glass"></i></span> DNS Lookup</a></li>
+          </ul>
 
-          <!-- GROUP: LAYER 2 (DATA LINK) -->
-          <div class="nav-group">
-            <div class="nav-group-title">Layer 2: Data Link</div>
-            <a class="nav-item" data-target="tool-oui">
-              <span class="nav-icon">🏷️</span> OUI Lookup
-            </a>
-          </div>
+          <!-- GROUP: LAYER 2 -->
+          <p class="menu-label has-text-grey-light mt-4">Layer 2: Data Link</p>
+          <ul class="menu-list">
+            <li><a class="nav-item" data-target="tool-oui"><span class="icon"><i class="fas fa-tag"></i></span> OUI Lookup</a></li>
+          </ul>
 
           <!-- GROUP: AUTOMATION -->
-          <div class="nav-group">
-             <div class="nav-group-title">Automation</div>
-             <a class="nav-item" data-target="tool-config">
-               <span class="nav-icon">📄</span> Config Gen
-             </a>
-          </div>
+          <p class="menu-label has-text-grey-light mt-4">Automation</p>
+          <ul class="menu-list">
+            <li><a class="nav-item" data-target="tool-config"><span class="icon"><i class="fas fa-file-code"></i></span> Config Gen</a></li>
+          </ul>
 
-          <!-- GROUP: LAYER 4 (TRANSPORT) -->
-          <div class="nav-group">
-            <div class="nav-group-title">Layer 4: Transport</div>
-            <a class="nav-item" data-target="tool-ports">
-              <span class="nav-icon">🔌</span> Port Catalog
-            </a>
-          </div>
-
-          <!-- GROUP: LAYER 1 (PHYSICAL) -->
-          <div class="nav-group">
-            <div class="nav-group-title">Layer 1: Physical</div>
-            <a class="nav-item" data-target="tool-cabling">
-              <span class="nav-icon">🧶</span> Wiring (T568)
-            </a>
-          </div>
+          <!-- GROUP: LAYER 4 -->
+          <p class="menu-label has-text-grey-light mt-4">Layer 4: Transport</p>
+          <ul class="menu-list">
+            <li><a class="nav-item" data-target="tool-ports"><span class="icon"><i class="fas fa-plug"></i></span> Port Catalog</a></li>
+          </ul>
+           
+           <!-- GROUP: LAYER 1 -->
+           <p class="menu-label has-text-grey-light mt-4">Layer 1: Physical</p>
+           <ul class="menu-list">
+             <li><a class="nav-item" data-target="tool-cabling"><span class="icon"><i class="fas fa-ethernet"></i></span> Wiring (T568)</a></li>
+           </ul>
 
           <!-- GROUP: UTILS -->
-          <div class="nav-group">
-            <div class="nav-group-title">Utilities</div>
-            <a class="nav-item" data-target="tool-hex">
-              <span class="nav-icon">01</span> Converter
-            </a>
-            <a class="nav-item" data-target="tool-bw">
-              <span class="nav-icon">⏱️</span> Transfer Calc
-            </a>
-            <a class="nav-item" data-target="tool-keygen">
-              <span class="nav-icon">🔐</span> Key Gen
-            </a>
-          </div>
+          <p class="menu-label has-text-grey-light mt-4">Utilities</p>
+          <ul class="menu-list">
+            <li><a class="nav-item" data-target="tool-hex"><span class="icon"><i class="fas fa-right-left"></i></span> Converter</a></li>
+            <li><a class="nav-item" data-target="tool-bw"><span class="icon"><i class="fas fa-stopwatch"></i></span> Transfer Calc</a></li>
+            <li><a class="nav-item" data-target="tool-keygen"><span class="icon"><i class="fas fa-key"></i></span> Key Gen</a></li>
+          </ul>
         </nav>
         
         <!-- ... Sidebar Footer ... -->
@@ -111,75 +89,110 @@
       </aside>
 
       <!-- === MAIN CONTENT AREA === -->
-      <main class="main-content">
-        <div class="top-bar">
-          <div class="breadcrumbs">NetOps Toolkit / <span id="current-view-name">Dashboard</span></div>
-          <div class="global-actions">
-            <!-- Theme Toggle Placeholder -->
+      <main class="column is-10 section p-0" style="height: 100vh; overflow-y: auto;">
+        <!-- Top Bar -->
+        <div class="level is-mobile px-5 py-3 border-bottom mb-0" style="border-bottom: 1px solid var(--color-border); background: var(--color-bg-sidebar);">
+          <div class="level-left">
+            <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
+              <ul>
+                <li><a href="#" class="has-text-grey">NetOps Toolkit</a></li>
+                <li class="is-active"><a href="#" id="current-view-name" class="has-text-grey-lighter">Dashboard</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="level-right">
+             <div class="global-actions">
+                <!-- Theme Toggle Placeholder -->
+             </div>
           </div>
         </div>
 
-        <div class="content-wrapper">
+        <div class="container is-fluid p-5">
           
           <!-- === VIEW: DASHBOARD === -->
           <div id="tool-dashboard" class="tool-view active">
-            <h1>Bienvenido al Centro de Comando</h1>
-            <p class="text-secondary">Selecciona una herramienta del menú lateral para comenzar.</p>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 30px;">
-              <div class="card" style="padding: 24px; border-left: 4px solid var(--color-primary);">
-                <h3>🚀 Acceso Rápido: VLSM</h3>
-                <p>Calcula subredes optimizadas para tus proyectos.</p>
-                <button class="nav-link-internal" data-target="tool-vlsm" style="margin-top:10px;">Ir a VLSM &rarr;</button>
+            <section class="hero is-small is-primary is-rounded mb-5 welcome-hero">
+              <div class="hero-body">
+                <p class="title is-4">🚀 Bienvenido al Centro de Comando</p>
+                <p class="subtitle is-6">Selecciona una herramienta del menú lateral para comenzar.</p>
               </div>
-              <div class="card" style="padding: 24px; border-left: 4px solid #10b981;">
-                <h3>🔌 Catálogo de Puertos</h3>
-                <p>Consulta rápida de puertos TCP/UDP comunes.</p>
-                <button class="nav-link-internal" data-target="tool-ports" style="margin-top:10px;">Buscar Puerto &rarr;</button>
+            </section>
+            
+            <div class="columns is-multiline">
+              <div class="column is-4">
+                <div class="box h-100" style="border-left: 4px solid var(--color-primary);">
+                  <div class="icon-text mb-2">
+                     <span class="icon has-text-primary"><i class="fas fa-calculator"></i></span>
+                     <span class="has-text-weight-bold is-size-5">VLSM Pro</span>
+                  </div>
+                  <p class="is-size-7 mb-4 has-text-grey-light">Calcula subredes optimizadas para tus proyectos de manera rápida.</p>
+                  <button class="button is-small is-primary is-outlined is-fullwidth nav-link-internal" data-target="tool-vlsm">Ir a VLSM</button>
+                </div>
+              </div>
+
+              <div class="column is-4">
+                <div class="box h-100" style="border-left: 4px solid #10b981;">
+                  <div class="icon-text mb-2">
+                     <span class="icon has-text-success"><i class="fas fa-plug"></i></span>
+                     <span class="has-text-weight-bold is-size-5">Puertos</span>
+                  </div>
+                  <p class="is-size-7 mb-4 has-text-grey-light">Catálogo de puertos TCP/UDP comunes y sus servicios.</p>
+                  <button class="button is-small is-success is-outlined is-fullwidth nav-link-internal" data-target="tool-ports">Buscar Puerto</button>
+                </div>
               </div>
               
               <!-- Public IP Widget -->
-              <div class="card" style="padding: 24px; border-left: 4px solid #f59e0b;">
-                 <h3>🌍 Tu Dirección IP</h3>
-                 <div id="public-ip-widget" style="margin-top:15px;">
-                    <div style="opacity:0.6; font-style:italic;">Detectando...</div>
-                 </div>
+              <div class="column is-4">
+                <div class="box h-100" style="border-left: 4px solid #f59e0b;">
+                   <div class="icon-text mb-2">
+                     <span class="icon has-text-warning"><i class="fas fa-globe"></i></span>
+                     <span class="has-text-weight-bold is-size-5">Tu IP</span>
+                  </div>
+                   <div id="public-ip-widget" class="content is-small">
+                      <div class="is-italic has-text-grey">Detectando...</div>
+                   </div>
+                </div>
               </div>
             </div>
           </div>
 
           <!-- === VIEW: VLSM CALCULATOR (Migrated) === -->
           <div id="tool-vlsm" class="tool-view">
-            <h2>Calculadora VLSM</h2>
-            <form id="vlsm-form" novalidate>
-              <div class="input-group">
-                <div class="input-label-wrapper">
-                  <label for="network">Red Principal (CIDR):</label>
-                  <div class="tooltip-icon">?
-                    <div class="tooltip-content">
-                      Ej: 192.168.1.0/24
-                    </div>
-                  </div>
-                </div>
-                <div class="input-wrapper">
-                  <input type="text" id="network" placeholder="e.g. 192.168.1.0/24" required autocomplete="off" />
-                  <div class="validation-icon"></div>
+            <h2 class="title is-4 mb-5">Calculadora VLSM</h2>
+            <form id="vlsm-form" novalidate class="box p-5" style="background-color: var(--color-bg-card); border: 1px solid var(--color-border);">
+              <div class="field">
+                <label class="label has-text-grey-lighter">Red Principal (CIDR)</label>
+                <div class="control has-icons-left has-icons-right">
+                  <input class="input is-primary" type="text" id="network" placeholder="Ej: 192.168.1.0/24" required autocomplete="off">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-network-wired"></i>
+                  </span>
                 </div>
                 <div class="validation-feedback" id="network-feedback"></div>
               </div>
-              <div class="input-group">
-                <div class="input-label-wrapper">
-                  <label for="hosts">Hosts por Subred:</label>
+
+              <div class="field">
+                <label class="label has-text-grey-lighter">Hosts por Subred</label>
+                <div class="control has-icons-left">
+                  <input class="input is-primary" type="text" id="hosts" placeholder="Ej: 50, 30, 10" required autocomplete="off">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-users"></i>
+                  </span>
                 </div>
-                <div class="input-wrapper">
-                  <input type="text" id="hosts" placeholder="e.g. 50, 30, 10" required autocomplete="off" />
-                  <div class="validation-icon"></div>
-                </div>
+                <p class="help has-text-grey">Ingresa números separados por coma.</p>
                 <div class="validation-feedback" id="hosts-feedback"></div>
               </div>
-              <button type="submit" id="calculate-btn">Calcular Distribución</button>
+
+              <div class="field mt-5">
+                <div class="control">
+                  <button type="submit" id="calculate-btn" class="button is-primary is-fullwidth">
+                    <span class="icon"><i class="fas fa-calculator"></i></span>
+                    <span>Calcular Distribución</span>
+                  </button>
+                </div>
+              </div>
             </form>
-            <div id="results" role="region" aria-live="polite"></div>
+            <div id="results" role="region" aria-live="polite" class="mt-5"></div>
           </div>
 
           <!-- === VIEW: SUBNET ANALYZER (Migrated) === -->
