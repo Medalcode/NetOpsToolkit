@@ -1,7 +1,7 @@
 # 🛡️ NetOps Toolkit (v2.0.0-alpha)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Status](https://img.shields.io/badge/State-Alpha-orange)](https://github.com/Medalcode/myvlsm)
+[![Status](https://img.shields.io/badge/State-Alpha-orange)](https://github.com/Medalcode/NetOpsToolkit)
 
 > **"La Navaja Suiza para Ingenieros de Red"**
 >
@@ -47,7 +47,7 @@
 1. **Clonar el repositorio:**
 
    ```bash
-   git clone https://github.com/Medalcode/myvlsm.git NetOpsToolkit
+   git clone https://github.com/Medalcode/NetOpsToolkit.git NetOpsToolkit
    cd NetOpsToolkit
    ```
 

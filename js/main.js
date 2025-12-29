@@ -171,6 +171,7 @@ function init() {
   initStandardCalc();
   initPortTool();
   initOuiTool();
+  initIpRefTool();
   initIPv6Tool();
   initBandwidthTool();
   initDnsTool();
