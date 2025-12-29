@@ -68,12 +68,6 @@ import { renderAllocationChart } from './visualization.js';
 // import { initConverter } from './converter.js';
 // ... (removed static imports)
 
-// ...
-
-// In init():
-  initIpRefTool();
-  initIPv6Tool();
-  initBandwidthTool();
 
 // Importar historial
 import {
