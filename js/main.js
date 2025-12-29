@@ -95,7 +95,8 @@ let historyPanelElements = null;
    NAVIGATION (New Sidebar System)
    ========================================= */
 function setupNavigation() {
-  const navItems = document.querySelectorAll('.nav-item[data-target]');
+  // Updated selector for Bootstrap nav-links or any element with data-target
+  const navItems = document.querySelectorAll('[data-target]'); 
   const views = document.querySelectorAll('.tool-view');
   const breadcrumb = document.getElementById('current-view-name');
 
@@ -125,24 +126,42 @@ function setupNavigation() {
   });
 }
 
+// Import i18n
+import { initI18n, setLanguage } from './i18n.js';
+
 /**
  * Inicializa la aplicación
  */
 function init() {
   // Inicializar tema PRIMERO (para evitar flash)
   initTheme();
-
-  // Agregar botón de tema
-  const themeToggle = createThemeToggle();
-  const globalActions = document.querySelector('.global-actions');
   
+  // Inicializar idioma
+  initI18n();
+
+  // Agregar botón de tema y lenguaje
+  const themeToggle = createThemeToggle();
+  
+  // Create Language Toggle
+  const langToggle = document.createElement('button');
+  langToggle.id = 'lang-toggle';
+  langToggle.className = 'btn btn-sm btn-outline-secondary ms-2';
+  langToggle.onclick = window.switchLang;
+  langToggle.textContent = '🇺🇸 EN'; // Default initial state, will be updated by initI18n
+
+  const globalActions = document.querySelector('.global-actions');
+
   if (globalActions) {
     globalActions.appendChild(themeToggle);
+    globalActions.appendChild(langToggle);
+
     // Reset fixed positioning for dashboard integration
-    themeToggle.style.position = 'static';
-    themeToggle.style.padding = '8px 12px';
-    themeToggle.style.boxShadow = 'none';
-    themeToggle.style.border = '1px solid var(--color-border)';
+    if(themeToggle.style) {
+        themeToggle.style.position = 'static';
+        themeToggle.style.padding = '8px 12px';
+        themeToggle.style.margin = '0';
+        themeToggle.style.border = '1px solid var(--color-border)';
+    }
   } else {
     document.body.appendChild(themeToggle);
   }

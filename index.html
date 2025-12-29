@@ -96,38 +96,38 @@
         <ul class="nav nav-pills flex-column mb-auto" id="sidebar-nav">
           
           <!-- General -->
-          <div class="nav-group-title">General</div>
+          <div class="nav-group-title" data-i18n="nav.general">General</div>
           <li class="nav-item">
             <a class="nav-link active" data-target="tool-dashboard">
-              <i class="fas fa-chart-line fa-fw"></i> Dashboard
+              <i class="fas fa-chart-line fa-fw"></i> <span data-i18n="nav.dashboard">Dashboard</span>
             </a>
           </li>
 
           <!-- Layer 3 -->
-          <div class="nav-group-title">Layer 3: Network</div>
-          <li><a class="nav-link" data-target="tool-vlsm"><i class="fas fa-calculator fa-fw"></i> VLSM Calc</a></li>
-          <li><a class="nav-link" data-target="tool-subnet"><i class="fas fa-network-wired fa-fw"></i> Subnet Analyzer</a></li>
-          <li><a class="nav-link" data-target="tool-ip-ref"><i class="fas fa-book fa-fw"></i> IP Reference</a></li>
-          <li><a class="nav-link" data-target="tool-ipv6"><i class="fas fa-globe fa-fw"></i> IPv6 Tools</a></li>
-          <li><a class="nav-link" data-target="tool-dns"><i class="fas fa-magnifying-glass fa-fw"></i> DNS Lookup</a></li>
+          <div class="nav-group-title" data-i18n="nav.l3">Layer 3: Network</div>
+          <li><a class="nav-link" data-target="tool-vlsm"><i class="fas fa-calculator fa-fw"></i> <span data-i18n="nav.vlsm">VLSM Calc</span></a></li>
+          <li><a class="nav-link" data-target="tool-subnet"><i class="fas fa-network-wired fa-fw"></i> <span data-i18n="nav.subnet">Subnet Analyzer</span></a></li>
+          <li><a class="nav-link" data-target="tool-ip-ref"><i class="fas fa-book fa-fw"></i> <span data-i18n="nav.ipref">IP Reference</span></a></li>
+          <li><a class="nav-link" data-target="tool-ipv6"><i class="fas fa-globe fa-fw"></i> <span data-i18n="nav.ipv6">IPv6 Tools</span></a></li>
+          <li><a class="nav-link" data-target="tool-dns"><i class="fas fa-magnifying-glass fa-fw"></i> <span data-i18n="nav.dns">DNS Lookup</span></a></li>
 
           <!-- Layer 2 -->
-          <div class="nav-group-title">Layer 2: Data Link</div>
-          <li><a class="nav-link" data-target="tool-oui"><i class="fas fa-tag fa-fw"></i> OUI Lookup</a></li>
+          <div class="nav-group-title" data-i18n="nav.l2">Layer 2: Data Link</div>
+          <li><a class="nav-link" data-target="tool-oui"><i class="fas fa-tag fa-fw"></i> <span data-i18n="nav.oui">OUI Lookup</span></a></li>
 
           <!-- Automation -->
-          <div class="nav-group-title">Automation</div>
-          <li><a class="nav-link" data-target="tool-config"><i class="fas fa-file-code fa-fw"></i> Config Gen</a></li>
+          <div class="nav-group-title" data-i18n="nav.auto">Automation</div>
+          <li><a class="nav-link" data-target="tool-config"><i class="fas fa-file-code fa-fw"></i> <span data-i18n="nav.config">Config Gen</span></a></li>
 
           <!-- Layer 4 -->
-          <div class="nav-group-title">Layer 4: Transport</div>
-          <li><a class="nav-link" data-target="tool-ports"><i class="fas fa-plug fa-fw"></i> Port Catalog</a></li>
+          <div class="nav-group-title" data-i18n="nav.l4">Layer 4: Transport</div>
+          <li><a class="nav-link" data-target="tool-ports"><i class="fas fa-plug fa-fw"></i> <span data-i18n="nav.ports">Port Catalog</span></a></li>
 
           <!-- Utilities -->
-          <div class="nav-group-title">Utilities</div>
-          <li><a class="nav-link" data-target="tool-hex"><i class="fas fa-right-left fa-fw"></i> Converter</a></li>
-          <li><a class="nav-link" data-target="tool-bw"><i class="fas fa-stopwatch fa-fw"></i> Transfer Calc</a></li>
-          <li><a class="nav-link" data-target="tool-keygen"><i class="fas fa-key fa-fw"></i> Key Gen</a></li>
+          <div class="nav-group-title" data-i18n="nav.utils">Utilities</div>
+          <li><a class="nav-link" data-target="tool-hex"><i class="fas fa-right-left fa-fw"></i> <span data-i18n="nav.hex">Converter</span></a></li>
+          <li><a class="nav-link" data-target="tool-bw"><i class="fas fa-stopwatch fa-fw"></i> <span data-i18n="nav.bw">Transfer Calc</span></a></li>
+          <li><a class="nav-link" data-target="tool-keygen"><i class="fas fa-key fa-fw"></i> <span data-i18n="nav.keygen">Key Gen</span></a></li>
         </ul>
         <hr>
         <div class="dropdown">
@@ -159,8 +159,8 @@
           <div id="tool-dashboard" class="tool-view active">
              <div class="p-5 mb-4 bg-primary text-white rounded-3 shadow">
                <div class="container-fluid py-2">
-                 <h1 class="display-5 fw-bold">🚀 Centro de Comando</h1>
-                 <p class="col-md-8 fs-5">Bienvenido a la suite definitiva para ingenieros de red. Selecciona una herramienta para comenzar.</p>
+                 <h1 class="display-5 fw-bold" data-i18n="dash.title">🚀 Centro de Comando</h1>
+                 <p class="col-md-8 fs-5" data-i18n="dash.subtitle">Bienvenido a la suite definitiva para ingenieros de red. Selecciona una herramienta para comenzar.</p>
                </div>
              </div>
 
@@ -170,10 +170,10 @@
                       <div class="card-body">
                          <div class="d-flex align-items-center mb-3">
                             <div class="bg-primary text-white p-3 rounded-circle me-3"><i class="fas fa-calculator fa-lg"></i></div>
-                            <h4 class="card-title fw-bold m-0">VLSM Pro</h4>
+                            <h4 class="card-title fw-bold m-0" data-i18n="dash.vlsm.title">VLSM Pro</h4>
                          </div>
-                         <p class="card-text text-secondary">Diseña esquemas de direccionamiento complejos con eficiencia.</p>
-                         <button class="btn btn-outline-primary w-100 mt-3 nav-link-internal" data-target="tool-vlsm">Abrir Calculadora</button>
+                         <p class="card-text text-secondary" data-i18n="dash.vlsm.desc">Diseña esquemas de direccionamiento complejos con eficiencia.</p>
+                         <button class="btn btn-outline-primary w-100 mt-3 nav-link-internal" data-target="tool-vlsm" data-i18n="dash.vlsm.btn">Abrir Calculadora</button>
                       </div>
                    </div>
                 </div>
@@ -183,10 +183,10 @@
                       <div class="card-body">
                          <div class="d-flex align-items-center mb-3">
                             <div class="bg-success text-white p-3 rounded-circle me-3"><i class="fas fa-plug fa-lg"></i></div>
-                            <h4 class="card-title fw-bold m-0">Puertos</h4>
+                            <h4 class="card-title fw-bold m-0" data-i18n="dash.ports.title">Puertos</h4>
                          </div>
-                         <p class="card-text text-secondary">Catálogo rápido de puertos TCP/UDP y servicios.</p>
-                         <button class="btn btn-outline-success w-100 mt-3 nav-link-internal" data-target="tool-ports">Buscar Puerto</button>
+                         <p class="card-text text-secondary" data-i18n="dash.ports.desc">Catálogo rápido de puertos TCP/UDP y servicios.</p>
+                         <button class="btn btn-outline-success w-100 mt-3 nav-link-internal" data-target="tool-ports" data-i18n="dash.ports.btn">Buscar Puerto</button>
                       </div>
                    </div>
                 </div>
@@ -196,10 +196,10 @@
                       <div class="card-body">
                          <div class="d-flex align-items-center mb-3">
                             <div class="bg-warning text-dark p-3 rounded-circle me-3"><i class="fas fa-globe fa-lg"></i></div>
-                            <h4 class="card-title fw-bold m-0">Tu IP Pública</h4>
+                            <h4 class="card-title fw-bold m-0" data-i18n="dash.ip.title">Tu IP Pública</h4>
                          </div>
                          <div id="public-ip-widget">
-                            <span class="text-muted fst-italic">Detectando...</span>
+                            <span class="text-muted fst-italic" data-i18n="dash.ip.detecting">Detectando...</span>
                          </div>
                       </div>
                    </div>
