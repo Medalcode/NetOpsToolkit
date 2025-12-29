@@ -7,7 +7,6 @@
 @import './dashboard.css';
 @import './tools.css';
 @import './table_results.css';
-@import './bulma-overrides.css'; /* Bulma Fixes */
 @import url('responsive.css');
 
 /* === Estilos Específicos de la App === */

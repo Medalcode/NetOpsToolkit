@@ -104,8 +104,8 @@ function setupNavigation() {
       const targetId = item.getAttribute('data-target');
       
       // Update Sidebar State
-      navItems.forEach(nav => nav.classList.remove('is-active'));
-      item.classList.add('is-active');
+      navItems.forEach(nav => nav.classList.remove('active'));
+      item.classList.add('active');
 
       // Update View State
       views.forEach(view => {
