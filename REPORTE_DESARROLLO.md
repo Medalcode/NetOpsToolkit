@@ -19,7 +19,7 @@ El proyecto ha evolucionado de una simple **"Calculadora VLSM"** a una **"Suite 
 - **Estado de Desarrollo:** v2.0.0-alpha (Funcionalidad Core Implementada)
 - **Nuevas Capacidades:**
   - 🏗️ **Arquitectura Modular:** Dashboard con navegación lateral.
-  - 🛠️ **Multi-Tools:** VLSM, Subnet, Hex, OUI Lookup, Port Catalog, Wiring Guide, IP Reference.
+  - 🛠️ **Multi-Tools:** VLSM, Subnet, Hex, OUI, IPv6, Port Catalog, Wiring Guide, IP Ref.
   - 🎨 **UI/UX:** Diseño profesional, tema oscuro por defecto, navegación fluida.
 - **Repositorio:** Estructura de archivos refactorizada (`js/tools/`, `css/dashboard.css`).
 

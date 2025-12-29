@@ -1,259 +1,116 @@
-# 🌐 Calculadora VLSM (Variable Length Subnet Mask)
+# 🛡️ NetOps Toolkit (v2.0.0-alpha)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Deploy Status](https://img.shields.io/badge/deploy-ready-brightgreen)](https://github.com/Medalcode/myvlsm)
-[![Made with Love](https://img.shields.io/badge/Made%20with-❤️-red)](https://github.com/Medalcode/myvlsm)
+[![Status](https://img.shields.io/badge/State-Alpha-orange)](https://github.com/Medalcode/myvlsm)
 
-> Herramienta web profesional para calcular subredes utilizando la metodología VLSM (Variable Length Subnet Mask), optimizando el uso de direcciones IP en diseños de red empresariales.
+> **"La Navaja Suiza para Ingenieros de Red"**
+>
+> Suite integral de herramientas Open Source que incluye Calculadora VLSM, Diagnóstico DNS, Referencia de Puertos, Generador de Configuración y más. Todo ejecutándose 100% en el navegador (Client-Side) con máxima privacidad.
 
-![VLSM Calculator Screenshot](https://via.placeholder.com/800x400/007BFF/FFFFFF?text=VLSM+Calculator)
+![NetOps Toolkit Dashboard](https://via.placeholder.com/800x400/0f172a/38bdf8?text=NetOps+Toolkit+Dashboard)
 
-## 🎯 Características Principales
+## 🎯 Herramientas Incluidas
 
-- ✅ **Cálculo VLSM Automático** - Algoritmo optimizado para distribución eficiente de subredes
-- 📊 **Información Detallada** - Dirección de red, máscara, broadcast, rango de hosts
-- 🎨 **Interfaz Intuitiva** - Diseño limpio y fácil de usar
-- ⚡ **Sin Dependencias** - 100% Vanilla JavaScript, carga instantánea
-- 📱 **Responsive** - Funciona en desktop, tablet y móvil
-- 🔒 **Privacidad Total** - Todos los cálculos en el navegador, sin envío de datos
+### 🌐 Layer 3: Network
 
-## 🚀 Demo en Vivo
+- **Calculadora VLSM Pro**: Algoritmo optimizado para distribución eficiente de subredes.
+- **Subnet Analyzer**: Análisis detallado de bloques CIDR.
+- **IPv6 Tools**: Compresión, expansión y análisis de tipos de dirección.
+- **DNS Lookup**: Consultas en tiempo real vía DNS-over-HTTPS (Google/Cloudflare).
+- **Public IP**: Detección automática de IP pública, ASN y ubicación.
 
-**[👉 Probar la Calculadora](https://myvlsm.netlify.app)** _(Próximamente)_
+### 🔌 Layer 4: Transport
 
-## 📖 ¿Qué es VLSM?
+- **Port Catalog**: Búsqueda rápida de puertos TCP/UDP y servicios comunes.
 
-**VLSM (Variable Length Subnet Mask)** es una técnica de subnetting que permite dividir una red IP en subredes de diferentes tamaños, optimizando el uso de direcciones IP según las necesidades específicas de cada segmento de red.
+### 🏷️ Layer 2: Data Link
 
-### Ventajas de VLSM:
+- **OUI Lookup**: Identificación de fabricantes por MAC Address (Base de datos offline).
 
-- 🎯 **Eficiencia** - Minimiza el desperdicio de direcciones IP
-- 📈 **Escalabilidad** - Permite crecimiento flexible de la red
-- 💰 **Ahorro** - Optimiza el uso de espacios de direccionamiento
-- 🏢 **Profesional** - Estándar en diseños de redes empresariales
+### 🧶 Layer 1: Physical
 
-## 💻 Uso
+- **Wiring Guide**: Referencia visual interactiva para estándares T568A/B.
 
-### Opción 1: Uso Online
+### 🤖 Automation & Utils
 
-Visita [myvlsm.netlify.app](https://myvlsm.netlify.app) y comienza a calcular.
+- **Config Generator**: Plantillas para Cisco, Mikrotik y Juniper.
+- **Key Generator**: Generación segura de WPA2/3, PSK y Secret Keys.
+- **Bandwidth Calc**: Estimación de tiempos de transferencia de archivos.
+- **Hex Converter**: Conversión entre bases (Decimal, Binario, Hex).
 
-### Opción 2: Uso Local
+## 🚀 Demo
+
+**[👉 Abrir NetOps Toolkit](index.html)** _(Ejecutar localmente)_
+
+## 💻 Instalación Local
 
 1. **Clonar el repositorio:**
 
    ```bash
-   git clone https://github.com/Medalcode/myvlsm.git
-   cd myvlsm
+   git clone https://github.com/Medalcode/myvlsm.git NetOpsToolkit
+   cd NetOpsToolkit
    ```
 
-2. **Abrir en el navegador:**
+2. **Ejecutar:**
+
+   Simplemente abre el archivo `index.html` en tu navegador favorito (Chrome, Firefox, Edge).
+
+   _Opcional: Si deseas usarlo como servidor local:_
 
    ```bash
-   # Opción A: Abrir directamente
-   open index.html
-
-   # Opción B: Con servidor local (Python)
+   # Python
    python3 -m http.server 8000
-   # Visitar: http://localhost:8000
 
-   # Opción C: Con Node.js
+   # Node.js
    npx serve
-   # Visitar: http://localhost:3000
    ```
-
-## 📝 Ejemplo de Uso
-
-### Escenario:
-
-Tienes la red `192.168.1.0/24` y necesitas crear subredes para:
-
-- 🏢 Oficina principal: 50 hosts
-- 🏪 Sucursal: 30 hosts
-- 📡 WiFi invitados: 10 hosts
-
-### Pasos:
-
-1. **Ingresar la red principal:**
-
-   ```
-   Red Principal: 192.168.1.0/24
-   ```
-
-2. **Ingresar hosts requeridos (separados por comas):**
-
-   ```
-   Hosts por Subred: 50,30,10
-   ```
-
-3. **Hacer clic en "Calcular"**
-
-### Resultado:
-
-```
-Subred 1:
-Red: 192.168.1.0/26
-Máscara: 255.255.255.192
-Rango: 192.168.1.1 - 192.168.1.62
-Broadcast: 192.168.1.63
-Hosts disponibles: 62
-
-Subred 2:
-Red: 192.168.1.64/27
-Máscara: 255.255.255.224
-Rango: 192.168.1.65 - 192.168.1.94
-Broadcast: 192.168.1.95
-Hosts disponibles: 30
-
-Subred 3:
-Red: 192.168.1.96/28
-Máscara: 255.255.255.240
-Rango: 192.168.1.97 - 192.168.1.110
-Broadcast: 192.168.1.111
-Hosts disponibles: 14
-```
 
 ## 🛠️ Tecnologías
 
-| Componente           | Tecnología                |
-| -------------------- | ------------------------- |
-| Frontend             | HTML5                     |
-| Estilos              | CSS3 (Vanilla)            |
-| Lógica               | JavaScript ES6+ (Vanilla) |
-| Hosting              | Netlify / Vercel          |
-| Control de Versiones | Git                       |
+| Componente  | Stack                                   |
+| ----------- | --------------------------------------- |
+| **Core**    | HTML5 Semántico                         |
+| **Styling** | CSS3 Moderno (Variables, Grid, Flexbox) |
+| **Logic**   | JavaScript ES6+ (Módulos Nativos)       |
+| **APIs**    | DoH (Google/Cloudflare), IPAPI          |
+| **Deploy**  | Static (Netlify/Vercel compatible)      |
 
-## 🏗️ Arquitectura
+## 🏗️ Estructura del Proyecto
 
 ```
-myvlsm/
-├── index.html          # Estructura HTML
-├── style.css           # Estilos CSS
-├── script.js           # Lógica JavaScript
-├── README.md           # Este archivo
-├── LICENSE             # Licencia MIT
-└── .gitattributes      # Config Git
+NetOpsToolkit/
+├── index.html           # Dashboard Principal
+├── css/
+│   ├── dashboard.css    # Layout del Dashboard
+│   ├── tools.css        # Estilos de Herramientas
+│   └── main.css         # Estilos Globales
+├── js/
+│   ├── main.js          # Orquestador
+│   ├── tools/           # Módulos de Herramientas
+│   │   ├── dns.js
+│   │   ├── ipv6.js
+│   │   ├── oui.js
+│   │   └── ...
+└── README.md            # Documentación
 ```
-
-## 🧮 Algoritmo VLSM
-
-El algoritmo implementado sigue estos pasos:
-
-1. **Ordenar requisitos** - Los hosts se ordenan de mayor a menor
-2. **Calcular bits necesarios** - `bits = ceil(log2(hosts + 2))`
-3. **Determinar prefijo** - `nuevo_prefijo = 32 - bits`
-4. **Calcular tamaño de bloque** - `tamaño = 2^bits`
-5. **Asignar direcciones** - Consecutivamente según el ordenamiento
-
-### Complejidad:
-
-- Ordenamiento: O(n log n)
-- Cálculo: O(n)
-- Total: O(n log n)
-
-## 🎓 Recursos de Aprendizaje
-
-### Tutoriales Recomendados:
-
-- 📘 [RFC 1878 - VLSM](https://tools.ietf.org/html/rfc1878)
-- 📗 [Cisco - IP Addressing](https://www.cisco.com/c/en/us/support/docs/ip/routing-information-protocol-rip/13788-3.html)
-- 📕 [Subnetting Practice](https://subnettingpractice.com/)
-
-### Conceptos Clave:
-
-- **CIDR Notation** - Notación de prefijo (e.g., /24)
-- **Subnet Mask** - Máscara de subred
-- **Network Address** - Dirección de red
-- **Broadcast Address** - Dirección de broadcast
-- **Usable Hosts** - Hosts utilizables
 
 ## 🤝 Contribuir
 
-¡Las contribuciones son bienvenidas! Si deseas colaborar:
+¡Las contribuciones son bienvenidas!
 
 1. Fork el proyecto
-2. Crea tu feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add: amazing feature'`)
-4. Push a la branch (`git push origin feature/AmazingFeature`)
+2. Crea tu feature branch (`git checkout -b feature/AmazingTool`)
+3. Commit tus cambios (`git commit -m 'Add: New Tool'`)
+4. Push a la branch (`git push origin feature/AmazingTool`)
 5. Abre un Pull Request
-
-### Áreas de Mejora:
-
-- 🎨 UI/UX mejorado (modo oscuro, animaciones)
-- 📊 Visualización gráfica de subredes
-- 📱 Progressive Web App (PWA)
-- 🌍 Internacionalización (i18n)
-- 🧪 Tests automatizados
-- 📈 Exportación de resultados (CSV, PDF)
-
-Ver [MEJORAS_COMPLETAS.md](MEJORAS_COMPLETAS.md) para lista completa de mejoras planificadas.
-
-## 🐛 Reportar Bugs
-
-Si encuentras un bug, por favor abre un [issue](https://github.com/Medalcode/myvlsm/issues) con:
-
-- Descripción del problema
-- Pasos para reproducir
-- Comportamiento esperado vs actual
-- Screenshots (si aplica)
-- Navegador y versión
 
 ## 📄 Licencia
 
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
-
-## 👨‍💻 Autor
-
-**MedalCode Team**
-
-- GitHub: [@Medalcode](https://github.com/Medalcode)
-- Proyecto: [myvlsm](https://github.com/Medalcode/myvlsm)
-
-## ⭐ Apoya el Proyecto
-
-Si este proyecto te ha sido útil, considera:
-
-- ⭐ Darle una estrella en GitHub
-- 🐛 Reportar bugs o sugerir mejoras
-- 🤝 Contribuir con código
-- 📢 Compartir con otros profesionales de networking
-
-## 📊 Estadísticas del Proyecto
-
-![GitHub stars](https://img.shields.io/github/stars/Medalcode/myvlsm?style=social)
-![GitHub forks](https://img.shields.io/github/forks/Medalcode/myvlsm?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/Medalcode/myvlsm?style=social)
-
-## 🗺️ Roadmap
-
-### v1.0 - MVP ✅
-
-- [x] Cálculo básico VLSM
-- [x] Validación de inputs
-- [x] Interfaz responsive
-
-### v1.1 - Mejoras Core (En desarrollo)
-
-- [ ] Validación avanzada
-- [ ] Exportar a CSV
-- [ ] Modo oscuro
-- [ ] Deployment producción
-
-### v2.0 - Features Avanzadas (Planificado)
-
-- [ ] Visualización gráfica
-- [ ] PWA con offline mode
-- [ ] Multiidioma (es, en, pt)
-- [ ] API REST
-
-Ver [MEJORAS_COMPLETAS.md](MEJORAS_COMPLETAS.md) para roadmap completo.
+Este proyecto está bajo la Licencia MIT.
 
 ---
 
 <div align="center">
-
-**Hecho con ❤️ para la comunidad de networking**
-
-[Reportar Bug](https://github.com/Medalcode/myvlsm/issues) · [Solicitar Feature](https://github.com/Medalcode/myvlsm/issues) · [Documentación](https://github.com/Medalcode/myvlsm/wiki)
-
+  <b>Desarrollado por MedalCode Team</b><br>
+  <i>Empoderando a la próxima generación de ingenieros de red.</i>
 </div>

@@ -70,6 +70,19 @@ import { initStandardCalc } from './standard_calc.js';
 import { initPortTool } from './tools/ports.js';
 import { initOuiTool } from './tools/oui.js';
 import { initIpRefTool } from './tools/ip_reference.js';
+import { initIPv6Tool } from './tools/ipv6.js';
+import { initBandwidthTool } from './tools/bandwidth.js';
+import { initDnsTool } from './tools/dns.js';
+import { initKeyGenTool } from './tools/keygen.js';
+import { initConfigGenTool } from './tools/config_gen.js';
+import { initPublicIpWidget } from './tools/public_ip.js';
+
+// ...
+
+// In init():
+  initIpRefTool();
+  initIPv6Tool();
+  initBandwidthTool();
 
 // Importar historial
 import {
@@ -128,9 +141,20 @@ function init() {
   // Inicializar tema PRIMERO (para evitar flash)
   initTheme();
 
-  // Agregar botón de tema (Floating or in Header? We put a placeholder in header, let's keep floating for now as backup)
+  // Agregar botón de tema
   const themeToggle = createThemeToggle();
-  document.body.appendChild(themeToggle);
+  const globalActions = document.querySelector('.global-actions');
+  
+  if (globalActions) {
+    globalActions.appendChild(themeToggle);
+    // Reset fixed positioning for dashboard integration
+    themeToggle.style.position = 'static';
+    themeToggle.style.padding = '8px 12px';
+    themeToggle.style.boxShadow = 'none';
+    themeToggle.style.border = '1px solid var(--color-border)';
+  } else {
+    document.body.appendChild(themeToggle);
+  }
 
   // Inicializar historial
   initHistory();
@@ -147,7 +171,13 @@ function init() {
   initStandardCalc();
   initPortTool();
   initOuiTool();
-  initIpRefTool();
+  initIPv6Tool();
+  initBandwidthTool();
+  initDnsTool();
+  initKeyGenTool();
+  initConfigGenTool();
+  initPublicIpWidget();
+
 
   // Agregar event listener al formulario
   const form = document.getElementById("vlsm-form");

@@ -14,6 +14,7 @@ Transformación completa de "VLSM Calculator" a "NetOps Toolkit". Una suite inte
 ### Nuevas Herramientas 🛠️
 
 - **OUI Lookup**: Buscador de Fabricantes por MAC Address (Base de datos local).
+- **IPv6 Tools**: Compresión, expansión y análisis de direcciones IPv6.
 - **Port Catalog**: Catálogo interactivo de puertos TCP/UDP comunes.
 - **Wiring Guide**: Guía visual interactiva para cableado T568A/B.
 - **IP Reference**: Tablas de referencia rápida para clases IP y rangos privados.

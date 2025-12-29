@@ -25,6 +25,40 @@
     outline: none;
 }
 
+/* CARDS (Generic) */
+.card {
+    background: var(--color-bg-card);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary-light);
+}
+
+/* BUTTONS */
+.btn-secondary {
+    background: var(--color-bg-secondary); /* Needs fallback or var */
+    background-color: #334155; /* Fallback for dark theme */
+    color: #fff;
+    border: 1px solid var(--color-border);
+    padding: 10px 16px;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    background-color: #475569;
+    border-color: #64748b;
+    transform: translateY(-1px);
+}
+
 /* WIRING (Types T568A/B) */
 .wiring-container {
     display: grid;
@@ -79,7 +113,7 @@
 .wire-stripe-green { background: repeating-linear-gradient(90deg, #fff, #fff 5px, #22c55e 5px, #22c55e 10px); }
 .wire-solid-blue { background: #3b82f6; }
 .wire-stripe-blue { background: repeating-linear-gradient(90deg, #fff, #fff 5px, #3b82f6 5px, #3b82f6 10px); }
-.wire-solid-brown { background: #a855f7; } /* Usually brown is brown, but using purple/brown hex */
+.wire-solid-brown { background: #a855f7; }
 .wire-stripe-brown { background: repeating-linear-gradient(90deg, #fff, #fff 5px, #a855f7 5px, #a855f7 10px); }
 
 /* Reference Tables (IP Ref, etc) */
