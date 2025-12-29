@@ -44,12 +44,12 @@
 }
 
 .tool-content {
-  display: none;
+  display: none !important;
   animation: fadeIn var(--transition-normal);
 }
 
 .tool-content.active {
-  display: block;
+  display: block !important;
 }
 
 /* Dark Mode Support */

@@ -5,6 +5,30 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
+## [2.0.0-alpha] - 2025-12-29 (NetOps Toolkit Transformation)
+
+### Transformación Mayor: "NetOps Toolkit" 🚀
+
+Transformación completa de "VLSM Calculator" a "NetOps Toolkit". Una suite integral de herramientas para ingenieros de red.
+
+### Nuevas Herramientas 🛠️
+
+- **OUI Lookup**: Buscador de Fabricantes por MAC Address (Base de datos local).
+- **Port Catalog**: Catálogo interactivo de puertos TCP/UDP comunes.
+- **Wiring Guide**: Guía visual interactiva para cableado T568A/B.
+- **IP Reference**: Tablas de referencia rápida para clases IP y rangos privados.
+
+### Mejoras de UI/UX 🎨
+
+- **Sidebar Navigation**: Nuevo sistema de navegación lateral profesional.
+- **Dashboard View**: Nueva pantalla de bienvenida con widgets de acceso rápido.
+- **Layout Moderno**: Reescritura del layout principal para soportar múltiples vistas.
+
+### Integración 🔗
+
+- Integración de herramientas heredadas (VLSM, Subnet Analyzer, Hex Converter) en el nuevo dashboard.
+- Modularización de código (`js/tools/*.js`).
+
 ## [1.6.0] - 2025-12-27 (The Professional Update)
 
 ### Nuevas Características 🌟

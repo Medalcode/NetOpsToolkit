@@ -1,251 +1,273 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- Primary Meta Tags -->
-    <title>
-      Calculadora VLSM - Variable Length Subnet Mask | CIDR Calculator
-    </title>
-    <meta
-      name="title"
-      content="Calculadora VLSM - Variable Length Subnet Mask | CIDR Calculator"
-    />
-    <meta
-      name="description"
-      content="Calculadora profesional de VLSM (Variable Length Subnet Mask) online. Optimiza el diseño de tu red calculando subredes con diferentes tamaños de forma eficiente y gratuita."
-    />
-    <meta
-      name="keywords"
-      content="VLSM, calculadora VLSM, subnet mask, CIDR, subnetting, calculadora subnet, IP calculator, networking, redes"
-    />
-    <meta name="author" content="MedalCode" />
-    <meta name="robots" content="index, follow" />
-    <meta name="language" content="Spanish" />
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://myvlsm.netlify.app/" />
-    <meta
-      property="og:title"
-      content="Calculadora VLSM - Variable Length Subnet Mask"
-    />
-    <meta
-      property="og:description"
-      content="Calculadora profesional de VLSM online. Optimiza el diseño de tu red IP de forma gratuita."
-    />
-    <meta
-      property="og:image"
-      content="https://myvlsm.netlify.app/og-image.png"
-    />
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://myvlsm.netlify.app/" />
-    <meta
-      property="twitter:title"
-      content="Calculadora VLSM - Variable Length Subnet Mask"
-    />
-    <meta
-      property="twitter:description"
-      content="Calculadora profesional de VLSM online. Optimiza el diseño de tu red IP de forma gratuita."
-    />
-    <meta
-      property="twitter:image"
-      content="https://myvlsm.netlify.app/og-image.png"
-    />
-
-    <!-- Favicon -->
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>"
-    />
-
-    <!-- Google Analytics 4 -->
-    <!-- Replace G-XXXXXXXXXX with your actual Measurement ID from https://analytics.google.com -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      // Configuration is handled by js/analytics.js module
-    </script>
-
-    <!-- Stylesheet - Modular CSS -->
-    <link rel="stylesheet" href="css/main.css" />
+    <title>NetOps Toolkit | MedalCode</title>
+    <meta name="description" content="Suite de herramientas profesionales para Ingeniería de Redes. VLSM, Puertos, Cableado y más." />
+    <link rel="stylesheet" href="css/main.css?v=2.0.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div class="container">
-      <header>
-        <h1>Network Tools Suite</h1>
-      </header>
+    <div class="app-container">
+      <!-- === SIDEBAR NAVIGATION === -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="app-logo">🛡️</div>
+          <div>
+            <div class="app-title">NetOps Toolkit</div>
+            <span class="app-subtitle">Ultimate Network Suite</span>
+          </div>
+        </div>
 
-      <nav>
-        <ul class="nav-tabs">
-          <li class="nav-item"><button class="nav-link active" data-target="tool-vlsm">VLSM Calc</button></li>
-          <li class="nav-item"><button class="nav-link" data-target="tool-hex">Hex Converter</button></li>
-          <li class="nav-item"><button class="nav-link" data-target="tool-subnet" title="Próximamente">Subnet Calc</button></li>
-          <li class="nav-item"><button class="nav-link" data-target="tool-ipv6" title="Próximamente">IPv6 Calc</button></li>
-        </ul>
-      </nav>
+        <nav class="sidebar-nav">
+          <!-- GROUP: GENERAL -->
+          <div class="nav-group">
+            <div class="nav-group-title">General</div>
+            <a class="nav-item active" data-target="tool-dashboard">
+              <span class="nav-icon">📊</span> Dashboard
+            </a>
+          </div>
 
-      <!-- === TOOL 1: VLSM CALCULATOR === -->
-      <div id="tool-vlsm" class="tool-content active">
-        <h2>Calculadora VLSM</h2>
-        <form id="vlsm-form" novalidate>
-          <!-- Campo: Red Principal -->
-          <div class="input-group">
-            <div class="input-label-wrapper">
-              <label for="network">Red Principal (CIDR):</label>
-              <div class="tooltip-icon">?
-                <div class="tooltip-content">
-                  Ingresa la dirección IP de red y su prefijo (ej: 192.168.1.0/24).<br>
-                  El prefijo /24 indica cuántos bits se usan para la red.
+          <!-- GROUP: LAYER 3 (NETWORK) -->
+          <div class="nav-group">
+            <div class="nav-group-title">Layer 3: Network</div>
+            <a class="nav-item" data-target="tool-vlsm">
+              <span class="nav-icon">🔢</span> VLSM Calc
+            </a>
+            <a class="nav-item" data-target="tool-subnet">
+              <span class="nav-icon">🕸️</span> Subnet Analyzer
+            </a>
+            <a class="nav-item" data-target="tool-ip-ref">
+              <span class="nav-icon">📖</span> IP Reference
+            </a>
+            <a class="nav-item" data-target="tool-ipv6" title="Próximamente">
+              <span class="nav-icon">🌐</span> IPv6 Tools
+            </a>
+          </div>
+
+          <!-- GROUP: LAYER 2 (DATA LINK) -->
+          <div class="nav-group">
+            <div class="nav-group-title">Layer 2: Data Link</div>
+            <a class="nav-item" data-target="tool-oui">
+              <span class="nav-icon">🏷️</span> OUI Lookup
+            </a>
+          </div>
+
+          <!-- GROUP: LAYER 4 (TRANSPORT) -->
+          <div class="nav-group">
+            <div class="nav-group-title">Layer 4: Transport</div>
+            <a class="nav-item" data-target="tool-ports">
+              <span class="nav-icon">🔌</span> Port Catalog
+            </a>
+          </div>
+
+          <!-- GROUP: LAYER 1 (PHYSICAL) -->
+          <div class="nav-group">
+            <div class="nav-group-title">Layer 1: Physical</div>
+            <a class="nav-item" data-target="tool-cabling">
+              <span class="nav-icon">🧶</span> Wiring (T568)
+            </a>
+          </div>
+
+          <!-- GROUP: UTILS -->
+          <div class="nav-group">
+            <div class="nav-group-title">Utilities</div>
+            <a class="nav-item" data-target="tool-hex">
+              <span class="nav-icon">01</span> Converter
+            </a>
+          </div>
+        </nav>
+
+        <div class="sidebar-footer">
+          v2.0.0-alpha<br>
+          <span style="opacity:0.5">by MedalCode</span>
+        </div>
+      </aside>
+
+      <!-- === MAIN CONTENT AREA === -->
+      <main class="main-content">
+        <div class="top-bar">
+          <div class="breadcrumbs">NetOps Toolkit / <span id="current-view-name">Dashboard</span></div>
+          <div class="global-actions">
+            <!-- Theme Toggle Placeholder -->
+          </div>
+        </div>
+
+        <div class="content-wrapper">
+          
+          <!-- === VIEW: DASHBOARD === -->
+          <div id="tool-dashboard" class="tool-view active">
+            <h1>Bienvenido al Centro de Comando</h1>
+            <p class="text-secondary">Selecciona una herramienta del menú lateral para comenzar.</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 30px;">
+              <div class="card" style="padding: 24px; border-left: 4px solid var(--color-primary);">
+                <h3>🚀 Acceso Rápido: VLSM</h3>
+                <p>Calcula subredes optimizadas para tus proyectos.</p>
+                <button class="nav-link-internal" data-target="tool-vlsm" style="margin-top:10px;">Ir a VLSM &rarr;</button>
+              </div>
+              <div class="card" style="padding: 24px; border-left: 4px solid #10b981;">
+                <h3>🔌 Catálogo de Puertos</h3>
+                <p>Consulta rápida de puertos TCP/UDP comunes.</p>
+                <button class="nav-link-internal" data-target="tool-ports" style="margin-top:10px;">Buscar Puerto &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- === VIEW: VLSM CALCULATOR (Migrated) === -->
+          <div id="tool-vlsm" class="tool-view">
+            <h2>Calculadora VLSM</h2>
+            <form id="vlsm-form" novalidate>
+              <div class="input-group">
+                <div class="input-label-wrapper">
+                  <label for="network">Red Principal (CIDR):</label>
+                  <div class="tooltip-icon">?
+                    <div class="tooltip-content">
+                      Ej: 192.168.1.0/24
+                    </div>
+                  </div>
+                </div>
+                <div class="input-wrapper">
+                  <input type="text" id="network" placeholder="e.g. 192.168.1.0/24" required autocomplete="off" />
+                  <div class="validation-icon"></div>
+                </div>
+                <div class="validation-feedback" id="network-feedback"></div>
+              </div>
+              <div class="input-group">
+                <div class="input-label-wrapper">
+                  <label for="hosts">Hosts por Subred:</label>
+                </div>
+                <div class="input-wrapper">
+                  <input type="text" id="hosts" placeholder="e.g. 50, 30, 10" required autocomplete="off" />
+                  <div class="validation-icon"></div>
+                </div>
+                <div class="validation-feedback" id="hosts-feedback"></div>
+              </div>
+              <button type="submit" id="calculate-btn">Calcular Distribución</button>
+            </form>
+            <div id="results" role="region" aria-live="polite"></div>
+          </div>
+
+          <!-- === VIEW: SUBNET ANALYZER (Migrated) === -->
+          <div id="tool-subnet" class="tool-view">
+             <h2>Analizador de Subredes</h2>
+             <div class="input-group">
+               <label for="std-ip">Dirección IP/CIDR:</label>
+               <div class="input-wrapper">
+                 <input type="text" id="std-ip" placeholder="Ej: 192.168.1.5/24" autocomplete="off">
+               </div>
+             </div>
+             <button id="std-btn" style="width: 100%; margin-bottom: 20px;">Analizar</button>
+             <div id="std-results" class="subnet-details" style="display:none;">
+                <table class="results-table">
+                  <tbody>
+                    <tr><th>Dirección IP:</th><td id="out-ip"></td></tr>
+                    <tr><th>Máscara:</th><td id="out-mask"></td></tr>
+                    <tr><th>Wildcard:</th><td id="out-wildcard"></td></tr>
+                    <tr><th>Red:</th><td id="out-network"></td></tr>
+                    <tr><th>Broadcast:</th><td id="out-broadcast"></td></tr>
+                    <tr><th>Host Range:</th><td id="out-range"></td></tr>
+                    <tr><th>Hosts Útiles:</th><td id="out-hosts"></td></tr>
+                    <tr><th>Clase/Tipo:</th><td id="out-class"></td></tr>
+                  </tbody>
+                </table>
+                <div class="binary-viz" id="out-binary" style="margin-top:20px; font-family:monospace; background:#0f172a; color:#38bdf8; padding:15px; border-radius:8px; overflow-x:auto;"></div>
+             </div>
+          </div>
+
+
+
+          <!-- === VIEW: IP REFERENCE (New) === -->
+          <div id="tool-ip-ref" class="tool-view">
+            <h2>Referencia IPv4</h2>
+            <div id="ip-ref-content">
+              <!-- Content populated by JS -->
+            </div>
+          </div>
+
+          <!-- === VIEW: OUI LOOKUP (New) === -->
+          <div id="tool-oui" class="tool-view">
+             <h2>Buscador de OUI (Vendor MAC)</h2>
+             <div class="input-group">
+               <input type="text" id="oui-search" class="search-bar" placeholder="Buscar por MAC (00:00:0C) o Nombre (Cisco)..." autocomplete="off">
+             </div>
+             
+             <div id="oui-results" class="oui-card-grid">
+               <!-- Results populated by JS -->
+             </div>
+          </div>
+
+          <!-- === VIEW: PORT CATALOG (New) === -->
+          <div id="tool-ports" class="tool-view">
+            <h2>Catálogo de Puertos TCP/UDP</h2>
+            <div class="input-group">
+              <input type="text" id="port-search" class="search-bar" placeholder="Buscar por número (22) o servicio (SSH)...">
+            </div>
+            
+            <div id="port-results" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 20px;">
+              <!-- Results populated by JS -->
+            </div>
+          </div>
+
+          <!-- === VIEW: CABLING GUIDE (New) === -->
+          <div id="tool-cabling" class="tool-view">
+            <h2>Estándar T568A vs T568B</h2>
+            <div class="wiring-container">
+              <!-- T568B (Standard) -->
+              <div class="wiring-card">
+                <h3 style="color: #f59e0b;">T568B (Estándar Comercial)</h3>
+                <div class="rj45-pinout">
+                   <div class="wire-row"><div class="wire-color wire-stripe-orange"></div> 1: Blanco/Naranja</div>
+                   <div class="wire-row"><div class="wire-color wire-solid-orange"></div> 2: Naranja</div>
+                   <div class="wire-row"><div class="wire-color wire-stripe-green"></div> 3: Blanco/Verde</div>
+                   <div class="wire-row"><div class="wire-color wire-solid-blue"></div> 4: Azul</div>
+                   <div class="wire-row"><div class="wire-color wire-stripe-blue"></div> 5: Blanco/Azul</div>
+                   <div class="wire-row"><div class="wire-color wire-solid-green"></div> 6: Verde</div>
+                   <div class="wire-row"><div class="wire-color wire-stripe-brown"></div> 7: Blanco/Marrón</div>
+                   <div class="wire-row"><div class="wire-color wire-solid-brown"></div> 8: Marrón</div>
+                </div>
+              </div>
+
+              <!-- T568A -->
+              <div class="wiring-card">
+                <h3 style="color: #10b981;">T568A (Gobierno/Residencial)</h3>
+                <div class="rj45-pinout">
+                  <div class="wire-row"><div class="wire-color wire-stripe-green"></div> 1: Blanco/Verde</div>
+                  <div class="wire-row"><div class="wire-color wire-solid-green"></div> 2: Verde</div>
+                  <div class="wire-row"><div class="wire-color wire-stripe-orange"></div> 3: Blanco/Naranja</div>
+                  <div class="wire-row"><div class="wire-color wire-solid-blue"></div> 4: Azul</div>
+                  <div class="wire-row"><div class="wire-color wire-stripe-blue"></div> 5: Blanco/Azul</div>
+                  <div class="wire-row"><div class="wire-color wire-solid-orange"></div> 6: Naranja</div>
+                  <div class="wire-row"><div class="wire-color wire-stripe-brown"></div> 7: Blanco/Marrón</div>
+                  <div class="wire-row"><div class="wire-color wire-solid-brown"></div> 8: Marrón</div>
                 </div>
               </div>
             </div>
-            <div class="input-wrapper">
-              <input 
-                type="text" 
-                id="network" 
-                placeholder="e.g. 192.168.1.0/24" 
-                required 
-                autocomplete="off"
-              />
-              <div class="validation-icon"></div>
-            </div>
-            <div class="validation-feedback" id="network-feedback"></div>
           </div>
-  
-          <!-- Campo: Hosts -->
-          <div class="input-group">
-            <div class="input-label-wrapper">
-              <label for="hosts">Hosts por Subred:</label>
-              <div class="tooltip-icon">?
-                <div class="tooltip-content">
-                  Lista de hosts necesarios para cada subred, separados por comas.<br>
-                  Ejemplo: "50, 30, 20" creará subredes para soportar esa cantidad de equipos.
-                </div>
-              </div>
-            </div>
-            <div class="input-wrapper">
-              <input 
-                type="text" 
-                id="hosts" 
-                placeholder="e.g. 50, 30, 10" 
-                required 
-                autocomplete="off"
-              />
-              <div class="validation-icon"></div>
-            </div>
-            <div class="validation-feedback" id="hosts-feedback"></div>
-          </div>
-  
-          <button type="submit" id="calculate-btn">Calcular</button>
-        </form>
-        <div id="results" role="region" aria-live="polite" aria-label="Resultados del cálculo"></div>
-      </div>
 
-      <!-- === TOOL 2: HEX CONVERTER === -->
-      <div id="tool-hex" class="tool-content">
-        <h2>Convertidor Base (Hex/Bin/Dec)</h2>
-        <div class="input-group">
-          <label for="converter-input">Número a convertir:</label>
-          <div class="input-wrapper">
-            <input type="text" id="converter-input" placeholder="Ingresa un número (ej: 255, FF, 1010)" autocomplete="off">
+          <!-- === VIEW: HEX CONVERTER === -->
+          <div id="tool-hex" class="tool-view">
+             <!-- Migrated Hex Content -->
+             <h2>Convertidor Base</h2>
+             <div class="input-group">
+                <input type="text" id="converter-input" placeholder="Ingresa número..." autocomplete="off">
+             </div>
+             <div class="converter-results">
+                 <!-- Results inputs -->
+                 <label>Decimal: <input type="text" id="res-dec" readonly></label>
+                 <label>Binario: <input type="text" id="res-bin" readonly></label>
+                 <label>Hex: <input type="text" id="res-hex" readonly></label>
+             </div>
           </div>
+
         </div>
-
-        <div class="converter-results">
-          <div class="input-group">
-            <label>Decimal:</label>
-            <input type="text" id="res-dec" readonly>
-          </div>
-          <div class="input-group">
-            <label>Binario:</label>
-            <input type="text" id="res-bin" readonly>
-          </div>
-          <div class="input-group">
-            <label>Hexadecimal:</label>
-            <input type="text" id="res-hex" readonly>
-          </div>
-        </div>
-      </div>
-
-      <!-- === TOOL 3: SUBNET CALCULATOR === -->
-      <div id="tool-subnet" class="tool-content">
-        <h2>Calculadora de Subred (IPv4)</h2>
-        <div class="input-group">
-          <label for="std-ip">Dirección IP o Red (CIDR):</label>
-          <div class="input-wrapper">
-            <input type="text" id="std-ip" placeholder="Ej: 192.168.1.5/24 o 10.0.0.1" autocomplete="off">
-          </div>
-          <small style="color: var(--color-text-secondary); margin-top: 5px; display: block;">
-            Si no especificas la máscara, se usará la máscara por defecto de la clase.
-          </small>
-        </div>
-
-        <button id="std-btn" style="width: 100%; margin-bottom: 20px;">Calcular Detalles</button>
-
-        <div id="std-results" class="subnet-details" style="display:none;">
-           <!-- Results Table -->
-           <table class="results-table">
-             <tbody>
-               <tr>
-                 <th>Dirección IP:</th>
-                 <td id="out-ip"></td>
-               </tr>
-               <tr>
-                 <th>Máscara de Subred:</th>
-                 <td id="out-mask"></td>
-               </tr>
-               <tr>
-                 <th>Wildcard Mask:</th>
-                 <td id="out-wildcard"></td>
-               </tr>
-               <tr>
-                 <th>Red (Network):</th>
-                 <td id="out-network"></td>
-               </tr>
-               <tr>
-                 <th>Broadcast:</th>
-                 <td id="out-broadcast"></td>
-               </tr>
-               <tr>
-                 <th>Clase:</th>
-                 <td id="out-class"></td>
-               </tr>
-               <tr>
-                 <th>Rango de Hosts:</th>
-                 <td id="out-range"></td>
-               </tr>
-               <tr>
-                 <th>Hosts Útiles:</th>
-                 <td id="out-hosts"></td>
-               </tr>
-               <tr>
-                 <th>Tipo:</th>
-                 <td id="out-type"></td>
-               </tr>
-             </tbody>
-           </table>
-           
-           <div class="binary-viz" id="out-binary" style="margin-top:20px; font-family:monospace; background:#f5f5f5; padding:10px; border-radius:4px; overflow-x:auto;">
-             <!-- Binary visualization here -->
-           </div>
-        </div>
-      </div>
-
-       <!-- === TOOL 4: IPv6 CALCULATOR (Placeholder) === -->
-       <div id="tool-ipv6" class="tool-content">
-        <h2>IPv6 Calculator</h2>
-        <p>Próximamente...</p>
-      </div>
+      </main>
     </div>
-    
-    <!-- JavaScript - ES6 Modules -->
+
+    <!-- JavaScript IMPORTS -->
     <script type="module" src="js/main.js"></script>
   </body>
 </html>

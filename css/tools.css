@@ -1,0 +1,124 @@
+/* === TOOLS CSS === */
+
+/* Common Tool Utilities */
+.tool-view h2 {
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: var(--color-text-highlight);
+}
+
+.search-bar {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+    border: 2px solid var(--color-border);
+    background: var(--color-bg-input);
+    color: var(--color-text-primary);
+    border-radius: var(--border-radius-md);
+    transition: border-color var(--transition-fast);
+}
+
+.search-bar:focus {
+    border-color: var(--color-primary);
+    outline: none;
+}
+
+/* WIRING (Types T568A/B) */
+.wiring-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.wiring-card {
+    background: var(--color-bg-card);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--color-border);
+    padding: 20px;
+    transition: transform var(--transition-fast);
+}
+
+.wiring-card h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.rj45-pinout {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-family: var(--font-mono);
+}
+
+.wire-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.wire-color {
+    width: 40px;
+    height: 12px;
+    border-radius: 2px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Wire Colors */
+.wire-solid-orange { background: #f97316; }
+.wire-stripe-orange { background: repeating-linear-gradient(90deg, #fff, #fff 5px, #f97316 5px, #f97316 10px); }
+.wire-solid-green { background: #22c55e; }
+.wire-stripe-green { background: repeating-linear-gradient(90deg, #fff, #fff 5px, #22c55e 5px, #22c55e 10px); }
+.wire-solid-blue { background: #3b82f6; }
+.wire-stripe-blue { background: repeating-linear-gradient(90deg, #fff, #fff 5px, #3b82f6 5px, #3b82f6 10px); }
+.wire-solid-brown { background: #a855f7; } /* Usually brown is brown, but using purple/brown hex */
+.wire-stripe-brown { background: repeating-linear-gradient(90deg, #fff, #fff 5px, #a855f7 5px, #a855f7 10px); }
+
+/* Reference Tables (IP Ref, etc) */
+.ref-table-container {
+    overflow-x: auto;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--color-border);
+}
+
+.ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.ref-table th, .ref-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.ref-table th {
+    background: var(--color-bg-secondary);
+    color: var(--color-text-highlight);
+    font-weight: 600;
+}
+
+.ref-table tr:last-child td {
+    border-bottom: none;
+}
+
+.ref-table tr:hover {
+    background: rgba(255,255,255,0.02);
+}
+
+/* OUI Results */
+.oui-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
