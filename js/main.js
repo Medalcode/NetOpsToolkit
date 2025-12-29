@@ -61,6 +61,9 @@ import {
 // Importar tema
 import { initTheme, createThemeToggle } from './theme.js';
 
+// Importar i18n
+import { initI18n, setLanguage } from './i18n.js';
+
 // Importar visualización
 import { renderAllocationChart } from './visualization.js';
 
@@ -119,9 +122,6 @@ function setupNavigation() {
     });
   });
 }
-
-// Import i18n
-import { initI18n, setLanguage } from './i18n.js';
 
 /**
  * Inicializa la aplicación
