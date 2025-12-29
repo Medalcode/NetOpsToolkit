@@ -15,6 +15,7 @@
   --color-bg-input: #ffffff;
   --color-bg-gradient-start: #667eea;
   --color-bg-gradient-end: #764ba2;
+  --color-bg-sidebar: #ffffff; /* Default Light */
   
   /* === Colores de Texto === */
   --color-text-primary: #212529;
@@ -96,6 +97,7 @@
   --color-bg-input: #3a3a3a;
   --color-bg-gradient-start: #1e293b;
   --color-bg-gradient-end: #334155;
+  --color-bg-sidebar: #222; /* Dark Mode Sidebar */
   
   /* Colores de texto invertidos */
   --color-text-primary: #f5f5f5;
