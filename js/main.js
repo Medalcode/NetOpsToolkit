@@ -243,5 +243,3 @@ if (document.readyState === "loading") {
   init();
 }
 
-// Exportar para testing
-export { handleFormSubmit, init };
