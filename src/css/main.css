@@ -11,3 +11,4 @@
 
 /* === Estilos Específicos de la App === */
 /* Aquí pueden ir estilos que no encajen en los otros módulos */
+@import './layout.css';

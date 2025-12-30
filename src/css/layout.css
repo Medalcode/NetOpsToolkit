@@ -1,0 +1,60 @@
+:root {
+  --bs-font-sans-serif: 'Inter', system-ui, -apple-system, sans-serif;
+  --bs-font-monospace: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --bg-sidebar: #212529; /* Dark Sidebar */
+}
+body {
+  font-family: var(--bs-font-sans-serif);
+}
+.sidebar {
+  height: 100vh;
+  overflow-y: auto;
+  background-color: var(--bg-sidebar);
+  border-right: 1px solid var(--bs-border-color);
+}
+.nav-link {
+  color: rgba(255,255,255,0.75);
+  border-radius: 0.375rem;
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.nav-link:hover {
+  color: #fff;
+  background-color: rgba(255,255,255,0.1);
+}
+.nav-link.active {
+  color: #fff;
+  background-color: var(--bs-primary);
+}
+.nav-group-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1rem;
+}
+.main-content {
+  height: 100vh;
+  overflow-y: auto;
+}
+.tool-view {
+  display: none;
+}
+.tool-view.active {
+  display: block;
+ /* Animation removed to prevent conflicts or flashes, kept simple */
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s;
+  border-color: var(--bs-primary);
+}
+/* Custom utility for monospace inputs */
+.font-monospace-input {
+  font-family: var(--bs-font-monospace);
+}

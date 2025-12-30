@@ -4,6 +4,13 @@
  * Replaces the previous broken implementation.
  */
 
+// Styles
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../css/main.css';
+
+// Bootstrap JS (Component logic)
+import 'bootstrap';
+
 // Core Imports
 import { initTheme, createThemeToggle, getEffectiveTheme } from './theme.js';
 import { initI18n, setLanguage } from './i18n.js';
@@ -23,18 +30,23 @@ const AppState = {
  * Tool Configuration Map
  * Maps DOM IDs to their module paths and init functions.
  */
+/**
+ * Tool Configuration Map
+ * Maps DOM IDs to their module loaders and init functions.
+ * Using explicit import() ensures Vite bundles these chunks correctly.
+ */
 const TOOL_REGISTRY = {
-    'tool-subnet': { path: './standard_calc.js', fn: 'initStandardCalc' },
-    'tool-dns': { path: './tools/dns.js', fn: 'initDnsTool' },
-    'tool-ports': { path: './tools/ports.js', fn: 'initPortTool' },
-    'tool-oui': { path: './tools/oui.js', fn: 'initOuiTool' },
-    'tool-ipv6': { path: './tools/ipv6.js', fn: 'initIPv6Tool' },
-    'tool-config': { path: './tools/config_gen.js', fn: 'initConfigGenTool' },
-    'tool-hex': { path: './converter.js', fn: 'initConverter' },
-    'tool-bw': { path: './tools/bandwidth.js', fn: 'initBandwidthTool' },
-    'tool-keygen': { path: './tools/keygen.js', fn: 'initKeyGenTool' },
-    'tool-ip-ref': { path: './tools/ip_reference.js', fn: 'initIpRefTool' },
-    'tool-public-ip': { path: './tools/public_ip.js', fn: 'initPublicIpWidget' } // Special case
+    'tool-subnet': { load: () => import('./standard_calc.js'), fn: 'initStandardCalc' },
+    'tool-dns': { load: () => import('./tools/dns.js'), fn: 'initDnsTool' },
+    'tool-ports': { load: () => import('./tools/ports.js'), fn: 'initPortTool' },
+    'tool-oui': { load: () => import('./tools/oui.js'), fn: 'initOuiTool' },
+    'tool-ipv6': { load: () => import('./tools/ipv6.js'), fn: 'initIPv6Tool' },
+    'tool-config': { load: () => import('./tools/config_gen.js'), fn: 'initConfigGenTool' },
+    'tool-hex': { load: () => import('./converter.js'), fn: 'initConverter' },
+    'tool-bw': { load: () => import('./tools/bandwidth.js'), fn: 'initBandwidthTool' },
+    'tool-keygen': { load: () => import('./tools/keygen.js'), fn: 'initKeyGenTool' },
+    'tool-ip-ref': { load: () => import('./tools/ip_reference.js'), fn: 'initIpRefTool' },
+    'tool-public-ip': { load: () => import('./tools/public_ip.js'), fn: 'initPublicIpWidget' }
 };
 
 /**
@@ -123,6 +135,7 @@ function navigate(targetId) {
     document.querySelectorAll('.tool-view').forEach(v => {
         v.classList.remove('active');
         v.style.display = 'none';
+        v.classList.remove('active');
     });
 
     // Show target
@@ -150,15 +163,15 @@ async function loadToolLogic(toolId) {
     const config = TOOL_REGISTRY[toolId];
     if (config) {
         try {
-            console.log(`📦 Loading module: ${config.path}`);
-            const module = await import(config.path);
+            console.log(`📦 Loading module for ${toolId}`);
+            const module = await config.load();
             
             if (module[config.fn] && typeof module[config.fn] === 'function') {
                 module[config.fn]();
                 console.log(`✨ Initialized ${toolId}`);
                 AppState.initializedTools.add(toolId);
             } else {
-                console.warn(`Function ${config.fn} not found in ${config.path}`);
+                console.warn(`Function ${config.fn} not found in module`);
             }
         } catch (e) {
             console.error(`Failed to load ${toolId}:`, e);
@@ -242,7 +255,8 @@ function setupGlobalActions() {
     // Theme Button
     const themeBtn = createThemeToggle();
     themeBtn.className = "btn btn-outline-secondary btn-sm me-2";
-    themeBtn.innerHTML = '<i class="fas fa-adjust"></i> Tema';
+    // themeBtn.innerHTML = '<i class="fas fa-adjust"></i> Tema'; 
+    // ^ createThemeToggle handles innerHTML, we just style it
     themeBtn.addEventListener('click', () => {
          setTimeout(() => updateBootstrapTheme(getEffectiveTheme()), 50);
     });

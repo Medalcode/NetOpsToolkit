@@ -5,80 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NetOps Toolkit | MedalCode</title>
     <meta name="description" content="Suite de herramientas profesionales para Ingeniería de Redes. VLSM, Puertos, Cableado y más." />
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- FontAwesome -->
+    <!-- FontAwesome (Keep CDN for simplicity or install via npm, stick to CDN for icons usually easier unless robust need) -->
+    <!-- Let's keep FontAwesome CDN for now as it's just icons, unless user wants full offline -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Custom CSS (minimal overrides) -->
-    <link rel="stylesheet" href="css/main.css?v=2.2.0" />
-    <style>
-      :root {
-        --bs-font-sans-serif: 'Inter', system-ui, -apple-system, sans-serif;
-        --bs-font-monospace: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-        --bg-sidebar: #212529; /* Dark Sidebar */
-      }
-      body {
-        font-family: var(--bs-font-sans-serif);
-      }
-      .sidebar {
-        height: 100vh;
-        overflow-y: auto;
-        background-color: var(--bg-sidebar);
-        border-right: 1px solid var(--bs-border-color);
-      }
-      .nav-link {
-        color: rgba(255,255,255,0.75);
-        border-radius: 0.375rem;
-        margin-bottom: 2px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        cursor: pointer;
-      }
-      .nav-link:hover {
-        color: #fff;
-        background-color: rgba(255,255,255,0.1);
-      }
-      .nav-link.active {
-        color: #fff;
-        background-color: var(--bs-primary);
-      }
-      .nav-group-title {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: rgba(255,255,255,0.5);
-        margin-top: 1.5rem;
-        margin-bottom: 0.5rem;
-        padding-left: 1rem;
-      }
-      .main-content {
-        height: 100vh;
-        overflow-y: auto;
-      }
-      .tool-view {
-        display: none;
-      }
-      .tool-view.active {
-        display: block;
-        animation: fadeIn 0.3s ease-in-out;
-      }
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-      .card-hover:hover {
-        transform: translateY(-2px);
-        transition: transform 0.2s;
-        border-color: var(--bs-primary);
-      }
-      /* Custom utility for monospace inputs */
-      .font-monospace-input {
-        font-family: var(--bs-font-monospace);
-      }
-    </style>
+    <!-- CSS injected via Vite/JS -->
   </head>
   <body>
     <div class="d-flex w-100 h-100">
@@ -381,8 +313,7 @@
       </main>
     </div>
 
-    <!-- Bootstrap Bundle JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script type="module" src="js/main.js"></script>
+    <!-- App Logic handled by Vite -->
+    <script type="module" src="/src/js/main.js"></script>
   </body>
 </html>

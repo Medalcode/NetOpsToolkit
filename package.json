@@ -1,5 +1,18 @@
 {
+  "name": "netops-toolkit",
+  "private": true,
+  "version": "2.2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
   "dependencies": {
-    "bulma": "^1.0.4"
+    "bootstrap": "^5.3.3",
+    "@popperjs/core": "^2.11.8"
   }
 }
