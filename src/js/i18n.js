@@ -54,7 +54,29 @@ const translations = {
         "dns.domain": "Dominio",
         "dns.type": "Tipo",
         "dns.resolver": "Resolver",
-        "dns.btn": "Consultar"
+        "dns.btn": "Consultar",
+        
+        // Tool Help Texts & Titles
+        "subnet.title": "Analizador de Subredes",
+        "subnet.desc": "Disecciona una dirección IPv4 para obtener su red, broadcast y rango de hosts.",
+        "ipref.title": "Referencia IP",
+        "ipref.desc": "Guía rápida de clases de IP, rangos privados (RFC 1918) y máscaras comunes.",
+        "ipv6.title": "Herramientas IPv6",
+        "ipv6.desc": "Comprime, expande y analiza direcciones IPv6 según el RFC 5952.",
+        "oui.title": "Buscador OUI",
+        "oui.desc": "Busca el fabricante de un dispositivo mediante los primeros 6 caracteres de su MAC.",
+        "config.title": "Generador de Config",
+        "config.desc": "Crea plantillas de configuración básicas para switches y routers.",
+        "ports.title": "Catálogo de Puertos",
+        "ports.desc": "Diccionario de puertos TCP/UDP comunes y sus servicios asociados.",
+        "wiring.title": "Cableado Ethernet",
+        "wiring.desc": "Referencia visual para el crimpado de cables T568A y T568B.",
+        "hex.title": "Convertidor de Bases",
+        "hex.desc": "Convierte números entre formatos Decimal, Binario y Hexadecimal automáticamente. Escribe en cualquier campo o usa prefijos (0x, 0b).",
+        "bw.title": "Calculadora de Transferencia",
+        "bw.desc": "Estima cuánto tardará en enviarse un archivo dado un ancho de banda específico.",
+        "keygen.title": "Generador de Claves",
+        "keygen.desc": "Crea contraseñas robustas y claves WPA/PSK seguras aleatorias."
     },
     en: {
         // Sidebar
@@ -106,7 +128,29 @@ const translations = {
         "dns.domain": "Domain",
         "dns.type": "Type",
         "dns.resolver": "Resolver",
-        "dns.btn": "Lookup"
+        "dns.btn": "Lookup",
+
+        // Tool Help Texts & Titles
+        "subnet.title": "Subnet Analyzer",
+        "subnet.desc": "Dissect an IPv4 address to get its network, broadcast, and host range.",
+        "ipref.title": "IP Reference",
+        "ipref.desc": "Quick guide to IP classes, private ranges (RFC 1918), and common masks.",
+        "ipv6.title": "IPv6 Tools",
+        "ipv6.desc": "Compress, expand, and analyze IPv6 addresses according to RFC 5952.",
+        "oui.title": "OUI Lookup",
+        "oui.desc": "Find a device manufacturer using the first 6 characters of its MAC.",
+        "config.title": "Config Generator",
+        "config.desc": "Create basic configuration templates for switches and routers.",
+        "ports.title": "Port Catalog",
+        "ports.desc": "Dictionary of common TCP/UDP ports and their services.",
+        "wiring.title": "Ethernet Wiring",
+        "wiring.desc": "Visual reference for T568A and T568B cable crimping.",
+        "hex.title": "Base Converter",
+        "hex.desc": "Convert numbers between Decimal, Binary, and Hexadecimal automatically. Type in any field or use prefixes (0x, 0b).",
+        "bw.title": "Transfer Calculator",
+        "bw.desc": "Estimate how long it will take to send a file given a specific bandwidth.",
+        "keygen.title": "Key Generator",
+        "keygen.desc": "Create robust passwords and secure random WPA/PSK keys."
     }
 };
 

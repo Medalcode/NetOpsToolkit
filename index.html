@@ -194,7 +194,8 @@
           
            <!-- === VIEW: SUBNET ANALYZER === -->
            <div id="tool-subnet" class="tool-view">
-              <h2>Analizador de Subredes</h2>
+              <h2 data-i18n="subnet.title">Analizador de Subredes</h2>
+              <p class="text-secondary" data-i18n="subnet.desc">Analiza una IP para obtener detalles de red.</p>
               <div class="card border-0 shadow-sm p-4 mb-4" style="max-width: 600px;">
                 <div class="mb-3">
                   <label for="std-ip" class="form-label">Dirección IP/CIDR</label>
@@ -224,19 +225,19 @@
 
           <!-- === VIEW: DNS LOOKUP === -->
           <div id="tool-dns" class="tool-view">
-             <h2>DNS Lookup (DoH)</h2>
-             <p class="text-secondary">Consulta registros DNS en tiempo real.</p>
+             <h2 data-i18n="dns.title">DNS Lookup (DoH)</h2>
+             <p class="text-secondary" data-i18n="dns.desc">Consulta registros DNS en tiempo real.</p>
              
              <div class="card border-0 shadow-sm mb-4">
                 <div class="card-body">
                     <div class="row g-3 align-items-end">
                         <div class="col-md-5">
-                            <label class="form-label">Dominio</label>
+                            <label class="form-label" data-i18n="dns.domain">Dominio</label>
                             <input type="text" class="form-control" id="dns-domain" placeholder="example.com">
                             <div class="validation-feedback" id="dns-domain-feedback"></div>
                         </div>
                         <div class="col-md-3">
-                            <label class="form-label">Tipo</label>
+                            <label class="form-label" data-i18n="dns.type">Tipo</label>
                             <select class="form-select" id="dns-type">
                                 <option value="A">A (IPv4)</option>
                                 <option value="AAAA">AAAA (IPv6)</option>
@@ -249,7 +250,7 @@
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <label class="form-label">Resolver</label>
+                            <label class="form-label" data-i18n="dns.resolver">Resolver</label>
                             <select class="form-select" id="dns-resolver">
                                 <option value="google">Google (8.8.8.8)</option>
                                 <option value="cloudflare">Cloudflare (1.1.1.1)</option>
@@ -264,10 +265,15 @@
              <div id="dns-results" class="mt-4"></div>
           </div>
           
-          <!-- Placeholders for other tools... Keeping structure minimal for brevity but IDs intact -->
-          <div id="tool-ip-ref" class="tool-view"><h2>IP Reference</h2><div id="ip-ref-content"></div></div>
+          <div id="tool-ip-ref" class="tool-view">
+            <h2 data-i18n="ipref.title">IP Reference</h2>
+            <p class="text-secondary" data-i18n="ipref.desc"></p>
+            <div id="ip-ref-content"></div>
+          </div>
+
           <div id="tool-ipv6" class="tool-view">
-             <h2>Herramientas IPv6</h2>
+             <h2 data-i18n="ipv6.title">Herramientas IPv6</h2>
+             <p class="text-secondary" data-i18n="ipv6.desc"></p>
              <div class="mb-3"><label>Dirección</label><input type="text" id="ipv6-input" class="form-control font-monospace" placeholder="2001:db8::1"></div>
              <div class="btn-group w-100 mb-3">
                  <button id="btn-ipv6-info" class="btn btn-outline-secondary">Analizar</button>
@@ -276,19 +282,63 @@
              </div>
              <div id="ipv6-results"></div>
           </div>
-          <div id="tool-oui" class="tool-view"><h2>OUI Lookup</h2><input type="text" id="oui-search" class="form-control mb-3" placeholder="Buscar MAC..."><div id="oui-results"></div></div>
-          <div id="tool-config" class="tool-view"><h2>Config Gen</h2><select id="cfg-template" class="form-select mb-3"><option value="cisco-vlan">Cisco</option></select><div id="cfg-form"></div><button id="btn-cfg-gen" class="btn btn-primary mt-3">Generar</button><pre id="cfg-output" class="bg-dark text-white p-3 rounded mt-3"></pre></div>
-          <div id="tool-ports" class="tool-view"><h2>Port Catalog</h2><input type="text" id="port-search" class="form-control mb-3" placeholder="Search..."><div id="port-results" class="row"></div></div>
+
+          <div id="tool-oui" class="tool-view">
+            <h2 data-i18n="oui.title">OUI Lookup</h2>
+            <p class="text-secondary" data-i18n="oui.desc"></p>
+            <input type="text" id="oui-search" class="form-control mb-3" placeholder="Buscar MAC..."><div id="oui-results"></div>
+          </div>
+
+          <div id="tool-config" class="tool-view">
+            <h2 data-i18n="config.title">Config Gen</h2>
+            <p class="text-secondary" data-i18n="config.desc"></p>
+            <select id="cfg-template" class="form-select mb-3"><option value="cisco-vlan">Cisco VLAN</option></select>
+            <div id="cfg-form"></div>
+            <button id="btn-cfg-gen" class="btn btn-primary mt-3">Generar</button>
+            <pre id="cfg-output" class="bg-dark text-white p-3 rounded mt-3"></pre>
+          </div>
+
+          <div id="tool-ports" class="tool-view">
+            <h2 data-i18n="ports.title">Port Catalog</h2>
+            <p class="text-secondary" data-i18n="ports.desc"></p>
+            <input type="text" id="port-search" class="form-control mb-3" placeholder="Search..."><div id="port-results" class="row"></div>
+          </div>
+
           <div id="tool-cabling" class="tool-view">
-             <h2>Cableado T568</h2>
+             <h2 data-i18n="wiring.title">Cableado T568</h2>
+             <p class="text-secondary" data-i18n="wiring.desc"></p>
              <div class="row">
                  <div class="col-md-6"><div class="card bg-dark text-white p-3 mb-3"><h5>T568B</h5>(Visualización simplificada por ahora)</div></div>
                  <div class="col-md-6"><div class="card bg-success text-white p-3"><h5>T568A</h5></div></div>
              </div>
           </div>
-          <div id="tool-hex" class="tool-view"><h2>Converter</h2><input id="converter-input" class="form-control mb-3"><input id="res-dec" readonly class="form-control mb-2"><input id="res-bin" readonly class="form-control mb-2"><input id="res-hex" readonly class="form-control"></div>
+
+          <div id="tool-hex" class="tool-view">
+            <h2 data-i18n="hex.title">Converter</h2>
+            <p class="text-secondary" data-i18n="hex.desc"></p>
+            <div class="row g-3">
+              <div class="col-md-12">
+                 <label class="form-label text-muted small">Entrada (Auto-detecta 0x, 0b o escribe directo)</label>
+                 <input id="converter-input" class="form-control form-control-lg font-monospace" placeholder="Ej: 255, 0xFF, 1010">
+              </div>
+              <div class="col-md-4">
+                 <label class="form-label">Decimal</label>
+                 <input id="res-dec" readonly class="form-control font-monospace bg-light">
+              </div>
+              <div class="col-md-4">
+                 <label class="form-label">Binario</label>
+                 <input id="res-bin" readonly class="form-control font-monospace bg-light">
+              </div>
+              <div class="col-md-4">
+                 <label class="form-label">Hexadecimal</label>
+                 <input id="res-hex" readonly class="form-control font-monospace bg-light">
+              </div>
+            </div>
+          </div>
+
           <div id="tool-bw" class="tool-view">
-             <h2>Calculadora Transferencia</h2>
+             <h2 data-i18n="bw.title">Calculadora Transferencia</h2>
+             <p class="text-secondary" data-i18n="bw.desc"></p>
              <div class="row g-2">
                  <div class="col"><input id="bw-size" class="form-control" placeholder="Size"></div>
                  <div class="col"><select id="bw-size-unit" class="form-select"><option value="GB">GB</option></select></div>
@@ -297,6 +347,12 @@
              </div>
              <button id="btn-bw-calc" class="btn btn-primary mt-3">Calcular</button>
              <div id="bw-results" class="mt-3"></div>
+          </div>
+          
+          <div id="tool-keygen" class="tool-view">
+            <h2 data-i18n="keygen.title">Generador de Claves</h2>
+            <p class="text-secondary" data-i18n="keygen.desc"></p>
+            <div id="keygen-content"></div>
           </div>
           <div id="tool-keygen" class="tool-view">
              <h2>Key Generator</h2>
