@@ -6,8 +6,9 @@ export function initPublicIpWidget() {
     container.innerHTML = '<div class="loading-spinner"></div> Cargando IP...';
     
     try {
-        // ipapi.co provides free JSON IP info rate limited. Alternate: ip-api.com
-        const response = await fetch('https://ipapi.co/json/');
+        // Try our Serverless Backend first (Best Practice)
+        // This avoids CORS issues and demonstrates full-stack capability
+        const response = await fetch('/.netlify/functions/geo-ip');
         if (!response.ok) throw new Error('Failed to fetch');
         
         const data = await response.json();
