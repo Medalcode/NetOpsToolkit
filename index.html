@@ -352,7 +352,37 @@
           <div id="tool-keygen" class="tool-view">
             <h2 data-i18n="keygen.title">Generador de Claves</h2>
             <p class="text-secondary" data-i18n="keygen.desc"></p>
-            <div id="keygen-content"></div>
+            
+            <div class="card border-0 shadow-sm p-4" style="max-width: 600px;">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label">Longitud</label>
+                        <input type="number" id="keygen-length" class="form-control" value="16" min="8" max="128">
+                    </div>
+                    <div class="col-md-8">
+                        <label class="form-label">Tipo</label>
+                        <select id="keygen-type" class="form-select">
+                            <option value="wpa">WPA2/3 PSK (ASCII Completo)</option>
+                            <option value="hex">Hexadecimal (WEP/Cisco)</option>
+                            <option value="base64">Base64 (VPN/API Keys)</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button id="btn-keygen" class="btn btn-primary w-100">
+                            <i class="fas fa-key me-2"></i> Generar Clave Segura
+                        </button>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <label class="form-label">Resultado</label>
+                        <div class="input-group">
+                            <input type="text" id="keygen-output" class="form-control font-monospace form-control-lg bg-light" readonly>
+                            <button class="btn btn-outline-secondary" id="btn-keygen-copy" type="button">
+                                <i class="fas fa-copy"></i> Copiar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
           </div>
           <div id="tool-keygen" class="tool-view">
              <h2>Key Generator</h2>
