@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Network Operations Toolkit Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0070F3",
+                        "signal-green": "#10B981",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#000000",
+                        "surface-dark": "#0A0A0A",
+                        "border-dark": "#222222",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            font-size: 20px;
+        }
+        .mono-data {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .terminal-glow {
+            box-shadow: inset 0 0 10px rgba(0, 112, 243, 0.05);
+        }
+        .cyber-border {
+            border: 1px solid #222222;
+        }
+        .cyber-border:hover {
+            border-color: #0070F3;
+            box-shadow: 0 0 8px rgba(0, 112, 243, 0.2);
+        }
+        input:focus {
+            outline: none !important;
+            border-color: #0070F3 !important;
+            box-shadow: 0 0 0 1px #0070F3 !important;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex overflow-hidden">
+<!-- Slim Collapsible Sidebar -->
+<aside class="w-16 flex-shrink-0 flex flex-col items-center py-6 bg-surface-dark border-r border-border-dark">
+<div class="mb-10 text-primary">
+<span class="material-symbols-outlined !text-3xl">terminal</span>
+</div>
+<nav class="flex flex-col gap-6 flex-1">
+<a class="p-2 text-primary bg-primary/10 rounded group relative" href="#" title="Layer 3">
+<span class="material-symbols-outlined">layers</span>
+<span class="absolute left-14 bg-primary text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Layer 3</span>
+</a>
+<a class="p-2 text-slate-500 hover:text-white transition-colors group relative" href="#" title="Layer 2">
+<span class="material-symbols-outlined">link</span>
+<span class="absolute left-14 bg-surface-dark border border-border-dark text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Layer 2</span>
+</a>
+<a class="p-2 text-slate-500 hover:text-white transition-colors group relative" href="#" title="Automation">
+<span class="material-symbols-outlined">precision_manufacturing</span>
+<span class="absolute left-14 bg-surface-dark border border-border-dark text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Automation</span>
+</a>
+<a class="p-2 text-slate-500 hover:text-white transition-colors group relative" href="#" title="Utilities">
+<span class="material-symbols-outlined">build</span>
+<span class="absolute left-14 bg-surface-dark border border-border-dark text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Utilities</span>
+</a>
+</nav>
+<div class="flex flex-col gap-6 mt-auto">
+<a class="p-2 text-slate-500 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+</a>
+<div class="size-8 rounded-full bg-slate-800 border border-border-dark overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="User profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnRJBmOvKDh5-GNx6qJ5eQS5iAskt_CaCg2VNHaOk6Ub2zuaI2z5Mk8QKiy4VlV-5ld8HWrh9uGGmaVwdB5n8Wee99ysG2BR7PWJSOI7g9zmPh2AFyXFF3XTD6F_c7aDNlddpleVOneo1sVrAG14mXaBCFAmmL30NolJAfGJzv0BT1aBTns9By_wQ8Sz8FlT-afoafbue2PdYsT64TZwmoXYzNb-AHk7-65Nxyy94zH27jtKlNBAe5tN390P92jRLReGWnMMqCRfE"/>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col overflow-hidden">
+<!-- Minimalist Header -->
+<header class="h-16 flex items-center justify-between px-8 bg-background-dark border-b border-border-dark">
+<div class="flex items-center gap-4">
+<nav class="flex items-center gap-2 text-sm font-medium">
+<span class="text-slate-500">L3 UTILITIES</span>
+<span class="text-slate-700">/</span>
+<span class="text-white">VLSM CALCULATOR</span>
+</nav>
+</div>
+<div class="flex items-center gap-8">
+<!-- Status Indicators -->
+<div class="hidden md:flex items-center gap-6 text-[10px] tracking-widest uppercase font-bold">
+<div class="flex flex-col gap-1">
+<span class="text-slate-500">LATENCY</span>
+<span class="text-primary mono-data text-xs">14ms</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-slate-500">PACKET LOSS</span>
+<span class="text-signal-green mono-data text-xs">0.00%</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-slate-500">SATURATION</span>
+<span class="text-primary mono-data text-xs">42%</span>
+</div>
+</div>
+<!-- Command Palette -->
+<div class="relative group">
+<div class="flex items-center bg-surface-dark border border-border-dark rounded px-3 py-1.5 w-64 group-hover:border-primary/50 transition-colors">
+<span class="material-symbols-outlined !text-sm text-slate-500 mr-2">search</span>
+<input class="bg-transparent border-none p-0 text-xs w-full focus:ring-0 placeholder:text-slate-600 text-white" placeholder="Search components..." type="text"/>
+<span class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded ml-2">⌘K</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Scrollable Dashboard Area -->
+<section class="flex-1 overflow-y-auto p-8 custom-scrollbar">
+<div class="grid grid-cols-12 gap-6">
+<!-- Public IP Terminal Widget -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-4">
+<div class="bg-surface-dark cyber-border rounded p-4 terminal-glow flex flex-col h-full min-h-[220px]">
+<div class="flex items-center justify-between mb-4 border-b border-border-dark pb-2">
+<div class="flex items-center gap-2">
+<div class="flex gap-1.5">
+<div class="size-2 rounded-full bg-red-500/50"></div>
+<div class="size-2 rounded-full bg-yellow-500/50"></div>
+<div class="size-2 rounded-full bg-green-500/50"></div>
+</div>
+<span class="text-[10px] text-slate-500 font-mono ml-2 uppercase tracking-tighter">Terminal — info@net-opx</span>
+</div>
+<span class="material-symbols-outlined !text-sm text-slate-500">refresh</span>
+</div>
+<div class="mono-data text-sm space-y-2 flex-1">
+<p class="text-slate-400">$ curl -s ifconfig.me/all</p>
+<p class="text-white"><span class="text-signal-green">IP:</span> 192.168.1.1</p>
+<p class="text-white"><span class="text-signal-green">ISP:</span> Cyber-Transit Corp</p>
+<p class="text-white"><span class="text-signal-green">ASN:</span> AS1337</p>
+<p class="text-white"><span class="text-signal-green">LOC:</span> FR-PAR (48.85, 2.35)</p>
+<p class="text-primary animate-pulse">_</p>
+</div>
+</div>
+</div>
+<!-- VLSM Configuration Panel -->
+<div class="col-span-12 lg:col-span-8">
+<div class="bg-surface-dark cyber-border rounded p-6">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-xs font-bold tracking-[0.2em] uppercase text-white">VLSM Configuration</h3>
+<button class="bg-primary hover:bg-primary/80 text-white text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded transition-colors">Calculate Space</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-4">
+<div>
+<label class="block text-[10px] text-slate-500 font-bold mb-1 uppercase">Major Network Address</label>
+<input class="w-full bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white" type="text" value="10.0.0.0"/>
+</div>
+<div>
+<label class="block text-[10px] text-slate-500 font-bold mb-1 uppercase">Subnet Mask (CIDR)</label>
+<select class="w-full bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white">
+<option>/8</option>
+<option>/16</option>
+<option selected="">/24</option>
+</select>
+</div>
+</div>
+<div class="space-y-4">
+<label class="block text-[10px] text-slate-500 font-bold mb-1 uppercase">Required Segments</label>
+<div class="flex gap-2">
+<input class="flex-1 bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white" placeholder="Hosts per subnet (e.g. 50, 20, 10)" type="text"/>
+<button class="bg-surface-dark border border-border-dark hover:border-primary p-2 rounded transition-colors text-white">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="flex flex-wrap gap-2 pt-2">
+<span class="bg-primary/20 border border-primary/50 text-primary text-[10px] px-2 py-1 rounded flex items-center gap-2">
+                                        50 HOSTS <span class="material-symbols-outlined !text-xs cursor-pointer">close</span>
+</span>
+<span class="bg-primary/20 border border-primary/50 text-primary text-[10px] px-2 py-1 rounded flex items-center gap-2">
+                                        20 HOSTS <span class="material-symbols-outlined !text-xs cursor-pointer">close</span>
+</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Segmentation Visualizer -->
+<div class="col-span-12">
+<div class="bg-surface-dark cyber-border rounded p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xs font-bold tracking-[0.2em] uppercase text-white">Address Space Allocation</h3>
+<div class="flex items-center gap-4 text-[10px]">
+<div class="flex items-center gap-1.5">
+<div class="size-2 bg-primary rounded-sm"></div>
+<span class="text-slate-400">ALLOCATED</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="size-2 bg-slate-800 rounded-sm"></div>
+<span class="text-slate-400">AVAILABLE</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="size-2 bg-signal-green rounded-sm"></div>
+<span class="text-slate-400">MANAGEMENT</span>
+</div>
+</div>
+</div>
+<div class="h-8 w-full bg-slate-900 rounded-sm overflow-hidden flex">
+<div class="h-full bg-primary relative group cursor-pointer" style="width: 45%;">
+<div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<div class="h-full bg-primary/60 border-l border-black" style="width: 20%;"></div>
+<div class="h-full bg-signal-green border-l border-black" style="width: 10%;"></div>
+<div class="h-full bg-slate-800 border-l border-black flex-1"></div>
+</div>
+<div class="flex justify-between mt-2 mono-data text-[10px] text-slate-500">
+<span>10.0.0.0</span>
+<span>10.0.0.128</span>
+<span>10.0.0.255</span>
+</div>
+</div>
+</div>
+<!-- Technical Data Grid -->
+<div class="col-span-12">
+<div class="bg-surface-dark cyber-border rounded overflow-hidden">
+<div class="px-6 py-4 border-b border-border-dark flex items-center justify-between">
+<h3 class="text-xs font-bold tracking-[0.2em] uppercase text-white">Subnet Calculation Results</h3>
+<button class="text-slate-500 hover:text-white transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-black/50 text-[10px] text-slate-500 uppercase tracking-widest border-b border-border-dark">
+<tr>
+<th class="px-6 py-3 font-bold">Name</th>
+<th class="px-6 py-3 font-bold">Network ID</th>
+<th class="px-6 py-3 font-bold">Mask / CIDR</th>
+<th class="px-6 py-3 font-bold">Range</th>
+<th class="px-6 py-3 font-bold">Broadcast</th>
+<th class="px-6 py-3 font-bold">Hosts</th>
+<th class="px-6 py-3 font-bold text-right">Utilization</th>
+</tr>
+</thead>
+<tbody class="text-sm">
+<tr class="border-b border-border-dark hover:bg-white/5 transition-colors cursor-default">
+<td class="px-6 py-4 text-white font-medium">Core-Transit-A</td>
+<td class="px-6 py-4 mono-data text-signal-green">10.0.0.0</td>
+<td class="px-6 py-4 mono-data text-slate-300">255.255.255.192 /26</td>
+<td class="px-6 py-4 mono-data text-slate-300">10.0.0.1 - 10.0.0.62</td>
+<td class="px-6 py-4 mono-data text-slate-300">10.0.0.63</td>
+<td class="px-6 py-4 mono-data text-slate-300">62</td>
+<td class="px-6 py-4 text-right">
+<div class="inline-flex items-center gap-2">
+<div class="w-16 h-1 bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-signal-green" style="width: 80%;"></div>
+</div>
+<span class="mono-data text-[10px] text-slate-400">80%</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-border-dark hover:bg-white/5 transition-colors cursor-default">
+<td class="px-6 py-4 text-white font-medium">User-VLAN-10</td>
+<td class="px-6 py-4 mono-data text-signal-green">10.0.0.64</td>
+<td class="px-6 py-4 mono-data text-slate-300">255.255.255.224 /27</td>
+<td class="px-6 py-4 mono-data text-slate-300">10.0.0.65 - 10.0.0.94</td>
+<td class="px-6 py-4 mono-data text-slate-300">10.0.0.95</td>
+<td class="px-6 py-4 mono-data text-slate-300">30</td>
+<td class="px-6 py-4 text-right">
+<div class="inline-flex items-center gap-2">
+<div class="w-16 h-1 bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 45%;"></div>
+</div>
+<span class="mono-data text-[10px] text-slate-400">45%</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-border-dark hover:bg-white/5 transition-colors cursor-default">
+<td class="px-6 py-4 text-white font-medium">IoT-Isolated</td>
+<td class="px-6 py-4 mono-data text-signal-green">10.0.0.96</td>
+<td class="px-6 py-4 mono-data text-slate-300">255.255.255.240 /28</td>
+<td class="px-6 py-4 mono-data text-slate-300">10.0.0.97 - 10.0.0.110</td>
+<td class="px-6 py-4 mono-data text-slate-300">10.0.0.111</td>
+<td class="px-6 py-4 mono-data text-slate-300">14</td>
+<td class="px-6 py-4 text-right">
+<div class="inline-flex items-center gap-2">
+<div class="w-16 h-1 bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-red-500/80" style="width: 92%;"></div>
+</div>
+<span class="mono-data text-[10px] text-slate-400">92%</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Tooltip / Command Log Bottom Bar -->
+<footer class="h-8 bg-surface-dark border-t border-border-dark flex items-center justify-between px-4">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5">
+<div class="size-2 bg-signal-green rounded-full animate-pulse"></div>
+<span class="text-[10px] text-slate-500 uppercase font-bold tracking-tighter">System Ready — v2.4.0-stable</span>
+</div>
+</div>
+<div class="flex items-center gap-4 mono-data text-[10px] text-slate-500">
+<span>UTF-8</span>
+<span>LN 1, COL 1</span>
+<span>PYTHON 3.11</span>
+</div>
+</footer>
+</main>
+</body></html>

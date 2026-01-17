@@ -194,91 +194,154 @@ export function displaySubnet(subnet, container) {
 }
 
 /**
- * Muestra los resultados completos del cálculo VLSM
+ * Muestra los resultados completos del cálculo VLSM (Tailwind Grid Version)
  * @param {Array<Object>} subnets - Array de subredes calculadas
  * @param {Object} stats - Estadísticas de utilización
- * @param {HTMLElement} container - Contenedor donde mostrar los resultados
+ * @param {HTMLElement} container - Contenedor principal (para tabla)
+ * @param {HTMLElement} [visualizerContainer] - Contenedor opcional para el gráfico
  */
-export function displayResults(subnets, stats, container) {
+export function displayResults(subnets, stats, container, visualizerContainer) {
   // Limpiar resultados previos
   clearResults(container);
+  if (visualizerContainer) clearResults(visualizerContainer);
 
-  // 1. Mostrar Visualizador Gráfico (WOW Factor)
-  if (stats.networkPrefix) {
+  // 1. Mostrar Visualizador Gráfico
+  if (stats.networkPrefix && visualizerContainer) {
+      renderNetworkVisualizer(subnets, stats.networkPrefix, visualizerContainer);
+  } else if (stats.networkPrefix) {
+      // Fallback if no specific container passed
       renderNetworkVisualizer(subnets, stats.networkPrefix, container);
   }
 
-  // 2. Mostrar estadísticas generales
-  displayStatistics(stats, container);
+  // 2. Renderizar Tabla Tailwind
+  const tableWrapper = document.createElement('div');
+  tableWrapper.className = "bg-surface-dark cyber-border rounded overflow-hidden";
+  tableWrapper.innerHTML = `
+    <div class="px-6 py-4 border-b border-border-dark flex items-center justify-between">
+        <h3 class="text-xs font-bold tracking-[0.2em] uppercase text-white">Subnet Calculation Results</h3>
+        <button class="text-slate-500 hover:text-white transition-colors" title="Export CSV" id="btn-export-csv-new">
+            <span class="material-symbols-outlined">download</span>
+        </button>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+            <thead class="bg-black/50 text-[10px] text-slate-500 uppercase tracking-widest border-b border-border-dark">
+                <tr>
+                    <th class="px-6 py-3 font-bold">Name</th>
+                    <th class="px-6 py-3 font-bold">Network ID</th>
+                    <th class="px-6 py-3 font-bold">Mask</th>
+                    <th class="px-6 py-3 font-bold">Range</th>
+                    <th class="px-6 py-3 font-bold">Broadcast</th>
+                    <th class="px-6 py-3 font-bold">Hosts</th>
+                    <th class="px-6 py-3 font-bold text-right">Utilization</th>
+                </tr>
+            </thead>
+            <tbody class="text-sm" id="vlsm-table-body">
+                <!-- Rows injected below -->
+            </tbody>
+        </table>
+    </div>
+  `;
 
-  // 3. Mostrar cada subred
-  subnets.forEach(subnet => {
-    displaySubnet(subnet, container);
+  const tbody = tableWrapper.querySelector('#vlsm-table-body');
+
+  subnets.forEach((subnet, index) => {
+    const tr = document.createElement('tr');
+    tr.className = "border-b border-border-dark hover:bg-white/5 transition-colors cursor-default";
+    
+    // Utilization Bar Logic
+    const utilPercent = subnet.utilizationPercent;
+    let barColor = 'bg-primary'; 
+    if(utilPercent > 90) barColor = 'bg-red-500/80';
+    else if(utilPercent > 75) barColor = 'bg-signal-green';
+
+    tr.innerHTML = `
+        <td class="px-6 py-4 text-white font-medium">Subnet ${index + 1}</td>
+        <td class="px-6 py-4 mono-data text-signal-green">${subnet.network}</td>
+        <td class="px-6 py-4 mono-data text-slate-300">/${subnet.prefix} <span class="text-slate-600 text-[10px]">(${subnet.mask})</span></td>
+        <td class="px-6 py-4 mono-data text-slate-300">${subnet.firstHost} - ${subnet.lastHost}</td>
+        <td class="px-6 py-4 mono-data text-slate-300">${subnet.broadcast}</td>
+        <td class="px-6 py-4 mono-data text-slate-300">${subnet.hostsAvailable} <span class="text-slate-600 text-[10px]">(Req: ${subnet.hostsRequested})</span></td>
+        <td class="px-6 py-4 text-right">
+            <div class="inline-flex items-center gap-2">
+                <div class="w-16 h-1 bg-slate-800 rounded-full overflow-hidden">
+                    <div class="h-full ${barColor}" style="width: ${utilPercent}%;"></div>
+                </div>
+                <span class="mono-data text-[10px] text-slate-400">${utilPercent}%</span>
+            </div>
+        </td>
+    `;
+    tbody.appendChild(tr);
   });
+
+  container.appendChild(tableWrapper);
 }
 
 /**
- * Renderiza una barra visual de ocupación de la red
+ * Renderiza una barra visual de ocupación de la red (Tailwind Version)
  */
 function renderNetworkVisualizer(subnets, parentPrefix, container) {
     const wrapper = document.createElement('div');
-    wrapper.className = "card mb-4 border-0 shadow-sm";
-    wrapper.innerHTML = `
-        <div class="card-body">
-            <h5 class="card-title mb-3">🗺️ Mapa de Asignación</h5>
-            <div class="progress-stacked" style="height: 40px; border-radius: 8px; overflow: hidden; background: rgba(255,255,255,0.05);">
-                <!-- Bars injected here -->
-            </div>
-            <div class="d-flex justify-content-between mt-2 text-muted small">
-                <span>Red: /${parentPrefix}</span>
-                <span id="visualizer-usage-text">Calculando uso...</span>
-            </div>
+    wrapper.className = "bg-surface-dark cyber-border rounded p-6 mb-6";
+    
+    // Header
+    const header = document.createElement('div');
+    header.className = "flex items-center justify-between mb-4";
+    header.innerHTML = `
+        <h3 class="text-xs font-bold tracking-[0.2em] uppercase text-white">Address Space Allocation</h3>
+        <div class="flex items-center gap-4 text-[10px]">
+            <div class="flex items-center gap-1.5"><div class="size-2 bg-primary rounded-sm"></div><span class="text-slate-400">ALLOCATED</span></div>
+            <div class="flex items-center gap-1.5"><div class="size-2 bg-slate-800 rounded-sm"></div><span class="text-slate-400">AVAILABLE</span></div>
         </div>
     `;
+    wrapper.appendChild(header);
 
-    const barContainer = wrapper.querySelector('.progress-stacked');
+    // Bar Container
+    const barContainer = document.createElement('div');
+    barContainer.className = "h-8 w-full bg-slate-900 rounded-sm overflow-hidden flex";
+    
     let totalUsedPercent = 0;
-
-    // Colores para las subredes (cíclicos)
-    const colors = ['#3b82f6', '#06b6d4', '#8b5cf6', '#10b981', '#f59e0b'];
+    const colors = ['bg-primary', 'bg-signal-green', 'bg-purple-500', 'bg-yellow-500', 'bg-pink-500'];
 
     subnets.forEach((subnet, index) => {
-        // Cálculo de porcentaje: (Hosts Totales Subred / Hosts Totales Red Padre) * 100
-        // Hosts totales = 2^(32 - prefijo)
         const subnetSize = Math.pow(2, 32 - parseInt(subnet.prefix));
         const parentSize = Math.pow(2, 32 - parentPrefix);
         const percent = (subnetSize / parentSize) * 100;
-        
         totalUsedPercent += percent;
 
         const bar = document.createElement('div');
-        bar.className = "progress";
-        bar.role = "progressbar";
+        // Use inline width for precision, Tailwind classes for style
         bar.style.width = `${percent}%`;
-        bar.title = `${subnet.network}/${subnet.prefix} (${percent.toFixed(1)}%)`;
+        bar.className = `h-full ${colors[index % colors.length]} border-l border-black relative group cursor-pointer`;
+        bar.title = `${subnet.network}/${subnet.prefix}`;
         
-        bar.innerHTML = `
-            <div class="progress-bar" style="background-color: ${colors[index % colors.length]}; width: 100%;">
-                ${percent > 5 ? `<small>S${index+1}</small>` : ''}
-            </div>
-        `;
+        // Hover effect overlay
+        bar.innerHTML = `<div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>`;
+        
         barContainer.appendChild(bar);
     });
 
-    // Actualizar texto de uso
-    const usageText = wrapper.querySelector('#visualizer-usage-text');
+    // Free Space
     const freePercent = 100 - totalUsedPercent;
-    usageText.textContent = `Uso: ${totalUsedPercent.toFixed(1)}% | Libre: ${freePercent.toFixed(1)}%`;
-
     if (freePercent > 0.1) {
         const freeBar = document.createElement('div');
-        freeBar.className = "progress";
-        freeBar.role = "progressbar";
         freeBar.style.width = `${freePercent}%`;
-        freeBar.title = `Espacio Libre (${freePercent.toFixed(1)}%)`;
-        freeBar.innerHTML = `<div class="progress-bar bg-secondary opacity-25" style="width: 100%;"></div>`;
+        freeBar.className = "h-full bg-slate-800 border-l border-black flex-1";
+        freeBar.title = `Available Space (${freePercent.toFixed(1)}%)`;
         barContainer.appendChild(freeBar);
     }
+    
+    wrapper.appendChild(barContainer);
+
+    // Footer Labels
+    const footer = document.createElement('div');
+    footer.className = "flex justify-between mt-2 mono-data text-[10px] text-slate-500";
+    footer.innerHTML = `
+        <span>Network Start</span>
+        <span>Usage: ${totalUsedPercent.toFixed(1)}%</span>
+        <span>Network End</span>
+    `;
+    wrapper.appendChild(footer);
 
     container.appendChild(wrapper);
 }

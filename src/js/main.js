@@ -186,66 +186,78 @@ async function loadToolLogic(toolId) {
 /**
  * Core VLSM Tool Initialization (Inline to ensure reliability)
  */
+/**
+ * Core VLSM Tool Initialization (Tailwind Adaptation)
+ */
 function initVLSM() {
-    const form = document.getElementById('vlsm-form');
-    if (!form) return;
+    const calcBtn = document.getElementById('btn-calc-vlsm');
+    if (!calcBtn) return;
 
-    form.addEventListener('submit', (e) => {
+    calcBtn.addEventListener('click', (e) => {
         e.preventDefault();
-
-        // 1. Get Inputs
-        const networkInput = document.getElementById('network').value.trim();
-        const hostsInput = document.getElementById('hosts').value.trim();
-        const resultsContainer = document.getElementById('results');
-
-        // 2. Validate Basic Input
-        if (!networkInput || !hostsInput) {
-            showToast('Por favor completa todos los campos', 'warning');
-            return;
-        }
-
-        // 3. Process Hosts
-        const hosts = hostsInput.split(',')
-            .map(h => parseInt(h.trim()))
-            .filter(h => !isNaN(h) && h > 0)
-            .sort((a, b) => b - a); // VLSM requires descending order
-
-        if (hosts.length === 0) {
-            showToast('Ingresa cantidades de hosts válidas', 'error');
-            return;
-        }
-
-        // 4. Calculate
-        try {
-            clearResults(resultsContainer);
-            
-            // Parse Network
-            const [baseIP, prefixStr] = networkInput.split('/');
-            const prefix = parseInt(prefixStr);
-
-            if (!baseIP || isNaN(prefix)) {
-                throw new Error("Formato de red inválido. Usa: x.x.x.x/xx");
-            }
-
-            // Perform Calculation
-            const subnets = calculateVLSM(baseIP, prefix, hosts);
-            const totalRequired = calculateTotalRequired(hosts);
-            const totalAvailable = calculateTotalAvailable(prefix);
-
-            // Display
-            displayResults(subnets, { totalRequired, totalAvailable, networkPrefix: prefix }, resultsContainer);
-            trackCalculation(subnets.length, networkInput, totalRequired);
-            
-            // Save to Local History
-            addToHistory(networkInput, hostsInput, subnets, {totalRequired, totalAvailable});
-            
-            showToast('Cálculo completado con éxito', 'success');
-
-        } catch (err) {
-            showError(resultsContainer, err.message);
-            console.error(err);
-        }
+        runVLSMCalculation();
     });
+}
+
+function runVLSMCalculation() {
+    // 1. Get Inputs (New Split IDs)
+    const ipInput = document.getElementById('vlsm-ip').value.trim();
+    const maskInput = document.getElementById('vlsm-mask').value;
+    const hostsInput = document.getElementById('vlsm-hosts').value.trim();
+    
+    // Containers
+    const visualizerContainer = document.getElementById('vlsm-visualizer-container');
+    const resultsContainer = document.getElementById('vlsm-results-container');
+
+    // 2. Validate Basic Input
+    if (!ipInput || !hostsInput) {
+        showToast('Please fill all fields', 'warning');
+        return;
+    }
+
+    // 3. Process Hosts
+    const hosts = hostsInput.split(',')
+        .map(h => parseInt(h.trim()))
+        .filter(h => !isNaN(h) && h > 0)
+        .sort((a, b) => b - a);
+
+    if (hosts.length === 0) {
+        showToast('Invalid hosts list', 'error');
+        return;
+    }
+
+    // 4. Calculate
+    try {
+        // Clear previous
+        // clearResults handled inside displayResults
+
+        // Validate IP Format
+        // Simple regex or let the calculator handle it, but we need to combine IP + /Mask
+        // e.g. "192.168.1.0" + "/" + "24" -> "192.168.1.0/24"
+        const fullNetworkStr = `${ipInput}/${maskInput}`;
+
+        // Perform Calculation
+        const subnets = calculateVLSM(ipInput, parseInt(maskInput), hosts);
+        const totalRequired = calculateTotalRequired(hosts);
+        const totalAvailable = calculateTotalAvailable(parseInt(maskInput));
+
+        // Display (Pass containers explicitly if logic changed, but displayResults expects one container)
+        // We will adapt displayResults to target specific containers or split logic
+        
+        // For compatibility with existing ui.js, update displayResults to handle Tailwind injection
+        displayResults(subnets, { totalRequired, totalAvailable, networkPrefix: parseInt(maskInput) }, resultsContainer, visualizerContainer);
+        
+        trackCalculation(subnets.length, fullNetworkStr, totalRequired);
+        
+        // Save to Local History
+        addToHistory(fullNetworkStr, hostsInput, subnets, {totalRequired, totalAvailable});
+        
+        showToast('Calculation Complete', 'success');
+
+    } catch (err) {
+        showError(resultsContainer, err.message);
+        console.error(err);
+    }
 }
 
 /**

@@ -1,408 +1,203 @@
 <!DOCTYPE html>
-<html lang="es" data-bs-theme="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NetOps Toolkit | MedalCode</title>
-    <meta name="description" content="Suite de herramientas profesionales para Ingeniería de Redes. VLSM, Puertos, Cableado y más." />
-    <!-- FontAwesome (Keep CDN for simplicity or install via npm, stick to CDN for icons usually easier unless robust need) -->
-    <!-- Let's keep FontAwesome CDN for now as it's just icons, unless user wants full offline -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <!-- CSS injected via Vite/JS -->
-  </head>
-  <body>
-    <div class="d-flex w-100 h-100">
-      
-      <!-- SIDEBAR -->
-      <aside class="sidebar d-none d-md-flex flex-column p-3 text-white" style="width: 280px; flex-shrink: 0;">
-        <div class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-          <span class="fs-4 me-2">🛡️</span>
-          <div class="lh-1">
-            <span class="fs-5 fw-bold">NetOps</span><br>
-            <small class="text-white-50" style="font-size: 0.75rem;">Toolkit Pro</small>
-          </div>
+<html class="dark" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>NetOps Toolkit - Cyber Command</title>
+    <!-- Tailwind CSS (CDN for speed) -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <!-- Custom Config -->
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0070F3",
+                        "signal-green": "#10B981",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#000000",
+                        "surface-dark": "#0A0A0A",
+                        "border-dark": "#222222",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; font-size: 20px; }
+        .mono-data { font-family: 'JetBrains Mono', monospace; }
+        .terminal-glow { box-shadow: inset 0 0 10px rgba(0, 112, 243, 0.05); }
+        .cyber-border { border: 1px solid #222222; }
+        .cyber-border:hover { border-color: #0070F3; box-shadow: 0 0 8px rgba(0, 112, 243, 0.2); }
+        input:focus, select:focus { outline: none !important; border-color: #0070F3 !important; box-shadow: 0 0 0 1px #0070F3 !important; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #0A0A0A; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex overflow-hidden">
+    
+    <!-- Sidebar -->
+    <aside class="w-16 flex-shrink-0 flex flex-col items-center py-6 bg-surface-dark border-r border-border-dark z-20">
+        <div class="mb-10 text-primary cursor-pointer" onclick="location.reload()">
+            <span class="material-symbols-outlined !text-3xl">terminal</span>
         </div>
-        <hr>
-        <ul class="nav nav-pills flex-column mb-auto" id="sidebar-nav">
-          
-          <!-- General -->
-          <div class="nav-group-title" data-i18n="nav.general">General</div>
-          <li class="nav-item">
-            <a class="nav-link active" data-target="tool-dashboard">
-              <i class="fas fa-chart-line fa-fw"></i> <span data-i18n="nav.dashboard">Dashboard</span>
+        <nav class="flex flex-col gap-6 flex-1">
+            <a class="p-2 text-primary bg-primary/10 rounded group relative nav-item active" data-target="vlsm" href="#" title="Layer 3">
+                <span class="material-symbols-outlined">layers</span>
+                <span class="absolute left-14 bg-primary text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">Layer 3 (VLSM)</span>
             </a>
-          </li>
-
-          <!-- Layer 3 -->
-          <div class="nav-group-title" data-i18n="nav.l3">Layer 3: Network</div>
-          <li><a class="nav-link" data-target="tool-vlsm"><i class="fas fa-calculator fa-fw"></i> <span data-i18n="nav.vlsm">VLSM Calc</span></a></li>
-          <li><a class="nav-link" data-target="tool-subnet"><i class="fas fa-network-wired fa-fw"></i> <span data-i18n="nav.subnet">Subnet Analyzer</span></a></li>
-          <li><a class="nav-link" data-target="tool-ip-ref"><i class="fas fa-book fa-fw"></i> <span data-i18n="nav.ipref">IP Reference</span></a></li>
-          <li><a class="nav-link" data-target="tool-ipv6"><i class="fas fa-globe fa-fw"></i> <span data-i18n="nav.ipv6">IPv6 Tools</span></a></li>
-          <li><a class="nav-link" data-target="tool-dns"><i class="fas fa-magnifying-glass fa-fw"></i> <span data-i18n="nav.dns">DNS Lookup</span></a></li>
-
-          <!-- Layer 2 -->
-          <div class="nav-group-title" data-i18n="nav.l2">Layer 2: Data Link</div>
-          <li><a class="nav-link" data-target="tool-oui"><i class="fas fa-tag fa-fw"></i> <span data-i18n="nav.oui">OUI Lookup</span></a></li>
-
-          <!-- Automation -->
-          <div class="nav-group-title" data-i18n="nav.auto">Automation</div>
-          <li><a class="nav-link" data-target="tool-config"><i class="fas fa-file-code fa-fw"></i> <span data-i18n="nav.config">Config Gen</span></a></li>
-
-          <!-- Layer 4 -->
-          <div class="nav-group-title" data-i18n="nav.l4">Layer 4: Transport</div>
-          <li><a class="nav-link" data-target="tool-ports"><i class="fas fa-plug fa-fw"></i> <span data-i18n="nav.ports">Port Catalog</span></a></li>
-
-          <!-- Utilities -->
-          <div class="nav-group-title" data-i18n="nav.utils">Utilities</div>
-          <li><a class="nav-link" data-target="tool-hex"><i class="fas fa-right-left fa-fw"></i> <span data-i18n="nav.hex">Converter</span></a></li>
-          <li><a class="nav-link" data-target="tool-bw"><i class="fas fa-stopwatch fa-fw"></i> <span data-i18n="nav.bw">Transfer Calc</span></a></li>
-          <li><a class="nav-link" data-target="tool-keygen"><i class="fas fa-key fa-fw"></i> <span data-i18n="nav.keygen">Key Gen</span></a></li>
-        </ul>
-        <div class="mt-auto pt-3 px-3 text-white-50 small">
-          Desarrollado por <a href="#" class="text-white text-decoration-none fw-bold">MedalCode</a>
+            <a class="p-2 text-slate-500 hover:text-white transition-colors group relative nav-item" data-target="tools" href="#" title="Tools">
+                <span class="material-symbols-outlined">build</span>
+                <span class="absolute left-14 bg-surface-dark border border-border-dark text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">All Tools</span>
+            </a>
+        </nav>
+        <div class="flex flex-col gap-6 mt-auto">
+            <a class="p-2 text-slate-500 hover:text-white transition-colors" href="#">
+                <span class="material-symbols-outlined">settings</span>
+            </a>
+            <div class="size-8 rounded-full bg-slate-800 border border-border-dark overflow-hidden">
+               <div class="flex items-center justify-center h-full w-full text-xs font-bold bg-primary text-white">MC</div>
+            </div>
         </div>
-        <hr>
-        <div class="dropdown">
-           <span class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-             <strong>v2.2.0-beta</strong>
-           </span>
-           <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-             <li><a class="dropdown-item" href="#">Version Info</a></li>
-             <li><a class="dropdown-item" href="https://github.com/Medalcode/NetOpsToolkit" target="_blank">GitHub Repo</a></li>
-           </ul>
-        </div>
-      </aside>
+    </aside>
 
-      <!-- MAIN CONTENT -->
-      <main class="main-content flex-grow-1 bg-body-tertiary">
-        <!-- Topbar -->
-        <header class="p-3 mb-3 border-bottom bg-body">
-          <div class="container-fluid d-flex justify-content-between align-items-center">
-             <span class="text-secondary">NetOps Toolkit / <span id="current-view-name" class="text-body fw-semibold">Dashboard</span></span>
-             <div class="global-actions">
-                <!-- Theme Toggle Placeholder -->
-             </div>
-          </div>
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col overflow-hidden relative">
+        
+        <!-- Header -->
+        <header class="h-16 flex items-center justify-between px-8 bg-background-dark border-b border-border-dark flex-shrink-0">
+            <div class="flex items-center gap-4">
+                <nav class="flex items-center gap-2 text-sm font-medium">
+                    <span class="text-slate-500">NETOPS</span>
+                    <span class="text-slate-700">/</span>
+                    <span class="text-white" id="header-title">VLSM CALCULATOR</span>
+                </nav>
+            </div>
+            <div class="flex items-center gap-8">
+                <!-- Status (Visual Only for now) -->
+                <div class="hidden md:flex items-center gap-6 text-[10px] tracking-widest uppercase font-bold">
+                    <div class="flex flex-col gap-1"><span class="text-slate-500">SYSTEM</span><span class="text-signal-green mono-data text-xs">ONLINE</span></div>
+                    <div class="flex flex-col gap-1"><span class="text-slate-500">LATENCY</span><span class="text-primary mono-data text-xs">2ms</span></div>
+                </div>
+                <!-- Search -->
+                <div class="relative group">
+                    <div class="flex items-center bg-surface-dark border border-border-dark rounded px-3 py-1.5 w-64 group-hover:border-primary/50 transition-colors">
+                        <span class="material-symbols-outlined !text-sm text-slate-500 mr-2">search</span>
+                        <input class="bg-transparent border-none p-0 text-xs w-full focus:ring-0 placeholder:text-slate-600 text-white" placeholder="Search functionality..." type="text"/>
+                        <span class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded ml-2">⌘K</span>
+                    </div>
+                </div>
+            </div>
         </header>
 
-        <div class="container-fluid px-4 pb-5">
-          
-          <!-- VIEW: DASHBOARD -->
-          <div id="tool-dashboard" class="tool-view active">
-             <div class="p-5 mb-4 bg-primary text-white rounded-3 shadow">
-               <div class="container-fluid py-2">
-                 <h1 class="display-5 fw-bold" data-i18n="dash.title">🚀 Centro de Comando</h1>
-                 <p class="col-md-8 fs-5" data-i18n="dash.subtitle">Bienvenido a la suite definitiva para ingenieros de red. Selecciona una herramienta para comenzar.</p>
-               </div>
-             </div>
-
-             <div class="row align-items-stretch g-4">
-                <div class="col-md-4">
-                   <div class="card h-100 border-0 shadow-sm card-hover">
-                      <div class="card-body">
-                         <div class="d-flex align-items-center mb-3">
-                            <div class="bg-primary text-white p-3 rounded-circle me-3"><i class="fas fa-calculator fa-lg"></i></div>
-                            <h4 class="card-title fw-bold m-0" data-i18n="dash.vlsm.title">VLSM Pro</h4>
-                         </div>
-                         <p class="card-text text-secondary" data-i18n="dash.vlsm.desc">Diseña esquemas de direccionamiento complejos con eficiencia.</p>
-                         <button class="btn btn-outline-primary w-100 mt-3 nav-link-internal" data-target="tool-vlsm" data-i18n="dash.vlsm.btn">Abrir Calculadora</button>
-                      </div>
-                   </div>
-                </div>
+        <!-- Scrollable Area -->
+        <section class="flex-1 overflow-y-auto p-8 custom-scrollbar">
+            <div class="max-w-7xl mx-auto space-y-6">
                 
-                <div class="col-md-4">
-                   <div class="card h-100 border-0 shadow-sm card-hover">
-                      <div class="card-body">
-                         <div class="d-flex align-items-center mb-3">
-                            <div class="bg-success text-white p-3 rounded-circle me-3"><i class="fas fa-plug fa-lg"></i></div>
-                            <h4 class="card-title fw-bold m-0" data-i18n="dash.ports.title">Puertos</h4>
-                         </div>
-                         <p class="card-text text-secondary" data-i18n="dash.ports.desc">Catálogo rápido de puertos TCP/UDP y servicios.</p>
-                         <button class="btn btn-outline-success w-100 mt-3 nav-link-internal" data-target="tool-ports" data-i18n="dash.ports.btn">Buscar Puerto</button>
-                      </div>
-                   </div>
-                </div>
-
-                <div class="col-md-4">
-                   <div class="card h-100 border-0 shadow-sm card-hover">
-                      <div class="card-body">
-                         <div class="d-flex align-items-center mb-3">
-                            <div class="bg-warning text-dark p-3 rounded-circle me-3"><i class="fas fa-globe fa-lg"></i></div>
-                            <h4 class="card-title fw-bold m-0" data-i18n="dash.ip.title">Tu IP Pública</h4>
-                         </div>
-                         <div id="public-ip-widget">
-                            <span class="text-muted fst-italic" data-i18n="dash.ip.detecting">Detectando...</span>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-             </div>
-          </div>
-
-          <!-- VIEW: VLSM CALCULATOR -->
-          <div id="tool-vlsm" class="tool-view">
-             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="m-0">Calculadora VLSM</h2>
-             </div>
-             
-             <div class="row">
-                <div class="col-lg-6">
-                   <div class="card shadow-sm border-0">
-                      <div class="card-body p-4">
-                         <form id="vlsm-form" novalidate>
-                            <div class="mb-3">
-                               <label for="network" class="form-label fw-semibold">Red Principal (CIDR)</label>
-                               <div class="input-group">
-                                  <span class="input-group-text"><i class="fas fa-network-wired"></i></span>
-                                  <input type="text" class="form-control font-monospace" id="network" placeholder="Ej: 192.168.1.0/24" required>
-                               </div>
-                               <div class="valid-feedback" id="network-feedback"></div>
-                               <div class="form-text">La red base que deseas dividir.</div>
+                <!-- === VLSM SECTION === -->
+                <div id="view-vlsm" class="grid grid-cols-12 gap-6">
+                    
+                    <!-- Public IP Widget -->
+                    <div class="col-span-12 lg:col-span-4 flex flex-col gap-4">
+                        <div class="bg-surface-dark cyber-border rounded p-4 terminal-glow flex flex-col h-full min-h-[220px]">
+                            <div class="flex items-center justify-between mb-4 border-b border-border-dark pb-2">
+                                <div class="flex items-center gap-2">
+                                    <div class="flex gap-1.5"><div class="size-2 rounded-full bg-red-500/50"></div><div class="size-2 rounded-full bg-yellow-500/50"></div><div class="size-2 rounded-full bg-green-500/50"></div></div>
+                                    <span class="text-[10px] text-slate-500 font-mono ml-2 uppercase tracking-tighter">Terminal — root@netops</span>
+                                </div>
+                                <span class="material-symbols-outlined !text-sm text-slate-500 cursor-pointer hover:text-white" id="refresh-ip">refresh</span>
                             </div>
-                            
-                            <div class="mb-4">
-                               <label for="hosts" class="form-label fw-semibold">Hosts por Subred</label>
-                               <div class="input-group">
-                                  <span class="input-group-text"><i class="fas fa-users"></i></span>
-                                  <input type="text" class="form-control" id="hosts" placeholder="Ej: 50, 30, 10" required>
-                               </div>
-                               <div class="form-text">Ingresa los tamaños separados por comas.</div>
+                            <div class="mono-data text-sm space-y-2 flex-1" id="public-ip-widget">
+                                <p class="text-slate-400">$ initializing connection...</p>
                             </div>
-
-                            <button type="submit" id="calculate-btn" class="btn btn-primary w-100 py-2">
-                               <i class="fas fa-calculator me-2"></i> Calcular Distribución
-                            </button>
-                         </form>
-                      </div>
-                   </div>
-                </div>
-                
-                <div class="col-lg-6 mt-4 mt-lg-0">
-                   <!-- Results Area -->
-                   <div id="results" role="region" aria-live="polite">
-                      <div class="alert alert-secondary border-0 d-flex align-items-center" role="alert">
-                         <i class="fas fa-info-circle me-3 fa-2x"></i>
-                         <div>
-                            <strong>Esperando datos</strong><br>
-                            Ingresa una red y los hosts requeridos para ver el cálculo aquí.
-                         </div>
-                      </div>
-                   </div>
-                </div>
-             </div>
-          </div>
-          
-           <!-- === VIEW: SUBNET ANALYZER === -->
-           <div id="tool-subnet" class="tool-view">
-              <h2 data-i18n="subnet.title">Analizador de Subredes</h2>
-              <p class="text-secondary" data-i18n="subnet.desc">Analiza una IP para obtener detalles de red.</p>
-              <div class="card border-0 shadow-sm p-4 mb-4" style="max-width: 600px;">
-                <div class="mb-3">
-                  <label for="std-ip" class="form-label">Dirección IP/CIDR</label>
-                  <input type="text" class="form-control" id="std-ip" placeholder="Ej: 192.168.1.5/24">
-                </div>
-                <button id="std-btn" class="btn btn-primary w-100">Analizar</button>
-              </div>
-
-              <div id="std-results" class="subnet-details" style="display:none;">
-                 <div class="table-responsive">
-                    <table class="table table-hover table-bordered border-primary">
-                      <tbody>
-                        <tr><th class="bg-body-secondary w-25">Dirección IP</th><td id="out-ip" class="font-monospace text-primary"></td></tr>
-                        <tr><th class="bg-body-secondary">Máscara</th><td id="out-mask" class="font-monospace"></td></tr>
-                        <tr><th class="bg-body-secondary">Wildcard</th><td id="out-wildcard" class="font-monospace"></td></tr>
-                        <tr><th class="bg-body-secondary">Red</th><td id="out-network" class="font-monospace text-success fw-bold"></td></tr>
-                        <tr><th class="bg-body-secondary">Broadcast</th><td id="out-broadcast" class="font-monospace text-danger"></td></tr>
-                        <tr><th class="bg-body-secondary">Rango Hosts</th><td id="out-range" class="font-monospace"></td></tr>
-                        <tr><th class="bg-body-secondary">Hosts Útiles</th><td id="out-hosts"></td></tr>
-                        <tr><th class="bg-body-secondary">Clase/Tipo</th><td id="out-class"></td></tr>
-                      </tbody>
-                    </table>
-                 </div>
-                 <div class="alert alert-dark font-monospace text-info mt-3" id="out-binary" style="overflow-x:auto;"></div>
-              </div>
-           </div>
-
-          <!-- === VIEW: DNS LOOKUP === -->
-          <div id="tool-dns" class="tool-view">
-             <h2 data-i18n="dns.title">DNS Lookup (DoH)</h2>
-             <p class="text-secondary" data-i18n="dns.desc">Consulta registros DNS en tiempo real.</p>
-             
-             <div class="card border-0 shadow-sm mb-4">
-                <div class="card-body">
-                    <div class="row g-3 align-items-end">
-                        <div class="col-md-5">
-                            <label class="form-label" data-i18n="dns.domain">Dominio</label>
-                            <input type="text" class="form-control" id="dns-domain" placeholder="example.com">
-                            <div class="validation-feedback" id="dns-domain-feedback"></div>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label" data-i18n="dns.type">Tipo</label>
-                            <select class="form-select" id="dns-type">
-                                <option value="A">A (IPv4)</option>
-                                <option value="AAAA">AAAA (IPv6)</option>
-                                <option value="MX">MX (Mail)</option>
-                                <option value="NS">NS (Nameserver)</option>
-                                <option value="TXT">TXT</option>
-                                <option value="CNAME">CNAME</option>
-                                <option value="SOA">SOA</option>
-                                <option value="PTR">PTR</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label" data-i18n="dns.resolver">Resolver</label>
-                            <select class="form-select" id="dns-resolver">
-                                <option value="google">Google (8.8.8.8)</option>
-                                <option value="cloudflare">Cloudflare (1.1.1.1)</option>
-                            </select>
-                        </div>
-                        <div class="col-md-1">
-                            <button id="btn-dns-lookup" class="btn btn-primary w-100"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
-                </div>
-             </div>
-             <div id="dns-results" class="mt-4"></div>
-          </div>
-          
-          <div id="tool-ip-ref" class="tool-view">
-            <h2 data-i18n="ipref.title">IP Reference</h2>
-            <p class="text-secondary" data-i18n="ipref.desc"></p>
-            <div id="ip-ref-content"></div>
-          </div>
 
-          <div id="tool-ipv6" class="tool-view">
-             <h2 data-i18n="ipv6.title">Herramientas IPv6</h2>
-             <p class="text-secondary" data-i18n="ipv6.desc"></p>
-             <div class="mb-3"><label>Dirección</label><input type="text" id="ipv6-input" class="form-control font-monospace" placeholder="2001:db8::1"></div>
-             <div class="btn-group w-100 mb-3">
-                 <button id="btn-ipv6-info" class="btn btn-outline-secondary">Analizar</button>
-                 <button id="btn-ipv6-compress" class="btn btn-outline-secondary">Comprimir</button>
-                 <button id="btn-ipv6-expand" class="btn btn-outline-secondary">Expandir</button>
-             </div>
-             <div id="ipv6-results"></div>
-          </div>
-
-          <div id="tool-oui" class="tool-view">
-            <h2 data-i18n="oui.title">OUI Lookup</h2>
-            <p class="text-secondary" data-i18n="oui.desc"></p>
-            <input type="text" id="oui-search" class="form-control mb-3" placeholder="Buscar MAC..."><div id="oui-results"></div>
-          </div>
-
-          <div id="tool-config" class="tool-view">
-            <h2 data-i18n="config.title">Config Gen</h2>
-            <p class="text-secondary" data-i18n="config.desc"></p>
-            <select id="cfg-template" class="form-select mb-3"><option value="cisco-vlan">Cisco VLAN</option></select>
-            <div id="cfg-form"></div>
-            <button id="btn-cfg-gen" class="btn btn-primary mt-3">Generar</button>
-            <pre id="cfg-output" class="bg-dark text-white p-3 rounded mt-3"></pre>
-          </div>
-
-          <div id="tool-ports" class="tool-view">
-            <h2 data-i18n="ports.title">Port Catalog</h2>
-            <p class="text-secondary" data-i18n="ports.desc"></p>
-            <input type="text" id="port-search" class="form-control mb-3" placeholder="Search..."><div id="port-results" class="row"></div>
-          </div>
-
-          <div id="tool-cabling" class="tool-view">
-             <h2 data-i18n="wiring.title">Cableado T568</h2>
-             <p class="text-secondary" data-i18n="wiring.desc"></p>
-             <div class="row">
-                 <div class="col-md-6"><div class="card bg-dark text-white p-3 mb-3"><h5>T568B</h5>(Visualización simplificada por ahora)</div></div>
-                 <div class="col-md-6"><div class="card bg-success text-white p-3"><h5>T568A</h5></div></div>
-             </div>
-          </div>
-
-          <div id="tool-hex" class="tool-view">
-            <h2 data-i18n="hex.title">Converter</h2>
-            <p class="text-secondary" data-i18n="hex.desc"></p>
-            <div class="row g-3">
-              <div class="col-md-12">
-                 <label class="form-label text-muted small">Entrada (Auto-detecta 0x, 0b o escribe directo)</label>
-                 <input id="converter-input" class="form-control form-control-lg font-monospace" placeholder="Ej: 255, 0xFF, 1010">
-              </div>
-              <div class="col-md-4">
-                 <label class="form-label">Decimal</label>
-                 <input id="res-dec" readonly class="form-control font-monospace bg-light">
-              </div>
-              <div class="col-md-4">
-                 <label class="form-label">Binario</label>
-                 <input id="res-bin" readonly class="form-control font-monospace bg-light">
-              </div>
-              <div class="col-md-4">
-                 <label class="form-label">Hexadecimal</label>
-                 <input id="res-hex" readonly class="form-control font-monospace bg-light">
-              </div>
-            </div>
-          </div>
-
-          <div id="tool-bw" class="tool-view">
-             <h2 data-i18n="bw.title">Calculadora Transferencia</h2>
-             <p class="text-secondary" data-i18n="bw.desc"></p>
-             <div class="row g-2">
-                 <div class="col"><input id="bw-size" class="form-control" placeholder="Size"></div>
-                 <div class="col"><select id="bw-size-unit" class="form-select"><option value="GB">GB</option></select></div>
-                 <div class="col"><input id="bw-speed" class="form-control" placeholder="Speed"></div>
-                 <div class="col"><select id="bw-speed-unit" class="form-select"><option value="Mbps">Mbps</option></select></div>
-             </div>
-             <button id="btn-bw-calc" class="btn btn-primary mt-3">Calcular</button>
-             <div id="bw-results" class="mt-3"></div>
-          </div>
-          
-          <div id="tool-keygen" class="tool-view">
-            <h2 data-i18n="keygen.title">Generador de Claves</h2>
-            <p class="text-secondary" data-i18n="keygen.desc"></p>
-            
-            <div class="card border-0 shadow-sm p-4" style="max-width: 600px;">
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <label class="form-label">Longitud</label>
-                        <input type="number" id="keygen-length" class="form-control" value="16" min="8" max="128">
-                    </div>
-                    <div class="col-md-8">
-                        <label class="form-label">Tipo</label>
-                        <select id="keygen-type" class="form-select">
-                            <option value="wpa">WPA2/3 PSK (ASCII Completo)</option>
-                            <option value="hex">Hexadecimal (WEP/Cisco)</option>
-                            <option value="base64">Base64 (VPN/API Keys)</option>
-                        </select>
-                    </div>
-                    <div class="col-12">
-                        <button id="btn-keygen" class="btn btn-primary w-100">
-                            <i class="fas fa-key me-2"></i> Generar Clave Segura
-                        </button>
-                    </div>
-                    <div class="col-12 mt-3">
-                        <label class="form-label">Resultado</label>
-                        <div class="input-group">
-                            <input type="text" id="keygen-output" class="form-control font-monospace form-control-lg bg-light" readonly>
-                            <button class="btn btn-outline-secondary" id="btn-keygen-copy" type="button">
-                                <i class="fas fa-copy"></i> Copiar
-                            </button>
+                    <!-- VLSM Form -->
+                    <div class="col-span-12 lg:col-span-8">
+                        <div class="bg-surface-dark cyber-border rounded p-6">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="text-xs font-bold tracking-[0.2em] uppercase text-white">VLSM Configuration</h3>
+                                <button id="btn-calc-vlsm" class="bg-primary hover:bg-primary/80 text-white text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded transition-colors shadow-lg shadow-primary/20">
+                                    Calculate Space
+                                </button>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-[10px] text-slate-500 font-bold mb-1 uppercase">Major Network Address</label>
+                                        <input id="vlsm-ip" class="w-full bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white placeholder-slate-700" type="text" value="192.168.1.0" placeholder="e.g. 192.168.1.0"/>
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] text-slate-500 font-bold mb-1 uppercase">Subnet Mask (CIDR)</label>
+                                        <select id="vlsm-mask" class="w-full bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white cursor-pointer">
+                                            <option value="8">/8 (255.0.0.0)</option>
+                                            <option value="16">/16 (255.255.0.0)</option>
+                                            <option value="24" selected>/24 (255.255.255.0)</option>
+                                            <option value="25">/25</option>
+                                            <option value="26">/26</option>
+                                            <option value="27">/27</option>
+                                            <option value="28">/28</option>
+                                            <option value="29">/29</option>
+                                            <option value="30">/30</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="space-y-4">
+                                    <label class="block text-[10px] text-slate-500 font-bold mb-1 uppercase">Required Hosts per Subnet</label>
+                                    <div class="relative">
+                                        <input id="vlsm-hosts" class="w-full bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white placeholder-slate-700" placeholder="e.g. 50, 20, 10, 5" type="text"/>
+                                        <div class="text-[10px] text-slate-500 mt-1">Comma separated list (descending order recommended)</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+
+                    <!-- Results Container -->
+                    <div class="col-span-12" id="vlsm-visualizer-container">
+                        <!-- Visualizer injected here by JS -->
+                    </div>
+
+                    <div class="col-span-12">
+                        <!-- Table injected here by JS -->
+                        <div id="vlsm-results-container"></div> 
                     </div>
                 </div>
             </div>
-          </div>
-          <div id="tool-keygen" class="tool-view">
-             <h2>Key Generator</h2>
-             <div class="input-group mb-3">
-                 <select id="keygen-type" class="form-select"><option value="wpa">WPA</option></select>
-                 <input id="keygen-length" type="number" class="form-control" value="32">
-                 <button id="btn-keygen" class="btn btn-primary">Generar</button>
-             </div>
-             <textarea id="keygen-output" class="form-control font-monospace" rows="3" readonly></textarea>
-             <!-- Copy handled by JS manually or user selection -->
-          </div>
+        </section>
 
-        </div>
-      </main>
-    </div>
+        <!-- Footer -->
+        <footer class="h-8 bg-surface-dark border-t border-border-dark flex items-center justify-between px-4 flex-shrink-0 z-10">
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-1.5">
+                    <div class="size-2 bg-signal-green rounded-full animate-pulse"></div>
+                    <span class="text-[10px] text-slate-500 uppercase font-bold tracking-tighter">System Ready — v3.0.0-cyber</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 mono-data text-[10px] text-slate-500">
+                <span>MEDALCODE</span>
+                <span>SECURE</span>
+            </div>
+        </footer>
+    </main>
 
-    <!-- App Logic handled by Vite -->
+    <!-- App Logic -->
     <script type="module" src="/src/js/main.js"></script>
-  </body>
+</body>
 </html>
