@@ -5,11 +5,11 @@
  */
 
 // Styles
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../css/main.css';
+// import 'bootstrap/dist/css/bootstrap.min.css'; // CONFLICT: Removed for Tailwind
+// import '../css/main.css'; // CONFLICT: Removed for Tailwind
 
 // Bootstrap JS (Component logic)
-import 'bootstrap';
+// import 'bootstrap'; // CONFLICT: Removed for Tailwind
 
 // Core Imports
 import { initTheme, createThemeToggle, getEffectiveTheme } from './theme.js';
