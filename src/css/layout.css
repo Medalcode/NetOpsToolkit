@@ -1,60 +1,131 @@
-:root {
-  --bs-font-sans-serif: 'Inter', system-ui, -apple-system, sans-serif;
-  --bs-font-monospace: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --bg-sidebar: #212529; /* Dark Sidebar */
-}
+/* === STITCH DESIGN SYSTEM === */
+
 body {
-  font-family: var(--bs-font-sans-serif);
+  background-color: var(--color-bg-body);
+  color: var(--color-text-main);
+  background-image: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 20%),
+                    radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.05) 0%, transparent 20%);
+  background-attachment: fixed;
 }
+
+/* === Sidebar Glass === */
 .sidebar {
-  height: 100vh;
-  overflow-y: auto;
-  background-color: var(--bg-sidebar);
-  border-right: 1px solid var(--bs-border-color);
+  background-color: rgba(30, 41, 59, 0.95); /* Semi-transparent */
+  border-right: 1px solid var(--border-color) !important;
+  backdrop-filter: blur(10px);
 }
+
 .nav-link {
-  color: rgba(255,255,255,0.75);
-  border-radius: 0.375rem;
-  margin-bottom: 2px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-md);
+  margin-bottom: 4px;
+  font-weight: 500;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .nav-link:hover {
-  color: #fff;
-  background-color: rgba(255,255,255,0.1);
+  color: var(--color-text-main);
+  background-color: rgba(255, 255, 255, 0.05);
+  transform: translateX(4px);
 }
+
 .nav-link.active {
+  background: var(--gradient-primary);
   color: #fff;
-  background-color: var(--bs-primary);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
+
 .nav-group-title {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: rgba(255,255,255,0.5);
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
-  padding-left: 1rem;
+  color: var(--color-primary);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  font-size: 0.7rem;
+  margin-top: 2rem;
 }
-.main-content {
-  height: 100vh;
-  overflow-y: auto;
+
+/* === Cards & Containers === */
+.card {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
-.tool-view {
-  display: none;
-}
-.tool-view.active {
-  display: block;
- /* Animation removed to prevent conflicts or flashes, kept simple */
-}
+
 .card-hover:hover {
-  transform: translateY(-2px);
-  transition: transform 0.2s;
-  border-color: var(--bs-primary);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border-color: var(--color-primary);
 }
-/* Custom utility for monospace inputs */
-.font-monospace-input {
-  font-family: var(--bs-font-monospace);
+
+/* === Typography & Headers === */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text-main);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.text-secondary, .text-muted, .form-text {
+  color: var(--color-text-muted) !important;
+}
+
+/* === Inputs & Forms === */
+.form-control, .form-select {
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  color: var(--color-text-main);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+}
+
+.form-control:focus, .form-select:focus {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  color: var(--color-text-main);
+}
+
+.input-group-text {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: var(--border-color);
+  color: var(--color-text-muted);
+}
+
+/* === Buttons === */
+.btn-primary {
+  background: var(--gradient-primary);
+  border: none;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-md);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+  transform: translateY(-1px);
+}
+
+/* === Tool View Animation === */
+.tool-view {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
 }
