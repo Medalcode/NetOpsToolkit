@@ -289,12 +289,18 @@ function setupGlobalActions() {
         // On Load Item
         (item) => {
             // Restore inputs
-            document.getElementById('network').value = item.network;
-            document.getElementById('hosts').value = item.hosts;
+            const ipEl = document.getElementById('vlsm-ip');
+            const hostsEl = document.getElementById('vlsm-hosts');
+            if (ipEl) ipEl.value = item.network;
+            if (hostsEl) hostsEl.value = item.hosts;
+            
             // Go to dashboard/VLSM view
-            navigate('tool-vlsm');
+            showView('view-vlsm', 'VLSM CALCULATOR');
+            
             // Re-run calculation (or just display stored results)
-            document.getElementById('calculate-btn').click();
+            const btn = document.getElementById('btn-calc-vlsm');
+            if (btn) btn.click();
+            
             // Close panel
             panel.classList.remove("open");
             overlay.classList.remove("active");
