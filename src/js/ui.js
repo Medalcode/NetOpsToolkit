@@ -203,13 +203,84 @@ export function displayResults(subnets, stats, container) {
   // Limpiar resultados previos
   clearResults(container);
 
-  // Mostrar estadísticas generales
+  // 1. Mostrar Visualizador Gráfico (WOW Factor)
+  if (stats.networkPrefix) {
+      renderNetworkVisualizer(subnets, stats.networkPrefix, container);
+  }
+
+  // 2. Mostrar estadísticas generales
   displayStatistics(stats, container);
 
-  // Mostrar cada subred
+  // 3. Mostrar cada subred
   subnets.forEach(subnet => {
     displaySubnet(subnet, container);
   });
+}
+
+/**
+ * Renderiza una barra visual de ocupación de la red
+ */
+function renderNetworkVisualizer(subnets, parentPrefix, container) {
+    const wrapper = document.createElement('div');
+    wrapper.className = "card mb-4 border-0 shadow-sm";
+    wrapper.innerHTML = `
+        <div class="card-body">
+            <h5 class="card-title mb-3">🗺️ Mapa de Asignación</h5>
+            <div class="progress-stacked" style="height: 40px; border-radius: 8px; overflow: hidden; background: rgba(255,255,255,0.05);">
+                <!-- Bars injected here -->
+            </div>
+            <div class="d-flex justify-content-between mt-2 text-muted small">
+                <span>Red: /${parentPrefix}</span>
+                <span id="visualizer-usage-text">Calculando uso...</span>
+            </div>
+        </div>
+    `;
+
+    const barContainer = wrapper.querySelector('.progress-stacked');
+    let totalUsedPercent = 0;
+
+    // Colores para las subredes (cíclicos)
+    const colors = ['#3b82f6', '#06b6d4', '#8b5cf6', '#10b981', '#f59e0b'];
+
+    subnets.forEach((subnet, index) => {
+        // Cálculo de porcentaje: (Hosts Totales Subred / Hosts Totales Red Padre) * 100
+        // Hosts totales = 2^(32 - prefijo)
+        const subnetSize = Math.pow(2, 32 - parseInt(subnet.prefix));
+        const parentSize = Math.pow(2, 32 - parentPrefix);
+        const percent = (subnetSize / parentSize) * 100;
+        
+        totalUsedPercent += percent;
+
+        const bar = document.createElement('div');
+        bar.className = "progress";
+        bar.role = "progressbar";
+        bar.style.width = `${percent}%`;
+        bar.title = `${subnet.network}/${subnet.prefix} (${percent.toFixed(1)}%)`;
+        
+        bar.innerHTML = `
+            <div class="progress-bar" style="background-color: ${colors[index % colors.length]}; width: 100%;">
+                ${percent > 5 ? `<small>S${index+1}</small>` : ''}
+            </div>
+        `;
+        barContainer.appendChild(bar);
+    });
+
+    // Actualizar texto de uso
+    const usageText = wrapper.querySelector('#visualizer-usage-text');
+    const freePercent = 100 - totalUsedPercent;
+    usageText.textContent = `Uso: ${totalUsedPercent.toFixed(1)}% | Libre: ${freePercent.toFixed(1)}%`;
+
+    if (freePercent > 0.1) {
+        const freeBar = document.createElement('div');
+        freeBar.className = "progress";
+        freeBar.role = "progressbar";
+        freeBar.style.width = `${freePercent}%`;
+        freeBar.title = `Espacio Libre (${freePercent.toFixed(1)}%)`;
+        freeBar.innerHTML = `<div class="progress-bar bg-secondary opacity-25" style="width: 100%;"></div>`;
+        barContainer.appendChild(freeBar);
+    }
+
+    container.appendChild(wrapper);
 }
 
 /**

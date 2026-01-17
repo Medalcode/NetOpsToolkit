@@ -231,7 +231,7 @@ function initVLSM() {
             const totalAvailable = calculateTotalAvailable(prefix);
 
             // Display
-            displayResults(subnets, { totalRequired, totalAvailable }, resultsContainer);
+            displayResults(subnets, { totalRequired, totalAvailable, networkPrefix: prefix }, resultsContainer);
             trackCalculation(subnets.length, networkInput, totalRequired);
             
             showToast('Cálculo completado con éxito', 'success');
