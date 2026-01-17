@@ -16,8 +16,10 @@ import { initTheme, createThemeToggle, getEffectiveTheme } from './theme.js';
 import { initI18n, setLanguage } from './i18n.js';
 
 // VLSM Imports (Critical)
+// VLSM Imports (Critical)
 import { calculateVLSM, calculateTotalRequired, calculateTotalAvailable } from './calculator.js';
-import { displayResults, showError, clearResults, showToast } from './ui.js';
+import { displayResults, showError, clearResults, showToast, createHistoryPanel, updateHistoryPanel } from './ui.js';
+import { addToHistory, getHistory, getHistoryStats, removeFromHistory, clearHistory } from './history.js';
 import { trackCalculation } from './analytics.js';
 
 // Global State
@@ -234,6 +236,9 @@ function initVLSM() {
             displayResults(subnets, { totalRequired, totalAvailable, networkPrefix: prefix }, resultsContainer);
             trackCalculation(subnets.length, networkInput, totalRequired);
             
+            // Save to Local History
+            addToHistory(networkInput, hostsInput, subnets, {totalRequired, totalAvailable});
+            
             showToast('Cálculo completado con éxito', 'success');
 
         } catch (err) {
@@ -246,17 +251,74 @@ function initVLSM() {
 /**
  * Global Actions (Buttons)
  */
+/**
+ * Global Actions (Buttons)
+ */
 function setupGlobalActions() {
     const container = document.querySelector('.global-actions');
     if (!container) return;
     
     container.innerHTML = '';
 
+    // --- History System Integration ---
+    // Create the panel and overlay (hidden by default)
+    const { panel, overlay, toggleBtn: historyBtnIcon, content } = createHistoryPanel(
+        // On Load Item
+        (item) => {
+            // Restore inputs
+            document.getElementById('network').value = item.network;
+            document.getElementById('hosts').value = item.hosts;
+            // Go to dashboard/VLSM view
+            navigate('tool-vlsm');
+            // Re-run calculation (or just display stored results)
+            document.getElementById('calculate-btn').click();
+            // Close panel
+            panel.classList.remove("open");
+            overlay.classList.remove("active");
+        },
+        // On Delete Item
+        (id) => {
+            removeFromHistory(id);
+            refreshHistory();
+        },
+        // On Clear All
+        () => {
+            clearHistory();
+            refreshHistory();
+        }
+    );
+
+    // Refresh function helper
+    function refreshHistory() {
+        updateHistoryPanel(
+            content, 
+            getHistory(), 
+            getHistoryStats(), 
+            (item) => { /* Load handled in createHistoryPanel closure above */ },
+            (id) => { removeFromHistory(id); refreshHistory(); },
+            () => { clearHistory(); refreshHistory(); }
+        );
+    }
+
+    // Append Panel & Overlay to Body (outside header)
+    document.body.appendChild(overlay);
+    document.body.appendChild(panel);
+
+    // Add History Button to Header
+    const historyBtn = document.createElement('button');
+    historyBtn.className = "btn btn-outline-info btn-sm me-2";
+    historyBtn.innerHTML = '<i class="fas fa-history"></i> Historial';
+    historyBtn.onclick = () => {
+        refreshHistory(); // Update data before showing
+        panel.classList.add("open");
+        overlay.classList.add("active");
+    };
+    container.appendChild(historyBtn);
+    // ----------------------------------
+
     // Theme Button
     const themeBtn = createThemeToggle();
     themeBtn.className = "btn btn-outline-secondary btn-sm me-2";
-    // themeBtn.innerHTML = '<i class="fas fa-adjust"></i> Tema'; 
-    // ^ createThemeToggle handles innerHTML, we just style it
     themeBtn.addEventListener('click', () => {
          setTimeout(() => updateBootstrapTheme(getEffectiveTheme()), 50);
     });
