@@ -126,6 +126,8 @@ function setupNavigation() {
     window.showToolsGrid = () => {
         showView('view-tools', 'UTILITIES GRID');
     };
+
+    window.showView = showView;
 }
 
 /**

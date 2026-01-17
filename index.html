@@ -58,9 +58,14 @@
         <header class="h-16 flex items-center justify-between px-8 bg-background-dark border-b border-border-dark flex-shrink-0">
             <div class="flex items-center gap-4">
                 <nav class="flex items-center gap-2 text-sm font-medium">
-                    <span class="text-slate-500">NETOPS</span>
-                    <span class="text-slate-700">/</span>
-                    <span class="text-white" id="header-title">VLSM CALCULATOR</span>
+                    <span class="text-slate-500 font-bold tracking-widest">NETOPS</span>
+                    <div class="h-4 w-px bg-slate-800 mx-2"></div>
+                    <button class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-white transition-all" onclick="showView('view-vlsm', 'VLSM CALCULATOR')">
+                        LAYER 3
+                    </button>
+                    <button class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded bg-surface-dark text-slate-400 border border-border-dark hover:text-white hover:border-primary transition-all" onclick="showToolsGrid();">
+                        ALL TOOLS
+                    </button>
                 </nav>
             </div>
             <div class="flex items-center gap-8">
