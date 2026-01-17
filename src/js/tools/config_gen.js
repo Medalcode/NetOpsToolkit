@@ -1,10 +1,53 @@
-export function initConfigGenTool() {
-  const templateSelect = document.getElementById('cfg-template');
-  const formContainer = document.getElementById('cfg-form');
-  const outputArea = document.getElementById('cfg-output');
-  const btnGenerate = document.getElementById('btn-cfg-gen');
+/**
+ * Módulo Generador de Configuraciones (Tailwind Version)
+ */
+export function initConfigGenTool(container) {
+  // 1. Render UI Structure
+  container.innerHTML = `
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl mx-auto h-full">
+        <!-- Input Panel -->
+        <div class="bg-surface-dark cyber-border rounded p-6 flex flex-col gap-6">
+            <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest border-b border-border-dark pb-2">Configuration Parameters</h4>
+            
+            <div>
+                 <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2">Platform Template</label>
+                 <select id="cfg-template" class="w-full bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white cursor-pointer focus:border-primary transition-colors">
+                    <option value="cisco-vlan">Cisco IOS: Interface VLAN</option>
+                    <option value="mikrotik-ip">Mikrotik: IP Address</option>
+                    <option value="juniper-bgroup">Juniper Junos: Port Config</option>
+                 </select>
+            </div>
+            
+            <div id="cfg-form" class="space-y-4 flex-1 overflow-y-auto pr-2 custom-scrollbar">
+                <!-- Dynamic Fields Here -->
+                 <p class="text-slate-500 text-sm">Select a template to load fields.</p>
+            </div>
 
-  if (!templateSelect || !outputArea) return;
+            <button id="btn-cfg-gen" class="w-full bg-primary hover:bg-primary/80 text-white font-bold uppercase tracking-widest py-3 rounded transition-colors shadow-lg shadow-primary/20 flex items-center justify-center gap-2 mt-auto">
+                 <span class="material-symbols-outlined !text-sm">bolt</span> Generate Config
+            </button>
+        </div>
+
+        <!-- Output Panel -->
+        <div class="bg-surface-dark cyber-border rounded p-6 flex flex-col">
+            <div class="flex justify-between items-center mb-4 border-b border-border-dark pb-2">
+                <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest">Generated CLI Output</h4>
+                <button id="btn-cfg-copy" class="text-xs font-bold text-primary hover:text-white transition-colors uppercase">Copy</button>
+            </div>
+            
+            <div class="relative flex-1 bg-black rounded border border-border-dark p-4 group">
+                 <textarea id="cfg-output" readonly class="w-full h-full bg-transparent text-signal-green font-mono text-sm resize-none focus:outline-none" placeholder="# Config will appear here..."></textarea>
+                 <div class="absolute bottom-2 right-2 text-[10px] text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity">READ ONLY</div>
+            </div>
+        </div>
+    </div>
+  `;
+  
+  const templateSelect = container.querySelector('#cfg-template');
+  const formContainer = container.querySelector('#cfg-form');
+  const outputArea = container.querySelector('#cfg-output');
+  const btnGenerate = container.querySelector('#btn-cfg-gen');
+  const btnCopy = container.querySelector('#btn-cfg-copy');
 
   const templates = {
     'cisco-vlan': {
@@ -54,9 +97,10 @@ set interfaces ${data.interface} unit 0 family ethernet-switching vlan members $
     if (!tmpl) return;
 
     formContainer.innerHTML = tmpl.fields.map(field => `
-        <div class="input-group">
-            <label for="cfg-${field.id}">${field.label}</label>
-            <input type="text" id="cfg-${field.id}" placeholder="${field.placeholder}" autocomplete="off">
+        <div>
+            <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1" for="cfg-${field.id}">${field.label}</label>
+            <input type="text" id="cfg-${field.id}" placeholder="${field.placeholder}" autocomplete="off" 
+                   class="w-full bg-slate-900 border border-border-dark rounded px-3 py-2 text-sm text-white focus:border-primary transition-colors">
         </div>
     `).join('');
   }
@@ -68,13 +112,24 @@ set interfaces ${data.interface} unit 0 family ethernet-switching vlan members $
 
     const data = {};
     tmpl.fields.forEach(field => {
-        const el = document.getElementById(`cfg-${field.id}`);
+        const el = container.querySelector(`#cfg-${field.id}`);
         data[field.id] = el ? el.value : '';
     });
 
     const result = tmpl.generate(data).trim();
-    outputArea.textContent = result;
+    outputArea.value = result;
   }
+
+  btnCopy.addEventListener('click', () => {
+      if (!outputArea.value) return;
+      navigator.clipboard.writeText(outputArea.value);
+      btnCopy.textContent = 'COPIED!';
+      btnCopy.classList.add('text-signal-green');
+      setTimeout(() => {
+          btnCopy.textContent = 'COPY';
+          btnCopy.classList.remove('text-signal-green');
+      }, 1500);
+  });
 
   // Event Listeners
   templateSelect.addEventListener('change', (e) => renderForm(e.target.value));

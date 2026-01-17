@@ -1,107 +1,173 @@
-  import { showInputError, showInputSuccess, resetInputValidation } from '../ui.js';
+/**
+ * Módulo de Búsqueda DNS (Tailwind Version)
+ */
+export function initDnsTool(container) {
+  // 1. Render UI
+  container.innerHTML = `
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <!-- Configuration Panel -->
+        <div class="lg:col-span-1 bg-surface-dark cyber-border rounded p-4 h-fit">
+            <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Query Parameters</h4>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Domain Name</label>
+                    <input id="dns-domain" type="text" placeholder="example.com" class="w-full bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white placeholder-slate-700 focus:border-primary transition-colors">
+                </div>
 
-  export function initDnsTool() {
-  const domainInput = document.getElementById('dns-domain');
-  const typeSelect = document.getElementById('dns-type');
-  const resolverSelect = document.getElementById('dns-resolver');
-  const btnLookup = document.getElementById('btn-dns-lookup');
-  const resultsContainer = document.getElementById('dns-results');
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Record Type</label>
+                    <select id="dns-type" class="w-full bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white cursor-pointer">
+                        <option value="A">A (IPv4)</option>
+                        <option value="AAAA">AAAA (IPv6)</option>
+                        <option value="MX">MX (Mail)</option>
+                        <option value="TXT">TXT / SPF</option>
+                        <option value="NS">NS (Nameserver)</option>
+                        <option value="CNAME">CNAME</option>
+                        <option value="SOA">SOA</option>
+                        <option value="PTR">PTR</option>
+                        <option value="ANY">ANY</option>
+                    </select>
+                </div>
 
-  if (!domainInput || !resultsContainer) return;
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Resolver</label>
+                    <select id="dns-resolver" class="w-full bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white cursor-pointer">
+                        <option value="google">Google DoH</option>
+                        <option value="cloudflare">Cloudflare DoH</option>
+                    </select>
+                </div>
 
+                <button id="btn-dns-lookup" class="w-full bg-primary hover:bg-primary/80 text-white text-xs font-bold uppercase tracking-widest py-3 rounded transition-colors shadow-lg shadow-primary/20 mt-2">
+                    Dig Command
+                </button>
+            </div>
+        </div>
+
+        <!-- Output Terminal -->
+        <div class="lg:col-span-3">
+            <div class="bg-surface-dark cyber-border rounded flex flex-col min-h-[400px]">
+                <div class="flex items-center justify-between px-4 py-2 border-b border-border-dark">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined !text-sm text-slate-500">terminal</span>
+                        <span class="text-[10px] font-mono text-slate-500 uppercase">DNS Response Stream</span>
+                    </div>
+                    <div id="dns-status-indicator" class="size-2 rounded-full bg-slate-800"></div>
+                </div>
+                <!-- Scrollable Results Area -->
+                <div id="dns-results" class="p-4 font-mono text-sm overflow-auto max-h-[500px] flex-1">
+                     <span class="text-slate-600">Waiting for query...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+  `;
+
+  // 2. Select Elements
+  const domainInput = container.querySelector('#dns-domain');
+  const typeSelect = container.querySelector('#dns-type');
+  const resolverSelect = container.querySelector('#dns-resolver');
+  const btnLookup = container.querySelector('#btn-dns-lookup');
+  const resultsContainer = container.querySelector('#dns-results');
+  const statusIndicator = container.querySelector('#dns-status-indicator');
+
+  // 3. Logic
   async function lookup() {
     const domain = domainInput.value.trim();
     if (!domain) {
-      showInputError('dns-domain', 'Ingresa un dominio válido');
-      return;
+        resultsContainer.innerHTML = '<span class="text-red-500">Error: Please enter a valid domain name.</span>';
+        return;
     }
-    showInputSuccess('dns-domain');
 
     const type = typeSelect.value;
-    const resolver = resolverSelect.value; // 'google' or 'cloudflare'
+    const resolver = resolverSelect.value;
     
-    // DNS over HTTPS endpoints
+    // UI Loading State
+    resultsContainer.innerHTML = `<span class="text-primary animate-pulse">> Querying ${resolver} for ${domain} (${type})...</span>`;
+    statusIndicator.className = "size-2 rounded-full bg-yellow-500 animate-pulse";
+    
     const endpoints = {
         'google': 'https://dns.google/resolve',
-        'cloudflare': 'https://cloudflare-dns.com/dns-query' // Requires Accept header application/dns-json
+        'cloudflare': 'https://cloudflare-dns.com/dns-query'
     };
 
     const url = new URL(endpoints[resolver]);
     url.searchParams.append('name', domain);
     url.searchParams.append('type', type);
 
-    resultsContainer.innerHTML = '<div class="loading-msg">Consultando DNS...</div>';
-
     try {
-        const headers = { 'Accept': 'application/dns-json' };
-        const response = await fetch(url, { headers });
-        
-        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+        const response = await fetch(url, { headers: { 'Accept': 'application/dns-json' } });
+        if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
         
         const data = await response.json();
-        renderResults(data);
+        renderResults(data, type);
+        statusIndicator.className = "size-2 rounded-full bg-signal-green";
 
     } catch (error) {
-        resultsContainer.innerHTML = `<div class="error-msg">Error de conexión: ${error.message}</div>`;
+        resultsContainer.innerHTML += `\n<span class="text-red-500">Connection Failed: ${error.message}</span>`;
+        statusIndicator.className = "size-2 rounded-full bg-red-500";
     }
   }
 
-  function renderResults(data) {
+  function renderResults(data, requestedType) {
     if (!data.Answer) {
-        resultsContainer.innerHTML = `<div class="warning-message">No se encontraron registros ${typeSelect.value} para ${domainInput.value}. (Status: ${data.Status})</div>`;
+        resultsContainer.innerHTML = `
+            <div class="text-slate-400 mb-2">> Query completed with status: <span class="text-white">${data.Status}</span></div>
+            <div class="text-yellow-500">> No ${requestedType} records found for ${data.Question[0].name.replace(/\.$/, '')}</div>
+        `;
         return;
     }
 
-    const rows = data.Answer.map(record => `
-        <tr>
-            <td>${record.name}</td>
-            <td>${record.type}</td>
-            <td>${record.TTL}</td>
-            <td style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-family:monospace; color:var(--color-text-highlight); overflow-wrap:anywhere; margin-right:8px;">${record.data}</span>
-                <button class="subnet-copy-btn btn-copy-dns" data-copy="${record.data.replace(/"/g, '&quot;')}" style="font-size:0.75rem; padding:2px 6px;">Copy</button>
-            </td>
-        </tr>
-    `).join('');
+    let outputHtml = `<div class="text-slate-400 mb-4">> Query successful. Found ${data.Answer.length} records (TTL shown in seconds).</div>`;
+    
+    outputHtml += `<table class="w-full text-left border-collapse mb-4">
+        <thead class="text-[10px] text-slate-500 uppercase border-b border-slate-800">
+            <tr>
+                <th class="py-2">Name</th>
+                <th class="py-2">Type</th>
+                <th class="py-2">TTL</th>
+                <th class="py-2">Data</th>
+            </tr>
+        </thead>
+        <tbody class="text-xs">`;
 
-    resultsContainer.innerHTML = `
-        <div class="card" style="padding:0; overflow:hidden; border:1px solid var(--color-border);">
-            <table class="ref-table">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Tipo</th>
-                        <th>TTL</th>
-                        <th>Data</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${rows}
-                </tbody>
-            </table>
-        </div>
-        <div style="margin-top:10px; font-size:0.8rem; color:var(--color-text-secondary); text-align:right;">
-            Resolución vía ${resolverSelect.options[resolverSelect.selectedIndex].text}
-        </div>
-    `;
+    data.Answer.forEach(record => {
+        // Map type integer to string if needed, mostly API returns int sometimes
+        // Google/Cloudflare usually return type number, need to handle if strictly needed, 
+        // but typically 'data.Answer' has 'type' as int. Let's trust user knows 1=A or just show raw.
+        // Actually, let's keep it raw or generic.
+        
+        outputHtml += `
+            <tr class="border-b border-slate-800/50 hover:bg-white/5 transition-colors group">
+                <td class="py-2 text-slate-300">${record.name}</td>
+                <td class="py-2 text-primary">${getDnsTypeName(record.type)}</td>
+                <td class="py-2 text-slate-400">${record.TTL}</td>
+                <td class="py-2 text-signal-green break-all">
+                    ${record.data}
+                    <button class="opacity-0 group-hover:opacity-100 ml-2 text-[10px] text-slate-500 hover:text-white border border-slate-700 px-1 rounded transition-opacity" 
+                            onclick="navigator.clipboard.writeText('${record.data}')">COPY</button>
+                </td>
+            </tr>
+        `;
+    });
+
+    outputHtml += `</tbody></table>`;
+    
+    // Raw JSON details
+    outputHtml += `<div class="mt-4 pt-4 border-t border-slate-800">
+        <span class="text-[10px] text-slate-600 block mb-1">RAW PROVIDER RESPONSE</span>
+        <pre class="text-[10px] text-slate-500 overflow-x-auto">${JSON.stringify(data, null, 2)}</pre>
+    </div>`;
+
+    resultsContainer.innerHTML = outputHtml;
   }
 
-  // Copy Event Delegation
-  resultsContainer.addEventListener('click', async (e) => {
-    if (e.target.classList.contains('btn-copy-dns')) {
-        const text = e.target.getAttribute('data-copy');
-        const btn = e.target;
-        try {
-            await navigator.clipboard.writeText(text);
-            const originalText = btn.textContent;
-            btn.textContent = '✓';
-            setTimeout(() => btn.textContent = originalText, 1000);
-        } catch (err) {
-            console.error('Error copying', err);
-        }
-    }
-  });
+  function getDnsTypeName(typeId) {
+    const types = { 1: 'A', 28: 'AAAA', 15: 'MX', 16: 'TXT', 2: 'NS', 5: 'CNAME', 6: 'SOA', 12: 'PTR' };
+    return types[typeId] || typeId;
+  }
 
+  // Listeners
   btnLookup.addEventListener('click', lookup);
   domainInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') lookup();

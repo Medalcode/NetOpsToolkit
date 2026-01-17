@@ -32,35 +32,58 @@ export const portDatabase = [
   { port: 8080, protocol: 'TCP', service: 'HTTP-Proxy', desc: 'Common HTTP Proxy/Dev Port' }
 ];
 
-export function initPortTool() {
-  const searchInput = document.getElementById('port-search');
-  const resultsContainer = document.getElementById('port-results');
+export function initPortTool(container) {
+  // 1. Render UI
+  container.innerHTML = `
+    <div class="max-w-2xl mx-auto space-y-6">
+        <div class="bg-surface-dark cyber-border rounded p-6">
+             <div class="relative">
+                <span class="material-symbols-outlined absolute left-4 top-3 text-slate-500">search</span>
+                <input id="port-search" type="text" placeholder="Search by Port (22), Protocol (SSH), or Keyword" 
+                       class="w-full bg-black border border-border-dark rounded-full pl-12 pr-4 py-3 text-white focus:border-primary transition-colors">
+             </div>
+        </div>
 
-  if (!searchInput || !resultsContainer) return;
+        <div id="port-results" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+             <!-- Results -->
+        </div>
+    </div>
+  `;
+
+  const searchInput = container.querySelector('#port-search');
+  const resultsContainer = container.querySelector('#port-results');
 
   function render(ports) {
     if (ports.length === 0) {
-      resultsContainer.innerHTML = `<div class="card p-4" style="text-align:center;">No results found.</div>`;
+      resultsContainer.innerHTML = `
+        <div class="col-span-full bg-surface-dark cyber-border rounded p-8 text-center text-slate-500">
+            No matching ports found.
+        </div>`;
       return;
     }
     
-    resultsContainer.innerHTML = ports.map(p => `
-      <div class="card" style="padding: 16px; border-left: 4px solid var(--color-primary);">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <h3 style="margin:0; font-family:var(--font-mono); color:var(--color-primary);">${p.port}</h3>
-          <span class="badge" style="background:${p.protocol.includes('UDP') ? '#f59e0b' : '#3b82f6'}; color:#fff; padding:2px 6px; border-radius:4px; font-size:0.7em;">${p.protocol}</span>
+    resultsContainer.innerHTML = ports.map(p => {
+        const isUDP = p.protocol.includes('UDP');
+        const color = isUDP ? 'text-yellow-500' : 'text-primary';
+        const badgeBg = isUDP ? 'bg-yellow-500/10 text-yellow-500' : 'bg-primary/10 text-primary';
+        
+        return `
+      <div class="bg-surface-dark cyber-border rounded p-4 border-l-4 ${isUDP ? 'border-l-yellow-600' : 'border-l-primary'} hover:bg-white/5 transition-colors group">
+        <div class="flex justify-between items-start mb-2">
+          <h3 class="font-mono text-2xl font-bold text-white">${p.port}</h3>
+          <span class="text-[10px] font-bold uppercase px-2 py-1 rounded ${badgeBg}">${p.protocol}</span>
         </div>
-        <div style="font-weight:bold; margin: 8px 0; color:#fff;">${p.service}</div>
-        <div style="font-size:0.9em; color:var(--color-text-secondary);">${p.desc}</div>
+        <div class="font-bold text-white mb-1 group-hover:${color} transition-colors">${p.service}</div>
+        <div class="text-xs text-slate-400 group-hover:text-slate-300">${p.desc}</div>
       </div>
-    `).join('');
+    `}).join('');
   }
 
   searchInput.addEventListener('input', (e) => {
     const term = e.target.value.toLowerCase().trim();
     if (!term) {
-      resultsContainer.innerHTML = '<div class="card p-4 text-center">Type to search...</div>';
-      return;
+       render(portDatabase.slice(0, 12)); // Reset to top
+       return;
     }
 
     const filtered = portDatabase.filter(p => 
@@ -72,7 +95,6 @@ export function initPortTool() {
     render(filtered);
   });
   
-  // Render common ports initially? Or just empty. User asked for "Catalog".
-  // Let's render "Top 10" initially.
+  // Initial render
   render(portDatabase.slice(0, 12));
 }

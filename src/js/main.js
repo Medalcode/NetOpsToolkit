@@ -97,85 +97,100 @@ async function init() {
 /**
  * Sets up the Sidebar and Internal Link Navigation
  */
+/**
+ * Sets up the Sidebar and Internal Link Navigation
+ */
 function setupNavigation() {
-    // 1. Handle Sidebar and Dashboard Links
-    document.querySelectorAll('[data-target]').forEach(el => {
+    // 1. Handle Sidebar Links (VLSM vs Tools)
+    document.querySelectorAll('.nav-item').forEach(el => {
         el.addEventListener('click', (e) => {
             e.preventDefault();
-            // Handle active class
-            if (el.classList.contains('nav-link')) {
-                document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
-                el.classList.add('active');
-            }
-            // Navigate
-            navigate(el.getAttribute('data-target'));
+            // Active Class Toggle
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active', 'bg-primary/10', 'text-primary'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.add('text-slate-500'));
+            
+            el.classList.add('active', 'bg-primary/10', 'text-primary');
+            el.classList.remove('text-slate-500');
+
+            const target = el.getAttribute('data-target');
+            if (target === 'vlsm') showView('view-vlsm', 'VLSM CALCULATOR');
+            if (target === 'tools') showView('view-tools', 'UTILITIES GRID');
         });
     });
 
-    // 2. Determine Start View (Default to Dashboard)
-    navigate('tool-dashboard');
+    // Expose helpers for HTML onclick events
+    window.switchToolView = (toolId) => {
+        loadToolLogic(toolId);
+    };
+
+    window.showToolsGrid = () => {
+        showView('view-tools', 'UTILITIES GRID');
+    };
 }
 
 /**
- * Navigates to a specific tool view
+ * Generic View Switcher
  */
-function navigate(targetId) {
-    console.log(`Navigate -> ${targetId}`);
-    
-    // Validate target
-    const view = document.getElementById(targetId);
-    if (!view) {
-        console.warn(`View ID ${targetId} not found.`);
-        return;
-    }
+function showView(viewId, title) {
+    // 1. Update Title
+    const titleEl = document.getElementById('header-title');
+    if (titleEl) titleEl.textContent = title;
 
-    // Hide all views
-    document.querySelectorAll('.tool-view').forEach(v => {
-        v.classList.remove('active');
-        v.style.display = 'none';
-        v.classList.remove('active');
+    // 2. Hide All Views
+    ['view-vlsm', 'view-tools', 'view-dynamic-tool'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('hidden');
+        if (el && id === 'view-tools') el.classList.remove('grid'); // Special case for grid
     });
 
-    // Show target
-    view.style.display = 'block';
-    // Small delay to allow display:block to apply before adding class (for transitions if added later)
-    requestAnimationFrame(() => view.classList.add('active'));
-
-    // Update Breadcrumb
-    const breadcrumb = document.getElementById('current-view-name');
-    const link = document.querySelector(`.nav-link[data-target="${targetId}"]`);
-    if (breadcrumb) {
-        breadcrumb.textContent = link ? link.innerText.trim() : "Herramienta";
+    // 3. Show Target
+    const targetEl = document.getElementById(viewId);
+    if (targetEl) {
+        targetEl.classList.remove('hidden');
+        if (viewId === 'view-tools') targetEl.classList.add('grid');
     }
-
-    // Lazy Load Tool Logic
-    loadToolLogic(targetId);
 }
 
 /**
  * Dynamically imports and initializes tool logic
  */
 async function loadToolLogic(toolId) {
-    if (AppState.initializedTools.has(toolId)) return;
-
+    // 1. Show Loading State in Dynamic View
+    showView('view-dynamic-tool', 'LOADING TOOL...');
+    const contentContainer = document.getElementById('dynamic-tool-content');
+    const titleContainer = document.getElementById('dynamic-tool-title');
+    contentContainer.innerHTML = '<div class="text-slate-500 animate-pulse">Loading module components...</div>';
+    
+    // 2. Load Module
     const config = TOOL_REGISTRY[toolId];
     if (config) {
         try {
             console.log(`📦 Loading module for ${toolId}`);
+            
+            // Note: Since we don't have separate HTML files for tools anymore, 
+            // the tool modules need to be adapted to RENDER their UI into 'contentContainer' 
+            // or we fetch a partial HTML.
+            // For now, we'll try to load the module. Ideally, we should refactor tools to render() themselves.
+            // As a fallback, we display a placeholder message if the tool isn't fully migrated.
+            
+            if(titleContainer) titleContainer.textContent = toolId.replace('tool-', '').toUpperCase();
+
             const module = await config.load();
             
             if (module[config.fn] && typeof module[config.fn] === 'function') {
-                module[config.fn]();
+                // Pass the container to the init function if it supports it
+                // We'll need to update tool init functions to accept a container!
+                module[config.fn](contentContainer); 
                 console.log(`✨ Initialized ${toolId}`);
-                AppState.initializedTools.add(toolId);
             } else {
-                console.warn(`Function ${config.fn} not found in module`);
+                contentContainer.innerHTML = `<div class="text-red-500">Error: Entry point ${config.fn} not found.</div>`;
             }
         } catch (e) {
             console.error(`Failed to load ${toolId}:`, e);
+            contentContainer.innerHTML = `<div class="text-red-500">Failed to load tool: ${e.message}</div>`;
         }
     } else {
-        // Dashboard or VLSM (handled manually) don't need dynamic load
+         contentContainer.innerHTML = `<div class="text-yellow-500">Tool registry configuration not found for ${toolId}</div>`;
     }
 }
 

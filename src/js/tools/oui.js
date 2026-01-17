@@ -121,52 +121,62 @@ export const ouiDatabase = [
   { prefix: '00:1B:21', vendor: 'Intel Corporate' }
 ];
 
-export function initOuiTool() {
-  const searchInput = document.getElementById('oui-search');
-  const resultsContainer = document.getElementById('oui-results');
+export function initOuiTool(container) {
+  // 1. Render UI
+  container.innerHTML = `
+    <div class="max-w-2xl mx-auto space-y-6">
+        <div class="bg-surface-dark cyber-border rounded p-6">
+             <div class="relative">
+                <span class="material-symbols-outlined absolute left-4 top-3 text-slate-500">search</span>
+                <input id="oui-search" type="text" placeholder="Search MAC Vendor (e.g. 00:50:56 or Cisco)" 
+                       class="w-full bg-black border border-border-dark rounded-full pl-12 pr-4 py-3 text-white focus:border-purple-500 transition-colors uppercase">
+             </div>
+        </div>
 
-  if (!searchInput || !resultsContainer) return;
+        <div id="oui-results" class="space-y-4">
+             <div class="text-center text-slate-500 py-8">
+                 <span class="material-symbols-outlined text-4xl mb-2">database</span>
+                 <p class="text-sm">Enter a MAC address prefix or Vendor name to search.</p>
+             </div>
+        </div>
+    </div>
+  `;
+
+  const searchInput = container.querySelector('#oui-search');
+  const resultsContainer = container.querySelector('#oui-results');
 
   function render(entries) {
     if (entries.length === 0) {
-      resultsContainer.innerHTML = `<div class="card p-4" style="text-align:center; color: var(--color-text-secondary);">No matches found in offline database.</div>`;
+      resultsContainer.innerHTML = `
+        <div class="bg-surface-dark cyber-border rounded p-8 text-center text-slate-500">
+            No matches found in offline database.
+        </div>`;
       return;
     }
 
     resultsContainer.innerHTML = entries.map(e => `
-      <div class="card" style="padding: 16px; border-left: 4px solid #a855f7; display: flex; justify-content: space-between; align-items: center;">
+      <div class="bg-surface-dark cyber-border rounded p-4 flex items-center justify-between hover:border-purple-500 transition-colors group">
         <div>
-          <h3 style="margin:0; font-family:var(--font-mono); color:#a855f7;">${e.prefix}</h3>
-          <div style="font-weight:bold; margin-top: 4px; color:var(--color-text-primary);">${e.vendor}</div>
+          <h3 class="font-mono text-purple-400 text-lg font-bold group-hover:text-purple-300 transition-colors">${e.prefix}</h3>
+          <div class="text-white font-bold text-sm">${e.vendor}</div>
         </div>
-        <div style="font-size: 2rem; opacity: 0.2;">🏢</div>
+        <div class="size-10 bg-purple-500/10 rounded-full flex items-center justify-center text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-colors">
+            <span class="material-symbols-outlined">business</span>
+        </div>
       </div>
     `).join('');
-  }
-
-  function formatMac(input) {
-    // Remove all non-hex characters
-    let clean = input.replace(/[^0-9a-fA-F]/g, '').toUpperCase();
-    
-    // If it's short, just return. Only try to match prefix.
-    if (clean.length < 2) return clean;
-    
-    // Add colons every 2 chars
-    const parts = [];
-    for (let i = 0; i < clean.length; i += 2) {
-      parts.push(clean.substring(i, i + 2));
-    }
-    return parts.join(':');
   }
 
   searchInput.addEventListener('input', (e) => {
     const rawVal = e.target.value;
     const term = rawVal.replace(/[:.-]/g, '').toUpperCase();
     
-    // Auto-format for display if desired? Maybe confusing. Let's just fuzzy search.
-    
     if (term.length === 0) {
-      resultsContainer.innerHTML = '<div class="card p-4 text-center">Enter MAC address or Vendor name...</div>';
+      resultsContainer.innerHTML = `
+         <div class="text-center text-slate-500 py-8">
+             <span class="material-symbols-outlined text-4xl mb-2">database</span>
+             <p class="text-sm">Enter a MAC address prefix or Vendor name to search.</p>
+         </div>`;
       return;
     }
 
@@ -175,9 +185,6 @@ export function initOuiTool() {
         return dbPrefix.includes(term) || e.vendor.toLowerCase().includes(rawVal.toLowerCase());
     });
 
-    render(filtered.slice(0, 50)); // Limit results
+    render(filtered.slice(0, 50)); 
   });
-
-  // Initial state
-  resultsContainer.innerHTML = '<div class="card p-4 text-center">Enter MAC (e.g., 00:00:0C) or Vendor...</div>';
 }

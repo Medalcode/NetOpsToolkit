@@ -1,81 +1,48 @@
 /**
- * Módulo de Herramientas IPv6
+ * Módulo de Herramientas IPv6 (Tailwind Version)
  * Provee funciones para manipulación y análisis de direcciones IPv6
  */
 
-export function initIPv6Tool() {
-  const input = document.getElementById('ipv6-input');
-  const btnCompress = document.getElementById('btn-ipv6-compress');
-  const btnExpand = document.getElementById('btn-ipv6-expand');
-  const btnInfo = document.getElementById('btn-ipv6-info');
-  const resultContainer = document.getElementById('ipv6-results');
+export function initIPv6Tool(container) {
+  // 1. Render UI
+  container.innerHTML = `
+    <div class="max-w-4xl mx-auto space-y-6">
+        <!-- Input Section -->
+        <div class="bg-surface-dark cyber-border rounded p-6">
+            <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">IPv6 Address Manipulation</h4>
+            <div class="space-y-4">
+                <input id="ipv6-input" type="text" placeholder="e.g. 2001:0db8:85a3:0000:0000:8a2e:0370:7334" class="w-full bg-black border border-border-dark rounded px-4 py-3 text-white mono-data focus:border-primary transition-colors">
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <button id="btn-ipv6-compress" class="bg-black border border-border-dark hover:border-primary text-slate-300 hover:text-white font-bold text-xs uppercase tracking-widest py-3 rounded transition-colors flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined !text-sm">compress</span> Compress
+                    </button>
+                    <button id="btn-ipv6-expand" class="bg-black border border-border-dark hover:border-primary text-slate-300 hover:text-white font-bold text-xs uppercase tracking-widest py-3 rounded transition-colors flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined !text-sm">expand</span> Expand
+                    </button>
+                    <button id="btn-ipv6-info" class="bg-primary hover:bg-primary/80 text-white font-bold text-xs uppercase tracking-widest py-3 rounded transition-colors shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
+                         <span class="material-symbols-outlined !text-sm">info</span> Analyze
+                    </button>
+                </div>
+            </div>
+        </div>
 
-  if (!input || !resultContainer) return;
+        <!-- Results Section -->
+        <div id="ipv6-results" class="hidden bg-surface-dark cyber-border rounded p-6">
+            <!-- Dynamic Content -->
+        </div>
+    </div>
+  `;
 
-  // Import dynamically if not available (or assume it's available via module scope if we change top of file)
-  // Actually, let's just use a helper here or import it at the top. 
-  // Since I cannot easily change the top import without reading the whole file again or risking index shifts if I assume line 1 is empty, 
-  // I will check if I can just use navigator.clipboard directly for simplicity in this specific file 
-  // or rely on a Global UI helper. 
-  // But the best practice is to import. 
-  // NOTA: The user sees this as a module. I will use navigator.clipboard directly here to avoid breaking imports 
-  // if I don't want to re-write the top.
-  // HOWEVER, I should try to be consistent. 
-  // Let's assume I can duplicate the simple copy logic or just use navigator.clipboard which is standard.
-  
-  const copyText = async (text, btn) => {
-    try {
-        await navigator.clipboard.writeText(text);
-        const originalText = btn.textContent;
-        btn.textContent = 'Copiado!';
-        setTimeout(() => btn.textContent = originalText, 1500);
-    } catch (err) {
-        console.error('Failed to copy', err);
-    }
-  };
+  const input = container.querySelector('#ipv6-input');
+  const btnCompress = container.querySelector('#btn-ipv6-compress');
+  const btnExpand = container.querySelector('#btn-ipv6-expand');
+  const btnInfo = container.querySelector('#btn-ipv6-info');
+  const resultContainer = container.querySelector('#ipv6-results');
 
-  function showResult(title, content, type = 'info') {
-    const cardClass = type === 'error' ? 'result-card error' : 'result-card';
-    const cleanContent = content || '';
-    
-    // Create Elements (safer for event binding)
-    const card = document.createElement('div');
-    card.className = `card ${cardClass}`;
-    
-    const h3 = document.createElement('h3');
-    h3.className = 'result-title';
-    h3.textContent = title;
-    
-    const codeWrapper = document.createElement('div');
-    codeWrapper.style.position = 'relative'; 
-    
-    const code = document.createElement('code');
-    code.className = 'result-code';
-    code.textContent = cleanContent;
-    
-    const copyBtn = document.createElement('button');
-    copyBtn.className = 'subnet-copy-btn'; // Re-using existing class or make a new one
-    copyBtn.style.position = 'absolute';
-    copyBtn.style.top = '0';
-    copyBtn.style.right = '0';
-    copyBtn.style.fontSize = '0.8rem';
-    copyBtn.style.padding = '4px 8px';
-    copyBtn.textContent = 'Copiar';
-    
-    copyBtn.addEventListener('click', () => copyText(cleanContent, copyBtn));
-    
-    codeWrapper.appendChild(code);
-    if (type !== 'error') codeWrapper.appendChild(copyBtn);
-    
-    card.appendChild(h3);
-    card.appendChild(codeWrapper);
-    
-    resultContainer.innerHTML = '';
-    resultContainer.appendChild(card);
-  }
+  // --- Logic ---
 
   function validate(addr) {
-    // Basic validation regex (loose)
     const regex = /^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){1,7}:)|(([0-9A-Fa-f]{1,4}:){1,6}:[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,5}(:[0-9A-Fa-f]{1,4}){1,2})|(([0-9A-Fa-f]{1,4}:){1,4}(:[0-9A-Fa-f]{1,4}){1,3})|(([0-9A-Fa-f]{1,4}:){1,3}(:[0-9A-Fa-f]{1,4}){1,4})|(([0-9A-Fa-f]{1,4}:){1,2}(:[0-9A-Fa-f]{1,4}){1,5})|([0-9A-Fa-f]{1,4}:((:[0-9A-Fa-f]{1,4}){1,6}))|:((:[0-9A-Fa-f]{1,4}){1,7}|:)|fe80:(:[0-9A-Fa-f]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9A-Fa-f]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))\s*$/;
     return regex.test(addr);
   }
@@ -83,14 +50,11 @@ export function initIPv6Tool() {
   function expand(addr) {
     let full = addr.toLowerCase();
     const parts = full.split('::');
-    
-    // Handle double colon
-    if (parts.length > 2) return null; // Invalid multiple ::
+    if (parts.length > 2) return null;
     
     let left = parts[0] ? parts[0].split(':') : [];
     let right = parts[1] ? parts[1].split(':') : [];
     
-    // Check if parts are empty due to starting/ending ::
     if (parts[0] === '') left = [];
     if (parts[1] === '') right = [];
 
@@ -98,8 +62,6 @@ export function initIPv6Tool() {
     const zeros = Array(missing).fill('0000');
     
     let allParts = [...left, ...zeros, ...right];
-    
-    // Pad each part to 4 chars
     allParts = allParts.map(p => p.padStart(4, '0'));
     
     return allParts.join(':');
@@ -109,10 +71,8 @@ export function initIPv6Tool() {
     const expended = expand(addr);
     if (!expended) return null;
 
-    // Remove leading zeros in each block: 00fe -> fe, 0000 -> 0
     let parts = expended.split(':').map(p => p.replace(/^0+(.+)/, '$1').replace(/^0+$/, '0'));
     
-    // Find longest sequence of zeros
     let bestStart = -1;
     let bestLen = 0;
     
@@ -132,53 +92,18 @@ export function initIPv6Tool() {
             currentLen = 0;
         }
     }
-    // Check last sequence
     if (currentLen > bestLen) {
         bestLen = currentLen;
         bestStart = currentStart;
     }
 
     if (bestLen > 1) {
-        // Replace with ::
         parts.splice(bestStart, bestLen, '');
-        // If it replaced the start or end involved empty strings, handling :: properly
-        // Actually splice removes items and inserts ''. 
-        // If bestStart=0, parts=['', '1', ...] -> ::1
-        // If at end, ['1', ''] -> 1::
-        // If middle, ['1', '', '1'] -> 1::1
-        
-        // This logic is slightly tricky with join. 
-        // e.g. 0:0:0:1 -> ['0','0','0','1']. splice(0,3,'') -> ['', '1']. join(':') -> ':1'. 
-        // We need '::1'. 
-        // If the empty string is at start/end, we need double colon.
-        // A simpler way with array: 
-        
-        // Re-construct manually to handle the double colon logic carefully
-        const before = parts.slice(0, bestStart);
-        const after = parts.slice(bestStart + 1); // +1 because we inserted empty string
-        
-        // Actually javaScript splice modifies in place. 
-        // let's retry.
-        
-        // Re-do without splice for clarity:
-        const pre = parts.slice(0, bestStart);
-        const post = parts.slice(bestStart + 1); // +1 is wrong, we removed bestLen items.
-        
-        // NO wait. I spliced (bestStart, bestLen, '').
-        // So parts array has '' at bestStart.
-        // If parts is ['', '1'], join is ':1'. Incorrect.
-        
-        if (bestStart === 0 && (bestStart + bestLen) === 8) return '::'; // All zeros
+        if (bestStart === 0 && (bestStart + bestLen) === 8) return '::'; 
         
         let res = parts.join(':');
-        // Fix edges
-        res = res.replace(/:{3,}/g, '::'); // Triple colon fix? No.
-        
-        // If we have ['', '1...'] -> :1... -> replace start with ::
         if (parts[0] === '') res = ':' + res;
-        // If we have ['...1', ''] -> ...1: -> replace end with ::
         if (parts[parts.length-1] === '') res = res + ':';
-        
         return res;
     }
     
@@ -187,14 +112,12 @@ export function initIPv6Tool() {
 
   function getType(addr) {
     const full = expand(addr);
-    if (!full) return 'Inválida';
+    if (!full) return 'Invalid';
     
-    // Check prefixes on full expansion (e.g. 2001:0db8...)
     const p = full.toLowerCase();
     
     if (p === '0000:0000:0000:0000:0000:0000:0000:0000') return 'Unspecified (::)';
     if (p === '0000:0000:0000:0000:0000:0000:0000:0001') return 'Loopback (::1)';
-    
     if (p.startsWith('fe80')) return 'Link-Local Unicast';
     if (p.startsWith('fec0')) return 'Site-Local Unicast (Deprecated)';
     if (p.startsWith('fc') || p.startsWith('fd')) return 'Unique Local (ULA)';
@@ -202,80 +125,70 @@ export function initIPv6Tool() {
     if (p.startsWith('2001:0db8')) return 'Documentation';
     if (p.startsWith('2001:0000')) return 'Teredo Tunneling';
     if (p.startsWith('2002')) return '6to4 Tunneling';
-    if (p.startsWith('2') || p.startsWith('3')) return 'Global Unicast'; // Broad check
+    if (p.startsWith('2') || p.startsWith('3')) return 'Global Unicast'; 
     
     return 'Unknown / Reserved';
   }
 
-  // --- Event Listeners ---
-
   function handleAction(action) {
     const val = input.value.trim();
+    
+    resultContainer.classList.remove('hidden');
+    resultContainer.innerHTML = '';
+
     if (!validate(val)) {
-        showResult('Error', 'Dirección IPv6 inválida', 'error');
-        return;
+         resultContainer.innerHTML = `<span class="text-red-500 font-mono">Error: Invalid IPv6 address format.</span>`;
+         return;
     }
 
     if (action === 'compress') {
-        const res = compress(val);
-        showResult('Comprimida', res);
+        renderField('Compressed Address', compress(val));
+        renderField('Canonical Form', expand(val));
     } else if (action === 'expand') {
-        const res = expand(val);
-        showResult('Expandida (Canónica)', res);
+        renderField('Expanded Address (Canonical)', expand(val));
     } else if (action === 'info') {
         const type = getType(val);
         const exp = expand(val);
         const comp = compress(val);
         
-        // Helper to create row with copy
-        const createRow = (label, value) => {
-            const div = document.createElement('div');
-            div.style.position = 'relative';
-            
-            const strong = document.createElement('strong');
-            strong.style.color = 'var(--color-primary)';
-            strong.textContent = label + ': ';
-            div.appendChild(strong);
-            
-            const code = document.createElement('code');
-            code.className = 'result-code';
-            code.style.marginTop = '4px';
-            code.textContent = value;
-            div.appendChild(code);
-            
-            // Copy Button
-            const btn = document.createElement('button');
-            btn.className = 'subnet-copy-btn';
-            btn.style.position = 'absolute';
-            btn.style.top = '0';
-            btn.style.right = '0';
-            btn.style.fontSize = '0.7em';
-            btn.textContent = 'Copiar';
-            btn.onclick = () => copyText(value, btn);
-            div.appendChild(btn);
-            
-            return div;
-        };
+        const wrapper = document.createElement('div');
+        wrapper.className = "space-y-4";
         
-        const card = document.createElement('div');
-        card.className = 'card result-card';
+        wrapper.appendChild(createDetailRow('Address Type', type, true));
+        wrapper.appendChild(createDetailRow('Canonical Form', exp));
+        wrapper.appendChild(createDetailRow('Compressed Form', comp));
         
-        const grid = document.createElement('div');
-        grid.className = 'result-grid-row';
-        
-        // Type Row (No copy needed usually, but could add)
-        const typeDiv = document.createElement('div');
-        typeDiv.innerHTML = `<strong style="color:var(--color-primary);">Tipo:</strong> <span style="margin-left:8px;">${type}</span>`;
-        grid.appendChild(typeDiv);
-        
-        grid.appendChild(createRow('Expandida', exp));
-        grid.appendChild(createRow('Comprimida', comp));
-        
-        card.appendChild(grid);
-        
-        resultContainer.innerHTML = '';
-        resultContainer.appendChild(card);
+        resultContainer.appendChild(wrapper);
     }
+  }
+
+  function renderField(title, value) {
+      resultContainer.appendChild(createDetailRow(title, value));
+  }
+
+  function createDetailRow(label, value, isType = false) {
+      const div = document.createElement('div');
+      div.className = "border-b border-white/5 pb-2 last:border-0";
+      
+      const lbl = document.createElement('div');
+      lbl.className = "text-[10px] uppercase font-bold text-slate-500 mb-1";
+      lbl.textContent = label;
+      
+      const val = document.createElement('div');
+      val.className = isType ? "text-primary font-bold" : "font-mono text-white break-all flex justify-between items-center group";
+      
+      if (!isType) {
+          val.innerHTML = `
+            <span>${value}</span>
+            <button class="opacity-0 group-hover:opacity-100 text-[10px] text-slate-500 hover:text-white transition-opacity ml-2" onclick="navigator.clipboard.writeText('${value}')">COPY</button>
+          `;
+      } else {
+          val.textContent = value;
+      }
+      
+      div.appendChild(lbl);
+      div.appendChild(val);
+      return div;
   }
 
   btnCompress.addEventListener('click', () => handleAction('compress'));

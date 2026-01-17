@@ -84,8 +84,85 @@
         <section class="flex-1 overflow-y-auto p-8 custom-scrollbar">
             <div class="max-w-7xl mx-auto space-y-6">
                 
-                <!-- === VLSM SECTION === -->
-                <div id="view-vlsm" class="grid grid-cols-12 gap-6">
+                <!-- === TOOLS GRID SECTION (Hidden by default) === -->
+                <div id="view-tools" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Subnet Analyzer -->
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group" onclick="switchToolView('tool-subnet')">
+                        <div class="text-primary mb-4 p-3 bg-primary/10 rounded inline-block group-hover:bg-primary group-hover:text-white transition-colors">
+                            <span class="material-symbols-outlined">network_check</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Subnet Analyzer</h3>
+                        <p class="text-slate-400 text-sm">Detailed analysis of IP addresses, classes, and binary representation.</p>
+                    </div>
+
+                    <!-- DNS Lookup -->
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group" onclick="switchToolView('tool-dns')">
+                        <div class="text-signal-green mb-4 p-3 bg-signal-green/10 rounded inline-block group-hover:bg-signal-green group-hover:text-black transition-colors">
+                            <span class="material-symbols-outlined">dns</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">DNS Lookup</h3>
+                        <p class="text-slate-400 text-sm">Real-time DNS record verification (A, MX, TXT) via secure DoH.</p>
+                    </div>
+
+                    <!-- IPv6 Tools -->
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group" onclick="switchToolView('tool-ipv6')">
+                        <div class="text-purple-500 mb-4 p-3 bg-purple-500/10 rounded inline-block group-hover:bg-purple-500 group-hover:text-white transition-colors">
+                            <span class="material-symbols-outlined">public</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">IPv6 Suite</h3>
+                        <p class="text-slate-400 text-sm">Compress, expand and analyze IPv6 addresses.</p>
+                    </div>
+
+                    <!-- OUI Lookup -->
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group" onclick="switchToolView('tool-oui')">
+                        <div class="text-yellow-500 mb-4 p-3 bg-yellow-500/10 rounded inline-block group-hover:bg-yellow-500 group-hover:text-black transition-colors">
+                            <span class="material-symbols-outlined">tag</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">MAC OUI Lookup</h3>
+                        <p class="text-slate-400 text-sm">Identify device manufacturers from MAC addresses.</p>
+                    </div>
+
+                    <!-- Config Gen -->
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group" onclick="switchToolView('tool-config')">
+                        <div class="text-pink-500 mb-4 p-3 bg-pink-500/10 rounded inline-block group-hover:bg-pink-500 group-hover:text-white transition-colors">
+                            <span class="material-symbols-outlined">description</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Config Gen</h3>
+                        <p class="text-slate-400 text-sm">Generate boilerplate configs for Cisco/Mikrotik.</p>
+                    </div>
+
+                    <!-- Key Gen -->
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group" onclick="switchToolView('tool-keygen')">
+                        <div class="text-cyan-500 mb-4 p-3 bg-cyan-500/10 rounded inline-block group-hover:bg-cyan-500 group-hover:text-black transition-colors">
+                            <span class="material-symbols-outlined">key</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Key Generator</h3>
+                        <p class="text-slate-400 text-sm">Generate chaotic passwords and WPA keys securely.</p>
+                    </div>
+
+                    <!-- Ports -->
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group" onclick="switchToolView('tool-ports')">
+                        <div class="text-orange-500 mb-4 p-3 bg-orange-500/10 rounded inline-block group-hover:bg-orange-500 group-hover:text-white transition-colors">
+                            <span class="material-symbols-outlined">router</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Port Reference</h3>
+                        <p class="text-slate-400 text-sm">Searchable database of common TCP/UDP ports.</p>
+                    </div>
+                </div>
+
+                <!-- === DYNAMIC TOOL CONTAINER (Where individual tools load) === -->
+                <div id="view-dynamic-tool" class="hidden bg-surface-dark cyber-border rounded p-6 min-h-[400px]">
+                    <div class="flex items-center justify-between mb-6 pb-4 border-b border-border-dark">
+                        <h3 class="text-xl font-bold text-white uppercase tracking-wider" id="dynamic-tool-title">Tool Name</h3>
+                        <button class="text-slate-400 hover:text-white flex items-center gap-2 text-xs uppercase font-bold" onclick="showToolsGrid()">
+                            <span class="material-symbols-outlined !text-sm">arrow_back</span> Back to Grid
+                        </button>
+                    </div>
+                    <div id="dynamic-tool-content">
+                        <!-- Tool logic will inject content here -->
+                    </div>
+                </div>
                     
                     <!-- Public IP Widget -->
                     <div class="col-span-12 lg:col-span-4 flex flex-col gap-4">
