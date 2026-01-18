@@ -28,27 +28,19 @@
     
     <!-- Sidebar -->
     <aside class="w-16 flex-shrink-0 flex flex-col items-center py-6 bg-surface-dark border-r border-border-dark z-20">
-        <div class="mb-10 text-primary cursor-pointer" onclick="location.reload()">
-            <span class="material-symbols-outlined !text-3xl">terminal</span>
+        <div class="mb-10 text-primary cursor-pointer group" onclick="location.reload()" title="Reload App">
+            <span class="material-symbols-outlined !text-3xl group-hover:scale-110 transition-transform">terminal</span>
         </div>
         <nav class="flex flex-col gap-6 flex-1">
-            <a class="p-2 text-primary bg-primary/10 rounded group relative nav-item active" data-target="vlsm" href="#" title="Layer 3">
+            <a class="p-2 text-primary bg-primary/10 rounded group relative nav-item active" data-target="vlsm" href="#" title="VLSM Calculator">
                 <span class="material-symbols-outlined">layers</span>
-                <span class="absolute left-14 bg-primary text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">Layer 3 (VLSM)</span>
+                <span class="absolute left-14 bg-primary text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">VLSM</span>
             </a>
-            <a class="p-2 text-slate-500 hover:text-white transition-colors group relative nav-item" data-target="tools" href="#" title="Tools">
+            <a class="p-2 text-slate-500 hover:text-white transition-colors group relative nav-item" data-target="tools" href="#" title="All Tools">
                 <span class="material-symbols-outlined">build</span>
-                <span class="absolute left-14 bg-surface-dark border border-border-dark text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">All Tools</span>
+                <span class="absolute left-14 bg-surface-dark border border-border-dark text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">Tools</span>
             </a>
         </nav>
-        <div class="flex flex-col gap-6 mt-auto">
-            <a class="p-2 text-slate-500 hover:text-white transition-colors" href="#">
-                <span class="material-symbols-outlined">settings</span>
-            </a>
-            <div class="size-8 rounded-full bg-slate-800 border border-border-dark overflow-hidden">
-               <div class="flex items-center justify-center h-full w-full text-xs font-bold bg-primary text-white">MC</div>
-            </div>
-        </div>
     </aside>
 
     <!-- Main Content -->
@@ -64,26 +56,16 @@
                 </nav>
                 <div class="h-4 w-px bg-slate-800 mx-2"></div>
                 <button class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-white transition-all ripple btn-press" onclick="showView('view-vlsm', 'VLSM CALCULATOR')">
-                    LAYER 3
+                    <span class="material-symbols-outlined !text-sm mr-1">layers</span>
+                    VLSM
                 </button>
                 <button class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded bg-surface-dark text-slate-400 border border-border-dark hover:text-white hover:border-primary transition-all ripple btn-press" onclick="showToolsGrid();">
-                    ALL TOOLS
+                    <span class="material-symbols-outlined !text-sm mr-1">build</span>
+                    TOOLS
                 </button>
             </div>
-            <div class="flex items-center gap-8">
-                <!-- Status (Visual Only for now) -->
-                <div class="hidden md:flex items-center gap-6 text-[10px] tracking-widest uppercase font-bold">
-                    <div class="flex flex-col gap-1"><span class="text-slate-500">SYSTEM</span><span class="text-signal-green mono-data text-xs">ONLINE</span></div>
-                    <div class="flex flex-col gap-1"><span class="text-slate-500">LATENCY</span><span class="text-primary mono-data text-xs">2ms</span></div>
-                </div>
-                <!-- Search -->
-                <div class="relative group">
-                    <div class="flex items-center bg-surface-dark border border-border-dark rounded px-3 py-1.5 w-64 group-hover:border-primary/50 transition-colors">
-                        <span class="material-symbols-outlined !text-sm text-slate-500 mr-2">search</span>
-                        <input class="bg-transparent border-none p-0 text-xs w-full focus:ring-0 placeholder:text-slate-600 text-white" placeholder="Search functionality..." type="text"/>
-                        <span class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded ml-2">⌘K</span>
-                    </div>
-                </div>
+            <div class="flex items-center gap-4">
+                <span class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">v3.0.0</span>
             </div>
         </header>
 
@@ -192,9 +174,24 @@
                         <div class="bg-surface-dark cyber-border rounded p-6">
                             <div class="flex items-center justify-between mb-6">
                                 <h3 class="text-xs font-bold tracking-[0.2em] uppercase text-white">VLSM Configuration</h3>
-                                <button id="btn-calc-vlsm" class="bg-primary hover:bg-primary/80 text-white text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded transition-colors shadow-lg shadow-primary/20">
-                                    Calculate Space
+                                <button id="btn-calc-vlsm" class="bg-primary hover:bg-primary/80 text-white text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded transition-colors shadow-lg shadow-primary/20 flex items-center gap-2">
+                                    <span class="material-symbols-outlined !text-sm">calculate</span>
+                                    Calculate
                                 </button>
+                            </div>
+                            
+                            <!-- Help Banner -->
+                            <div class="bg-blue-500/10 border border-blue-500/30 rounded p-4 mb-6 flex items-start gap-3">
+                                <span class="material-symbols-outlined text-blue-400 !text-lg">info</span>
+                                <div class="flex-1 text-xs text-blue-300">
+                                    <p class="font-bold mb-1">How to use:</p>
+                                    <ol class="list-decimal list-inside space-y-1 text-blue-200/80">
+                                        <li>Enter a network address (e.g., 192.168.1.0)</li>
+                                        <li>Select subnet mask (e.g., /24)</li>
+                                        <li>Enter required hosts per subnet separated by commas (e.g., 50, 30, 20)</li>
+                                        <li>Click "Calculate" or press Enter</li>
+                                    </ol>
+                                </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-4">

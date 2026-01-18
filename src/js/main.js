@@ -304,11 +304,13 @@ function initVLSM() {
     import('./input-validation.js').then(module => {
         if (ipInput) {
             module.addIPValidation(ipInput);
-            module.addExampleButton(ipInput, '192.168.1.0');
+            // Temporarily disabled until fully functional
+            // module.addExampleButton(ipInput, '192.168.1.0');
         }
         if (hostsInput) {
             module.addHostsValidation(hostsInput);
-            module.addExampleButton(hostsInput, '50, 30, 20, 10');
+            // Temporarily disabled until fully functional
+            // module.addExampleButton(hostsInput, '50, 30, 20, 10');
         }
     });
 
