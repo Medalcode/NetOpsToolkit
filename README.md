@@ -1,116 +1,89 @@
-# 🛡️ NetOps Toolkit (v2.0.0-alpha)
+# 🛡️ NetOps Toolkit v3.0.1
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Status](https://img.shields.io/badge/State-Alpha-orange)](https://github.com/Medalcode/NetOpsToolkit)
+[![Status](https://img.shields.io/badge/Status-Stable-green)](https://github.com/Medalcode/NetOpsToolkit)
+[![Deploy](https://img.shields.io/badge/Deploy-Netlify-00C7B7)](https://netops-toolkit.netlify.app)
 
 > **"La Navaja Suiza para Ingenieros de Red"**
 >
-> Suite integral de herramientas Open Source que incluye Calculadora VLSM, Diagnóstico DNS, Referencia de Puertos, Generador de Configuración y más. Todo ejecutándose 100% en el navegador (Client-Side) con máxima privacidad.
+> Suite integral de herramientas de red 100% client-side. Cálculo VLSM, análisis de subredes, DNS lookup, generación de configuraciones y más. Todo ejecutándose en tu navegador con máxima privacidad.
 
-![NetOps Toolkit Dashboard](https://via.placeholder.com/800x400/0f172a/38bdf8?text=NetOps+Toolkit+Dashboard)
+## ✨ Características Principales
 
-## 🎯 Herramientas Incluidas
+- ✅ **100% Client-Side** - Sin backend, máxima privacidad
+- ✅ **Interfaz Moderna** - Diseño Cyberpunk con Tailwind CSS
+- ✅ **Validación en Tiempo Real** - Feedback instantáneo mientras escribes
+- ✅ **Animaciones Fluidas** - Transiciones suaves entre vistas
+- ✅ **Responsive** - Funciona en desktop y móvil
+- ✅ **Open Source** - MIT License
 
-### 🌐 Layer 3: Network
+## 🎯 Herramientas Disponibles
 
-- **Calculadora VLSM Pro**: Algoritmo optimizado para distribución eficiente de subredes.
-- **Subnet Analyzer**: Análisis detallado de bloques CIDR.
-- **IPv6 Tools**: Compresión, expansión y análisis de tipos de dirección.
-- **DNS Lookup**: Consultas en tiempo real vía DNS-over-HTTPS (Google/Cloudflare).
-- **Public IP**: Detección automática de IP pública, ASN y ubicación.
+### 🌐 Networking
+- **VLSM Calculator** - Calculadora avanzada de subredes
+- **Subnet Analyzer** - Análisis detallado de direcciones IP
+- **IPv6 Tools** - Expansión, compresión e identificación
+- **DNS Lookup** - Consultas DNS en tiempo real
+- **Public IP Widget** - Detección automática de IP pública
 
-### 🔌 Layer 4: Transport
+### 🔧 Utilities
+- **Port Reference** - Catálogo de puertos TCP/UDP
+- **OUI Lookup** - Identificación de fabricantes por MAC
+- **Config Generator** - Plantillas Cisco, Mikrotik, Juniper
+- **Key Generator** - Generación segura de claves WPA2/3
 
-- **Port Catalog**: Búsqueda rápida de puertos TCP/UDP y servicios comunes.
+## 🚀 Demo en Vivo
 
-### 🏷️ Layer 2: Data Link
-
-- **OUI Lookup**: Identificación de fabricantes por MAC Address (Base de datos offline).
-
-### 🧶 Layer 1: Physical
-
-- **Wiring Guide**: Referencia visual interactiva para estándares T568A/B.
-
-### 🤖 Automation & Utils
-
-- **Config Generator**: Plantillas para Cisco, Mikrotik y Juniper.
-- **Key Generator**: Generación segura de WPA2/3, PSK y Secret Keys.
-- **Bandwidth Calc**: Estimación de tiempos de transferencia de archivos.
-- **Hex Converter**: Conversión entre bases (Decimal, Binario, Hex).
-
-## 🚀 Demo
-
-**[👉 Abrir NetOps Toolkit](index.html)** _(Ejecutar localmente)_
+**[👉 Abrir NetOps Toolkit](https://netops-toolkit.netlify.app)**
 
 ## 💻 Instalación Local
 
-1. **Clonar el repositorio:**
+```bash
+# Clonar repositorio
+git clone https://github.com/Medalcode/NetOpsToolkit.git
+cd NetOpsToolkit
 
-   ```bash
-   git clone https://github.com/Medalcode/NetOpsToolkit.git NetOpsToolkit
-   cd NetOpsToolkit
-   ```
+# Instalar dependencias
+npm install
 
-2. **Ejecutar:**
+# Ejecutar en desarrollo
+npm run dev
 
-   Simplemente abre el archivo `index.html` en tu navegador favorito (Chrome, Firefox, Edge).
-
-   _Opcional: Si deseas usarlo como servidor local:_
-
-   ```bash
-   # Python
-   python3 -m http.server 8000
-
-   # Node.js
-   npx serve
-   ```
-
-## 🛠️ Tecnologías
-
-| Componente  | Stack                                   |
-| ----------- | --------------------------------------- |
-| **Core**    | HTML5 Semántico                         |
-| **Styling** | CSS3 Moderno (Variables, Grid, Flexbox) |
-| **Logic**   | JavaScript ES6+ (Módulos Nativos)       |
-| **APIs**    | DoH (Google/Cloudflare), IPAPI          |
-| **Deploy**  | Static (Netlify/Vercel compatible)      |
-
-## 🏗️ Estructura del Proyecto
-
+# Build para producción
+npm run build
 ```
-NetOpsToolkit/
-├── index.html           # Dashboard Principal
-├── css/
-│   ├── dashboard.css    # Layout del Dashboard
-│   ├── tools.css        # Estilos de Herramientas
-│   └── main.css         # Estilos Globales
-├── js/
-│   ├── main.js          # Orquestador
-│   ├── tools/           # Módulos de Herramientas
-│   │   ├── dns.js
-│   │   ├── ipv6.js
-│   │   ├── oui.js
-│   │   └── ...
-└── README.md            # Documentación
-```
+
+## 🛠️ Stack Tecnológico
+
+- **Frontend**: HTML5, JavaScript ES6+
+- **Styling**: Tailwind CSS v3
+- **Build**: Vite
+- **Icons**: Material Symbols
+- **Deploy**: Netlify
+
+## 📖 Documentación
+
+- [WHAT_WORKS.md](WHAT_WORKS.md) - Lista de funcionalidades
+- [UX_IMPROVEMENTS_SUMMARY.md](UX_IMPROVEMENTS_SUMMARY.md) - Mejoras UX
+- [TODO_NEXT_SESSION.md](TODO_NEXT_SESSION.md) - Roadmap
 
 ## 🤝 Contribuir
 
-¡Las contribuciones son bienvenidas!
-
 1. Fork el proyecto
-2. Crea tu feature branch (`git checkout -b feature/AmazingTool`)
-3. Commit tus cambios (`git commit -m 'Add: New Tool'`)
-4. Push a la branch (`git push origin feature/AmazingTool`)
+2. Crea tu branch (`git checkout -b feature/AmazingFeature`)
+3. Commit (`git commit -m 'feat: add amazing feature'`)
+4. Push (`git push origin feature/AmazingFeature`)
 5. Abre un Pull Request
 
 ## 📄 Licencia
 
-Este proyecto está bajo la Licencia MIT.
+MIT License - Ver [LICENSE](LICENSE)
 
 ---
 
 <div align="center">
-  <b>Desarrollado por MedalCode Team</b><br>
-  <i>Empoderando a la próxima generación de ingenieros de red.</i>
+  <b>Desarrollado por MedalCode</b><br>
+  <i>Empoderando a ingenieros de red</i><br><br>
+  <a href="https://netops-toolkit.netlify.app">🌐 Demo</a> •
+  <a href="https://github.com/Medalcode/NetOpsToolkit/issues">🐛 Issues</a>
 </div>
