@@ -447,27 +447,79 @@ export function addCopyButtonToSubnet(subnet, subnetDiv, onCopy) {
  * @param {string} type - Tipo: 'success', 'error', 'info'
  * @param {number} duration - Duración en ms (default: 3000)
  */
+/**
+ * Show toast notification with enhanced styling
+ * @param {string} message - Message to display
+ * @param {string} type - Type of toast (success, error, warning, info)
+ * @param {number} duration - Duration in milliseconds
+ */
 export function showToast(message, type = "success", duration = 3000) {
-  // Crear toast
+  // Icon mapping
+  const icons = {
+    success: 'check_circle',
+    error: 'error',
+    warning: 'warning',
+    info: 'info'
+  };
+
+  // Create toast container if it doesn't exist
+  let toastContainer = document.getElementById('toast-container');
+  if (!toastContainer) {
+    toastContainer = document.createElement('div');
+    toastContainer.id = 'toast-container';
+    toastContainer.className = 'fixed top-4 right-4 z-50 flex flex-col gap-2';
+    document.body.appendChild(toastContainer);
+  }
+
+  // Create toast
   const toast = document.createElement("div");
   toast.className = `toast toast-${type}`;
   toast.setAttribute("role", "status");
   toast.setAttribute("aria-live", "polite");
   
-  const icon = type === "success" ? "✅" : type === "error" ? "❌" : "ℹ️";
-  toast.textContent = `${icon} ${message}`;
+  toast.innerHTML = `
+    <span class="material-symbols-outlined !text-lg">${icons[type] || 'info'}</span>
+    <span class="flex-1">${message}</span>
+    <button class="text-current opacity-50 hover:opacity-100 transition-opacity" onclick="this.parentElement.remove()">
+      <span class="material-symbols-outlined !text-sm">close</span>
+    </button>
+  `;
   
-  // Agregar al body
-  document.body.appendChild(toast);
+  // Add to container
+  toastContainer.appendChild(toast);
   
-  // Animación de entrada
-  setTimeout(() => toast.classList.add("show"), 10);
-  
-  // Remover después de la duración
+  // Auto-remove after duration
   setTimeout(() => {
-    toast.classList.remove("show");
-    setTimeout(() => document.body.removeChild(toast), 300);
+    toast.style.animation = 'slideOutRight 0.3s ease-out';
+    setTimeout(() => {
+      if (toast.parentElement) {
+        toast.remove();
+      }
+      // Remove container if empty
+      if (toastContainer.children.length === 0) {
+        toastContainer.remove();
+      }
+    }, 300);
   }, duration);
+}
+
+// Add slide out animation
+if (!document.getElementById('toast-animations')) {
+  const style = document.createElement('style');
+  style.id = 'toast-animations';
+  style.textContent = `
+    @keyframes slideOutRight {
+      from {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateX(100%);
+      }
+    }
+  `;
+  document.head.appendChild(style);
 }
 
 /**

@@ -22,7 +22,7 @@ export function initStandardCalc(container) {
         </div>
 
         <!-- Results Section (Hidden initially) -->
-        <div id="std-results" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div id="std-results" class="hidden grid-cols-1 md:grid-cols-2 gap-6">
             
             <!-- Network Details -->
             <div class="bg-surface-dark cyber-border rounded p-6">
@@ -158,6 +158,7 @@ export function initStandardCalc(container) {
       binContainer.appendChild(createBinaryRow("NETWORK", networkDec));
 
       resultsDiv.classList.remove('hidden');
+      resultsDiv.classList.add('grid');
   }
 
   btn.addEventListener('click', (e) => {

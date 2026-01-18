@@ -131,25 +131,92 @@ function setupNavigation() {
 }
 
 /**
- * Generic View Switcher
+ * Generic View Switcher with Enhanced UX
  */
-function showView(viewId, title) {
-    // 1. Update Title
-    const titleEl = document.getElementById('header-title');
-    if (titleEl) titleEl.textContent = title;
+function showView(viewId, title, breadcrumb = null) {
+    // 1. Update Breadcrumb
+    updateBreadcrumb(breadcrumb || title);
 
-    // 2. Hide All Views
+    // 2. Update Sidebar Active State
+    updateSidebarActiveState(viewId);
+
+    // 3. Hide All Views with exit animation
     ['view-vlsm', 'view-tools', 'view-dynamic-tool'].forEach(id => {
         const el = document.getElementById(id);
-        if (el) el.classList.add('hidden');
-        if (el && id === 'view-tools') el.classList.remove('grid'); // Special case for grid
+        if (el && !el.classList.contains('hidden')) {
+            // Add exit animation
+            el.classList.add('view-transition-exit');
+            
+            // Wait for animation, then hide
+            setTimeout(() => {
+                el.classList.add('hidden');
+                el.classList.remove('view-transition-exit');
+                if (id === 'view-tools') el.classList.remove('grid');
+            }, 300);
+        } else if (el) {
+            el.classList.add('hidden');
+            if (id === 'view-tools') el.classList.remove('grid');
+        }
     });
 
-    // 3. Show Target
-    const targetEl = document.getElementById(viewId);
-    if (targetEl) {
-        targetEl.classList.remove('hidden');
-        if (viewId === 'view-tools') targetEl.classList.add('grid');
+    // 4. Show Target with enter animation
+    setTimeout(() => {
+        const targetEl = document.getElementById(viewId);
+        if (targetEl) {
+            targetEl.classList.remove('hidden');
+            targetEl.classList.add('view-transition-enter');
+            if (viewId === 'view-tools') targetEl.classList.add('grid');
+            
+            // Remove animation class after it completes
+            setTimeout(() => {
+                targetEl.classList.remove('view-transition-enter');
+            }, 400);
+        }
+    }, 300);
+
+    // 5. Update document title
+    document.title = `${title} - NetOps Toolkit`;
+}
+
+/**
+ * Update breadcrumb navigation
+ */
+function updateBreadcrumb(path) {
+    const breadcrumbContainer = document.getElementById('breadcrumb-container');
+    if (!breadcrumbContainer) return;
+
+    const parts = typeof path === 'string' ? path.split(' / ') : [path];
+    
+    breadcrumbContainer.innerHTML = `
+        <span class="text-slate-500 font-bold tracking-widest">NETOPS</span>
+        ${parts.map((part, i) => `
+            <span class="text-slate-700">/</span>
+            <span class="${i === parts.length - 1 ? 'text-white' : 'text-slate-400'}">${part}</span>
+        `).join('')}
+    `;
+}
+
+/**
+ * Update sidebar active state
+ */
+function updateSidebarActiveState(viewId) {
+    // Remove active from all nav items
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active', 'bg-primary/10', 'text-primary');
+        item.classList.add('text-slate-500');
+    });
+
+    // Add active to current
+    let targetAttr = '';
+    if (viewId === 'view-vlsm') targetAttr = 'vlsm';
+    else if (viewId === 'view-tools' || viewId === 'view-dynamic-tool') targetAttr = 'tools';
+
+    if (targetAttr) {
+        const activeItem = document.querySelector(`[data-target="${targetAttr}"]`);
+        if (activeItem) {
+            activeItem.classList.add('active', 'bg-primary/10', 'text-primary');
+            activeItem.classList.remove('text-slate-500');
+        }
     }
 }
 
