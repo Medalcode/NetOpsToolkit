@@ -224,11 +224,26 @@ function updateSidebarActiveState(viewId) {
  * Dynamically imports and initializes tool logic
  */
 async function loadToolLogic(toolId) {
-    // 1. Show Loading State in Dynamic View
-    showView('view-dynamic-tool', 'LOADING TOOL...');
+    // 1. Show Loading State with Skeleton
+    showView('view-dynamic-tool', 'LOADING...', 'TOOLS / LOADING');
     const contentContainer = document.getElementById('dynamic-tool-content');
     const titleContainer = document.getElementById('dynamic-tool-title');
-    contentContainer.innerHTML = '<div class="text-slate-500 animate-pulse">Loading module components...</div>';
+    
+    // Show skeleton loader
+    contentContainer.innerHTML = `
+        <div class="space-y-6 animate-fade-in">
+            <div class="skeleton-title"></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+            </div>
+            <div class="space-y-2">
+                <div class="skeleton-text"></div>
+                <div class="skeleton-text"></div>
+                <div class="skeleton-text w-3/4"></div>
+            </div>
+        </div>
+    `;
     
     // 2. Load Module
     const config = TOOL_REGISTRY[toolId];
@@ -236,27 +251,39 @@ async function loadToolLogic(toolId) {
         try {
             console.log(`📦 Loading module for ${toolId}`);
             
-            // Note: Since we don't have separate HTML files for tools anymore, 
-            // the tool modules need to be adapted to RENDER their UI into 'contentContainer' 
-            // or we fetch a partial HTML.
-            // For now, we'll try to load the module. Ideally, we should refactor tools to render() themselves.
-            // As a fallback, we display a placeholder message if the tool isn't fully migrated.
-            
-            if(titleContainer) titleContainer.textContent = toolId.replace('tool-', '').toUpperCase();
+            // Update title
+            const toolName = toolId.replace('tool-', '').replace(/-/g, ' ').toUpperCase();
+            if(titleContainer) titleContainer.textContent = toolName;
 
             const module = await config.load();
             
             if (module[config.fn] && typeof module[config.fn] === 'function') {
-                // Pass the container to the init function if it supports it
-                // We'll need to update tool init functions to accept a container!
+                // Clear skeleton and render tool
+                contentContainer.innerHTML = '';
                 module[config.fn](contentContainer); 
                 console.log(`✨ Initialized ${toolId}`);
+                
+                // Update breadcrumb with tool name
+                showView('view-dynamic-tool', toolName, `TOOLS / ${toolName}`);
             } else {
-                contentContainer.innerHTML = `<div class="text-red-500">Error: Entry point ${config.fn} not found.</div>`;
+                contentContainer.innerHTML = `
+                    <div class="bg-red-500/10 border border-red-500/30 rounded p-6 text-red-400">
+                        <span class="material-symbols-outlined mr-2">error</span>
+                        Error: Entry point ${config.fn} not found.
+                    </div>
+                `;
             }
         } catch (e) {
             console.error(`Failed to load ${toolId}:`, e);
-            contentContainer.innerHTML = `<div class="text-red-500">Failed to load tool: ${e.message}</div>`;
+            contentContainer.innerHTML = `
+                <div class="bg-red-500/10 border border-red-500/30 rounded p-6 text-red-400">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="material-symbols-outlined">error</span>
+                        <strong>Failed to load tool</strong>
+                    </div>
+                    <p class="text-sm text-red-300">${e.message}</p>
+                </div>
+            `;
         }
     } else {
          contentContainer.innerHTML = `<div class="text-yellow-500">Tool registry configuration not found for ${toolId}</div>`;
@@ -264,18 +291,42 @@ async function loadToolLogic(toolId) {
 }
 
 /**
- * Core VLSM Tool Initialization (Inline to ensure reliability)
- */
-/**
- * Core VLSM Tool Initialization (Tailwind Adaptation)
+ * Core VLSM Tool Initialization with Enhanced UX
  */
 function initVLSM() {
     const calcBtn = document.getElementById('btn-calc-vlsm');
+    const ipInput = document.getElementById('vlsm-ip');
+    const hostsInput = document.getElementById('vlsm-hosts');
+    
     if (!calcBtn) return;
+
+    // Add real-time validation (will be imported)
+    import('./input-validation.js').then(module => {
+        if (ipInput) {
+            module.addIPValidation(ipInput);
+            module.addExampleButton(ipInput, '192.168.1.0');
+        }
+        if (hostsInput) {
+            module.addHostsValidation(hostsInput);
+            module.addExampleButton(hostsInput, '50, 30, 20, 10');
+        }
+    });
 
     calcBtn.addEventListener('click', (e) => {
         e.preventDefault();
         runVLSMCalculation();
+    });
+
+    // Add Enter key support
+    [ipInput, hostsInput].forEach(input => {
+        if (input) {
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    runVLSMCalculation();
+                }
+            });
+        }
     });
 }
 
