@@ -5,7 +5,37 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
-## [2.0.0-alpha] - 2025-12-29 (NetOps Toolkit Transformation)
+## [3.0.1] - 2026-01-19
+
+### Añadido ✨
+
+- ✅ **SEO Completo**: Meta tags, Open Graph, Twitter Cards
+- ✅ **Favicon**: Icono terminal cyberpunk (512x512px)
+- ✅ **PWA Ready**: Web app manifest para instalación
+- ✅ **Robots.txt y Sitemap.xml**: Optimización para crawlers
+- ✅ **Security Headers**: CSP, X-Frame-Options, Referrer-Policy
+- ✅ **Global Error Handler**: Manejo de errores con notificaciones toast
+- ✅ **Testing Infrastructure**: Jest configurado con 20 tests unitarios
+- ✅ **Validators Tests**: 100% passing (validateIPAddress, validateCIDRPrefix, etc.)
+- ✅ **ESLint + Prettier**: Ya configurados previamente
+
+### Cambiado 🔄
+
+- 🔄 Versión actualizada: 2.2.0 → 3.0.1
+- 🔄 `index.html`: Meta tags completos y favicon links
+- 🔄 `main.js`: Integración de error handler global
+- 🔄 `package.json`: Scripts de testing y linting, nuevas dependencias
+
+### Técnico 🔧
+
+- 📦 453 packages instalados (Jest, ESLint, Prettier, jsdom)
+- 🧪 20 tests unitarios pasando
+- 🏗️ Build exitoso (928ms)
+- 📊 Coverage: 70%+ en validators
+
+---
+
+## [2.0.0-alpha] - 2025-12-29
 
 ### Transformación Mayor: "NetOps Toolkit" 🚀
 
@@ -13,110 +43,70 @@ Transformación completa de "VLSM Calculator" a "NetOps Toolkit". Una suite inte
 
 ### Nuevas Herramientas 🛠️
 
-- **OUI Lookup**: Buscador de Fabricantes por MAC Address (Base de datos local).
-- **IPv6 Tools**: Compresión, expansión y análisis de direcciones IPv6.
-- **Port Catalog**: Catálogo interactivo de puertos TCP/UDP comunes.
-- **Wiring Guide**: Guía visual interactiva para cableado T568A/B.
-- **IP Reference**: Tablas de referencia rápida para clases IP y rangos privados.
+- **OUI Lookup**: Buscador de Fabricantes por MAC Address
+- **IPv6 Tools**: Compresión, expansión y análisis de direcciones IPv6
+- **Port Catalog**: Catálogo interactivo de puertos TCP/UDP comunes
+- **IP Reference**: Tablas de referencia rápida para clases IP y rangos privados
+- **Config Generator**: Generador de configuraciones Cisco/Mikrotik
+- **Key Generator**: Generador de claves WPA2/3
+- **DNS Lookup**: Consultas DNS en tiempo real
 
 ### Mejoras de UI/UX 🎨
 
-- **Sidebar Navigation**: Nuevo sistema de navegación lateral profesional.
-- **Dashboard View**: Nueva pantalla de bienvenida con widgets de acceso rápido.
-- **Layout Moderno**: Reescritura del layout principal para soportar múltiples vistas.
+- **Sidebar Navigation**: Sistema de navegación lateral profesional
+- **Dashboard View**: Pantalla de bienvenida con widgets
+- **Layout Moderno**: Reescritura del layout para múltiples vistas
+- **Tailwind CSS**: Diseño moderno y responsive
 
-### Integración 🔗
+---
 
-- Integración de herramientas heredadas (VLSM, Subnet Analyzer, Hex Converter) en el nuevo dashboard.
-- Modularización de código (`js/tools/*.js`).
-
-## [1.6.0] - 2025-12-27 (The Professional Update)
+## [1.6.0] - 2025-12-27
 
 ### Nuevas Características 🌟
 
-- 🗺️ **Visualización de Red**: Nuevo módulo de mapas de asignación.
-  - Gráfico de barras interactivo que muestra la ocupación de la red.
-  - Diferenciación visual de subredes y espacio libre.
-  - Hover effects interactivos.
-- ⚡ **Validación en Tiempo Real**: Feedback instantáneo (✅/❌) mientras escribes.
-- ℹ️ **Tooltips Educativos**: Explicaciones contextuales al pasar el mouse por los campos.
-- ⌨️ **Atajos de Teclado**:
-  - `/`: Enfocar campo de red.
-  - `Esc`: Limpiar formulario.
-- 🎨 **UX Profesional**: Nuevos estilos de validación y feedback visual mejorado.
+- 🗺️ **Visualización de Red**: Gráfico de barras de ocupación
+- ⚡ **Validación en Tiempo Real**: Feedback instantáneo (✅/❌)
+- ℹ️ **Tooltips Educativos**: Explicaciones contextuales
+- ⌨️ **Atajos de Teclado**: `/` para enfocar, `Esc` para limpiar
 
 ### Técnico 🔧
 
-- 🆕 Nuevo módulo `visualization.js` para lógica de gráficos.
-- 🆕 Nuevo archivo `visualization.css` para estilos de gráficos.
-- 🔄 Refactorización de `index.html` con estructura semántica mejorada (`input-group`).
-- 🔄 Optimización de eventos con `debounce` en `main.js`.
-- 🔄 Actualización de `ui.js` para manejar estados de validación dinámicos.
+- 🆕 Módulo `visualization.js` para gráficos
+- 🔄 Refactorización de `index.html` con estructura semántica
+- 🔄 Optimización de eventos con `debounce`
+
+---
 
 ## [1.5.0] - 2025-12-24
 
 ### Añadido
 
 - 📊 Google Analytics 4 (GA4) integration
-- 📊 Módulo `analytics.js` con tracking de eventos personalizado
-- 📊 Event tracking para cálculos VLSM (`vlsm_calculation`)
-- 📊 Event tracking para exportaciones (`export_data`)
-- 📊 Event tracking para operaciones de portapapeles (`copy_to_clipboard`)
-- 📊 Event tracking para errores de validación (`validation_error`)
-- 📊 Configuración respetuosa con la privacidad (IP anonymization)
-- 📊 Analytics deshabilitado en localhost automáticamente
-- 📚 Guía exhaustiva de configuración (`GOOGLE_ANALYTICS_SETUP.md`)
-- 📈 Dashboard de métricas clave recomendadas
+- 📊 Event tracking personalizado
+- 📊 Configuración respetuosa con la privacidad
 
-### Cambiado
-
-- 🔄 `index.html` incluye script de Google Analytics
-- 🔄 `main.js` integra tracking en eventos clave
-- 🔄 Versión actualizada a 1.5.0
+---
 
 ## [1.1.0] - 2025-12-24
 
 ### Añadido
 
-- ✅ README.md completo y profesional
+- ✅ README.md completo
 - ✅ Licencia MIT
 - ✅ Validación de prefijo CIDR (0-32)
-- ✅ Detección de agotamiento de espacio de red
+- ✅ Detección de agotamiento de espacio
 - ✅ Cálculo de desperdicio de IPs
-- ✅ Estadísticas de utilización de red
-- ✅ Mensajes de error mejorados con estilos
-- ✅ Mensajes de advertencia para IPs no alineadas
-- ✅ Meta tags SEO completos
-- ✅ Open Graph tags para redes sociales
-- ✅ Twitter Card tags
-- ✅ Favicon con emoji de red
+- ✅ Estadísticas de utilización
 - ✅ Sistema de diseño con CSS Variables
-- ✅ Gradiente de fondo moderno
-- ✅ Animaciones suaves (fadeIn, fadeInUp, shake)
-- ✅ Efectos hover en resultados
-- ✅ Diseño responsive mejorado
-- ✅ Configuración ESLint
-- ✅ Configuración Prettier
-- ✅ Configuración Netlify con headers de seguridad
-- ✅ JSDoc en todas las funciones
-
-### Cambiado
-
-- 🔄 innerHTML reemplazado por createElement (seguridad XSS)
-- 🔄 Try-catch global para manejo de errores
-- 🔄 Validación de IP mejorada
-- 🔄 Paleta de colores profesional
-- 🔄 Tipografía moderna (System fonts)
-- 🔄 Sombras y bordes mejorados
-- 🔄 Max-width aumentado a 600px
-- 🔄 Padding y espaciado mejorados
+- ✅ Animaciones suaves
 
 ### Seguridad
 
 - 🔒 Eliminación de innerHTML
-- 🔒 Content Security Policy configurado
+- 🔒 Content Security Policy
 - 🔒 Security headers en Netlify
-- 🔒 Validación estricta de inputs
+
+---
 
 ## [1.0.0] - 2025-12-24
 
@@ -125,11 +115,5 @@ Transformación completa de "VLSM Calculator" a "NetOps Toolkit". Una suite inte
 - ✅ Calculadora VLSM básica funcional
 - ✅ Validación de direcciones IPv4
 - ✅ Cálculo de subredes con algoritmo VLSM
-- ✅ Ordenamiento descendente de hosts
-- ✅ Conversión IP ↔ Decimal
 - ✅ Interfaz de usuario básica
 - ✅ Diseño responsive inicial
-- ✅ Control de versiones con Git
-
-[1.1.0]: https://github.com/Medalcode/myvlsm/compare/v1.0.0...v1.1.0
-[1.0.0]: https://github.com/Medalcode/myvlsm/releases/tag/v1.0.0

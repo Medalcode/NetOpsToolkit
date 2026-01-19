@@ -3,6 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Status](https://img.shields.io/badge/Status-Stable-green)](https://github.com/Medalcode/NetOpsToolkit)
 [![Deploy](https://img.shields.io/badge/Deploy-Netlify-00C7B7)](https://netops-toolkit.netlify.app)
+[![Tests](https://img.shields.io/badge/Tests-20%20passing-success)](https://github.com/Medalcode/NetOpsToolkit)
 
 > **"La Navaja Suiza para Ingenieros de Red"**
 >
@@ -15,18 +16,23 @@
 - ✅ **Validación en Tiempo Real** - Feedback instantáneo mientras escribes
 - ✅ **Animaciones Fluidas** - Transiciones suaves entre vistas
 - ✅ **Responsive** - Funciona en desktop y móvil
+- ✅ **PWA Ready** - Instalable como aplicación
+- ✅ **Secure** - CSP headers, XSS prevention
+- ✅ **Tested** - 20 tests unitarios pasando
 - ✅ **Open Source** - MIT License
 
 ## 🎯 Herramientas Disponibles
 
 ### 🌐 Networking
-- **VLSM Calculator** - Calculadora avanzada de subredes
+
+- **VLSM Calculator** - Calculadora avanzada de subredes con visualización
 - **Subnet Analyzer** - Análisis detallado de direcciones IP
 - **IPv6 Tools** - Expansión, compresión e identificación
-- **DNS Lookup** - Consultas DNS en tiempo real
+- **DNS Lookup** - Consultas DNS en tiempo real vía DoH
 - **Public IP Widget** - Detección automática de IP pública
 
 ### 🔧 Utilities
+
 - **Port Reference** - Catálogo de puertos TCP/UDP
 - **OUI Lookup** - Identificación de fabricantes por MAC
 - **Config Generator** - Plantillas Cisco, Mikrotik, Juniper
@@ -49,6 +55,9 @@ npm install
 # Ejecutar en desarrollo
 npm run dev
 
+# Ejecutar tests
+npm test
+
 # Build para producción
 npm run build
 ```
@@ -58,14 +67,39 @@ npm run build
 - **Frontend**: HTML5, JavaScript ES6+
 - **Styling**: Tailwind CSS v3
 - **Build**: Vite
+- **Testing**: Jest + jsdom
+- **Code Quality**: ESLint + Prettier
 - **Icons**: Material Symbols
 - **Deploy**: Netlify
 
 ## 📖 Documentación
 
-- [WHAT_WORKS.md](WHAT_WORKS.md) - Lista de funcionalidades
-- [UX_IMPROVEMENTS_SUMMARY.md](UX_IMPROVEMENTS_SUMMARY.md) - Mejoras UX
-- [TODO_NEXT_SESSION.md](TODO_NEXT_SESSION.md) - Roadmap
+- [CHANGELOG.md](CHANGELOG.md) - Historial de cambios
+- [TODO.md](TODO.md) - Tareas pendientes y roadmap
+- [LICENSE](LICENSE) - Licencia MIT
+
+## 🧪 Testing
+
+```bash
+# Ejecutar todos los tests
+npm test
+
+# Modo watch
+npm run test:watch
+
+# Coverage report
+npm run test:coverage
+```
+
+**Estado actual**: 20 tests pasando (100%)
+
+## 🔒 Seguridad
+
+- Content Security Policy (CSP)
+- X-Frame-Options: DENY
+- XSS Prevention (no innerHTML)
+- Input sanitization
+- HTTPS enforcement
 
 ## 🤝 Contribuir
 
@@ -74,6 +108,39 @@ npm run build
 3. Commit (`git commit -m 'feat: add amazing feature'`)
 4. Push (`git push origin feature/AmazingFeature`)
 5. Abre un Pull Request
+
+### Guías de Contribución
+
+- Seguir [Conventional Commits](https://www.conventionalcommits.org/)
+- Ejecutar `npm run lint` antes de commit
+- Escribir tests para nuevas funcionalidades
+- Mantener coverage > 70%
+
+## 📊 Roadmap
+
+### v3.1.0 (Próximo)
+
+- [ ] Google Analytics 4 integration
+- [ ] Export to PDF
+- [ ] Dark mode toggle
+- [ ] Tooltips informativos
+- [ ] Keyboard shortcuts
+
+### v3.2.0
+
+- [ ] PWA completo con Service Worker
+- [ ] Offline mode
+- [ ] LocalStorage history para todas las herramientas
+- [ ] Visual subnet diagrams
+
+### v4.0.0
+
+- [ ] Supernetting calculator
+- [ ] Route aggregation
+- [ ] IPv6 full support
+- [ ] Internationalization (i18n)
+
+Ver [TODO.md](TODO.md) para más detalles.
 
 ## 📄 Licencia
 
@@ -85,5 +152,6 @@ MIT License - Ver [LICENSE](LICENSE)
   <b>Desarrollado por MedalCode</b><br>
   <i>Empoderando a ingenieros de red</i><br><br>
   <a href="https://netops-toolkit.netlify.app">🌐 Demo</a> •
-  <a href="https://github.com/Medalcode/NetOpsToolkit/issues">🐛 Issues</a>
+  <a href="https://github.com/Medalcode/NetOpsToolkit/issues">🐛 Issues</a> •
+  <a href="CHANGELOG.md">📝 Changelog</a>
 </div>

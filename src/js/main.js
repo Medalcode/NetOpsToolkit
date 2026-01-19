@@ -7,6 +7,9 @@
 // Styles
 import '../css/main.css'; // Tailwind CSS
 
+// Error Handling
+import { initGlobalErrorHandlers, handleError, showSuccessNotification } from './error-handler.js';
+
 // Core Imports
 import { initTheme, createThemeToggle, getEffectiveTheme } from './theme.js';
 import { initI18n, setLanguage } from './i18n.js';
@@ -54,6 +57,10 @@ async function init() {
     console.group("🚀 NetOps Toolkit Initialization");
 
     try {
+        // 0. Initialize Global Error Handlers
+        initGlobalErrorHandlers();
+        console.log("✅ Error Handlers");
+
         // 1. Theme (Immediate visual stability)
         initTheme();
         updateBootstrapTheme(getEffectiveTheme()); // Sync Bootstrap
