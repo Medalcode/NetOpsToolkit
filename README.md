@@ -17,6 +17,7 @@
 - ✅ **Animaciones Fluidas** - Transiciones suaves entre vistas
 - ✅ **Responsive** - Funciona en desktop y móvil
 - ✅ **PWA Ready** - Instalable como aplicación
+- ✅ **Internationalization** - Soporte nativo Español 🇪🇸 / Inglés 🇺🇸
 - ✅ **Secure** - CSP headers, XSS prevention
 - ✅ **Tested** - 20 tests unitarios pasando
 - ✅ **Open Source** - MIT License

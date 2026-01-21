@@ -1,10 +1,19 @@
-/**
- * Internationalization (i18n) Module
- * Handles translations for English and Spanish
- */
-
 const translations = {
     es: {
+        // App General
+        "app.title": "NetOps Toolkit - Suite Herramientas Red",
+        "header.bc.netops": "NETOPS",
+        "header.bc.vlsm": "CALCULADORA VLSM",
+        "header.btn.vlsm": "VLSM",
+        "header.btn.tools": "HERRAMIENTAS",
+        "header.ver": "v3.0.1",
+        "footer.ready": "Sistema Listo — v3.0.1-cyber",
+        "footer.medalcode": "MEDALCODE",
+        "footer.secure": "SEGURO",
+        "tools.back": "Volver al Grid",
+        "term.root": "Terminal — root@netops",
+        "term.init": "$ iniciando conexión...",
+
         // Sidebar
         "nav.general": "General",
         "nav.dashboard": "Panel de Control",
@@ -41,12 +50,22 @@ const translations = {
         
         // VLSM Tool
         "vlsm.title": "Calculadora VLSM",
+        "vlsm.config.title": "Configuración VLSM",
         "vlsm.net.label": "Red Principal (CIDR)",
         "vlsm.net.help": "La red base que deseas dividir.",
         "vlsm.hosts.label": "Hosts por Subred",
         "vlsm.hosts.help": "Ingresa los tamaños separados por comas.",
         "vlsm.btn": "Calcular Distribución",
+        "vlsm.calc.btn": "Calcular",
         "vlsm.wait": "Esperando datos",
+        "input.hosts.hint": "Lista separada por comas (orden descendente recomendado)",
+
+        // Help Banner
+        "help.how": "Cómo usar:",
+        "help.step1": "Ingresa una dirección de red (ej. 192.168.1.0)",
+        "help.step2": "Selecciona la máscara de subred (ej. /24)",
+        "help.step3": "Ingresa hosts requeridos separados por comas (ej. 50, 30, 20)",
+        "help.step4": "Click en 'Calcular' o presiona Enter",
         
         // DNS Tool
         "dns.title": "Consulta DNS (DoH)",
@@ -79,6 +98,20 @@ const translations = {
         "keygen.desc": "Crea contraseñas robustas y claves WPA/PSK seguras aleatorias."
     },
     en: {
+        // App General
+        "app.title": "NetOps Toolkit - Network Tools Suite",
+        "header.bc.netops": "NETOPS",
+        "header.bc.vlsm": "VLSM CALCULATOR",
+        "header.btn.vlsm": "VLSM",
+        "header.btn.tools": "TOOLS",
+        "header.ver": "v3.0.1",
+        "footer.ready": "System Ready — v3.0.1-cyber",
+        "footer.medalcode": "MEDALCODE",
+        "footer.secure": "SECURE",
+        "tools.back": "Back to Grid",
+        "term.root": "Terminal — root@netops",
+        "term.init": "$ initializing connection...",
+
         // Sidebar
         "nav.general": "General",
         "nav.dashboard": "Dashboard",
@@ -115,12 +148,22 @@ const translations = {
 
         // VLSM Tool
         "vlsm.title": "VLSM Calculator",
+        "vlsm.config.title": "VLSM Configuration",
         "vlsm.net.label": "Major Network (CIDR)",
         "vlsm.net.help": "The base network you want to subnet.",
         "vlsm.hosts.label": "Hosts per Subnet",
         "vlsm.hosts.help": "Enter sizes separated by commas.",
         "vlsm.btn": "Calculate Distribution",
+        "vlsm.calc.btn": "Calculate",
         "vlsm.wait": "Waiting for data",
+        "input.hosts.hint": "Comma separated list (descending order recommended)",
+
+        // Help Banner
+        "help.how": "How to use:",
+        "help.step1": "Enter a network address (e.g., 192.168.1.0)",
+        "help.step2": "Select subnet mask (e.g., /24)",
+        "help.step3": "Enter required hosts per subnet separated by commas (e.g., 50, 30, 20)",
+        "help.step4": "Click 'Calculate' or press Enter",
 
         // DNS Tool
         "dns.title": "DNS Lookup (DoH)",

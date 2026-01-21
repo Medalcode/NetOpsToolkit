@@ -69,11 +69,11 @@
         <nav class="flex flex-col gap-6 flex-1">
             <a class="p-2 text-primary bg-primary/10 rounded group relative nav-item active" data-target="vlsm" href="#" title="VLSM Calculator">
                 <span class="material-symbols-outlined">layers</span>
-                <span class="absolute left-14 bg-primary text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">VLSM</span>
+                <span class="absolute left-14 bg-primary text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50" data-i18n="nav.vlsm">VLSM</span>
             </a>
             <a class="p-2 text-slate-500 hover:text-white transition-colors group relative nav-item" data-target="tools" href="#" title="All Tools">
                 <span class="material-symbols-outlined">build</span>
-                <span class="absolute left-14 bg-surface-dark border border-border-dark text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">Tools</span>
+                <span class="absolute left-14 bg-surface-dark border border-border-dark text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50" data-i18n="header.btn.tools">Tools</span>
             </a>
         </nav>
     </aside>
@@ -85,22 +85,27 @@
         <header class="h-16 flex items-center justify-between px-8 bg-background-dark border-b border-border-dark flex-shrink-0">
             <div class="flex items-center gap-4">
                 <nav id="breadcrumb-container" class="flex items-center gap-2 text-sm font-medium">
-                    <span class="text-slate-500 font-bold tracking-widest">NETOPS</span>
+                    <span class="text-slate-500 font-bold tracking-widest" data-i18n="header.bc.netops">NETOPS</span>
                     <span class="text-slate-700">/</span>
-                    <span class="text-white">VLSM CALCULATOR</span>
+                    <span class="text-white" data-i18n="header.bc.vlsm">VLSM CALCULATOR</span>
                 </nav>
                 <div class="h-4 w-px bg-slate-800 mx-2"></div>
                 <button class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-white transition-all ripple btn-press" onclick="showView('view-vlsm', 'VLSM CALCULATOR')">
                     <span class="material-symbols-outlined !text-sm mr-1">layers</span>
-                    VLSM
+                    <span data-i18n="header.btn.vlsm">VLSM</span>
                 </button>
                 <button class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded bg-surface-dark text-slate-400 border border-border-dark hover:text-white hover:border-primary transition-all ripple btn-press" onclick="showToolsGrid();">
                     <span class="material-symbols-outlined !text-sm mr-1">build</span>
-                    TOOLS
+                    <span data-i18n="header.btn.tools">TOOLS</span>
                 </button>
             </div>
             <div class="flex items-center gap-4">
-                <span class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">v3.0.0</span>
+                <!-- Language Toggle -->
+                <button id="lang-toggle" class="text-xs font-bold text-slate-500 hover:text-white transition-colors" onclick="window.switchLang()">
+                    🇪🇸 ES
+                </button>
+                <div class="h-4 w-px bg-slate-800"></div>
+                <span class="text-[10px] text-slate-500 uppercase font-bold tracking-wider" data-i18n="header.ver">v3.0.1</span>
             </div>
         </header>
 
@@ -116,8 +121,8 @@
                         <div class="text-primary mb-4 p-3 bg-primary/10 rounded inline-block group-hover:bg-primary group-hover:text-white transition-colors">
                             <span class="material-symbols-outlined">network_check</span>
                         </div>
-                        <h3 class="text-lg font-bold text-white mb-2">Subnet Analyzer</h3>
-                        <p class="text-slate-400 text-sm">Detailed analysis of IP addresses, classes, and binary representation.</p>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="subnet.title">Subnet Analyzer</h3>
+                        <p class="text-slate-400 text-sm" data-i18n="subnet.desc">Detailed analysis of IP addresses, classes, and binary representation.</p>
                     </div>
 
                     <!-- DNS Lookup -->
@@ -125,8 +130,8 @@
                         <div class="text-signal-green mb-4 p-3 bg-signal-green/10 rounded inline-block group-hover:bg-signal-green group-hover:text-black transition-colors">
                             <span class="material-symbols-outlined">dns</span>
                         </div>
-                        <h3 class="text-lg font-bold text-white mb-2">DNS Lookup</h3>
-                        <p class="text-slate-400 text-sm">Real-time DNS record verification (A, MX, TXT) via secure DoH.</p>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="dns.title">DNS Lookup</h3>
+                        <p class="text-slate-400 text-sm" data-i18n="dns.desc">Real-time DNS record verification (A, MX, TXT) via secure DoH.</p>
                     </div>
 
                     <!-- IPv6 Tools -->
@@ -134,8 +139,8 @@
                         <div class="text-purple-500 mb-4 p-3 bg-purple-500/10 rounded inline-block group-hover:bg-purple-500 group-hover:text-white transition-colors">
                             <span class="material-symbols-outlined">public</span>
                         </div>
-                        <h3 class="text-lg font-bold text-white mb-2">IPv6 Suite</h3>
-                        <p class="text-slate-400 text-sm">Compress, expand and analyze IPv6 addresses.</p>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="ipv6.title">IPv6 Suite</h3>
+                        <p class="text-slate-400 text-sm" data-i18n="ipv6.desc">Compress, expand and analyze IPv6 addresses.</p>
                     </div>
 
                     <!-- OUI Lookup -->
@@ -143,8 +148,8 @@
                         <div class="text-yellow-500 mb-4 p-3 bg-yellow-500/10 rounded inline-block group-hover:bg-yellow-500 group-hover:text-black transition-colors">
                             <span class="material-symbols-outlined">tag</span>
                         </div>
-                        <h3 class="text-lg font-bold text-white mb-2">MAC OUI Lookup</h3>
-                        <p class="text-slate-400 text-sm">Identify device manufacturers from MAC addresses.</p>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="oui.title">MAC OUI Lookup</h3>
+                        <p class="text-slate-400 text-sm" data-i18n="oui.desc">Identify device manufacturers from MAC addresses.</p>
                     </div>
 
                     <!-- Config Gen -->
@@ -152,8 +157,8 @@
                         <div class="text-pink-500 mb-4 p-3 bg-pink-500/10 rounded inline-block group-hover:bg-pink-500 group-hover:text-white transition-colors">
                             <span class="material-symbols-outlined">description</span>
                         </div>
-                        <h3 class="text-lg font-bold text-white mb-2">Config Gen</h3>
-                        <p class="text-slate-400 text-sm">Generate boilerplate configs for Cisco/Mikrotik.</p>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="config.title">Config Gen</h3>
+                        <p class="text-slate-400 text-sm" data-i18n="config.desc">Generate boilerplate configs for Cisco/Mikrotik.</p>
                     </div>
 
                     <!-- Key Gen -->
@@ -161,8 +166,8 @@
                         <div class="text-cyan-500 mb-4 p-3 bg-cyan-500/10 rounded inline-block group-hover:bg-cyan-500 group-hover:text-black transition-colors">
                             <span class="material-symbols-outlined">key</span>
                         </div>
-                        <h3 class="text-lg font-bold text-white mb-2">Key Generator</h3>
-                        <p class="text-slate-400 text-sm">Generate chaotic passwords and WPA keys securely.</p>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="keygen.title">Key Generator</h3>
+                        <p class="text-slate-400 text-sm" data-i18n="keygen.desc">Generate chaotic passwords and WPA keys securely.</p>
                     </div>
 
                     <!-- Ports -->
@@ -170,8 +175,8 @@
                         <div class="text-orange-500 mb-4 p-3 bg-orange-500/10 rounded inline-block group-hover:bg-orange-500 group-hover:text-white transition-colors">
                             <span class="material-symbols-outlined">router</span>
                         </div>
-                        <h3 class="text-lg font-bold text-white mb-2">Port Reference</h3>
-                        <p class="text-slate-400 text-sm">Searchable database of common TCP/UDP ports.</p>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="ports.title">Port Reference</h3>
+                        <p class="text-slate-400 text-sm" data-i18n="ports.desc">Searchable database of common TCP/UDP ports.</p>
                     </div>
                 </div>
 
@@ -180,7 +185,8 @@
                     <div class="flex items-center justify-between mb-6 pb-4 border-b border-border-dark">
                         <h3 class="text-xl font-bold text-white uppercase tracking-wider" id="dynamic-tool-title">Tool Name</h3>
                         <button class="text-slate-400 hover:text-white flex items-center gap-2 text-xs uppercase font-bold" onclick="showToolsGrid()">
-                            <span class="material-symbols-outlined !text-sm">arrow_back</span> Back to Grid
+                            <span class="material-symbols-outlined !text-sm">arrow_back</span>
+                            <span data-i18n="tools.back">Back to Grid</span>
                         </button>
                     </div>
                     <div id="dynamic-tool-content">
@@ -194,12 +200,12 @@
                             <div class="flex items-center justify-between mb-4 border-b border-border-dark pb-2">
                                 <div class="flex items-center gap-2">
                                     <div class="flex gap-1.5"><div class="size-2 rounded-full bg-red-500/50"></div><div class="size-2 rounded-full bg-yellow-500/50"></div><div class="size-2 rounded-full bg-green-500/50"></div></div>
-                                    <span class="text-[10px] text-slate-500 font-mono ml-2 uppercase tracking-tighter">Terminal — root@netops</span>
+                                    <span class="text-[10px] text-slate-500 font-mono ml-2 uppercase tracking-tighter" data-i18n="term.root">Terminal — root@netops</span>
                                 </div>
                                 <span class="material-symbols-outlined !text-sm text-slate-500 cursor-pointer hover:text-white" id="refresh-ip">refresh</span>
                             </div>
                             <div class="mono-data text-sm space-y-2 flex-1" id="public-ip-widget">
-                                <p class="text-slate-400">$ initializing connection...</p>
+                                <p class="text-slate-400" data-i18n="term.init">$ initializing connection...</p>
                             </div>
                         </div>
                     </div>
@@ -208,10 +214,10 @@
                     <div class="col-span-12 lg:col-span-8">
                         <div class="bg-surface-dark cyber-border rounded p-6">
                             <div class="flex items-center justify-between mb-6">
-                                <h3 class="text-xs font-bold tracking-[0.2em] uppercase text-white">VLSM Configuration</h3>
+                                <h3 class="text-xs font-bold tracking-[0.2em] uppercase text-white" data-i18n="vlsm.config.title">VLSM Configuration</h3>
                                 <button id="btn-calc-vlsm" class="bg-primary hover:bg-primary/80 text-white text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded transition-colors shadow-lg shadow-primary/20 flex items-center gap-2">
                                     <span class="material-symbols-outlined !text-sm">calculate</span>
-                                    Calculate
+                                    <span data-i18n="vlsm.calc.btn">Calculate</span>
                                 </button>
                             </div>
                             
@@ -219,23 +225,23 @@
                             <div class="bg-blue-500/10 border border-blue-500/30 rounded p-4 mb-6 flex items-start gap-3">
                                 <span class="material-symbols-outlined text-blue-400 !text-lg">info</span>
                                 <div class="flex-1 text-xs text-blue-300">
-                                    <p class="font-bold mb-1">How to use:</p>
+                                    <p class="font-bold mb-1" data-i18n="help.how">How to use:</p>
                                     <ol class="list-decimal list-inside space-y-1 text-blue-200/80">
-                                        <li>Enter a network address (e.g., 192.168.1.0)</li>
-                                        <li>Select subnet mask (e.g., /24)</li>
-                                        <li>Enter required hosts per subnet separated by commas (e.g., 50, 30, 20)</li>
-                                        <li>Click "Calculate" or press Enter</li>
+                                        <li data-i18n="help.step1">Enter a network address (e.g., 192.168.1.0)</li>
+                                        <li data-i18n="help.step2">Select subnet mask (e.g., /24)</li>
+                                        <li data-i18n="help.step3">Enter required hosts per subnet separated by commas (e.g., 50, 30, 20)</li>
+                                        <li data-i18n="help.step4">Click "Calculate" or press Enter</li>
                                     </ol>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-4">
                                     <div>
-                                        <label class="block text-[10px] text-slate-500 font-bold mb-1 uppercase">Major Network Address</label>
+                                        <label class="block text-[10px] text-slate-500 font-bold mb-1 uppercase" data-i18n="vlsm.net.label">Major Network Address</label>
                                         <input id="vlsm-ip" class="w-full bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white placeholder-slate-700" type="text" value="192.168.1.0" placeholder="e.g. 192.168.1.0"/>
                                     </div>
                                     <div>
-                                        <label class="block text-[10px] text-slate-500 font-bold mb-1 uppercase">Subnet Mask (CIDR)</label>
+                                        <label class="block text-[10px] text-slate-500 font-bold mb-1 uppercase" data-i18n="vlsm.net.help">Subnet Mask (CIDR)</label>
                                         <select id="vlsm-mask" class="w-full bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white cursor-pointer">
                                             <option value="8">/8 (255.0.0.0)</option>
                                             <option value="16">/16 (255.255.0.0)</option>
@@ -250,10 +256,10 @@
                                     </div>
                                 </div>
                                 <div class="space-y-4">
-                                    <label class="block text-[10px] text-slate-500 font-bold mb-1 uppercase">Required Hosts per Subnet</label>
+                                    <label class="block text-[10px] text-slate-500 font-bold mb-1 uppercase" data-i18n="vlsm.hosts.label">Required Hosts per Subnet</label>
                                     <div class="relative">
-                                        <input id="vlsm-hosts" class="w-full bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white placeholder-slate-700" placeholder="e.g. 50, 20, 10, 5" type="text"/>
-                                        <div class="text-[10px] text-slate-500 mt-1">Comma separated list (descending order recommended)</div>
+                                        <input id="vlsm-hosts" class="w-full bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white placeholder-slate-700" placeholder="e.g. 50, 20, 10, 5" type="text" data-i18n="input.hosts.hint"/>
+                                        <div class="text-[10px] text-slate-500 mt-1" data-i18n="input.hosts.hint">Comma separated list (descending order recommended)</div>
                                     </div>
                                 </div>
                             </div>
@@ -278,12 +284,12 @@
             <div class="flex items-center gap-4">
                 <div class="flex items-center gap-1.5">
                     <div class="size-2 bg-signal-green rounded-full animate-pulse"></div>
-                    <span class="text-[10px] text-slate-500 uppercase font-bold tracking-tighter">System Ready — v3.0.0-cyber</span>
+                    <span class="text-[10px] text-slate-500 uppercase font-bold tracking-tighter" data-i18n="footer.ready">System Ready — v3.0.0-cyber</span>
                 </div>
             </div>
             <div class="flex items-center gap-4 mono-data text-[10px] text-slate-500">
-                <span>MEDALCODE</span>
-                <span>SECURE</span>
+                <span data-i18n="footer.medalcode">MEDALCODE</span>
+                <span data-i18n="footer.secure">SECURE</span>
             </div>
         </footer>
     </main>
