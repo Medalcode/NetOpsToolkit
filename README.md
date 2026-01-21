@@ -19,7 +19,7 @@
 - ✅ **PWA Ready** - Instalable como aplicación
 - ✅ **Internationalization** - Soporte nativo Español 🇪🇸 / Inglés 🇺🇸
 - ✅ **Secure** - CSP headers, XSS prevention
-- ✅ **Tested** - 20 tests unitarios pasando
+- ✅ **Tested** - 29 tests unitarios pasando (Validators + VLSM Logic)
 - ✅ **Open Source** - MIT License
 
 ## 🎯 Herramientas Disponibles
