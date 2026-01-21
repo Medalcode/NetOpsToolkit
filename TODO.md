@@ -47,7 +47,7 @@
 
 ### Testing
 
-- [ ] Tests para VLSM calculations
+- [x] Tests para VLSM calculations
 - [ ] Tests para conversion functions
 - [ ] Aumentar coverage a 80%+
 - [ ] Pre-commit hooks con Husky
