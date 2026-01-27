@@ -4,6 +4,8 @@
  * @module history
  */
 
+import { storage } from './platform/storage.js';
+
 const HISTORY_KEY = "vlsm-history";
 const MAX_HISTORY_ITEMS = 10;
 
@@ -24,11 +26,8 @@ const MAX_HISTORY_ITEMS = 10;
  */
 export function getHistory() {
   try {
-    const historyJson = localStorage.getItem(HISTORY_KEY);
-    if (!historyJson) {
-      return [];
-    }
-    const history = JSON.parse(historyJson);
+    const history = storage.get(HISTORY_KEY);
+    if (!history) return [];
     return Array.isArray(history) ? history : [];
   } catch (error) {
     console.error("Error al leer historial:", error);
@@ -43,8 +42,7 @@ export function getHistory() {
  */
 function saveHistory(history) {
   try {
-    const historyJson = JSON.stringify(history);
-    localStorage.setItem(HISTORY_KEY, historyJson);
+    storage.set(HISTORY_KEY, history);
     return true;
   } catch (error) {
     console.error("Error al guardar historial:", error);
@@ -106,7 +104,7 @@ export function removeFromHistory(id) {
  */
 export function clearHistory() {
   try {
-    localStorage.removeItem(HISTORY_KEY);
+    storage.remove(HISTORY_KEY);
     return true;
   } catch (error) {
     console.error("Error al limpiar historial:", error);

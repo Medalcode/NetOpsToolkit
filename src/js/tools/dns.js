@@ -1,6 +1,10 @@
 /**
  * Módulo de Búsqueda DNS (Tailwind Version)
  */
+import { platformFetch } from '../platform/fetch.js';
+import { buildDnsUrl, getDnsTypeName } from './dns-core.js';
+import { writeText } from '../platform/clipboard.js';
+
 export function initDnsTool(container) {
   // 1. Render UI
   container.innerHTML = `
@@ -86,17 +90,10 @@ export function initDnsTool(container) {
     resultsContainer.innerHTML = `<span class="text-primary animate-pulse">> Querying ${resolver} for ${domain} (${type})...</span>`;
     statusIndicator.className = "size-2 rounded-full bg-yellow-500 animate-pulse";
     
-    const endpoints = {
-        'google': 'https://dns.google/resolve',
-        'cloudflare': 'https://cloudflare-dns.com/dns-query'
-    };
-
-    const url = new URL(endpoints[resolver]);
-    url.searchParams.append('name', domain);
-    url.searchParams.append('type', type);
+    const url = buildDnsUrl(resolver, domain, type);
 
     try {
-        const response = await fetch(url, { headers: { 'Accept': 'application/dns-json' } });
+        const response = await platformFetch(url, { headers: { 'Accept': 'application/dns-json' } });
         if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
         
         const data = await response.json();
@@ -144,8 +141,8 @@ export function initDnsTool(container) {
                 <td class="py-2 text-slate-400">${record.TTL}</td>
                 <td class="py-2 text-signal-green break-all">
                     ${record.data}
-                    <button class="opacity-0 group-hover:opacity-100 ml-2 text-[10px] text-slate-500 hover:text-white border border-slate-700 px-1 rounded transition-opacity" 
-                            onclick="navigator.clipboard.writeText('${record.data}')">COPY</button>
+                    <button class="dns-copy-btn opacity-0 group-hover:opacity-100 ml-2 text-[10px] text-slate-500 hover:text-white border border-slate-700 px-1 rounded transition-opacity" 
+                            data-record="${encodeURIComponent(record.data)}">COPY</button>
                 </td>
             </tr>
         `;
@@ -160,12 +157,27 @@ export function initDnsTool(container) {
     </div>`;
 
     resultsContainer.innerHTML = outputHtml;
+        // Attach copy handlers using platform clipboard wrapper
+        try {
+            const copyButtons = resultsContainer.querySelectorAll('.dns-copy-btn');
+            copyButtons.forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const val = btn.getAttribute('data-record') || '';
+                    const text = decodeURIComponent(val);
+                    try {
+                        await writeText(text);
+                    } catch (err) {
+                        console.error('Clipboard write failed', err);
+                    }
+                });
+            });
+        } catch (err) {
+            // Non-fatal: keep original behavior if DOM APIs fail
+            console.error('Failed to attach copy handlers', err);
+        }
   }
 
-  function getDnsTypeName(typeId) {
-    const types = { 1: 'A', 28: 'AAAA', 15: 'MX', 16: 'TXT', 2: 'NS', 5: 'CNAME', 6: 'SOA', 12: 'PTR' };
-    return types[typeId] || typeId;
-  }
+    // getDnsTypeName moved to dns-core.js and imported above
 
   // Listeners
   btnLookup.addEventListener('click', lookup);

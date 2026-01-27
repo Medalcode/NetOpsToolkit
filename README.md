@@ -92,7 +92,22 @@ npm run test:watch
 npm run test:coverage
 ```
 
-**Estado actual**: 20 tests pasando (100%)
+**Estado actual**: 3 test suites, 32 tests pasando (añadidos tests para `dns-core` el 2026-01-27)
+
+### Cambios Recientes (2026-01-27)
+
+- Añadidos wrappers de plataforma para facilitar mocks y desacoplar side-effects: `src/js/platform/{fetch,storage,clipboard}.js`.
+- Extraída la lógica pura de DNS a `src/js/tools/dns-core.js` y refactorizado `src/js/tools/dns.js` para usar los wrappers y evitar `onclick` inline.
+- Refactorizado `src/js/history.js` para usar el wrapper de almacenamiento.
+- Añadido `tests/dns.core.test.js` y ejecutada la suite con éxito.
+
+Para reproducir los cambios localmente:
+
+```bash
+npm install
+npm test
+npm run dev
+```
 
 ## 🔒 Seguridad
 

@@ -62,11 +62,31 @@ Transformación completa de "VLSM Calculator" a "NetOps Toolkit". Una suite inte
 
 ## [1.6.0] - 2025-12-27
 
-### Nuevas Características 🌟
+## [Unreleased] - 2026-01-27
 
-- 🗺️ **Visualización de Red**: Gráfico de barras de ocupación
-- ⚡ **Validación en Tiempo Real**: Feedback instantáneo (✅/❌)
-- ℹ️ **Tooltips Educativos**: Explicaciones contextuales
+### Completado ✅
+
+- Añadidos adaptadores de plataforma para desacoplar side-effects:
+	- `src/js/platform/fetch.js` (wrapper mínimo para `fetch`)
+	- `src/js/platform/storage.js` (wrapper seguro para `localStorage` con JSON)
+	- `src/js/platform/clipboard.js` (wrapper para `navigator.clipboard.writeText` con fallback)
+- Extraída lógica pura de DNS a `src/js/tools/dns-core.js` (construcción de URL y mapeo de tipos).
+- Refactorizado `src/js/tools/dns.js` para usar `platformFetch`, `dns-core` y `platform/clipboard` (se reemplazó el `onclick` inline por listeners y el wrapper de clipboard).
+- Refactorizado `src/js/history.js` para usar `src/js/platform/storage.js` en vez de `localStorage` directo.
+- Añadido test unitario: `tests/dns.core.test.js` (URL building y type mapping).
+- Ejecutados tests: todas las suites pasan (3 suites, 32 tests en el momento de la ejecución).
+
+### Pendiente ⚙️
+
+- Pruebas manuales smoke en navegador (`npm run dev`) para validar copia al portapapeles y comportamiento UI.
+- Extraer lógica pura y tests para otros tools (por ejemplo `config_gen`, `public_ip`, `bandwidth`).
+- Normalizar API de inicialización de herramientas (`init(container, services)`) y adaptar `src/js/main.js` para inyectar servicios.
+- Añadir tests de integración jsdom que arranquen `src/js/main.js` y verifiquen el flujo de carga de herramientas.
+
+### Notas Técnicas
+
+- Cambios realizados con enfoque incremental y baja intrusión: se introdujeron wrappers y módulos puros sin cambiar la API pública de herramientas en esta fase.
+- Objetivo: mejorar testabilidad y reducir acoplamientos entre UI, I/O y lógica de negocio, manteniendo el comportamiento actual.
 - ⌨️ **Atajos de Teclado**: `/` para enfocar, `Esc` para limpiar
 
 ### Técnico 🔧
