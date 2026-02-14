@@ -32,7 +32,9 @@
   box-shadow: var(--shadow-md);
   border: 1px solid var(--color-border);
   overflow: hidden;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
 .card:hover {

@@ -89,13 +89,13 @@ export function formatAllDataForClipboard(subnets, stats) {
   // Subredes
   text += "SUBREDES\n";
   text += "--------\n\n";
-  
+
   subnets.forEach(subnet => {
     text += formatSubnetForClipboard(subnet);
     text += "\n\n";
   });
 
-  text += `Generado por: https://luxury-dango-9d7cff.netlify.app\n`;
+  text += "Generado por: https://luxury-dango-9d7cff.netlify.app\n";
   text += `Fecha: ${new Date().toLocaleString()}\n`;
 
   return text;

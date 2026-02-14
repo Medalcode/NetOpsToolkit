@@ -37,7 +37,7 @@ export function decimalToIP(decimal) {
  * prefixToMask(16) // "255.255.0.0"
  */
 export function prefixToMask(prefix) {
-  const mask = (0xFFFFFFFF << (32 - prefix)) >>> 0;
+  const mask = (0xffffffff << (32 - prefix)) >>> 0;
   return decimalToIP(mask);
 }
 
@@ -51,7 +51,7 @@ export function prefixToMask(prefix) {
  */
 export function getNetworkAddress(ip, prefix) {
   const ipDecimal = ipToDecimal(ip);
-  const mask = (0xFFFFFFFF << (32 - prefix)) >>> 0;
+  const mask = (0xffffffff << (32 - prefix)) >>> 0;
   const networkAddress = (ipDecimal & mask) >>> 0;
   return decimalToIP(networkAddress);
 }

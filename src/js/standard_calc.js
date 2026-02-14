@@ -1,10 +1,8 @@
-
 /**
  * Módulo Calculadora Estándar IPv4 (Tailwind Version)
  */
-import { ipToDecimal, decimalToIP, prefixToMask } from './converters.js';
-import { validateIPAddress, validateCIDRPrefix } from './validators.js';
-import { showToast } from './ui.js';
+import { ipToDecimal, decimalToIP } from "./converters.js";
+import { validateIPAddress, validateCIDRPrefix } from "./validators.js";
 
 export function initStandardCalc(container) {
   // 1. Render UI
@@ -88,86 +86,85 @@ export function initStandardCalc(container) {
     </div>
   `;
 
-  const btn = container.querySelector('#std-btn');
-  const input = container.querySelector('#std-ip');
-  
+  const btn = container.querySelector("#std-btn");
+  const input = container.querySelector("#std-ip");
+
   // Logic
   function calculateStandard(inputValue) {
-      const resultsDiv = container.querySelector('#std-results');
-      
-      if (!inputValue) {
-        // Simple alert or toast
-        input.classList.add('border-red-500');
-        setTimeout(() => input.classList.remove('border-red-500'), 2000);
-        return;
-      }
+    const resultsDiv = container.querySelector("#std-results");
 
-      // Parse Input
-      const parts = inputValue.split('/');
-      const ip = parts[0].trim();
-      let prefix = parts.length > 1 ? parseInt(parts[1]) : null;
+    if (!inputValue) {
+      // Simple alert or toast
+      input.classList.add("border-red-500");
+      setTimeout(() => input.classList.remove("border-red-500"), 2000);
+      return;
+    }
 
-      if (!validateIPAddress(ip)) {
-         input.classList.add('border-red-500');
-         return;
-      }
+    // Parse Input
+    const parts = inputValue.split("/");
+    const ip = parts[0].trim();
+    let prefix = parts.length > 1 ? parseInt(parts[1]) : null;
 
-      const octets = ip.split('.').map(Number);
-      const firstOctet = octets[0];
-      const ipClass = getClass(firstOctet);
+    if (!validateIPAddress(ip)) {
+      input.classList.add("border-red-500");
+      return;
+    }
 
-      if (prefix === null) {
-          if (ipClass.startsWith('A')) prefix = 8;
-          else if (ipClass.startsWith('B')) prefix = 16;
-          else if (ipClass.startsWith('C')) prefix = 24;
-          else prefix = 24; 
-      }
+    const octets = ip.split(".").map(Number);
+    const firstOctet = octets[0];
+    const ipClass = getClass(firstOctet);
 
-      if (!validateCIDRPrefix(prefix)) {
-          return;
-      }
+    if (prefix === null) {
+      if (ipClass.startsWith("A")) prefix = 8;
+      else if (ipClass.startsWith("B")) prefix = 16;
+      else if (ipClass.startsWith("C")) prefix = 24;
+      else prefix = 24;
+    }
 
-      // Calculations
-      const ipDec = ipToDecimal(ip);
-      const maskDec = (0xFFFFFFFF << (32 - prefix)) >>> 0;
-      const networkDec = (ipDec & maskDec) >>> 0;
-      const broadcastDec = (networkDec | (~maskDec)) >>> 0;
-      const wildcardDec = (~maskDec) >>> 0;
-      
-      const totalHosts = Math.pow(2, 32 - prefix);
-      const usableHosts = totalHosts > 2 ? totalHosts - 2 : 0;
+    if (!validateCIDRPrefix(prefix)) {
+      return;
+    }
 
-      // Update UI
-      container.querySelector('#out-ip').textContent = ip;
-      container.querySelector('#out-mask').textContent = `${decimalToIP(maskDec)} (/${prefix})`;
-      container.querySelector('#out-wildcard').textContent = decimalToIP(wildcardDec);
-      container.querySelector('#out-network').textContent = `${decimalToIP(networkDec)}/${prefix}`;
-      container.querySelector('#out-broadcast').textContent = decimalToIP(broadcastDec);
-      container.querySelector('#out-class').textContent = ipClass;
-      container.querySelector('#out-range').textContent = usableHosts > 0 
-          ? `${decimalToIP(networkDec + 1)} - ${decimalToIP(broadcastDec - 1)}`
-          : 'N/A';
-      container.querySelector('#out-hosts').textContent = usableHosts.toLocaleString();
-      container.querySelector('#out-type').textContent = getIPType(octets);
+    // Calculations
+    const ipDec = ipToDecimal(ip);
+    const maskDec = (0xffffffff << (32 - prefix)) >>> 0;
+    const networkDec = (ipDec & maskDec) >>> 0;
+    const broadcastDec = (networkDec | ~maskDec) >>> 0;
+    const wildcardDec = ~maskDec >>> 0;
 
-      // Binary
-      const binContainer = container.querySelector('#out-binary');
-      binContainer.innerHTML = '';
-      binContainer.appendChild(createBinaryRow("IP ADDR", ipDec));
-      binContainer.appendChild(createBinaryRow("SUBNET ", maskDec));
-      binContainer.appendChild(createBinaryRow("NETWORK", networkDec));
+    const totalHosts = Math.pow(2, 32 - prefix);
+    const usableHosts = totalHosts > 2 ? totalHosts - 2 : 0;
 
-      resultsDiv.classList.remove('hidden');
-      resultsDiv.classList.add('grid');
+    // Update UI
+    container.querySelector("#out-ip").textContent = ip;
+    container.querySelector("#out-mask").textContent = `${decimalToIP(maskDec)} (/${prefix})`;
+    container.querySelector("#out-wildcard").textContent = decimalToIP(wildcardDec);
+    container.querySelector("#out-network").textContent = `${decimalToIP(networkDec)}/${prefix}`;
+    container.querySelector("#out-broadcast").textContent = decimalToIP(broadcastDec);
+    container.querySelector("#out-class").textContent = ipClass;
+    container.querySelector("#out-range").textContent =
+      usableHosts > 0 ? `${decimalToIP(networkDec + 1)} - ${decimalToIP(broadcastDec - 1)}` : "N/A";
+    container.querySelector("#out-hosts").textContent = usableHosts.toLocaleString();
+    container.querySelector("#out-type").textContent = getIPType(octets);
+
+    // Binary
+    const binContainer = container.querySelector("#out-binary");
+    binContainer.innerHTML = "";
+    binContainer.appendChild(createBinaryRow("IP ADDR", ipDec));
+    binContainer.appendChild(createBinaryRow("SUBNET ", maskDec));
+    binContainer.appendChild(createBinaryRow("NETWORK", networkDec));
+
+    resultsDiv.classList.remove("hidden");
+    resultsDiv.classList.add("grid");
   }
 
-  btn.addEventListener('click', (e) => {
+  btn.addEventListener("click", e => {
     e.preventDefault();
     calculateStandard(input.value);
   });
-  
-  input.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
+
+  input.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
       e.preventDefault();
       calculateStandard(input.value);
     }
@@ -175,13 +172,39 @@ export function initStandardCalc(container) {
 }
 
 function createBinaryRow(label, decValue) {
-    const row = document.createElement('div');
-    row.className = "flex items-center gap-4 border-b border-white/5 pb-1";
-    
-    const binStr = decimalToIP(decValue).split('.').map(octet => {
-        return parseInt(octet).toString(2).padStart(8, '0');
-    }).join('<span class="text-slate-600">.</span>');
-    
-    row.innerHTML = `<span class="text-slate-500 w-20 text-xs">${label}</span> <span class="text-signal-green tracking-widest">${binStr}</span>`;
-    return row;
+  const row = document.createElement("div");
+  row.className = "flex items-center gap-4 border-b border-white/5 pb-1";
+
+  const binStr = decimalToIP(decValue)
+    .split(".")
+    .map(octet => {
+      return parseInt(octet).toString(2).padStart(8, "0");
+    })
+    .join("<span class=\"text-slate-600\">.</span>");
+
+  row.innerHTML = `<span class="text-slate-500 w-20 text-xs">${label}</span> <span class="text-signal-green tracking-widest">${binStr}</span>`;
+  return row;
+}
+
+// Helpers
+function getClass(firstOctet) {
+  if (firstOctet >= 0 && firstOctet <= 127) return "A";
+  if (firstOctet >= 128 && firstOctet <= 191) return "B";
+  if (firstOctet >= 192 && firstOctet <= 223) return "C";
+  if (firstOctet >= 224 && firstOctet <= 239) return "D";
+  if (firstOctet >= 240 && firstOctet <= 255) return "E";
+  return "Unknown";
+}
+
+function getIPType(octets) {
+  const first = octets[0];
+  const second = octets[1];
+  if (first === 10) return "Private";
+  if (first === 127) return "Loopback";
+  if (first === 169 && second === 254) return "Link-local";
+  if (first === 192 && second === 168) return "Private";
+  if (first === 172 && second >= 16 && second <= 31) return "Private";
+  if (first >= 224 && first <= 239) return "Multicast";
+  if (first === 255) return "Broadcast";
+  return "Public";
 }

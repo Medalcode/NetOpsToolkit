@@ -64,75 +64,76 @@ export function initKeyGenTool(container) {
   `;
 
   // 2. Select Elements
-  const lengthInput = container.querySelector('#keygen-length');
-  const lenDisplay = container.querySelector('#len-val');
-  const typeBtns = container.querySelectorAll('.type-btn');
-  const btnGen = container.querySelector('#btn-keygen');
-  const output = container.querySelector('#keygen-output');
-  const btnCopy = container.querySelector('#btn-keygen-copy');
-  
-  let currentType = 'wpa';
+  const lengthInput = container.querySelector("#keygen-length");
+  const lenDisplay = container.querySelector("#len-val");
+  const typeBtns = container.querySelectorAll(".type-btn");
+  const btnGen = container.querySelector("#btn-keygen");
+  const output = container.querySelector("#keygen-output");
+  const btnCopy = container.querySelector("#btn-keygen-copy");
+
+  let currentType = "wpa";
 
   // 3. Logic
-  
+
   // Type Switcher Logic
   typeBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-          typeBtns.forEach(b => {
-              b.classList.remove('bg-primary', 'text-white', 'border-primary');
-              b.classList.add('bg-black', 'text-slate-400', 'border-border-dark');
-          });
-          btn.classList.remove('bg-black', 'text-slate-400', 'border-border-dark');
-          btn.classList.add('bg-primary', 'text-white', 'border-primary');
-          currentType = btn.dataset.value;
-          generateKey();
+    btn.addEventListener("click", () => {
+      typeBtns.forEach(b => {
+        b.classList.remove("bg-primary", "text-white", "border-primary");
+        b.classList.add("bg-black", "text-slate-400", "border-border-dark");
       });
+      btn.classList.remove("bg-black", "text-slate-400", "border-border-dark");
+      btn.classList.add("bg-primary", "text-white", "border-primary");
+      currentType = btn.dataset.value;
+      generateKey();
+    });
   });
 
   // Slider Logic
-  lengthInput.addEventListener('input', (e) => {
-      lenDisplay.textContent = `${e.target.value} chars`;
-      generateKey(); // Live update
+  lengthInput.addEventListener("input", e => {
+    lenDisplay.textContent = `${e.target.value} chars`;
+    generateKey(); // Live update
   });
 
   function generateKey() {
     const len = parseInt(lengthInput.value, 10);
-    let chars = '';
-    
-    if (currentType === 'hex') {
-        chars = '0123456789ABCDEF';
-    } else if (currentType === 'wpa') {
-        chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?';
-    } else if (currentType === 'base64') {
-        chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+    let chars = "";
+
+    if (currentType === "hex") {
+      chars = "0123456789ABCDEF";
+    } else if (currentType === "wpa") {
+      chars =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
+    } else if (currentType === "base64") {
+      chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     }
 
-    let result = '';
+    let result = "";
     const randomValues = new Uint32Array(len);
     crypto.getRandomValues(randomValues);
 
     for (let i = 0; i < len; i++) {
-        result += chars[randomValues[i] % chars.length];
+      result += chars[randomValues[i] % chars.length];
     }
 
     output.value = result;
   }
 
   function copyToClipboard() {
-     if (!output.value) return;
-     navigator.clipboard.writeText(output.value).then(() => {
-         const originalText = btnCopy.innerHTML;
-         btnCopy.innerHTML = '<span class="material-symbols-outlined !text-sm">check</span> Copied!';
-         btnCopy.classList.add('text-signal-green');
-         setTimeout(() => {
-             btnCopy.innerHTML = originalText;
-             btnCopy.classList.remove('text-signal-green');
-         }, 1500);
-     });
+    if (!output.value) return;
+    navigator.clipboard.writeText(output.value).then(() => {
+      const originalText = btnCopy.innerHTML;
+      btnCopy.innerHTML = "<span class=\"material-symbols-outlined !text-sm\">check</span> Copied!";
+      btnCopy.classList.add("text-signal-green");
+      setTimeout(() => {
+        btnCopy.innerHTML = originalText;
+        btnCopy.classList.remove("text-signal-green");
+      }, 1500);
+    });
   }
 
-  btnGen.addEventListener('click', generateKey);
-  btnCopy.addEventListener('click', copyToClipboard);
+  btnGen.addEventListener("click", generateKey);
+  btnCopy.addEventListener("click", copyToClipboard);
 
   // Initial Run
   generateKey();

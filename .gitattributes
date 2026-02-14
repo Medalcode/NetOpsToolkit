@@ -1,2 +1,7 @@
-# Auto detect text files and perform LF normalization
+* text=auto eol=lf
+src/**/* text eol=lf
+docs/**/* text eol=lf
+.github/**/* text eol=lf
+.husky/* text eol=lf
+.gitattributes text eol=lf# Auto detect text files and perform LF normalization
 * text=auto

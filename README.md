@@ -4,6 +4,8 @@
 [![Status](https://img.shields.io/badge/Status-Stable-green)](https://github.com/Medalcode/NetOpsToolkit)
 [![Deploy](https://img.shields.io/badge/Deploy-Netlify-00C7B7)](https://netops-toolkit.netlify.app)
 [![Tests](https://img.shields.io/badge/Tests-20%20passing-success)](https://github.com/Medalcode/NetOpsToolkit)
+[![CI](https://github.com/Medalcode/NetOpsToolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/Medalcode/NetOpsToolkit/actions)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/PUT-YOUR-BADGE-HERE/deploy-status)](https://app.netlify.com/sites/YOUR-SITE/deploys)
 
 > **"La Navaja Suiza para Ingenieros de Red"**
 >
@@ -78,6 +80,15 @@ npm run build
 - [CHANGELOG.md](CHANGELOG.md) - Historial de cambios
 - [TODO.md](TODO.md) - Tareas pendientes y roadmap
 - [LICENSE](LICENSE) - Licencia MIT
+ - [Docs (agent & skills)](docs) - Guía para agentes, catálogo de skills y prácticas de CI/CD
+
+## Docs & PR
+
+- Documentación añadida en [docs/](docs) — `agent.md`, `skills.md`, `CONTRIBUTING.md`.
+- Pull request con estos cambios: https://github.com/Medalcode/NetOpsToolkit/pull/1
+
+Nota: el badge de Netlify es un placeholder; añade `NETLIFY_BADGE_ID` o actualiza la URL del badge con el ID de tu sitio en Netlify.
+
 
 ## 🧪 Testing
 
