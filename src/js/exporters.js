@@ -17,7 +17,7 @@ function arrayToCSV(data, headers) {
       .map(header => {
         const value = row[header] || "";
         // Escapar comillas y envolver en comillas si contiene coma
-        const escaped = String(value).replace(/"/g, '""');
+        const escaped = String(value).replace(/"/g, "\"\"");
         return escaped.includes(",") ? `"${escaped}"` : escaped;
       })
       .join(",")

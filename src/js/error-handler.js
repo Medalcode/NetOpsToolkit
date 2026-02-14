@@ -35,8 +35,8 @@ export function showErrorNotification(message, type = "error") {
   notification.innerHTML = `
     <div class="flex items-start gap-3">
       <span class="material-symbols-outlined !text-xl">${
-        type === "error" ? "error" : type === "warning" ? "warning" : "info"
-      }</span>
+  type === "error" ? "error" : type === "warning" ? "warning" : "info"
+}</span>
       <div class="flex-1">
         <p class="text-sm font-medium">${message}</p>
       </div>

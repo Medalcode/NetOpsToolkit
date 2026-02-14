@@ -12,16 +12,16 @@ export function initIpRefTool() {
         </thead>
         <tbody>
           ${data
-            .map(
-              row => `
+    .map(
+      row => `
             <tr>
               ${Object.values(row)
-                .map(val => `<td>${val}</td>`)
-                .join("")}
+    .map(val => `<td>${val}</td>`)
+    .join("")}
             </tr>
           `
-            )
-            .join("")}
+    )
+    .join("")}
         </tbody>
       </table>
     </div>

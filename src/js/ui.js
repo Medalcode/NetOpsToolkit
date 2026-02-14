@@ -320,7 +320,7 @@ function renderNetworkVisualizer(subnets, parentPrefix, container) {
 
     // Hover effect overlay
     bar.innerHTML =
-      '<div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>';
+      "<div class=\"absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity\"></div>";
 
     barContainer.appendChild(bar);
   });

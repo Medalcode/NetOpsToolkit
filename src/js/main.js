@@ -212,13 +212,13 @@ function updateBreadcrumb(path) {
   breadcrumbContainer.innerHTML = `
         <span class="text-slate-500 font-bold tracking-widest">NETOPS</span>
         ${parts
-          .map(
-            (part, i) => `
+    .map(
+      (part, i) => `
             <span class="text-slate-700">/</span>
             <span class="${i === parts.length - 1 ? "text-white" : "text-slate-400"}">${part}</span>
         `
-          )
-          .join("")}
+    )
+    .join("")}
     `;
 }
 
@@ -502,7 +502,7 @@ function setupGlobalActions() {
   // Add History Button to Header
   const historyBtn = document.createElement("button");
   historyBtn.className = "btn btn-outline-info btn-sm me-2";
-  historyBtn.innerHTML = '<i class="fas fa-history"></i> Historial';
+  historyBtn.innerHTML = "<i class=\"fas fa-history\"></i> Historial";
   historyBtn.onclick = () => {
     refreshHistory(); // Update data before showing
     panel.classList.add("open");

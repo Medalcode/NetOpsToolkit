@@ -89,17 +89,17 @@ export function toggleTheme() {
 
   // Ciclo: auto -> light -> dark -> auto
   switch (current) {
-    case THEMES.AUTO:
-      newTheme = THEMES.LIGHT;
-      break;
-    case THEMES.LIGHT:
-      newTheme = THEMES.DARK;
-      break;
-    case THEMES.DARK:
-      newTheme = THEMES.AUTO;
-      break;
-    default:
-      newTheme = THEMES.AUTO;
+  case THEMES.AUTO:
+    newTheme = THEMES.LIGHT;
+    break;
+  case THEMES.LIGHT:
+    newTheme = THEMES.DARK;
+    break;
+  case THEMES.DARK:
+    newTheme = THEMES.AUTO;
+    break;
+  default:
+    newTheme = THEMES.AUTO;
   }
 
   saveTheme(newTheme);
@@ -174,21 +174,21 @@ function updateThemeToggleIcon(button) {
   let icon, text;
 
   switch (currentTheme) {
-    case THEMES.AUTO:
-      icon = "🌓";
-      text = `Auto (${effectiveTheme === THEMES.DARK ? "Oscuro" : "Claro"})`;
-      break;
-    case THEMES.LIGHT:
-      icon = "☀️";
-      text = "Claro";
-      break;
-    case THEMES.DARK:
-      icon = "🌙";
-      text = "Oscuro";
-      break;
-    default:
-      icon = "🌓";
-      text = "Auto";
+  case THEMES.AUTO:
+    icon = "🌓";
+    text = `Auto (${effectiveTheme === THEMES.DARK ? "Oscuro" : "Claro"})`;
+    break;
+  case THEMES.LIGHT:
+    icon = "☀️";
+    text = "Claro";
+    break;
+  case THEMES.DARK:
+    icon = "🌙";
+    text = "Oscuro";
+    break;
+  default:
+    icon = "🌓";
+    text = "Auto";
   }
 
   button.innerHTML = `${icon} <span class="theme-toggle-text">${text}</span>`;

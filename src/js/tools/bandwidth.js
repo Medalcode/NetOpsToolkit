@@ -31,7 +31,7 @@ export function initBandwidthTool() {
 
     if (isNaN(size) || isNaN(speed) || size <= 0 || speed <= 0) {
       resultContainer.innerHTML =
-        '<div class="warning-message">Ingresa valores válidos mayor a 0.</div>';
+        "<div class=\"warning-message\">Ingresa valores válidos mayor a 0.</div>";
       return;
     }
 

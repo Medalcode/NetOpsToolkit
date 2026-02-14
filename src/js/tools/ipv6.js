@@ -139,7 +139,7 @@ export function initIPv6Tool(container) {
 
     if (!validate(val)) {
       resultContainer.innerHTML =
-        '<span class="text-red-500 font-mono">Error: Invalid IPv6 address format.</span>';
+        "<span class=\"text-red-500 font-mono\">Error: Invalid IPv6 address format.</span>";
       return;
     }
 

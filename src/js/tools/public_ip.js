@@ -3,7 +3,7 @@ export function initPublicIpWidget() {
   if (!container) return; // This widget lives in the dashboard view primarily
 
   async function fetchIp() {
-    container.innerHTML = '<div class="loading-spinner"></div> Cargando IP...';
+    container.innerHTML = "<div class=\"loading-spinner\"></div> Cargando IP...";
 
     try {
       // Try our Serverless Backend first (Best Practice)
@@ -16,7 +16,7 @@ export function initPublicIpWidget() {
       render(data);
     } catch (error) {
       container.innerHTML =
-        '<div style="color:var(--color-error); font-size:0.9rem;">Error al obtener IP. <button id="btn-retry-ip" style="background:none; border:none; color:var(--color-primary); cursor:pointer; text-decoration:underline;">Reintentar</button></div>';
+        "<div style=\"color:var(--color-error); font-size:0.9rem;\">Error al obtener IP. <button id=\"btn-retry-ip\" style=\"background:none; border:none; color:var(--color-primary); cursor:pointer; text-decoration:underline;\">Reintentar</button></div>";
 
       const retry = document.getElementById("btn-retry-ip");
       if (retry) retry.addEventListener("click", fetchIp);

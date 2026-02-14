@@ -123,7 +123,7 @@ export function initKeyGenTool(container) {
     if (!output.value) return;
     navigator.clipboard.writeText(output.value).then(() => {
       const originalText = btnCopy.innerHTML;
-      btnCopy.innerHTML = '<span class="material-symbols-outlined !text-sm">check</span> Copied!';
+      btnCopy.innerHTML = "<span class=\"material-symbols-outlined !text-sm\">check</span> Copied!";
       btnCopy.classList.add("text-signal-green");
       setTimeout(() => {
         btnCopy.innerHTML = originalText;
