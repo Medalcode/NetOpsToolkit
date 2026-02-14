@@ -181,8 +181,31 @@ function createBinaryRow(label, decValue) {
     .map(octet => {
       return parseInt(octet).toString(2).padStart(8, "0");
     })
-    .join('<span class="text-slate-600">.</span>');
+    .join("<span class=\"text-slate-600\">.</span>");
 
   row.innerHTML = `<span class="text-slate-500 w-20 text-xs">${label}</span> <span class="text-signal-green tracking-widest">${binStr}</span>`;
   return row;
+}
+
+// Helpers
+function getClass(firstOctet) {
+  if (firstOctet >= 0 && firstOctet <= 127) return "A";
+  if (firstOctet >= 128 && firstOctet <= 191) return "B";
+  if (firstOctet >= 192 && firstOctet <= 223) return "C";
+  if (firstOctet >= 224 && firstOctet <= 239) return "D";
+  if (firstOctet >= 240 && firstOctet <= 255) return "E";
+  return "Unknown";
+}
+
+function getIPType(octets) {
+  const first = octets[0];
+  const second = octets[1];
+  if (first === 10) return "Private";
+  if (first === 127) return "Loopback";
+  if (first === 169 && second === 254) return "Link-local";
+  if (first === 192 && second === 168) return "Private";
+  if (first === 172 && second >= 16 && second <= 31) return "Private";
+  if (first >= 224 && first <= 239) return "Multicast";
+  if (first === 255) return "Broadcast";
+  return "Public";
 }
