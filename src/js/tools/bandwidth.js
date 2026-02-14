@@ -1,17 +1,17 @@
 export function initBandwidthTool() {
-  const sizeInput = document.getElementById('bw-size');
-  const sizeUnit = document.getElementById('bw-size-unit');
-  const speedInput = document.getElementById('bw-speed');
-  const speedUnit = document.getElementById('bw-speed-unit');
-  const btnCalc = document.getElementById('btn-bw-calc');
-  const resultContainer = document.getElementById('bw-results');
+  const sizeInput = document.getElementById("bw-size");
+  const sizeUnit = document.getElementById("bw-size-unit");
+  const speedInput = document.getElementById("bw-speed");
+  const speedUnit = document.getElementById("bw-speed-unit");
+  const btnCalc = document.getElementById("btn-bw-calc");
+  const resultContainer = document.getElementById("bw-results");
 
   if (!sizeInput || !resultContainer) return;
 
   function formatTime(seconds) {
-    if (seconds < 1) return (seconds * 1000).toFixed(0) + ' ms';
-    if (seconds < 60) return seconds.toFixed(2) + ' segundos';
-    
+    if (seconds < 1) return (seconds * 1000).toFixed(0) + " ms";
+    if (seconds < 60) return seconds.toFixed(2) + " segundos";
+
     const minutes = Math.floor(seconds / 60);
     const remSeconds = (seconds % 60).toFixed(0);
     if (minutes < 60) return `${minutes} min, ${remSeconds} seg`;
@@ -30,27 +30,28 @@ export function initBandwidthTool() {
     const speed = parseFloat(speedInput.value);
 
     if (isNaN(size) || isNaN(speed) || size <= 0 || speed <= 0) {
-      resultContainer.innerHTML = `<div class="warning-message">Ingresa valores válidos mayor a 0.</div>`;
+      resultContainer.innerHTML =
+        '<div class="warning-message">Ingresa valores válidos mayor a 0.</div>';
       return;
     }
 
     // Convert everything to Bits
-    // Size Units (Based on 1000 for simplicity in networking, or 1024? 
-    // Usually network speeds are decimal (1Gbps = 1e9 bits). 
+    // Size Units (Based on 1000 for simplicity in networking, or 1024?
+    // Usually network speeds are decimal (1Gbps = 1e9 bits).
     // File sizes are usually binary (1GB = 2^30 bytes).
     // Let's use Binary for Size (Bytes) and Decimal for Speed (Bits) which is real world scenario.
-    
+
     const sizeMultipliers = {
-      'KB': 1024 * 8, // Kilobytes to bits
-      'MB': 1024 * 1024 * 8,
-      'GB': 1024 * 1024 * 1024 * 8,
-      'TB': 1024 * 1024 * 1024 * 1024 * 8
+      KB: 1024 * 8, // Kilobytes to bits
+      MB: 1024 * 1024 * 8,
+      GB: 1024 * 1024 * 1024 * 8,
+      TB: 1024 * 1024 * 1024 * 1024 * 8,
     };
 
     const speedMultipliers = {
-      'Kbps': 1000,
-      'Mbps': 1000 * 1000,
-      'Gbps': 1000 * 1000 * 1000
+      Kbps: 1000,
+      Mbps: 1000 * 1000,
+      Gbps: 1000 * 1000 * 1000,
     };
 
     const totalBits = size * sizeMultipliers[sizeUnit.value];
@@ -74,12 +75,12 @@ export function initBandwidthTool() {
     `;
   }
 
-  btnCalc.addEventListener('click', calculate);
-  
+  btnCalc.addEventListener("click", calculate);
+
   // Auto calc on enter key
   [sizeInput, speedInput].forEach(inp => {
-      inp.addEventListener('keypress', (e) => {
-          if(e.key === 'Enter') calculate();
-      });
+    inp.addEventListener("keypress", e => {
+      if (e.key === "Enter") calculate();
+    });
   });
 }

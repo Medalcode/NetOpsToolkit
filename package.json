@@ -35,8 +35,11 @@
   }
   ,
   "lint-staged": {
-    "src/**/*.{js,css}": [
+    "src/**/*.js": [
       "npm run lint:fix",
+      "git add"
+    ],
+    "src/**/*.{js,css}": [
       "npm run format",
       "git add"
     ]

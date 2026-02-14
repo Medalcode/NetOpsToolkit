@@ -1,9 +1,9 @@
 /**
  * Módulo de Búsqueda DNS (Tailwind Version)
  */
-import { platformFetch } from '../platform/fetch.js';
-import { buildDnsUrl, getDnsTypeName } from './dns-core.js';
-import { writeText } from '../platform/clipboard.js';
+import { platformFetch } from "../platform/fetch.js";
+import { buildDnsUrl, getDnsTypeName } from "./dns-core.js";
+import { writeText } from "../platform/clipboard.js";
 
 export function initDnsTool(container) {
   // 1. Render UI
@@ -68,55 +68,55 @@ export function initDnsTool(container) {
   `;
 
   // 2. Select Elements
-  const domainInput = container.querySelector('#dns-domain');
-  const typeSelect = container.querySelector('#dns-type');
-  const resolverSelect = container.querySelector('#dns-resolver');
-  const btnLookup = container.querySelector('#btn-dns-lookup');
-  const resultsContainer = container.querySelector('#dns-results');
-  const statusIndicator = container.querySelector('#dns-status-indicator');
+  const domainInput = container.querySelector("#dns-domain");
+  const typeSelect = container.querySelector("#dns-type");
+  const resolverSelect = container.querySelector("#dns-resolver");
+  const btnLookup = container.querySelector("#btn-dns-lookup");
+  const resultsContainer = container.querySelector("#dns-results");
+  const statusIndicator = container.querySelector("#dns-status-indicator");
 
   // 3. Logic
   async function lookup() {
     const domain = domainInput.value.trim();
     if (!domain) {
-        resultsContainer.innerHTML = '<span class="text-red-500">Error: Please enter a valid domain name.</span>';
-        return;
+      resultsContainer.innerHTML =
+        '<span class="text-red-500">Error: Please enter a valid domain name.</span>';
+      return;
     }
 
     const type = typeSelect.value;
     const resolver = resolverSelect.value;
-    
+
     // UI Loading State
     resultsContainer.innerHTML = `<span class="text-primary animate-pulse">> Querying ${resolver} for ${domain} (${type})...</span>`;
     statusIndicator.className = "size-2 rounded-full bg-yellow-500 animate-pulse";
-    
+
     const url = buildDnsUrl(resolver, domain, type);
 
     try {
-        const response = await platformFetch(url, { headers: { 'Accept': 'application/dns-json' } });
-        if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
-        
-        const data = await response.json();
-        renderResults(data, type);
-        statusIndicator.className = "size-2 rounded-full bg-signal-green";
+      const response = await platformFetch(url, { headers: { Accept: "application/dns-json" } });
+      if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
 
+      const data = await response.json();
+      renderResults(data, type);
+      statusIndicator.className = "size-2 rounded-full bg-signal-green";
     } catch (error) {
-        resultsContainer.innerHTML += `\n<span class="text-red-500">Connection Failed: ${error.message}</span>`;
-        statusIndicator.className = "size-2 rounded-full bg-red-500";
+      resultsContainer.innerHTML += `\n<span class="text-red-500">Connection Failed: ${error.message}</span>`;
+      statusIndicator.className = "size-2 rounded-full bg-red-500";
     }
   }
 
   function renderResults(data, requestedType) {
     if (!data.Answer) {
-        resultsContainer.innerHTML = `
+      resultsContainer.innerHTML = `
             <div class="text-slate-400 mb-2">> Query completed with status: <span class="text-white">${data.Status}</span></div>
-            <div class="text-yellow-500">> No ${requestedType} records found for ${data.Question[0].name.replace(/\.$/, '')}</div>
+            <div class="text-yellow-500">> No ${requestedType} records found for ${data.Question[0].name.replace(/\.$/, "")}</div>
         `;
-        return;
+      return;
     }
 
     let outputHtml = `<div class="text-slate-400 mb-4">> Query successful. Found ${data.Answer.length} records (TTL shown in seconds).</div>`;
-    
+
     outputHtml += `<table class="w-full text-left border-collapse mb-4">
         <thead class="text-[10px] text-slate-500 uppercase border-b border-slate-800">
             <tr>
@@ -129,12 +129,12 @@ export function initDnsTool(container) {
         <tbody class="text-xs">`;
 
     data.Answer.forEach(record => {
-        // Map type integer to string if needed, mostly API returns int sometimes
-        // Google/Cloudflare usually return type number, need to handle if strictly needed, 
-        // but typically 'data.Answer' has 'type' as int. Let's trust user knows 1=A or just show raw.
-        // Actually, let's keep it raw or generic.
-        
-        outputHtml += `
+      // Map type integer to string if needed, mostly API returns int sometimes
+      // Google/Cloudflare usually return type number, need to handle if strictly needed,
+      // but typically 'data.Answer' has 'type' as int. Let's trust user knows 1=A or just show raw.
+      // Actually, let's keep it raw or generic.
+
+      outputHtml += `
             <tr class="border-b border-slate-800/50 hover:bg-white/5 transition-colors group">
                 <td class="py-2 text-slate-300">${record.name}</td>
                 <td class="py-2 text-primary">${getDnsTypeName(record.type)}</td>
@@ -148,8 +148,8 @@ export function initDnsTool(container) {
         `;
     });
 
-    outputHtml += `</tbody></table>`;
-    
+    outputHtml += "</tbody></table>";
+
     // Raw JSON details
     outputHtml += `<div class="mt-4 pt-4 border-t border-slate-800">
         <span class="text-[10px] text-slate-600 block mb-1">RAW PROVIDER RESPONSE</span>
@@ -157,31 +157,31 @@ export function initDnsTool(container) {
     </div>`;
 
     resultsContainer.innerHTML = outputHtml;
-        // Attach copy handlers using platform clipboard wrapper
-        try {
-            const copyButtons = resultsContainer.querySelectorAll('.dns-copy-btn');
-            copyButtons.forEach(btn => {
-                btn.addEventListener('click', async () => {
-                    const val = btn.getAttribute('data-record') || '';
-                    const text = decodeURIComponent(val);
-                    try {
-                        await writeText(text);
-                    } catch (err) {
-                        console.error('Clipboard write failed', err);
-                    }
-                });
-            });
-        } catch (err) {
-            // Non-fatal: keep original behavior if DOM APIs fail
-            console.error('Failed to attach copy handlers', err);
-        }
+    // Attach copy handlers using platform clipboard wrapper
+    try {
+      const copyButtons = resultsContainer.querySelectorAll(".dns-copy-btn");
+      copyButtons.forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const val = btn.getAttribute("data-record") || "";
+          const text = decodeURIComponent(val);
+          try {
+            await writeText(text);
+          } catch (err) {
+            console.error("Clipboard write failed", err);
+          }
+        });
+      });
+    } catch (err) {
+      // Non-fatal: keep original behavior if DOM APIs fail
+      console.error("Failed to attach copy handlers", err);
+    }
   }
 
-    // getDnsTypeName moved to dns-core.js and imported above
+  // getDnsTypeName moved to dns-core.js and imported above
 
   // Listeners
-  btnLookup.addEventListener('click', lookup);
-  domainInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') lookup();
+  btnLookup.addEventListener("click", lookup);
+  domainInput.addEventListener("keypress", e => {
+    if (e.key === "Enter") lookup();
   });
 }

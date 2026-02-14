@@ -8,7 +8,7 @@ const THEME_KEY = "vlsm-theme";
 const THEMES = {
   LIGHT: "light",
   DARK: "dark",
-  AUTO: "auto"
+  AUTO: "auto",
 };
 
 /**
@@ -56,13 +56,13 @@ export function getEffectiveTheme() {
  */
 export function applyTheme(theme) {
   const effectiveTheme = theme === THEMES.AUTO ? getSystemPreference() : theme;
-  
+
   // Remover clases de tema anteriores
   document.documentElement.classList.remove("theme-light", "theme-dark");
-  
+
   // Agregar nueva clase de tema
   document.documentElement.classList.add(`theme-${effectiveTheme}`);
-  
+
   // Actualizar atributo data-theme
   document.documentElement.setAttribute("data-theme", effectiveTheme);
 }
@@ -86,7 +86,7 @@ export function saveTheme(theme) {
 export function toggleTheme() {
   const current = getCurrentTheme();
   let newTheme;
-  
+
   // Ciclo: auto -> light -> dark -> auto
   switch (current) {
     case THEMES.AUTO:
@@ -101,7 +101,7 @@ export function toggleTheme() {
     default:
       newTheme = THEMES.AUTO;
   }
-  
+
   saveTheme(newTheme);
   applyTheme(newTheme);
   return newTheme;
@@ -116,7 +116,7 @@ export function setTheme(theme) {
     console.error(`Tema inválido: ${theme}`);
     return;
   }
-  
+
   saveTheme(theme);
   applyTheme(theme);
 }
@@ -129,7 +129,7 @@ export function initTheme() {
   // Aplicar tema inicial
   const currentTheme = getCurrentTheme();
   applyTheme(currentTheme);
-  
+
   // Escuchar cambios en la preferencia del sistema
   if (window.matchMedia) {
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
@@ -139,7 +139,7 @@ export function initTheme() {
       }
     });
   }
-  
+
   console.log(`✅ Tema inicializado: ${currentTheme} (efectivo: ${getEffectiveTheme()})`);
 }
 
@@ -152,14 +152,14 @@ export function createThemeToggle() {
   button.className = "theme-toggle";
   button.setAttribute("aria-label", "Cambiar tema");
   button.setAttribute("title", "Cambiar tema (Auto → Claro → Oscuro)");
-  
+
   updateThemeToggleIcon(button);
-  
+
   button.addEventListener("click", () => {
     toggleTheme();
     updateThemeToggleIcon(button);
   });
-  
+
   return button;
 }
 
@@ -170,9 +170,9 @@ export function createThemeToggle() {
 function updateThemeToggleIcon(button) {
   const currentTheme = getCurrentTheme();
   const effectiveTheme = getEffectiveTheme();
-  
+
   let icon, text;
-  
+
   switch (currentTheme) {
     case THEMES.AUTO:
       icon = "🌓";
@@ -190,7 +190,7 @@ function updateThemeToggleIcon(button) {
       icon = "🌓";
       text = "Auto";
   }
-  
+
   button.innerHTML = `${icon} <span class="theme-toggle-text">${text}</span>`;
   button.setAttribute("title", `Tema: ${text}. Click para cambiar.`);
 }

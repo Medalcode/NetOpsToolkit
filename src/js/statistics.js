@@ -23,9 +23,8 @@ export function calculateStatistics(subnets, totalAvailable) {
 
   // Calcular porcentajes
   const utilizationPercent = ((totalUsed / totalAvailable) * 100).toFixed(2);
-  const efficiencyPercent = totalAllocated > 0
-    ? ((totalHosts / totalAllocated) * 100).toFixed(2)
-    : "0.00";
+  const efficiencyPercent =
+    totalAllocated > 0 ? ((totalHosts / totalAllocated) * 100).toFixed(2) : "0.00";
 
   return {
     // Totales
@@ -35,17 +34,20 @@ export function calculateStatistics(subnets, totalAvailable) {
     totalHosts,
     totalAllocated,
     totalWasted,
-    
+
     // Porcentajes
     utilizationPercent,
     efficiencyPercent,
     wastePercent: (100 - parseFloat(efficiencyPercent)).toFixed(2),
-    
+
     // Metadata
     subnetsCount: subnets.length,
-    averageUtilization: subnets.length > 0
-      ? (subnets.reduce((sum, s) => sum + parseFloat(s.utilizationPercent), 0) / subnets.length).toFixed(2)
-      : "0.00"
+    averageUtilization:
+      subnets.length > 0
+        ? (
+            subnets.reduce((sum, s) => sum + parseFloat(s.utilizationPercent), 0) / subnets.length
+          ).toFixed(2)
+        : "0.00",
   };
 }
 
@@ -64,6 +66,6 @@ export function formatStatisticsSummary(stats) {
     `Hosts asignados: ${stats.totalAllocated}`,
     `IPs desperdiciadas: ${stats.totalWasted} (${stats.wastePercent}%)`,
     `Eficiencia: ${stats.efficiencyPercent}%`,
-    `Utilización promedio: ${stats.averageUtilization}%`
+    `Utilización promedio: ${stats.averageUtilization}%`,
   ];
 }

@@ -4,7 +4,7 @@
  * @module calculator
  */
 
-import { ipToDecimal, decimalToIP, prefixToMask } from './converters.js';
+import { ipToDecimal, decimalToIP, prefixToMask } from "./converters.js";
 
 /**
  * Calcula subredes utilizando el algoritmo VLSM (Variable Length Subnet Mask)
@@ -18,7 +18,7 @@ import { ipToDecimal, decimalToIP, prefixToMask } from './converters.js';
  */
 export function calculateVLSM(baseIP, prefix, hosts) {
   const subnets = [];
-  const mask = (0xFFFFFFFF << (32 - prefix)) >>> 0;
+  const mask = (0xffffffff << (32 - prefix)) >>> 0;
   let networkStart = (ipToDecimal(baseIP) & mask) >>> 0;
 
   hosts.forEach((hostCount, index) => {
@@ -39,9 +39,9 @@ export function calculateVLSM(baseIP, prefix, hosts) {
       lastHost: decimalToIP(networkStart + blockSize - 2),
       hostsAvailable: blockSize - 2,
       hostsRequested: hostCount,
-      hostsWasted: (blockSize - 2) - hostCount,
+      hostsWasted: blockSize - 2 - hostCount,
       utilizationPercent: ((hostCount / (blockSize - 2)) * 100).toFixed(2),
-      blockSize: blockSize
+      blockSize: blockSize,
     };
 
     subnets.push(subnet);

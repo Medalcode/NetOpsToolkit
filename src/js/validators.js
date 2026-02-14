@@ -15,10 +15,13 @@
 export function validateIPAddress(ip) {
   if (!ip) return false;
   const octets = ip.split(".");
-  return octets.length === 4 && octets.every(o => {
-    const num = Number(o);
-    return !isNaN(num) && num >= 0 && num <= 255 && o === num.toString();
-  });
+  return (
+    octets.length === 4 &&
+    octets.every(o => {
+      const num = Number(o);
+      return !isNaN(num) && num >= 0 && num <= 255 && o === num.toString();
+    })
+  );
 }
 
 /**
@@ -45,7 +48,7 @@ export function validateCIDRPrefix(prefix) {
  */
 export function validateNetworkAddress(ip, prefix, ipToDecimal) {
   const ipDecimal = ipToDecimal(ip);
-  const mask = (0xFFFFFFFF << (32 - prefix)) >>> 0;
+  const mask = (0xffffffff << (32 - prefix)) >>> 0;
   const networkAddress = (ipDecimal & mask) >>> 0;
   return ipDecimal === networkAddress;
 }
@@ -64,7 +67,10 @@ export function validateHosts(hosts) {
   }
 
   if (hosts.some(isNaN) || hosts.some(h => h < 0)) {
-    return { isValid: false, error: "Lista de hosts inválida. Ingresa números positivos separados por comas." };
+    return {
+      isValid: false,
+      error: "Lista de hosts inválida. Ingresa números positivos separados por comas.",
+    };
   }
 
   if (hosts.some(h => h === 0)) {
@@ -84,7 +90,7 @@ export function validateNetworkCapacity(totalAvailable, totalRequired) {
   if (totalRequired > totalAvailable) {
     return {
       isValid: false,
-      error: `Error: Espacio de red insuficiente. La red tiene ${totalAvailable} direcciones disponibles, pero se requieren ${totalRequired} direcciones.`
+      error: `Error: Espacio de red insuficiente. La red tiene ${totalAvailable} direcciones disponibles, pero se requieren ${totalRequired} direcciones.`,
     };
   }
   return { isValid: true, error: null };

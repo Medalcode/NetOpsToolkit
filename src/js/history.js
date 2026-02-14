@@ -4,7 +4,7 @@
  * @module history
  */
 
-import { storage } from './platform/storage.js';
+import { storage } from "./platform/storage.js";
 
 const HISTORY_KEY = "vlsm-history";
 const MAX_HISTORY_ITEMS = 10;
@@ -60,24 +60,24 @@ function saveHistory(history) {
  */
 export function addToHistory(network, hosts, subnets, stats) {
   const history = getHistory();
-  
+
   const item = {
     id: generateId(),
     timestamp: new Date().toISOString(),
     network,
     hosts,
     subnets,
-    stats
+    stats,
   };
-  
+
   // Agregar al inicio del array
   history.unshift(item);
-  
+
   // Mantener solo los últimos MAX_HISTORY_ITEMS
   if (history.length > MAX_HISTORY_ITEMS) {
     history.splice(MAX_HISTORY_ITEMS);
   }
-  
+
   saveHistory(history);
   return item;
 }
@@ -90,11 +90,11 @@ export function addToHistory(network, hosts, subnets, stats) {
 export function removeFromHistory(id) {
   const history = getHistory();
   const newHistory = history.filter(item => item.id !== id);
-  
+
   if (newHistory.length === history.length) {
     return false; // No se encontró el item
   }
-  
+
   return saveHistory(newHistory);
 }
 
@@ -143,34 +143,34 @@ export function formatTimestamp(timestamp) {
     const diffMins = Math.floor(diffMs / 60000);
     const diffHours = Math.floor(diffMs / 3600000);
     const diffDays = Math.floor(diffMs / 86400000);
-    
+
     // Hace menos de 1 minuto
     if (diffMins < 1) {
       return "Hace un momento";
     }
-    
+
     // Hace menos de 1 hora
     if (diffMins < 60) {
       return `Hace ${diffMins} ${diffMins === 1 ? "minuto" : "minutos"}`;
     }
-    
+
     // Hace menos de 24 horas
     if (diffHours < 24) {
       return `Hace ${diffHours} ${diffHours === 1 ? "hora" : "horas"}`;
     }
-    
+
     // Hace menos de 7 días
     if (diffDays < 7) {
       return `Hace ${diffDays} ${diffDays === 1 ? "día" : "días"}`;
     }
-    
+
     // Fecha completa
     return date.toLocaleDateString("es-ES", {
       year: "numeric",
       month: "short",
       day: "numeric",
       hour: "2-digit",
-      minute: "2-digit"
+      minute: "2-digit",
     });
   } catch (error) {
     return timestamp;
@@ -193,34 +193,35 @@ export function getSummary(item) {
  */
 export function getHistoryStats() {
   const history = getHistory();
-  
+
   if (history.length === 0) {
     return {
       totalCalculations: 0,
       totalSubnets: 0,
       mostUsedNetwork: null,
-      averageSubnets: 0
+      averageSubnets: 0,
     };
   }
-  
+
   const totalSubnets = history.reduce((sum, item) => sum + (item.subnets?.length || 0), 0);
-  
+
   // Contar redes más usadas
   const networkCounts = {};
   history.forEach(item => {
     const baseNetwork = item.network.split("/")[0];
     networkCounts[baseNetwork] = (networkCounts[baseNetwork] || 0) + 1;
   });
-  
-  const mostUsedNetwork = Object.keys(networkCounts).reduce((a, b) => 
-    networkCounts[a] > networkCounts[b] ? a : b
-  , null);
-  
+
+  const mostUsedNetwork = Object.keys(networkCounts).reduce(
+    (a, b) => (networkCounts[a] > networkCounts[b] ? a : b),
+    null
+  );
+
   return {
     totalCalculations: history.length,
     totalSubnets,
     mostUsedNetwork,
-    averageSubnets: (totalSubnets / history.length).toFixed(1)
+    averageSubnets: (totalSubnets / history.length).toFixed(1),
   };
 }
 
@@ -244,7 +245,7 @@ export function importHistory(jsonString) {
     if (!Array.isArray(history)) {
       throw new Error("El JSON no contiene un array válido");
     }
-    
+
     return saveHistory(history);
   } catch (error) {
     console.error("Error al importar historial:", error);

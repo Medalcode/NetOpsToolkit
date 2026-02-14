@@ -34,7 +34,7 @@
 
 .nav-link:hover {
   color: var(--color-primary);
-  background-color: rgba(0,0,0,0.02);
+  background-color: rgba(0, 0, 0, 0.02);
   border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
 }
 
@@ -58,5 +58,5 @@
 }
 
 [data-theme="dark"] .nav-link:hover {
-  background-color: rgba(255,255,255,0.05);
+  background-color: rgba(255, 255, 255, 0.05);
 }

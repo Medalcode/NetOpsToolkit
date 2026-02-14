@@ -84,7 +84,7 @@ form label {
 }
 
 .tooltip-content::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 100%;
   left: 50%;
@@ -152,12 +152,12 @@ form input.input-invalid {
 }
 
 .input-valid + .validation-icon::before {
-  content: '✓';
+  content: "✓";
   color: var(--color-success);
 }
 
 .input-invalid + .validation-icon::before {
-  content: '✕';
+  content: "✕";
   color: var(--color-error);
 }
 
@@ -195,11 +195,7 @@ form input::placeholder {
 form button {
   width: 100%;
   padding: 14px 24px;
-  background: linear-gradient(
-    135deg,
-    var(--color-primary) 0%,
-    var(--color-primary-dark) 100%
-  );
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   color: var(--color-text-light);
   border: none;
   border-radius: var(--border-radius-md);
@@ -214,7 +210,7 @@ form button {
 }
 
 form button::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -223,7 +219,9 @@ form button::before {
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.3);
   transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
+  transition:
+    width 0.6s,
+    height 0.6s;
 }
 
 form button:hover::before {
@@ -474,12 +472,12 @@ form button:focus {
   .actions-buttons {
     flex-direction: column;
   }
-  
+
   .action-btn {
     width: 100%;
     min-width: auto;
   }
-  
+
   .toast {
     right: 10px;
     left: 10px;
@@ -536,7 +534,7 @@ form button:focus {
     padding: 8px 12px;
     font-size: var(--font-size-xs);
   }
-  
+
   .theme-toggle-text {
     display: none;
   }
@@ -729,7 +727,9 @@ form button:focus {
   z-index: 150;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
 }
 
 .history-overlay.active {
@@ -744,7 +744,7 @@ form button:focus {
     padding: 8px 12px;
     font-size: var(--font-size-xs);
   }
-  
+
   .history-panel {
     width: 100%;
     right: -100%;

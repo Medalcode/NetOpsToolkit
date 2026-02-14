@@ -13,12 +13,14 @@
 function arrayToCSV(data, headers) {
   const csvHeaders = headers.join(",");
   const csvRows = data.map(row =>
-    headers.map(header => {
-      const value = row[header] || "";
-      // Escapar comillas y envolver en comillas si contiene coma
-      const escaped = String(value).replace(/"/g, '""');
-      return escaped.includes(",") ? `"${escaped}"` : escaped;
-    }).join(",")
+    headers
+      .map(header => {
+        const value = row[header] || "";
+        // Escapar comillas y envolver en comillas si contiene coma
+        const escaped = String(value).replace(/"/g, '""');
+        return escaped.includes(",") ? `"${escaped}"` : escaped;
+      })
+      .join(",")
   );
   return [csvHeaders, ...csvRows].join("\n");
 }
@@ -49,16 +51,16 @@ function downloadFile(content, filename, mimeType) {
  */
 function prepareSubnetsData(subnets) {
   return subnets.map(subnet => ({
-    "Subred": subnet.index,
-    "Red": `${subnet.network}/${subnet.prefix}`,
-    "Máscara": subnet.mask,
+    Subred: subnet.index,
+    Red: `${subnet.network}/${subnet.prefix}`,
+    Máscara: subnet.mask,
     "Primer Host": subnet.firstHost,
     "Último Host": subnet.lastHost,
-    "Broadcast": subnet.broadcast,
+    Broadcast: subnet.broadcast,
     "Hosts Solicitados": subnet.hostsRequested,
     "Hosts Disponibles": subnet.hostsAvailable,
     "Hosts Desperdiciados": subnet.hostsWasted,
-    "Utilización %": subnet.utilizationPercent
+    "Utilización %": subnet.utilizationPercent,
   }));
 }
 
@@ -68,34 +70,44 @@ function prepareSubnetsData(subnets) {
  * @returns {Array<Object>} Datos preparados para CSV
  */
 function prepareStatsData(stats) {
-  return [{
-    "Métrica": "Subredes Creadas",
-    "Valor": stats.subnetsCount
-  }, {
-    "Métrica": "Espacio Total Disponible (IPs)",
-    "Valor": stats.totalAvailable
-  }, {
-    "Métrica": "Espacio Usado (IPs)",
-    "Valor": stats.totalUsed
-  }, {
-    "Métrica": "Utilización (%)",
-    "Valor": stats.utilizationPercent
-  }, {
-    "Métrica": "Espacio Restante (IPs)",
-    "Valor": stats.totalRemaining
-  }, {
-    "Métrica": "Hosts Requeridos",
-    "Valor": stats.totalHosts
-  }, {
-    "Métrica": "Hosts Asignados",
-    "Valor": stats.totalAllocated
-  }, {
-    "Métrica": "IPs Desperdiciadas",
-    "Valor": stats.totalWasted
-  }, {
-    "Métrica": "Eficiencia (%)",
-    "Valor": stats.efficiencyPercent
-  }];
+  return [
+    {
+      Métrica: "Subredes Creadas",
+      Valor: stats.subnetsCount,
+    },
+    {
+      Métrica: "Espacio Total Disponible (IPs)",
+      Valor: stats.totalAvailable,
+    },
+    {
+      Métrica: "Espacio Usado (IPs)",
+      Valor: stats.totalUsed,
+    },
+    {
+      Métrica: "Utilización (%)",
+      Valor: stats.utilizationPercent,
+    },
+    {
+      Métrica: "Espacio Restante (IPs)",
+      Valor: stats.totalRemaining,
+    },
+    {
+      Métrica: "Hosts Requeridos",
+      Valor: stats.totalHosts,
+    },
+    {
+      Métrica: "Hosts Asignados",
+      Valor: stats.totalAllocated,
+    },
+    {
+      Métrica: "IPs Desperdiciadas",
+      Valor: stats.totalWasted,
+    },
+    {
+      Métrica: "Eficiencia (%)",
+      Valor: stats.efficiencyPercent,
+    },
+  ];
 }
 
 /**
@@ -134,7 +146,7 @@ export function exportToCSV(subnets, stats = null, filename = null) {
       "Hosts Solicitados",
       "Hosts Disponibles",
       "Hosts Desperdiciados",
-      "Utilización %"
+      "Utilización %",
     ];
     csvContent += arrayToCSV(subnetsData, subnetsHeaders);
 
@@ -170,10 +182,10 @@ export function exportToJSON(subnets, stats = null, filename = null) {
         generatedBy: "Calculadora VLSM",
         url: "https://luxury-dango-9d7cff.netlify.app",
         timestamp: new Date().toISOString(),
-        version: "1.2.0"
+        version: "1.2.0",
       },
       statistics: stats,
-      subnets: subnets
+      subnets: subnets,
     };
 
     const jsonContent = JSON.stringify(data, null, 2);
@@ -233,7 +245,7 @@ export function exportToText(subnets, stats = null, filename = null) {
       textContent += `  Utilización: ${subnet.utilizationPercent}% (${subnet.hostsWasted} IPs sin usar)\n\n`;
     });
 
-    textContent += `\nGenerado por: https://luxury-dango-9d7cff.netlify.app\n`;
+    textContent += "\nGenerado por: https://luxury-dango-9d7cff.netlify.app\n";
     textContent += `Fecha: ${new Date().toLocaleString()}\n`;
 
     // Descargar archivo

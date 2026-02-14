@@ -5,7 +5,7 @@ export const storage = {
       const raw = localStorage.getItem(key);
       return raw ? JSON.parse(raw) : null;
     } catch (err) {
-      console.error('storage.get error', err);
+      console.error("storage.get error", err);
       return null;
     }
   },
@@ -13,14 +13,14 @@ export const storage = {
     try {
       localStorage.setItem(key, JSON.stringify(value));
     } catch (err) {
-      console.error('storage.set error', err);
+      console.error("storage.set error", err);
     }
   },
   remove(key) {
     try {
       localStorage.removeItem(key);
     } catch (err) {
-      console.error('storage.remove error', err);
+      console.error("storage.remove error", err);
     }
-  }
+  },
 };
