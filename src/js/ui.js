@@ -533,7 +533,7 @@ if (!document.getElementById("toast-animations")) {
  * @param {Function} onClearHistory - Callback cuando se limpia el historial
  * @returns {Object} Panel y botón toggle
  */
-export function createHistoryPanel(onLoadItem, onDeleteItem, onClearHistory) {
+export function createHistoryPanel() {
   // Crear overlay
   const overlay = document.createElement("div");
   overlay.className = "history-overlay";

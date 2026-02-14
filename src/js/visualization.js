@@ -4,8 +4,6 @@
  * @module visualization
  */
 
-import { ipToDecimal } from "./converters.js";
-
 /**
  * Renderiza el gráfico de asignación de espacio de red
  * @param {Array} subnets - Lista de subredes calculadas
@@ -24,15 +22,13 @@ export function renderAllocationChart(subnets, baseNetworkCIDR, container) {
   chartWrapper.appendChild(title);
 
   // Calcular tamaño total de la red base
-  const [baseIP, prefixStr] = baseNetworkCIDR.split("/");
+  const [, prefixStr] = baseNetworkCIDR.split("/");
   const basePrefix = parseInt(prefixStr, 10);
   const totalIPs = Math.pow(2, 32 - basePrefix);
 
   // Crear la barra de visualización
   const barContainer = document.createElement("div");
   barContainer.className = "allocation-bar";
-
-  let currentOffset = 0; // Para detectar huecos (espacio sin asignar)
 
   subnets.forEach((subnet, index) => {
     // Calcular IPs de esta subred
@@ -73,7 +69,6 @@ export function renderAllocationChart(subnets, baseNetworkCIDR, container) {
     });
 
     barContainer.appendChild(segment);
-    currentOffset += subnetSize;
   });
 
   // Calcular espacio libre al final

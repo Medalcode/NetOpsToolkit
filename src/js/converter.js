@@ -19,24 +19,19 @@ export function initConverter() {
     }
 
     let num = NaN;
-    let type = "unknown";
 
     // 1. Detección por prefijo
     if (rawVal.startsWith("0x") || rawVal.startsWith("0X")) {
       num = parseInt(rawVal.substring(2), 16);
-      type = "hex";
     } else if (rawVal.startsWith("0b") || rawVal.startsWith("0B")) {
       num = parseInt(rawVal.substring(2), 2);
-      type = "bin";
     }
     // 2. Detección por caracteres
     else if (/[a-fA-F]/.test(rawVal)) {
       num = parseInt(rawVal, 16);
-      type = "hex";
     } else {
       // Asumir decimal por defecto
       num = parseInt(rawVal, 10);
-      type = "dec";
     }
 
     if (!isNaN(num)) {

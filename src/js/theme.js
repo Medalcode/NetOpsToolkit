@@ -132,7 +132,7 @@ export function initTheme() {
 
   // Escuchar cambios en la preferencia del sistema
   if (window.matchMedia) {
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
       // Solo actualizar si el tema está en AUTO
       if (getCurrentTheme() === THEMES.AUTO) {
         applyTheme(THEMES.AUTO);

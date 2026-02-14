@@ -434,12 +434,7 @@ function setupGlobalActions() {
 
   // --- History System Integration ---
   // Create the panel and overlay (hidden by default)
-  const {
-    panel,
-    overlay,
-    toggleBtn: historyBtnIcon,
-    content,
-  } = createHistoryPanel(
+  const { panel, overlay, content } = createHistoryPanel(
     // On Load Item
     item => {
       // Restore inputs
@@ -471,7 +466,7 @@ function setupGlobalActions() {
       content,
       getHistory(),
       getHistoryStats(),
-      item => {
+      () => {
         /* Load handled in createHistoryPanel closure above */
       },
       id => {
