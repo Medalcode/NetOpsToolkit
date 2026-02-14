@@ -8,7 +8,7 @@
 import "../css/main.css"; // Tailwind CSS
 
 // Error Handling
-import { initGlobalErrorHandlers, handleError, showSuccessNotification } from "./error-handler.js";
+import { initGlobalErrorHandlers } from "./error-handler.js";
 
 // Core Imports
 import { initTheme, createThemeToggle, getEffectiveTheme } from "./theme.js";
@@ -20,7 +20,6 @@ import { calculateVLSM, calculateTotalRequired, calculateTotalAvailable } from "
 import {
   displayResults,
   showError,
-  clearResults,
   showToast,
   createHistoryPanel,
   updateHistoryPanel,
@@ -34,11 +33,8 @@ import {
 } from "./history.js";
 import { trackCalculation } from "./analytics.js";
 
-// Global State
-const AppState = {
-  currentTool: "tool-dashboard",
-  initializedTools: new Set(),
-};
+// Global State (reserved for future uses)
+// const AppState = { currentTool: "tool-dashboard", initializedTools: new Set() };
 
 /**
  * Tool Configuration Map
@@ -454,12 +450,6 @@ function setupGlobalActions() {
 
       // Go to dashboard/VLSM view
       showView("view-vlsm", "VLSM CALCULATOR");
-
-      // Re-run calculation (or just display stored results)
-      const btn = document.getElementById("btn-calc-vlsm");
-      if (btn) btn.click();
-
-      // Close panel
       panel.classList.remove("open");
       overlay.classList.remove("active");
     },
@@ -498,7 +488,6 @@ function setupGlobalActions() {
   // Append Panel & Overlay to Body (outside header)
   document.body.appendChild(overlay);
   document.body.appendChild(panel);
-
   // Add History Button to Header
   const historyBtn = document.createElement("button");
   historyBtn.className = "btn btn-outline-info btn-sm me-2";
