@@ -82,6 +82,13 @@ npm run build
 - [LICENSE](LICENSE) - Licencia MIT
  - [Docs (agent & skills)](docs) - Guía para agentes, catálogo de skills y prácticas de CI/CD
 
+## Docs & PR
+
+- Documentación añadida en [docs/](docs) — `agent.md`, `skills.md`, `CONTRIBUTING.md`.
+- Pull request con estos cambios: https://github.com/Medalcode/NetOpsToolkit/pull/1
+
+Nota: el badge de Netlify es un placeholder; añade `NETLIFY_BADGE_ID` o actualiza la URL del badge con el ID de tu sitio en Netlify.
+
 
 ## 🧪 Testing
 
