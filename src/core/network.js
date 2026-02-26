@@ -4,7 +4,7 @@
  * @module calculator
  */
 
-import { ipToDecimal, decimalToIP, prefixToMask } from "./converters.js";
+import { ipToDecimal, decimalToIP, prefixToMask } from "./convert.js";
 
 /**
  * Calcula subredes utilizando el algoritmo VLSM (Variable Length Subnet Mask)

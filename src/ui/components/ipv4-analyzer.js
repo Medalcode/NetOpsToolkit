@@ -1,8 +1,8 @@
 /**
  * Módulo Calculadora Estándar IPv4 (Tailwind Version)
  */
-import { ipToDecimal, decimalToIP } from "./converters.js";
-import { validateIPAddress, validateCIDRPrefix } from "./validators.js";
+import { ipToDecimal, decimalToIP } from "../../core/convert.js";
+import { validateIPAddress, validateCIDRPrefix } from "../../core/validate.js";
 
 export function initStandardCalc(container) {
   // 1. Render UI

@@ -9,7 +9,7 @@ import {
   validateNetworkAddress,
   validateHosts,
   validateNetworkCapacity
-} from '../src/js/validators.js';
+} from '../src/core/validate.js';
 
 describe('validateIPAddress', () => {
   test('should validate correct IPv4 addresses', () => {

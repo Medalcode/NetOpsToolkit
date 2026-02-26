@@ -1,4 +1,4 @@
-# 🛡️ NetOps Toolkit v3.0.1
+# 🛡️ NetOps Toolkit v4.0.0 — Lean Architecture Edition
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Status](https://img.shields.io/badge/Status-Stable-green)](https://github.com/Medalcode/NetOpsToolkit)
@@ -65,15 +65,22 @@ npm test
 npm run build
 ```
 
+## 🏗️ Arquitectura del Proyecto (Lean Design)
+El proyecto ha sido reestructurado para maximizar la densidad de valor y eliminar la fragmentación:
+
+- **`src/core/`**: Lógica académica pura desposeída de side-effects. (Subnetting, Conversiones, Validaciones).
+- **`src/platform/`**: Capa de abstracción para I/O (Fetch, LocalStorage, Clipboard).
+- **`src/ui/`**: Capa de presentación modular y reactiva.
+    - `ui/components/`: Widgets de herramientas individuales.
+    - `ui/shared/`: Servicios UI comunes (i18n, history, theme).
+
 ## 🛠️ Stack Tecnológico
 
-- **Frontend**: HTML5, JavaScript ES6+
+- **Frontend**: HTML5, JavaScript ES6+ (Modular)
 - **Styling**: Tailwind CSS v3
 - **Build**: Vite
-- **Testing**: Jest + jsdom
-- **Code Quality**: ESLint + Prettier
-- **Icons**: Material Symbols
-- **Deploy**: Netlify
+- **Testing**: Jest + jsdom (32 tests pasando)
+- **Deploy**: Netlify (Serverless Functions para Geo-IP)
 
 ## 📖 Documentación
 
@@ -105,12 +112,11 @@ npm run test:coverage
 
 **Estado actual**: 3 test suites, 32 tests pasando (añadidos tests para `dns-core` el 2026-01-27)
 
-### Cambios Recientes (2026-01-27)
-
-- Añadidos wrappers de plataforma para facilitar mocks y desacoplar side-effects: `src/js/platform/{fetch,storage,clipboard}.js`.
-- Extraída la lógica pura de DNS a `src/js/tools/dns-core.js` y refactorizado `src/js/tools/dns.js` para usar los wrappers y evitar `onclick` inline.
-- Refactorizado `src/js/history.js` para usar el wrapper de almacenamiento.
-- Añadido `tests/dns.core.test.js` y ejecutada la suite con éxito.
+### Cambios Recientes (v4.0.0 - 2026-02-25)
+- **Refactorización Lean**: Eliminación de archivos legados (`index_legacy.html`, `js/` raíz) y consolidación de lógica dispersa.
+- **Estructura de Capas**: Separación clara entre `core/`, `platform/` y `ui/`.
+- **Skills Consilidadas**: Implementación de Super-Skills paramétricas (`identity-service`, `net-analysis-engine`).
+- **Testing**: Actualización de la suite para cubrir las nuevas rutas del core (32 tests pasando).
 
 Para reproducir los cambios localmente:
 

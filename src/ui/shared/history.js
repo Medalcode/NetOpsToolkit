@@ -4,7 +4,7 @@
  * @module history
  */
 
-import { storage } from "./platform/storage.js";
+import { storage } from "../../platform/storage.js";
 
 const HISTORY_KEY = "vlsm-history";
 const MAX_HISTORY_ITEMS = 10;

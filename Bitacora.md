@@ -5,6 +5,24 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
+## [4.0.0] - 2026-02-25
+
+### Refactorización: "Lean Architecture" 💎
+
+Reestructuración completa del proyecto para eliminar redundancias y mejorar la mantenibilidad siguiendo principios de alta densidad.
+
+- **Eliminación de Basura**: Borrado de `index_legacy.html`, `js/` (raíz), `old_monolithic/` y archivos temporales.
+- **Nueva Estructura de Capas**:
+    - `src/core/`: Lógica académica pura (Subnetting, Conversiones, Validaciones).
+    - `src/platform/`: Wrappers de entorno (Fetch, Storage, Clipboard).
+    - `src/ui/`: Capa de presentación modular.
+        - `ui/components/`: Herramientas individuales (DNS, VLSM, IPv6, etc.).
+        - `ui/shared/`: Servicios UI comunes (i18n, history, theme).
+- **Fusión de Lógica**:
+    - Consolidación de `converters.js` y `converter.js` en un módulo core unificado de conversión.
+    - Integración de validaciones de UI y negocio en una capa centralizada.
+- **Optimización de Imports**: Actualización de todo el árbol de dependencias para asegurar un bundle limpio mediante Vite.
+
 ## [3.0.1] - 2026-01-19
 
 ### Añadido ✨
@@ -67,12 +85,12 @@ Transformación completa de "VLSM Calculator" a "NetOps Toolkit". Una suite inte
 ### Completado ✅
 
 - Añadidos adaptadores de plataforma para desacoplar side-effects:
-	- `src/js/platform/fetch.js` (wrapper mínimo para `fetch`)
-	- `src/js/platform/storage.js` (wrapper seguro para `localStorage` con JSON)
-	- `src/js/platform/clipboard.js` (wrapper para `navigator.clipboard.writeText` con fallback)
-- Extraída lógica pura de DNS a `src/js/tools/dns-core.js` (construcción de URL y mapeo de tipos).
-- Refactorizado `src/js/tools/dns.js` para usar `platformFetch`, `dns-core` y `platform/clipboard` (se reemplazó el `onclick` inline por listeners y el wrapper de clipboard).
-- Refactorizado `src/js/history.js` para usar `src/js/platform/storage.js` en vez de `localStorage` directo.
+	- `src/platform/fetch.js` (wrapper mínimo para `fetch`)
+	- `src/platform/storage.js` (wrapper seguro para `localStorage` con JSON)
+	- `src/platform/clipboard.js` (wrapper para `navigator.clipboard.writeText` con fallback)
+- Extraída lógica pura de DNS a `src/ui/components/dns-core.js` (construcción de URL y mapeo de tipos).
+- Refactorizado `src/ui/components/dns.js` para usar `platformFetch`, `dns-core` y `platform/clipboard` (se reemplazó el `onclick` inline por listeners y el wrapper de clipboard).
+- Refactorizado `src/ui/shared/history.js` para usar `src/platform/storage.js` en vez de `localStorage` directo.
 - Añadido test unitario: `tests/dns.core.test.js` (URL building y type mapping).
 - Ejecutados tests: todas las suites pasan (3 suites, 32 tests en el momento de la ejecución).
 
@@ -80,8 +98,8 @@ Transformación completa de "VLSM Calculator" a "NetOps Toolkit". Una suite inte
 
 - Pruebas manuales smoke en navegador (`npm run dev`) para validar copia al portapapeles y comportamiento UI.
 - Extraer lógica pura y tests para otros tools (por ejemplo `config_gen`, `public_ip`, `bandwidth`).
-- Normalizar API de inicialización de herramientas (`init(container, services)`) y adaptar `src/js/main.js` para inyectar servicios.
-- Añadir tests de integración jsdom que arranquen `src/js/main.js` y verifiquen el flujo de carga de herramientas.
+- Normalizar API de inicialización de herramientas (`init(container, services)`) y adaptar `src/ui/main.js` para inyectar servicios.
+- Añadir tests de integración jsdom que arranquen `src/ui/main.js` y verifiquen el flujo de carga de herramientas.
 
 ### Notas Técnicas
 

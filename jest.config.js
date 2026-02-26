@@ -3,9 +3,9 @@ export default {
   moduleFileExtensions: ["js"],
   testMatch: ["**/tests/**/*.test.js"],
   collectCoverageFrom: [
-    "src/js/**/*.js",
-    "!src/js/main.js",
-    "!src/js/tools/**/*.js"
+    "src/**/*.js",
+    "!src/ui/main.js",
+    "!src/ui/components/**/*.js"
   ],
   coverageThreshold: {
     global: {

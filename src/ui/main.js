@@ -8,30 +8,30 @@
 import "../css/main.css"; // Tailwind CSS
 
 // Error Handling
-import { initGlobalErrorHandlers } from "./error-handler.js";
+import { initGlobalErrorHandlers } from "./shared/error-handler.js";
 
 // Core Imports
-import { initTheme, createThemeToggle, getEffectiveTheme } from "./theme.js";
-import { initI18n, setLanguage } from "./i18n.js";
+import { initTheme, createThemeToggle, getEffectiveTheme } from "./shared/theme.js";
+import { initI18n, setLanguage } from "./shared/i18n.js";
 
 // VLSM Imports (Critical)
 // VLSM Imports (Critical)
-import { calculateVLSM, calculateTotalRequired, calculateTotalAvailable } from "./calculator.js";
+import { calculateVLSM, calculateTotalRequired, calculateTotalAvailable } from "../core/network.js";
 import {
   displayResults,
   showError,
   showToast,
   createHistoryPanel,
   updateHistoryPanel,
-} from "./ui.js";
+} from "./shared/ui-engine.js";
 import {
   addToHistory,
   getHistory,
   getHistoryStats,
   removeFromHistory,
   clearHistory,
-} from "./history.js";
-import { trackCalculation } from "./analytics.js";
+} from "./shared/history.js";
+import { trackCalculation } from "./shared/analytics.js";
 
 // Global State (reserved for future uses)
 // const AppState = { currentTool: "tool-dashboard", initializedTools: new Set() };
@@ -46,17 +46,17 @@ import { trackCalculation } from "./analytics.js";
  * Using explicit import() ensures Vite bundles these chunks correctly.
  */
 const TOOL_REGISTRY = {
-  "tool-subnet": { load: () => import("./standard_calc.js"), fn: "initStandardCalc" },
-  "tool-dns": { load: () => import("./tools/dns.js"), fn: "initDnsTool" },
-  "tool-ports": { load: () => import("./tools/ports.js"), fn: "initPortTool" },
-  "tool-oui": { load: () => import("./tools/oui.js"), fn: "initOuiTool" },
-  "tool-ipv6": { load: () => import("./tools/ipv6.js"), fn: "initIPv6Tool" },
-  "tool-config": { load: () => import("./tools/config_gen.js"), fn: "initConfigGenTool" },
-  "tool-hex": { load: () => import("./converter.js"), fn: "initConverter" },
-  "tool-bw": { load: () => import("./tools/bandwidth.js"), fn: "initBandwidthTool" },
-  "tool-keygen": { load: () => import("./tools/keygen.js"), fn: "initKeyGenTool" },
-  "tool-ip-ref": { load: () => import("./tools/ip_reference.js"), fn: "initIpRefTool" },
-  "tool-public-ip": { load: () => import("./tools/public_ip.js"), fn: "initPublicIpWidget" },
+  "tool-subnet": { load: () => import("./components/ipv4-analyzer.js"), fn: "initStandardCalc" },
+  "tool-dns": { load: () => import("./components/dns.js"), fn: "initDnsTool" },
+  "tool-ports": { load: () => import("./components/ports.js"), fn: "initPortTool" },
+  "tool-oui": { load: () => import("./components/oui.js"), fn: "initOuiTool" },
+  "tool-ipv6": { load: () => import("./components/ipv6.js"), fn: "initIPv6Tool" },
+  "tool-config": { load: () => import("./components/config_gen.js"), fn: "initConfigGenTool" },
+  "tool-hex": { load: () => import("./components/base-converter.js"), fn: "initConverter" },
+  "tool-bw": { load: () => import("./components/bandwidth.js"), fn: "initBandwidthTool" },
+  "tool-keygen": { load: () => import("./components/keygen.js"), fn: "initKeyGenTool" },
+  "tool-ip-ref": { load: () => import("./components/ip_reference.js"), fn: "initIpRefTool" },
+  "tool-public-ip": { load: () => import("./components/public_ip.js"), fn: "initPublicIpWidget" },
 };
 
 /**
@@ -323,7 +323,7 @@ function initVLSM() {
   if (!calcBtn) return;
 
   // Add real-time validation (will be imported)
-  import("./input-validation.js").then(module => {
+  import("./shared/form-handlers.js").then(module => {
     if (ipInput) {
       module.addIPValidation(ipInput);
       // Temporarily disabled until fully functional

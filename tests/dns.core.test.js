@@ -1,4 +1,4 @@
-import { buildDnsUrl, getDnsTypeName } from '../src/js/tools/dns-core.js';
+import { buildDnsUrl, getDnsTypeName } from '../src/ui/components/dns-core.js';
 
 describe('dns-core utilities', () => {
   test('buildDnsUrl constructs correct query for google resolver', () => {

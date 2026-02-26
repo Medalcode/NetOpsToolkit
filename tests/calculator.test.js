@@ -1,5 +1,5 @@
 
-import { calculateVLSM, calculateTotalRequired, calculateTotalAvailable } from '../src/js/calculator.js';
+import { calculateVLSM, calculateTotalRequired, calculateTotalAvailable } from '../src/core/network.js';
 // We need to mock converters because the relative import path in calculator.js might be tricky in Jest environment 
 // without proper module mapping, or we can rely on Jest to resolve it if configured correctly.
 // Let's try to import converters directly to see if they work, otherwise we might need to mock.
@@ -21,9 +21,9 @@ describe('VLSM Calculator Core Logic', () => {
 
     describe('calculateTotalRequired', () => {
         test('should calculate total required space correctly including overhead', () => {
-             // 50 hosts -> needs 64 block (6 bits: 2^6=64)
-             // 20 hosts -> needs 32 block (5 bits: 2^5=32)
-             // Total = 96
+            // 50 hosts -> needs 64 block (6 bits: 2^6=64)
+            // 20 hosts -> needs 32 block (5 bits: 2^5=32)
+            // Total = 96
             expect(calculateTotalRequired([50, 20])).toBe(96);
         });
 
@@ -38,11 +38,11 @@ describe('VLSM Calculator Core Logic', () => {
         // Blocks needed:
         // 50 hosts: needs /26 (64 addresses). Range: .0 - .63
         // 20 hosts: needs /27 (32 addresses). Range: .64 - .95
-        
+
         const baseIP = '192.168.1.0';
         const prefix = 24;
         const hosts = [50, 20];
-        
+
         const results = calculateVLSM(baseIP, prefix, hosts);
 
         test('should return correct number of subnets', () => {
@@ -71,13 +71,13 @@ describe('VLSM Calculator Core Logic', () => {
         });
 
         test('should handle host requirements that utilize full remaining space', () => {
-             // Case: 192.168.1.0/24. 
-             // Req: 126 hosts (needs /25, .0-.127)
-             // Req: 60 hosts (needs /26, .128-.191)
-             // Req: 60 hosts (needs /26, .192-.255) -> Fits exactly!
-             const res = calculateVLSM('192.168.1.0', 24, [126, 60, 60]);
-             expect(res).toHaveLength(3);
-             expect(res[2].broadcast).toBe('192.168.1.255');
+            // Case: 192.168.1.0/24. 
+            // Req: 126 hosts (needs /25, .0-.127)
+            // Req: 60 hosts (needs /26, .128-.191)
+            // Req: 60 hosts (needs /26, .192-.255) -> Fits exactly!
+            const res = calculateVLSM('192.168.1.0', 24, [126, 60, 60]);
+            expect(res).toHaveLength(3);
+            expect(res[2].broadcast).toBe('192.168.1.255');
         });
     });
 });

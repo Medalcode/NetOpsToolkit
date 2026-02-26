@@ -1,9 +1,9 @@
 /**
  * Módulo de Búsqueda DNS (Tailwind Version)
  */
-import { platformFetch } from "../platform/fetch.js";
+import { platformFetch } from "../../platform/fetch.js";
 import { buildDnsUrl, getDnsTypeName } from "./dns-core.js";
-import { writeText } from "../platform/clipboard.js";
+import { writeText } from "../shared/clipboard.js";
 
 export function initDnsTool(container) {
   // 1. Render UI

@@ -53,17 +53,26 @@ owner: netops-team
 version: 1.0.0
 ---
 
-## Skills registrados (ejemplos iniciales)
+## Skills registrados (Consolidados)
 
-- `ip-lookup` — Info de IP pública y geo (usa `netlify/functions/geo-ip.js`).
-- `dns-lookup` — Resolución y análisis DNS (core en `src/js/dns-core.js`).
-- `bandwidth-calc` — Calculadora de ancho de banda (herramienta en `src/js/tools/bandwidth.js`).
-- `oui-lookup` — Búsqueda de OUI/Organización (herramienta `src/js/tools/oui.js`).
+- **`identity-service`** — Gestiona la identidad de red del cliente.
+  - *Parámetros*: `mode` (public|geo|local).
+  - *Implementación*: Combina `netlify/functions/geo-ip.js` y `src/ui/components/public_ip.js`.
+- **`net-analysis-engine`** — Motor de análisis de red unificado.
+  - *Parámetros*: `type` (dns|vlsm|ipv4|ipv6).
+  - *Implementación*: Centraliza la lógica de `src/ui/components/dns.js`, `src/core/network.js` y `src/ui/components/ipv6.js`.
+- **`infra-toolbox`** — Utilidades de infraestructura y seguridad.
+  - *Parámetros*: `tool` (keygen|cfg-gen|oui|ports).
+  - *Implementación*: Agrupa herramientas en `src/ui/components/` (keygen, config_gen, oui, ports).
+- **`data-conversion`** — Suite de conversión de formatos.
+  - *Parámetros*: `input_type` (ip|decimal|hex|binary).
+  - *Implementación*: Fusiona `src/core/convert.js` y `src/ui/components/base-converter.js`.
+
 
 ## Buenas prácticas para añadir nuevas skills
 
 - Crear una entrada YAML en `docs/skills.md` con `id` único.
-- Implementar la lógica en `src/js/tools/<skill>.js` y exponer `init<Skill>` y una API pura exportable para tests.
+- Implementar la lógica en `src/ui/components/<skill>.js` y exponer `init<Skill>` y una API pura exportable para tests.
 - Añadir tests en `tests/` que cubran la lógica del core.
 - Documentar variables de entorno necesarias y permisos para serverless en `agent.md`.
 
