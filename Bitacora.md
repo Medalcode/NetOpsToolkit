@@ -5,6 +5,20 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
+## [4.0.1] - 2026-05-21
+
+### Añadido ✨
+
+- ✅ **Suite de Tests de Conversión**: Creado `tests/converters.test.js` para probar la lógica de `src/core/convert.js`.
+- ✅ **Soporte de Refresh de IP**: Vinculado el botón de actualización `#refresh-ip` en el widget de IP pública para re-consultar la dirección IP.
+
+### Corregido 🐛
+
+- 🐛 **Navegación y Estructura HTML (`index.html`)**: Se restableció el contenedor `<div id="view-vlsm">` que rodea la calculadora VLSM y el widget de IP, corrigiendo el error donde la calculadora se mostraba de manera persistente al navegar hacia otras herramientas.
+- 🐛 **Widget de IP en Arranque (`main.js`)**: Se modificó la inicialización para importar e iniciar el widget de IP pública en segundo plano sin alterar la vista activa inicial.
+- 🐛 **Widgets de Herramientas (`bandwidth.js`, `base-converter.js`, `ip_reference.js`)**: Corregidos para renderizar e inicializar su HTML de manera dinámica dentro del contenedor que les provee el gestor de vistas, resolviendo fallos donde las herramientas se cargaban vacías por buscar elementos estáticos ausentes.
+- 🐛 **Manifest de Agentes (`docs/agent.md`)**: Corregidas las referencias obsoletas a rutas antiguas de archivos (`src/js/`) remanentes de la refactorización v4.0.0.
+
 ## [4.0.0] - 2026-02-25
 
 ### Refactorización: "Lean Architecture" 💎

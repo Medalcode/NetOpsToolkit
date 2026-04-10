@@ -4,35 +4,47 @@
  */
 
 export function initConverter(container) {
+  if (!container) return;
+
   container.innerHTML = `
-    <div class="space-y-4">
-      <div>
-        <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Enter a number (with or without prefix):</label>
-        <input id="converter-input" type="text" placeholder="e.g. 255, 0xFF, 0b11111111" class="w-full bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white placeholder-slate-700 focus:border-primary transition-colors">
-      </div>
-      <div class="grid grid-cols-3 gap-4">
-        <div class="bg-surface-dark cyber-border rounded p-4">
-          <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Decimal</div>
-          <div id="res-dec" class="text-2xl font-bold text-white mono-data">—</div>
+    <div class="max-w-xl mx-auto space-y-6">
+        <div class="bg-surface-dark cyber-border rounded p-6">
+            <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Hex / Dec / Bin Converter</h4>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Input Value</label>
+                    <input id="converter-input" type="text" placeholder="e.g. 255, 0xFF, or 0b11111111" class="w-full bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white focus:border-primary transition-colors">
+                    <span class="text-[9px] text-slate-500 mt-1 block">Supports decimal, hexadecimal (0x prefix), or binary (0b prefix)</span>
+                </div>
+            </div>
         </div>
-        <div class="bg-surface-dark cyber-border rounded p-4">
-          <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Binary</div>
-          <div id="res-bin" class="text-2xl font-bold text-white mono-data break-all">—</div>
+
+        <div class="bg-surface-dark cyber-border rounded p-6 space-y-4">
+            <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 border-b border-border-dark pb-2">Results</h4>
+            <div class="grid grid-cols-1 gap-4">
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Decimal</label>
+                    <input id="res-dec" type="text" readonly class="w-full bg-slate-900 border border-border-dark rounded px-3 py-2 text-sm mono-data text-white">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Binary</label>
+                    <input id="res-bin" type="text" readonly class="w-full bg-slate-900 border border-border-dark rounded px-3 py-2 text-sm mono-data text-white">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Hexadecimal</label>
+                    <input id="res-hex" type="text" readonly class="w-full bg-slate-900 border border-border-dark rounded px-3 py-2 text-sm mono-data text-white">
+                </div>
+            </div>
         </div>
-        <div class="bg-surface-dark cyber-border rounded p-4">
-          <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Hexadecimal</div>
-          <div id="res-hex" class="text-2xl font-bold text-white mono-data">—</div>
-        </div>
-      </div>
     </div>
   `;
 
-  const input = document.getElementById("converter-input");
-  if (!input) return;
+  const input = container.querySelector("#converter-input");
+  const resDec = container.querySelector("#res-dec");
+  const resBin = container.querySelector("#res-bin");
+  const resHex = container.querySelector("#res-hex");
 
-  const resDec = document.getElementById("res-dec");
-  const resBin = document.getElementById("res-bin");
-  const resHex = document.getElementById("res-hex");
+  if (!input) return;
 
   input.addEventListener("input", () => {
     const rawVal = input.value.trim();

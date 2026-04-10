@@ -38,6 +38,12 @@ export function initPublicIpWidget() {
     `;
   }
 
+  // Wire refresh button if it exists
+  const refreshBtn = document.getElementById("refresh-ip");
+  if (refreshBtn) {
+    refreshBtn.addEventListener("click", fetchIp);
+  }
+
   // Initial load
   fetchIp();
 }

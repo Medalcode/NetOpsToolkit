@@ -1,45 +1,56 @@
 export function initBandwidthTool(container) {
+  if (!container) return;
+
   container.innerHTML = `
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div class="space-y-4">
-        <div>
-          <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">File Size</label>
-          <div class="flex gap-2">
-            <input id="bw-size" type="number" placeholder="100" class="flex-1 bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white placeholder-slate-700 focus:border-primary transition-colors">
-            <select id="bw-size-unit" class="bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white cursor-pointer">
-              <option value="1">Bytes</option>
-              <option value="1024" selected>KB</option>
-              <option value="1048576">MB</option>
-              <option value="1073741824">GB</option>
-            </select>
-          </div>
+    <div class="max-w-xl mx-auto space-y-6">
+        <div class="bg-surface-dark cyber-border rounded p-6">
+            <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Bandwidth Calculator</h4>
+            <div class="space-y-4">
+                <div class="grid grid-cols-3 gap-2">
+                    <div class="col-span-2">
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">File Size</label>
+                        <input id="bw-size" type="number" step="any" placeholder="100" class="w-full bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white focus:border-primary transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Unit</label>
+                        <select id="bw-size-unit" class="w-full bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white cursor-pointer focus:border-primary transition-colors">
+                            <option value="KB">KB</option>
+                            <option value="MB" selected>MB</option>
+                            <option value="GB">GB</option>
+                            <option value="TB">TB</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                    <div class="col-span-2">
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Network Speed</label>
+                        <input id="bw-speed" type="number" step="any" placeholder="10" class="w-full bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white focus:border-primary transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Unit</label>
+                        <select id="bw-speed-unit" class="w-full bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white cursor-pointer focus:border-primary transition-colors">
+                            <option value="Kbps">Kbps</option>
+                            <option value="Mbps" selected>Mbps</option>
+                            <option value="Gbps">Gbps</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="btn-bw-calc" class="w-full bg-primary hover:bg-primary/80 text-white text-xs font-bold uppercase tracking-widest py-3 rounded transition-colors shadow-lg shadow-primary/20 mt-2">
+                    Calculate Time
+                </button>
+            </div>
         </div>
-        <div>
-          <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Transfer Speed</label>
-          <div class="flex gap-2">
-            <input id="bw-speed" type="number" placeholder="50" class="flex-1 bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white placeholder-slate-700 focus:border-primary transition-colors">
-            <select id="bw-speed-unit" class="bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white cursor-pointer">
-              <option value="1">bps</option>
-              <option value="1000">Kbps</option>
-              <option value="1000000" selected>Mbps</option>
-              <option value="1000000000">Gbps</option>
-            </select>
-          </div>
-        </div>
-        <button id="btn-bw-calc" class="bg-primary hover:bg-primary/80 text-white text-xs font-bold uppercase tracking-widest px-4 py-2 rounded transition-colors">Calculate</button>
-      </div>
-      <div id="bw-results" class="bg-surface-dark cyber-border rounded p-4 text-slate-400 text-sm">
-        Enter a file size and speed to calculate transfer time.
-      </div>
+        
+        <div id="bw-results"></div>
     </div>
   `;
 
-  const sizeInput = document.getElementById("bw-size");
-  const sizeUnit = document.getElementById("bw-size-unit");
-  const speedInput = document.getElementById("bw-speed");
-  const speedUnit = document.getElementById("bw-speed-unit");
-  const btnCalc = document.getElementById("btn-bw-calc");
-  const resultContainer = document.getElementById("bw-results");
+  const sizeInput = container.querySelector("#bw-size");
+  const sizeUnit = container.querySelector("#bw-size-unit");
+  const speedInput = container.querySelector("#bw-speed");
+  const speedUnit = container.querySelector("#bw-speed-unit");
+  const btnCalc = container.querySelector("#btn-bw-calc");
+  const resultContainer = container.querySelector("#bw-results");
 
   if (!sizeInput || !resultContainer) return;
 

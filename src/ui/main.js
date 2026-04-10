@@ -91,7 +91,9 @@ async function init() {
     console.log("✅ VLSM Core Logic");
 
     // 6. Initialize Public IP Widget (Always on dashboard)
-    loadToolLogic("tool-public-ip");
+    import("./components/public_ip.js").then(module => {
+      module.initPublicIpWidget();
+    });
 
     console.log("🏁 Initialization Complete");
   } catch (e) {

@@ -1,6 +1,7 @@
 export function initIpRefTool(container) {
+  if (!container) return;
   container.innerHTML = '<div id="ip-ref-content"></div>';
-  const content = document.getElementById("ip-ref-content");
+  const content = container.querySelector("#ip-ref-content");
   if (!content) return;
 
   // Function to generate HTML for a table

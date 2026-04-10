@@ -18,8 +18,8 @@ descubrir, validar e invocar las capacidades (`skills`) del proyecto.
 
 ## Arquitectura (resumen)
 
-- Frontend SPA construido con Vite, Tailwind y módulos ES (entry: `src/js/main.js`).
-- Herramientas organizadas en `src/js/tools/` y wrappers de plataforma en `src/js/platform/`.
+- Frontend SPA construido con Vite, Tailwind y módulos ES (entry: `src/ui/main.js`).
+- Herramientas organizadas en `src/ui/components/` y wrappers de plataforma en `src/platform/`.
 - Serverless: Netlify Functions en `netlify/functions/` (ej. `geo-ip.js`).
 - Tests: Jest (`tests/`).
 
@@ -34,7 +34,7 @@ implementación adecuada (módulo lazy-loaded o función serverless).
 1) Invocar skill en cliente (módulo JS):
 
 ```js
-import('./src/js/tools/ip-lookup.js').then(({run})=>{
+import('./src/ui/components/public_ip.js').then(({run})=>{
   return run({clientIp: '1.2.3.4'})
 })
 ```
@@ -65,7 +65,7 @@ Response esperado (estándar):
 ## Observabilidad y errores
 
 - Integrar Sentry/Roweball para errores client-side si se decide.
-- Enviar métricas vitales y eventos de uso desde `src/js/analytics.js`.
+- Enviar métricas vitales y eventos de uso desde `src/ui/shared/analytics.js`.
 
 ## Seguridad
 
@@ -81,5 +81,5 @@ Response esperado (estándar):
 
 ## Onboarding para contributors
 
-- Añadir nueva herramienta: crear module en `src/js/tools/`, tests en `tests/`, y entry en `docs/skills.md`.
+- Añadir nueva herramienta: crear module en `src/ui/components/`, tests en `tests/`, y entry en `docs/skills.md`.
 - Seguir Conv. Commits y abrir PR con descripción y screenshots si aplica.
