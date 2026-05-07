@@ -60,7 +60,7 @@ export function initBandwidthTool() {
     const seconds = totalBits / bitsPerSecond;
 
     resultContainer.innerHTML = `
-      <div class="card" style="padding: 24px; text-align: center; border-left: 4px solid var(--color-primary); animation: highlight 0.5s;">
+      <div class="rounded border border-border-dark border-l-4 border-l-primary bg-surface-dark p-6 text-center animate-fade-in">
         <h3 style="margin:0; color:var(--color-text-secondary); font-size: 0.9rem; text-transform:uppercase;">Tiempo Estimado</h3>
         <div style="font-size: 2.5rem; font-weight: 700; color: var(--color-primary); margin: 10px 0;">
             ${formatTime(seconds)}

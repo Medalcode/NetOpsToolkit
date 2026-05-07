@@ -26,7 +26,7 @@
   --shadow-glow: 0 0 15px var(--color-primary-glow);
 }
 
-[data-bs-theme="light"] {
+[data-theme="light"] {
   --color-bg-body: #f1f5f9;
   --color-bg-sidebar: #ffffff;
   --color-bg-card: #ffffff;

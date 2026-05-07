@@ -25,6 +25,10 @@ export async function copyToClipboard(text) {
   }
 }
 
+export async function writeText(text) {
+  return copyToClipboard(text);
+}
+
 /**
  * Método fallback para copiar al portapapeles (navegadores antiguos)
  * @param {string} text - Texto a copiar

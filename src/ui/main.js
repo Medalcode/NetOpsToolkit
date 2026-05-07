@@ -36,6 +36,10 @@ import { trackCalculation } from "./shared/analytics.js";
 // Global State (reserved for future uses)
 // const AppState = { currentTool: "tool-dashboard", initializedTools: new Set() };
 
+const ACTION_BUTTON_CLASS =
+  "px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded border transition-all btn-press";
+const SECONDARY_ACTION_BUTTON_CLASS = `${ACTION_BUTTON_CLASS} bg-surface-dark text-slate-400 border-border-dark hover:text-white hover:border-primary`;
+
 /**
  * Tool Configuration Map
  * Maps DOM IDs to their module paths and init functions.
@@ -72,7 +76,7 @@ async function init() {
 
     // 1. Theme (Immediate visual stability)
     initTheme();
-    updateBootstrapTheme(getEffectiveTheme()); // Sync Bootstrap
+    syncThemeAttribute(getEffectiveTheme());
     console.log("✅ Theme System");
 
     // 2. Internationalization
@@ -100,10 +104,10 @@ async function init() {
     // Fallback: try to show error on screen if possible
     const main = document.querySelector("main");
     if (main) {
-      main.innerHTML = `<div class="alert alert-danger m-4">
-                <h4>System Error</h4>
-                <p>Failed to initialize application: ${e.message}</p>
-                <button class="btn btn-outline-danger" onclick="location.reload()">Reload</button>
+      main.innerHTML = `<div class="m-4 rounded border border-red-500/30 bg-red-500/10 p-4 text-red-300">
+                <h4 class="mb-2 text-base font-bold text-red-200">System Error</h4>
+                <p class="text-sm">Failed to initialize application: ${e.message}</p>
+                <button class="mt-4 inline-flex items-center rounded border border-red-500/40 px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-red-200 transition-colors hover:bg-red-500/20" onclick="location.reload()">Reload</button>
             </div>`;
     }
   }
@@ -485,8 +489,9 @@ function setupGlobalActions() {
   document.body.appendChild(panel);
   // Add History Button to Header
   const historyBtn = document.createElement("button");
-  historyBtn.className = "btn btn-outline-info btn-sm me-2";
-  historyBtn.innerHTML = "<i class=\"fas fa-history\"></i> Historial";
+  historyBtn.className = SECONDARY_ACTION_BUTTON_CLASS;
+  historyBtn.innerHTML =
+    '<span class="material-symbols-outlined !text-sm mr-1">history</span><span>Historial</span>';
   historyBtn.onclick = () => {
     refreshHistory(); // Update data before showing
     panel.classList.add("open");
@@ -497,15 +502,15 @@ function setupGlobalActions() {
 
   // Theme Button
   const themeBtn = createThemeToggle();
-  themeBtn.className = "btn btn-outline-secondary btn-sm me-2";
+  themeBtn.className = SECONDARY_ACTION_BUTTON_CLASS;
   themeBtn.addEventListener("click", () => {
-    setTimeout(() => updateBootstrapTheme(getEffectiveTheme()), 50);
+    setTimeout(() => syncThemeAttribute(getEffectiveTheme()), 50);
   });
   container.appendChild(themeBtn);
 
   // Lang Button
   const langBtn = document.createElement("button");
-  langBtn.className = "btn btn-outline-secondary btn-sm";
+  langBtn.className = SECONDARY_ACTION_BUTTON_CLASS;
   langBtn.innerHTML = document.documentElement.lang === "es" ? "🇺🇸 EN" : "🇪🇸 ES";
   langBtn.onclick = () => switchAppLanguage(langBtn);
   container.appendChild(langBtn);
@@ -517,8 +522,8 @@ function switchAppLanguage(btn) {
   btn.innerHTML = newLang === "es" ? "🇺🇸 EN" : "🇪🇸 ES";
 }
 
-function updateBootstrapTheme(theme) {
-  document.documentElement.setAttribute("data-bs-theme", theme === "dark" ? "dark" : "light");
+function syncThemeAttribute(theme) {
+  document.documentElement.setAttribute("data-theme", theme === "dark" ? "dark" : "light");
 }
 
 // Boot
