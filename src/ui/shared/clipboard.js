@@ -25,6 +25,11 @@ export async function copyToClipboard(text) {
   }
 }
 
+/**
+ * Alias de compatibilidad para módulos que esperan una API tipo Clipboard.writeText
+ * @param {string} text - Texto a copiar
+ * @returns {Promise<boolean>} True si se copió exitosamente
+ */
 export async function writeText(text) {
   return copyToClipboard(text);
 }
