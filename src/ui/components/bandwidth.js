@@ -1,4 +1,39 @@
-export function initBandwidthTool() {
+export function initBandwidthTool(container) {
+  container.innerHTML = `
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">File Size</label>
+          <div class="flex gap-2">
+            <input id="bw-size" type="number" placeholder="100" class="flex-1 bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white placeholder-slate-700 focus:border-primary transition-colors">
+            <select id="bw-size-unit" class="bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white cursor-pointer">
+              <option value="1">Bytes</option>
+              <option value="1024" selected>KB</option>
+              <option value="1048576">MB</option>
+              <option value="1073741824">GB</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Transfer Speed</label>
+          <div class="flex gap-2">
+            <input id="bw-speed" type="number" placeholder="50" class="flex-1 bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white placeholder-slate-700 focus:border-primary transition-colors">
+            <select id="bw-speed-unit" class="bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white cursor-pointer">
+              <option value="1">bps</option>
+              <option value="1000">Kbps</option>
+              <option value="1000000" selected>Mbps</option>
+              <option value="1000000000">Gbps</option>
+            </select>
+          </div>
+        </div>
+        <button id="btn-bw-calc" class="bg-primary hover:bg-primary/80 text-white text-xs font-bold uppercase tracking-widest px-4 py-2 rounded transition-colors">Calculate</button>
+      </div>
+      <div id="bw-results" class="bg-surface-dark cyber-border rounded p-4 text-slate-400 text-sm">
+        Enter a file size and speed to calculate transfer time.
+      </div>
+    </div>
+  `;
+
   const sizeInput = document.getElementById("bw-size");
   const sizeUnit = document.getElementById("bw-size-unit");
   const speedInput = document.getElementById("bw-speed");

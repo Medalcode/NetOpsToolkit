@@ -72,7 +72,6 @@ async function init() {
 
     // 1. Theme (Immediate visual stability)
     initTheme();
-    updateBootstrapTheme(getEffectiveTheme()); // Sync Bootstrap
     console.log("✅ Theme System");
 
     // 2. Internationalization
@@ -100,10 +99,10 @@ async function init() {
     // Fallback: try to show error on screen if possible
     const main = document.querySelector("main");
     if (main) {
-      main.innerHTML = `<div class="alert alert-danger m-4">
-                <h4>System Error</h4>
-                <p>Failed to initialize application: ${e.message}</p>
-                <button class="btn btn-outline-danger" onclick="location.reload()">Reload</button>
+      main.innerHTML = `<div class="bg-red-500/10 border border-red-500/30 rounded p-6 m-4 text-red-400">
+                <h4 class="text-lg font-bold mb-2">System Error</h4>
+                <p class="text-sm mb-3">Failed to initialize application: ${e.message}</p>
+                <button class="bg-red-500 hover:bg-red-600 text-white text-xs font-bold px-4 py-2 rounded transition-colors" onclick="location.reload()">Reload</button>
             </div>`;
     }
   }
@@ -427,98 +426,46 @@ function runVLSMCalculation() {
  * Global Actions (Buttons)
  */
 function setupGlobalActions() {
-  const container = document.querySelector(".global-actions");
-  if (!container) return;
-
-  container.innerHTML = "";
-
   // --- History System Integration ---
-  // Create the panel and overlay (hidden by default)
   const { panel, overlay, content } = createHistoryPanel(
-    // On Load Item
     item => {
-      // Restore inputs
       const ipEl = document.getElementById("vlsm-ip");
       const hostsEl = document.getElementById("vlsm-hosts");
       if (ipEl) ipEl.value = item.network;
       if (hostsEl) hostsEl.value = item.hosts;
-
-      // Go to dashboard/VLSM view
       showView("view-vlsm", "VLSM CALCULATOR");
       panel.classList.remove("open");
       overlay.classList.remove("active");
     },
-    // On Delete Item
-    id => {
-      removeFromHistory(id);
-      refreshHistory();
-    },
-    // On Clear All
-    () => {
-      clearHistory();
-      refreshHistory();
-    }
+    id => { removeFromHistory(id); refreshHistory(); },
+    () => { clearHistory(); refreshHistory(); }
   );
 
-  // Refresh function helper
   function refreshHistory() {
-    updateHistoryPanel(
-      content,
-      getHistory(),
-      getHistoryStats(),
-      () => {
-        /* Load handled in createHistoryPanel closure above */
-      },
-      id => {
-        removeFromHistory(id);
-        refreshHistory();
-      },
-      () => {
-        clearHistory();
-        refreshHistory();
-      }
+    updateHistoryPanel(content, getHistory(), getHistoryStats(),
+      () => {},
+      id => { removeFromHistory(id); refreshHistory(); },
+      () => { clearHistory(); refreshHistory(); }
     );
   }
 
-  // Append Panel & Overlay to Body (outside header)
   document.body.appendChild(overlay);
   document.body.appendChild(panel);
-  // Add History Button to Header
-  const historyBtn = document.createElement("button");
-  historyBtn.className = "btn btn-outline-info btn-sm me-2";
-  historyBtn.innerHTML = "<i class=\"fas fa-history\"></i> Historial";
-  historyBtn.onclick = () => {
-    refreshHistory(); // Update data before showing
-    panel.classList.add("open");
-    overlay.classList.add("active");
-  };
-  container.appendChild(historyBtn);
-  // ----------------------------------
 
-  // Theme Button
-  const themeBtn = createThemeToggle();
-  themeBtn.className = "btn btn-outline-secondary btn-sm me-2";
-  themeBtn.addEventListener("click", () => {
-    setTimeout(() => updateBootstrapTheme(getEffectiveTheme()), 50);
-  });
-  container.appendChild(themeBtn);
-
-  // Lang Button
-  const langBtn = document.createElement("button");
-  langBtn.className = "btn btn-outline-secondary btn-sm";
-  langBtn.innerHTML = document.documentElement.lang === "es" ? "🇺🇸 EN" : "🇪🇸 ES";
-  langBtn.onclick = () => switchAppLanguage(langBtn);
-  container.appendChild(langBtn);
-}
-
-function switchAppLanguage(btn) {
-  const newLang = document.documentElement.lang === "es" ? "en" : "es";
-  setLanguage(newLang);
-  btn.innerHTML = newLang === "es" ? "🇺🇸 EN" : "🇪🇸 ES";
-}
-
-function updateBootstrapTheme(theme) {
-  document.documentElement.setAttribute("data-bs-theme", theme === "dark" ? "dark" : "light");
+  // Add History button to the header next to the tools buttons
+  const headerRight = document.querySelector("header .flex.items-center.gap-4:last-child");
+  if (headerRight) {
+    const historyBtn = document.createElement("button");
+    historyBtn.className = "px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded bg-surface-dark text-slate-400 border border-border-dark hover:text-white hover:border-primary transition-all";
+    historyBtn.innerHTML = '<span class="material-symbols-outlined !text-sm" style="vertical-align: middle;">history</span>';
+    historyBtn.title = "History";
+    historyBtn.onclick = () => {
+      refreshHistory();
+      panel.classList.add("open");
+      overlay.classList.add("active");
+    };
+    headerRight.insertBefore(historyBtn, headerRight.firstChild);
+  }
 }
 
 // Boot

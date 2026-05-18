@@ -178,6 +178,33 @@
                         <h3 class="text-lg font-bold text-white mb-2" data-i18n="ports.title">Port Reference</h3>
                         <p class="text-slate-400 text-sm" data-i18n="ports.desc">Searchable database of common TCP/UDP ports.</p>
                     </div>
+
+                    <!-- Base Converter (formerly orphaned) -->
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-hex')">
+                        <div class="text-emerald-500 mb-4 p-3 bg-emerald-500/10 rounded inline-block group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                            <span class="material-symbols-outlined">conversion_path</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="hex.title">Base Converter</h3>
+                        <p class="text-slate-400 text-sm" data-i18n="hex.desc">Convert between decimal, binary, and hexadecimal.</p>
+                    </div>
+
+                    <!-- Bandwidth Calculator (formerly orphaned) -->
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-bw')">
+                        <div class="text-violet-500 mb-4 p-3 bg-violet-500/10 rounded inline-block group-hover:bg-violet-500 group-hover:text-white transition-colors">
+                            <span class="material-symbols-outlined">speed</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="bw.title">Bandwidth Calc</h3>
+                        <p class="text-slate-400 text-sm" data-i18n="bw.desc">Calculate transfer time from file size and speed.</p>
+                    </div>
+
+                    <!-- IP Reference (formerly orphaned) -->
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-ip-ref')">
+                        <div class="text-amber-500 mb-4 p-3 bg-amber-500/10 rounded inline-block group-hover:bg-amber-500 group-hover:text-white transition-colors">
+                            <span class="material-symbols-outlined">info</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="ipref.title">IP Reference</h3>
+                        <p class="text-slate-400 text-sm" data-i18n="ipref.desc">Classful IP ranges, private blocks, and special addresses.</p>
+                    </div>
                 </div>
 
                 <!-- === DYNAMIC TOOL CONTAINER (Where individual tools load) === -->

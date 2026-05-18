@@ -3,9 +3,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Status](https://img.shields.io/badge/Status-Stable-green)](https://github.com/Medalcode/NetOpsToolkit)
 [![Deploy](https://img.shields.io/badge/Deploy-Netlify-00C7B7)](https://netops-toolkit.netlify.app)
-[![Tests](https://img.shields.io/badge/Tests-20%20passing-success)](https://github.com/Medalcode/NetOpsToolkit)
+[![Tests](https://img.shields.io/badge/Tests-32%20passing-success)](https://github.com/Medalcode/NetOpsToolkit)
 [![CI](https://github.com/Medalcode/NetOpsToolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/Medalcode/NetOpsToolkit/actions)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/PUT-YOUR-BADGE-HERE/deploy-status)](https://app.netlify.com/sites/YOUR-SITE/deploys)
 
 > **"La Navaja Suiza para Ingenieros de Red"**
 >
@@ -21,7 +20,7 @@
 - ✅ **PWA Ready** - Instalable como aplicación
 - ✅ **Internationalization** - Soporte nativo Español 🇪🇸 / Inglés 🇺🇸
 - ✅ **Secure** - CSP headers, XSS prevention
-- ✅ **Tested** - 29 tests unitarios pasando (Validators + VLSM Logic)
+- ✅ **Tested** - 32 tests unitarios pasando (Validators + VLSM Logic)
 - ✅ **Open Source** - MIT License
 
 ## 🎯 Herramientas Disponibles
@@ -36,6 +35,9 @@
 
 ### 🔧 Utilities
 
+- **Base Converter** - Conversión entre sistemas numéricos (bin/oct/dec/hex)
+- **Bandwidth Calculator** - Cálculo de ancho de banda y throughput
+- **IP Reference** - Referencia rápida de clases IP, rangos y máscaras
 - **Port Reference** - Catálogo de puertos TCP/UDP
 - **OUI Lookup** - Identificación de fabricantes por MAC
 - **Config Generator** - Plantillas Cisco, Mikrotik, Juniper
@@ -112,7 +114,10 @@ npm run test:coverage
 
 **Estado actual**: 3 test suites, 32 tests pasando (añadidos tests para `dns-core` el 2026-01-27)
 
-### Cambios Recientes (v4.0.0 - 2026-02-25)
+### Cambios Recientes (v4.0.0 - 2026-05-17)
+- **3 herramientas rescatadas**: Base Converter, Bandwidth Calculator e IP Reference estaban huérfanas (registradas en JS pero sin HTML). Se inyecta su HTML al contenedor dinámicamente.
+- **Geo-IP con datos reales**: Reemplazada la función mock por llamadas a la API pública `ip-api.com`.
+- **Adiós Bootstrap**: Eliminada dependencia de Bootstrap CSS/JS. Todo el estilo usa Tailwind/cyber.
 - **Refactorización Lean**: Eliminación de archivos legados (`index_legacy.html`, `js/` raíz) y consolidación de lógica dispersa.
 - **Estructura de Capas**: Separación clara entre `core/`, `platform/` y `ui/`.
 - **Skills Consilidadas**: Implementación de Super-Skills paramétricas (`identity-service`, `net-analysis-engine`).

@@ -3,7 +3,30 @@
  * @module converter
  */
 
-export function initConverter() {
+export function initConverter(container) {
+  container.innerHTML = `
+    <div class="space-y-4">
+      <div>
+        <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Enter a number (with or without prefix):</label>
+        <input id="converter-input" type="text" placeholder="e.g. 255, 0xFF, 0b11111111" class="w-full bg-black border border-border-dark rounded px-3 py-2 text-sm mono-data text-white placeholder-slate-700 focus:border-primary transition-colors">
+      </div>
+      <div class="grid grid-cols-3 gap-4">
+        <div class="bg-surface-dark cyber-border rounded p-4">
+          <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Decimal</div>
+          <div id="res-dec" class="text-2xl font-bold text-white mono-data">—</div>
+        </div>
+        <div class="bg-surface-dark cyber-border rounded p-4">
+          <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Binary</div>
+          <div id="res-bin" class="text-2xl font-bold text-white mono-data break-all">—</div>
+        </div>
+        <div class="bg-surface-dark cyber-border rounded p-4">
+          <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Hexadecimal</div>
+          <div id="res-hex" class="text-2xl font-bold text-white mono-data">—</div>
+        </div>
+      </div>
+    </div>
+  `;
+
   const input = document.getElementById("converter-input");
   if (!input) return;
 

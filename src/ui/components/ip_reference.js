@@ -1,6 +1,7 @@
-export function initIpRefTool() {
-  const container = document.getElementById("ip-ref-content");
-  if (!container) return; // Guard clause
+export function initIpRefTool(container) {
+  container.innerHTML = '<div id="ip-ref-content"></div>';
+  const content = document.getElementById("ip-ref-content");
+  if (!content) return;
 
   // Function to generate HTML for a table
   const createTable = (title, columns, data) => `
@@ -48,7 +49,7 @@ export function initIpRefTool() {
     ipReferenceData.special
   );
 
-  container.innerHTML = classesHTML + privateHTML + specialHTML;
+  content.innerHTML = classesHTML + privateHTML + specialHTML;
 }
 
 export const ipReferenceData = {
