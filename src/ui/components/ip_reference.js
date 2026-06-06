@@ -1,6 +1,6 @@
 export function initIpRefTool(container) {
   if (!container) return;
-  container.innerHTML = '<div id="ip-ref-content"></div>';
+  container.innerHTML = "<div id=\"ip-ref-content\"></div>";
   const content = container.querySelector("#ip-ref-content");
   if (!content) return;
 
