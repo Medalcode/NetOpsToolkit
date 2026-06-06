@@ -7,12 +7,7 @@ function ipToNum(ip) {
 
 // Helper to convert 32-bit integer to IP string
 function numToIp(num) {
-  return [
-    (num >>> 24) & 255,
-    (num >>> 16) & 255,
-    (num >>> 8) & 255,
-    num & 255
-  ].join(".");
+  return [(num >>> 24) & 255, (num >>> 16) & 255, (num >>> 8) & 255, num & 255].join(".");
 }
 
 // Helper to get binary string padded to 32 bits
@@ -63,7 +58,10 @@ export function initRouteVisTool(container) {
       return;
     }
 
-    const lines = text.split("\n").map(l => l.trim()).filter(l => l.length > 0);
+    const lines = text
+      .split("\n")
+      .map(l => l.trim())
+      .filter(l => l.length > 0);
     const validNetworks = [];
 
     for (const line of lines) {
@@ -90,7 +88,7 @@ export function initRouteVisTool(container) {
           ip: numToIp(netNum),
           num: netNum,
           prefix: prefix,
-          binStr: numToBinString(netNum)
+          binStr: numToBinString(netNum),
         });
       } catch (e) {
         showToast(`Invalid IP: ${line}`, "error");
@@ -143,11 +141,11 @@ export function initRouteVisTool(container) {
       const el = document.createElement("div");
 
       let formattedHtml = "";
-      for(let i=0; i<32; i++){
+      for (let i = 0; i < 32; i++) {
         const bit = net.binStr[i];
         const color = i < commonBits ? "text-signal-green" : "text-slate-600";
         formattedHtml += `<span class="${color}">${bit}</span>`;
-        if ((i + 1) % 8 === 0 && i < 31) formattedHtml += "<span class=\"text-slate-800\">.</span>";
+        if ((i + 1) % 8 === 0 && i < 31) formattedHtml += '<span class="text-slate-800">.</span>';
       }
 
       el.innerHTML = `

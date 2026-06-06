@@ -65,7 +65,7 @@ export function initSettings() {
   }
 
   btnClose.addEventListener("click", closeModal);
-  modal.addEventListener("click", (e) => {
+  modal.addEventListener("click", e => {
     if (e.target === modal) closeModal();
   });
 

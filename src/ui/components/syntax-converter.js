@@ -6,29 +6,35 @@ const ciscoToMikrotik = [
   // VLAN Creation
   { rx: /vlan\s+(\d+)/gi, rep: "/interface vlan add name=vlan$1 vlan-id=$1 interface=ether1" },
   // IP Address
-  { rx: /ip\s+address\s+((?:[0-9]{1,3}\.){3}[0-9]{1,3})\s+((?:[0-9]{1,3}\.){3}[0-9]{1,3})/gi, rep: (match, ip, mask) => {
-    const maskParts = mask.split(".").map(Number);
-    let prefix = 0;
-    for (const p of maskParts) {
-      const bin = p.toString(2);
-      for(const bit of bin) if (bit === "1") prefix++;
-    }
-    return `/ip address add address=${ip}/${prefix}`;
-  }},
+  {
+    rx: /ip\s+address\s+((?:[0-9]{1,3}\.){3}[0-9]{1,3})\s+((?:[0-9]{1,3}\.){3}[0-9]{1,3})/gi,
+    rep: (match, ip, mask) => {
+      const maskParts = mask.split(".").map(Number);
+      let prefix = 0;
+      for (const p of maskParts) {
+        const bin = p.toString(2);
+        for (const bit of bin) if (bit === "1") prefix++;
+      }
+      return `/ip address add address=${ip}/${prefix}`;
+    },
+  },
   // Static Route
-  { rx: /ip\s+route\s+((?:[0-9]{1,3}\.){3}[0-9]{1,3})\s+((?:[0-9]{1,3}\.){3}[0-9]{1,3})\s+([\w.]+)/gi, rep: (match, net, mask, gw) => {
-    const maskParts = mask.split(".").map(Number);
-    let prefix = 0;
-    for (const p of maskParts) {
-      const bin = p.toString(2);
-      for(const bit of bin) if (bit === "1") prefix++;
-    }
-    return `/ip route add dst-address=${net}/${prefix} gateway=${gw}`;
-  }},
+  {
+    rx: /ip\s+route\s+((?:[0-9]{1,3}\.){3}[0-9]{1,3})\s+((?:[0-9]{1,3}\.){3}[0-9]{1,3})\s+([\w.]+)/gi,
+    rep: (match, net, mask, gw) => {
+      const maskParts = mask.split(".").map(Number);
+      let prefix = 0;
+      for (const p of maskParts) {
+        const bin = p.toString(2);
+        for (const bit of bin) if (bit === "1") prefix++;
+      }
+      return `/ip route add dst-address=${net}/${prefix} gateway=${gw}`;
+    },
+  },
   // Description
-  { rx: /description\s+(.*)/gi, rep: "comment=\"$1\"" },
+  { rx: /description\s+(.*)/gi, rep: 'comment="$1"' },
   // No shutdown
-  { rx: /no\s+shutdown/gi, rep: "disabled=no" }
+  { rx: /no\s+shutdown/gi, rep: "disabled=no" },
 ];
 
 export function initSyntaxConverterTool(container) {

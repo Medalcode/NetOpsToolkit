@@ -18,7 +18,7 @@ line console 0
 line vty 0 4
  password Cisco123!
  login
- exit`
+ exit`,
     },
     {
       title: "Enable SSH",
@@ -29,7 +29,7 @@ line vty 0 4
  transport input ssh
  login local
  exit
-username admin privilege 15 secret Admin123!`
+username admin privilege 15 secret Admin123!`,
     },
     {
       title: "Basic OSPF",
@@ -38,8 +38,8 @@ username admin privilege 15 secret Admin123!`
  network 192.168.1.0 0.0.0.255 area 0
  network 10.0.0.0 0.255.255.255 area 0
  passive-interface default
- no passive-interface GigabitEthernet0/0`
-    }
+ no passive-interface GigabitEthernet0/0`,
+    },
   ],
   mikrotik: [
     {
@@ -48,19 +48,19 @@ username admin privilege 15 secret Admin123!`
       code: `/system identity set name="Router1"
 /ip dns set allow-remote-requests=yes servers=8.8.8.8,1.1.1.1
 /user add name=admin_new password="Admin123!" group=full
-/user disable admin`
+/user disable admin`,
     },
     {
       title: "NAT Configuration",
       description: "Masquerade NAT for WAN interface",
-      code: "/ip firewall nat add chain=srcnat out-interface=ether1 action=masquerade comment=\"WAN NAT\""
+      code: '/ip firewall nat add chain=srcnat out-interface=ether1 action=masquerade comment="WAN NAT"',
     },
     {
       title: "Enable SSH & Disable Telnet",
       description: "Secure management access",
       code: `/ip service disable telnet,ftp,www
-/ip service set ssh port=22`
-    }
+/ip service set ssh port=22`,
+    },
   ],
   juniper: [
     {
@@ -70,14 +70,14 @@ username admin privilege 15 secret Admin123!`
 set system host-name Router1
 set system root-authentication plain-text-password
 set system services ssh
-commit`
+commit`,
     },
     {
       title: "Interface IP Configuration",
       description: "Assign an IP address to a physical interface",
       code: `set interfaces ge-0/0/0 unit 0 family inet address 192.168.1.1/24
-commit`
-    }
+commit`,
+    },
   ],
   fortigate: [
     {
@@ -92,7 +92,7 @@ commit`
   set ip 192.168.1.99 255.255.255.0
   set allowaccess ping https ssh
  next
-end`
+end`,
     },
     {
       title: "Static Route",
@@ -103,9 +103,9 @@ end`
   set gateway 192.168.1.254
   set device "wan1"
  next
-end`
-    }
-  ]
+end`,
+    },
+  ],
 };
 
 export function initTemplateTool(container) {
@@ -134,7 +134,8 @@ export function initTemplateTool(container) {
     contentArea.innerHTML = "";
 
     if (!templates || templates.length === 0) {
-      contentArea.innerHTML = "<div class=\"text-slate-500 text-sm\">No templates found for this vendor.</div>";
+      contentArea.innerHTML =
+        '<div class="text-slate-500 text-sm">No templates found for this vendor.</div>';
       return;
     }
 
@@ -155,7 +156,8 @@ export function initTemplateTool(container) {
       `;
 
       const pre = document.createElement("pre");
-      pre.className = "bg-black p-3 rounded mono-data text-signal-green text-xs overflow-x-auto border border-border-dark/50 mt-3";
+      pre.className =
+        "bg-black p-3 rounded mono-data text-signal-green text-xs overflow-x-auto border border-border-dark/50 mt-3";
       pre.textContent = t.code;
 
       card.appendChild(header);

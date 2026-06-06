@@ -51,22 +51,34 @@ export function initConfigAnalyzerTool(container) {
     let globalIssues = 0;
 
     if (telnetRegex.test(config)) {
-      addGlobalAlert("CRITICAL: Telnet is enabled on VTY lines. Use SSH instead.", "bg-red-500/20 text-red-500 border-red-500/50");
+      addGlobalAlert(
+        "CRITICAL: Telnet is enabled on VTY lines. Use SSH instead.",
+        "bg-red-500/20 text-red-500 border-red-500/50"
+      );
       globalIssues++;
     }
 
     if (passwordRegex.test(config)) {
-      addGlobalAlert("WARNING: Plain-text 'enable password' found. Use 'enable secret' instead.", "bg-yellow-500/20 text-yellow-500 border-yellow-500/50");
+      addGlobalAlert(
+        "WARNING: Plain-text 'enable password' found. Use 'enable secret' instead.",
+        "bg-yellow-500/20 text-yellow-500 border-yellow-500/50"
+      );
       globalIssues++;
     }
 
     if (!config.includes("service password-encryption")) {
-      addGlobalAlert("NOTICE: 'service password-encryption' is missing.", "bg-blue-500/20 text-blue-400 border-blue-500/50");
+      addGlobalAlert(
+        "NOTICE: 'service password-encryption' is missing.",
+        "bg-blue-500/20 text-blue-400 border-blue-500/50"
+      );
       globalIssues++;
     }
 
     if (globalIssues === 0) {
-      addGlobalAlert("✅ No global security issues detected.", "bg-emerald-500/20 text-emerald-500 border-emerald-500/50");
+      addGlobalAlert(
+        "✅ No global security issues detected.",
+        "bg-emerald-500/20 text-emerald-500 border-emerald-500/50"
+      );
     }
 
     // 2. Parse Interfaces
@@ -92,7 +104,10 @@ export function initConfigAnalyzerTool(container) {
 
       const alerts = [];
       if (!isShutdown && !ipMatch && !intfBlock.includes("switchport")) {
-        alerts.push({ msg: "Interface is UP but has no IP or switchport config.", type: "warning" });
+        alerts.push({
+          msg: "Interface is UP but has no IP or switchport config.",
+          type: "warning",
+        });
       }
       if (!isShutdown && !descMatch) {
         alerts.push({ msg: "Missing description on active interface.", type: "notice" });
@@ -102,7 +117,8 @@ export function initConfigAnalyzerTool(container) {
     }
 
     if (interfacesFound === 0) {
-      interfacesContainer.innerHTML = "<div class=\"text-slate-500 text-sm\">No interface blocks found in configuration.</div>";
+      interfacesContainer.innerHTML =
+        '<div class="text-slate-500 text-sm">No interface blocks found in configuration.</div>';
     }
 
     showToast("Analysis complete", "success");
@@ -124,7 +140,7 @@ export function initConfigAnalyzerTool(container) {
 
     let alertsHtml = "";
     if (alerts.length > 0) {
-      alertsHtml = "<div class=\"mt-3 flex flex-col gap-1\">";
+      alertsHtml = '<div class="mt-3 flex flex-col gap-1">';
       alerts.forEach(a => {
         const color = a.type === "warning" ? "text-yellow-500" : "text-blue-400";
         alertsHtml += `<div class="text-[10px] ${color}">• ${a.msg}</div>`;

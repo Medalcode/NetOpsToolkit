@@ -193,7 +193,11 @@ export function initAclBuilderTool(container) {
       const dstStr = formatIp(dstType.value, dstIp.value, dstWc.value);
       rule += ` ${dstStr}`;
 
-      if ((protocolSelect.value === "tcp" || protocolSelect.value === "udp") && portOp.value && portVal.value) {
+      if (
+        (protocolSelect.value === "tcp" || protocolSelect.value === "udp") &&
+        portOp.value &&
+        portVal.value
+      ) {
         rule += ` ${portOp.value} ${portVal.value}`;
       }
     }

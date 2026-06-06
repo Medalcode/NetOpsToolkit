@@ -78,7 +78,10 @@ export function initAiChatTool(container) {
 
   const conversationContext = [
     { role: "user", parts: [{ text: SYSTEM_PROMPT }] },
-    { role: "model", parts: [{ text: "Understood. I am ready to assist as an expert Network Engineer." }] }
+    {
+      role: "model",
+      parts: [{ text: "Understood. I am ready to assist as an expert Network Engineer." }],
+    },
   ];
 
   function addMessage(role, text) {
@@ -93,7 +96,9 @@ export function initAiChatTool(container) {
 
     const outerBg = isModel ? "bg-primary/20 text-primary" : "bg-slate-700 text-white";
     const icon = isModel ? "smart_toy" : "person";
-    const innerBg = isModel ? "bg-black/50 border border-border-dark rounded-tl-none prose prose-invert prose-sm max-w-none" : "bg-primary/10 text-primary border border-primary/20 rounded-tr-none";
+    const innerBg = isModel
+      ? "bg-black/50 border border-border-dark rounded-tl-none prose prose-invert prose-sm max-w-none"
+      : "bg-primary/10 text-primary border border-primary/20 rounded-tr-none";
 
     msgDiv.innerHTML = `
         <div class="${outerBg} p-2 rounded-full h-fit flex-shrink-0">
@@ -122,24 +127,28 @@ export function initAiChatTool(container) {
 
     const loadingDiv = document.createElement("div");
     loadingDiv.className = "flex gap-3 text-slate-500 italic text-xs items-center pl-10 mb-2";
-    loadingDiv.innerHTML = "<span class=\"material-symbols-outlined animate-spin !text-sm\">sync</span> AI is typing...";
+    loadingDiv.innerHTML =
+      '<span class="material-symbols-outlined animate-spin !text-sm">sync</span> AI is typing...';
     chatHistory.appendChild(loadingDiv);
     chatHistory.scrollTop = chatHistory.scrollHeight;
 
     conversationContext.push({ role: "user", parts: [{ text }] });
 
     try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: conversationContext,
-          generationConfig: {
-            temperature: 0.2,
-            maxOutputTokens: 2048,
-          }
-        })
-      });
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: conversationContext,
+            generationConfig: {
+              temperature: 0.2,
+              maxOutputTokens: 2048,
+            },
+          }),
+        }
+      );
 
       chatHistory.removeChild(loadingDiv);
 
@@ -149,13 +158,13 @@ export function initAiChatTool(container) {
       }
 
       const data = await response.json();
-      const replyText = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a response.";
+      const replyText =
+        data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a response.";
 
       conversationContext.push({ role: "model", parts: [{ text: replyText }] });
       addMessage("model", replyText);
-
     } catch (e) {
-      if(loadingDiv.parentNode) chatHistory.removeChild(loadingDiv);
+      if (loadingDiv.parentNode) chatHistory.removeChild(loadingDiv);
       addMessage("model", `*Error:* ${e.message}`);
       conversationContext.pop();
     } finally {
@@ -166,7 +175,7 @@ export function initAiChatTool(container) {
   }
 
   btnSend.addEventListener("click", sendMessage);
-  chatInput.addEventListener("keydown", (e) => {
+  chatInput.addEventListener("keydown", e => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       sendMessage();

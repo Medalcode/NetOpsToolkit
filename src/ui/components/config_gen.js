@@ -113,7 +113,8 @@ export function initConfigGenTool(container) {
 
       if (useOspf) {
         ciscoStr += "router ospf 1\n";
-        mtStr += "/routing ospf instance add name=default\n/routing ospf area add instance=default name=backbone area-id=0.0.0.0\n";
+        mtStr +=
+          "/routing ospf instance add name=default\n/routing ospf area add instance=default name=backbone area-id=0.0.0.0\n";
         junosStr += "set protocols ospf area 0.0.0.0\n";
       }
 
