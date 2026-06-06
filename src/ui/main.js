@@ -11,8 +11,9 @@ import "../css/main.css"; // Tailwind CSS
 import { initGlobalErrorHandlers } from "./shared/error-handler.js";
 
 // Core Imports
-import { initTheme, createThemeToggle, getEffectiveTheme } from "./shared/theme.js";
-import { initI18n, setLanguage } from "./shared/i18n.js";
+import { initTheme } from "./shared/theme.js";
+import { initI18n } from "./shared/i18n.js";
+import { initSettings } from "./components/settings.js";
 
 // VLSM Imports (Critical)
 // VLSM Imports (Critical)
@@ -57,6 +58,21 @@ const TOOL_REGISTRY = {
   "tool-keygen": { load: () => import("./components/keygen.js"), fn: "initKeyGenTool" },
   "tool-ip-ref": { load: () => import("./components/ip_reference.js"), fn: "initIpRefTool" },
   "tool-public-ip": { load: () => import("./components/public_ip.js"), fn: "initPublicIpWidget" },
+  "tool-templates": { load: () => import("./components/templates.js"), fn: "initTemplateTool" },
+  "tool-config-analyzer": {
+    load: () => import("./components/config-analyzer.js"),
+    fn: "initConfigAnalyzerTool",
+  },
+  "tool-acl-builder": {
+    load: () => import("./components/acl-builder.js"),
+    fn: "initAclBuilderTool",
+  },
+  "tool-route-vis": { load: () => import("./components/route-vis.js"), fn: "initRouteVisTool" },
+  "tool-syntax-converter": {
+    load: () => import("./components/syntax-converter.js"),
+    fn: "initSyntaxConverterTool",
+  },
+  "tool-ai-chat": { load: () => import("./components/ai-chat.js"), fn: "initAiChatTool" },
 };
 
 /**
@@ -89,6 +105,10 @@ async function init() {
     // 5. Initialize Core VLSM Tool (The flagship feature)
     initVLSM();
     console.log("✅ VLSM Core Logic");
+
+    // 5.5 Settings
+    initSettings();
+    console.log("✅ Settings BYOK System");
 
     // 6. Initialize Public IP Widget (Always on dashboard)
     import("./components/public_ip.js").then(module => {
@@ -209,13 +229,13 @@ function updateBreadcrumb(path) {
   breadcrumbContainer.innerHTML = `
         <span class="text-slate-500 font-bold tracking-widest">NETOPS</span>
         ${parts
-    .map(
-      (part, i) => `
+          .map(
+            (part, i) => `
             <span class="text-slate-700">/</span>
             <span class="${i === parts.length - 1 ? "text-white" : "text-slate-400"}">${part}</span>
         `
-    )
-    .join("")}
+          )
+          .join("")}
     `;
 }
 
@@ -439,15 +459,30 @@ function setupGlobalActions() {
       panel.classList.remove("open");
       overlay.classList.remove("active");
     },
-    id => { removeFromHistory(id); refreshHistory(); },
-    () => { clearHistory(); refreshHistory(); }
+    id => {
+      removeFromHistory(id);
+      refreshHistory();
+    },
+    () => {
+      clearHistory();
+      refreshHistory();
+    }
   );
 
   function refreshHistory() {
-    updateHistoryPanel(content, getHistory(), getHistoryStats(),
+    updateHistoryPanel(
+      content,
+      getHistory(),
+      getHistoryStats(),
       () => {},
-      id => { removeFromHistory(id); refreshHistory(); },
-      () => { clearHistory(); refreshHistory(); }
+      id => {
+        removeFromHistory(id);
+        refreshHistory();
+      },
+      () => {
+        clearHistory();
+        refreshHistory();
+      }
     );
   }
 
@@ -458,8 +493,10 @@ function setupGlobalActions() {
   const headerRight = document.querySelector("header .flex.items-center.gap-4:last-child");
   if (headerRight) {
     const historyBtn = document.createElement("button");
-    historyBtn.className = "px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded bg-surface-dark text-slate-400 border border-border-dark hover:text-white hover:border-primary transition-all";
-    historyBtn.innerHTML = '<span class="material-symbols-outlined !text-sm" style="vertical-align: middle;">history</span>';
+    historyBtn.className =
+      "px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded bg-surface-dark text-slate-400 border border-border-dark hover:text-white hover:border-primary transition-all";
+    historyBtn.innerHTML =
+      '<span class="material-symbols-outlined !text-sm" style="vertical-align: middle;">history</span>';
     historyBtn.title = "History";
     historyBtn.onclick = () => {
       refreshHistory();

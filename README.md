@@ -27,11 +27,15 @@
 
 ### 🌐 Networking
 
-- **VLSM Calculator** - Calculadora avanzada de subredes con visualización
+- **VLSM Calculator** - Calculadora avanzada de subredes con visualización de árbol (Tree View) y exportadores (PDF, CSV, Configuración).
 - **Subnet Analyzer** - Análisis detallado de direcciones IP
 - **IPv6 Tools** - Expansión, compresión e identificación
 - **DNS Lookup** - Consultas DNS en tiempo real vía DoH
 - **Public IP Widget** - Detección automática de IP pública
+- **Route Aggregator** - Herramienta de supernetting BGP con análisis binario visual (NUEVO).
+- **ACL Builder** - Constructor visual de listas de acceso Estándar/Extendidas para Cisco (NUEVO).
+- **Config Analyzer** - Analizador y auditor de seguridad de configuraciones de red mediante RegEx (NUEVO).
+- **AI Network Assistant (BYOK)** - Asistente IA experto en redes integrado con Gemini API y seguridad en local (NUEVO).
 
 ### 🔧 Utilities
 
@@ -40,7 +44,8 @@
 - **IP Reference** - Referencia rápida de clases IP, rangos y máscaras
 - **Port Reference** - Catálogo de puertos TCP/UDP
 - **OUI Lookup** - Identificación de fabricantes por MAC
-- **Config Generator** - Plantillas Cisco, Mikrotik, Juniper
+- **Full Config Generator** - Generador de configuraciones de red automatizadas con soporte VLSM, OSPF y DHCP para Cisco, Mikrotik y JunOS (ACTUALIZADO).
+- **Syntax Converter** - Traductor side-by-side de Cisco IOS a Mikrotik (NUEVO).
 - **Key Generator** - Generación segura de claves WPA2/3
 
 ## 🚀 Demo en Vivo
@@ -112,7 +117,27 @@ npm run test:watch
 npm run test:coverage
 ```
 
-**Estado actual**: 4 test suites, 36 tests pasando
+**Estado actual**: 4 test suites, 36 tests pasando (añadidos tests de conversión el 2026-05-21)
+
+### Cambios Recientes (v4.1.0 - V3 Major Update)
+- **Nivel 1 (Mejoras Rápidas)**: Exportadores PDF/CSV, Vista de Árbol para subredes, Biblioteca de Plantillas.
+- **Nivel 2 (Diferenciación)**: Config Analyzer & Auditor (detección de contraseñas planas y telnet), ACL Builder visual, Route Aggregator (Supernetting).
+- **Nivel 3 (Automatización)**: Full Config Generator con OSPF/DHCP dinámico y Conversor de Sintaxis Cisco ↔ Mikrotik side-by-side.
+- **Nivel 4 (IA Assistant)**: Chat AI integrado con Gemini 1.5 Flash usando `localStorage` para proteger la API Key (BYOK). Prompts de nivel CCIE.
+
+### Cambios Recientes (v4.0.1 - 2026-05-21)
+- **Widgets de UI Auto-Contenidos**: Corregidos fallos de carga en `bandwidth.js`, `base-converter.js`, y `ip_reference.js` que impedían su renderizado al buscar elementos estáticos ausentes.
+- **Estructura e HTML de Navegación**: Corregido el bug de visibilidad persistente de la calculadora al restablecer el contenedor `#view-vlsm`.
+- **Testing**: Añadido soporte de pruebas unitarias para el módulo de conversiones `src/core/convert.js` (34 tests pasando en total).
+
+### Cambios Recientes (v4.0.0 - 2026-05-17)
+- **3 herramientas rescatadas**: Base Converter, Bandwidth Calculator e IP Reference estaban huérfanas (registradas en JS pero sin HTML). Se inyecta su HTML al contenedor dinámicamente.
+- **Geo-IP con datos reales**: Reemplazada la función mock por llamadas a la API pública `ip-api.com`.
+- **Adiós Bootstrap**: Eliminada dependencia de Bootstrap CSS/JS. Todo el estilo usa Tailwind/cyber.
+- **Refactorización Lean**: Eliminación de archivos legados (`index_legacy.html`, `js/` raíz) y consolidación de lógica dispersa.
+- **Estructura de Capas**: Separación clara entre `core/`, `platform/` y `ui/`.
+- **Skills Consilidadas**: Implementación de Super-Skills paramétricas (`identity-service`, `net-analysis-engine`).
+- **Testing**: Actualización de la suite para cubrir las nuevas rutas del core (32 tests pasando).
 
 Para reproducir los cambios localmente:
 

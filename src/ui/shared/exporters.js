@@ -3,6 +3,8 @@
  * Funciones para exportar datos a diferentes formatos
  * @module exporters
  */
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 /**
  * Convierte array de objetos a CSV
@@ -17,7 +19,7 @@ function arrayToCSV(data, headers) {
       .map(header => {
         const value = row[header] || "";
         // Escapar comillas y envolver en comillas si contiene coma
-        const escaped = String(value).replace(/"/g, "\"\"");
+        const escaped = String(value).replace(/"/g, '""');
         return escaped.includes(",") ? `"${escaped}"` : escaped;
       })
       .join(",")
@@ -254,6 +256,94 @@ export function exportToText(subnets, stats = null, filename = null) {
     return true;
   } catch (error) {
     console.error("Error al exportar a texto:", error);
+    return false;
+  }
+}
+
+/**
+ * Exporta subredes a formato PDF
+ * @param {Array<Object>} subnets - Array de subredes
+ * @param {Object} stats - Estadísticas (opcional)
+ * @param {string} filename - Nombre del archivo (opcional)
+ * @returns {boolean} True si la exportación fue exitosa
+ */
+export function exportToPDF(subnets, stats = null, filename = null) {
+  try {
+    const timestamp = new Date().toISOString().replace(/[:.]/g, "-").split("T")[0];
+    const defaultFilename = `vlsm-calculos-${timestamp}.pdf`;
+    const finalFilename = filename || defaultFilename;
+
+    const doc = new jsPDF();
+
+    // Título
+    doc.setFontSize(18);
+    doc.text("Calculadora VLSM - Resultados", 14, 22);
+    doc.setFontSize(10);
+    doc.text(`Fecha: ${new Date().toLocaleString()}`, 14, 30);
+
+    let startY = 40;
+
+    // Estadísticas
+    if (stats) {
+      doc.setFontSize(14);
+      doc.text("Estadísticas de Utilización", 14, startY);
+
+      const statsData = [
+        ["Subredes creadas", stats.subnetsCount.toString()],
+        ["Espacio total disponible", `${stats.totalAvailable} IPs`],
+        ["Espacio usado", `${stats.totalUsed} IPs (${stats.utilizationPercent}%)`],
+        ["Espacio restante", `${stats.totalRemaining} IPs`],
+        ["Eficiencia", `${stats.efficiencyPercent}%`],
+      ];
+
+      doc.autoTable({
+        startY: startY + 5,
+        head: [["Métrica", "Valor"]],
+        body: statsData,
+        theme: "striped",
+        headStyles: { fillColor: [0, 112, 243] },
+        margin: { top: 10, bottom: 10 },
+      });
+
+      startY = doc.lastAutoTable.finalY + 15;
+    }
+
+    // Subredes
+    doc.setFontSize(14);
+    doc.text("Detalle de Subredes", 14, startY);
+
+    const subnetsData = subnets.map(s => [
+      s.index,
+      `${s.network}/${s.prefix}`,
+      s.mask,
+      `${s.firstHost} - ${s.lastHost}`,
+      s.broadcast,
+      s.hostsRequested,
+      s.hostsAvailable,
+    ]);
+
+    doc.autoTable({
+      startY: startY + 5,
+      head: [["#", "Red", "Máscara", "Rango Hosts", "Broadcast", "Req.", "Disp."]],
+      body: subnetsData,
+      theme: "grid",
+      headStyles: { fillColor: [0, 112, 243] },
+      styles: { fontSize: 8, cellPadding: 2 },
+      columnStyles: {
+        0: { cellWidth: 10 },
+        1: { cellWidth: 30 },
+        2: { cellWidth: 30 },
+        3: { cellWidth: 45 },
+        4: { cellWidth: 30 },
+        5: { cellWidth: 15 },
+        6: { cellWidth: 15 },
+      },
+    });
+
+    doc.save(finalFilename);
+    return true;
+  } catch (error) {
+    console.error("Error al exportar a PDF:", error);
     return false;
   }
 }

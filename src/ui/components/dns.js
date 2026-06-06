@@ -3,7 +3,7 @@
  */
 import { platformFetch } from "../../platform/fetch.js";
 import { buildDnsUrl, getDnsTypeName } from "./dns-core.js";
-import { writeText } from "../shared/clipboard.js";
+import { writeText } from "../../platform/clipboard.js";
 
 export function initDnsTool(container) {
   // 1. Render UI
@@ -80,7 +80,7 @@ export function initDnsTool(container) {
     const domain = domainInput.value.trim();
     if (!domain) {
       resultsContainer.innerHTML =
-        "<span class=\"text-red-500\">Error: Please enter a valid domain name.</span>";
+        '<span class="text-red-500">Error: Please enter a valid domain name.</span>';
       return;
     }
 

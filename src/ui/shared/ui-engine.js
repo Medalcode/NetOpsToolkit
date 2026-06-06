@@ -5,6 +5,8 @@
  */
 
 import { formatStatisticsSummary } from "./statistics.js";
+import { exportToCSV, exportToPDF } from "./exporters.js";
+import { copyMarkdownTable, copyCiscoConfig, copyMikrotikConfig } from "./clipboard.js";
 
 /**
  * Limpia todos los resultados previos del contenedor
@@ -222,9 +224,23 @@ export function displayResults(subnets, stats, container, visualizerContainer) {
   tableWrapper.innerHTML = `
     <div class="px-6 py-4 border-b border-border-dark flex items-center justify-between">
         <h3 class="text-xs font-bold tracking-[0.2em] uppercase text-white">Subnet Calculation Results</h3>
-        <button class="text-slate-500 hover:text-white transition-colors" title="Export CSV" id="btn-export-csv-new">
-            <span class="material-symbols-outlined">download</span>
-        </button>
+        <div class="flex gap-2">
+            <button class="text-slate-500 hover:text-white transition-colors" title="Export PDF" id="btn-export-pdf">
+                <span class="material-symbols-outlined">picture_as_pdf</span>
+            </button>
+            <button class="text-slate-500 hover:text-white transition-colors" title="Export CSV" id="btn-export-csv-new">
+                <span class="material-symbols-outlined">download</span>
+            </button>
+            <button class="text-slate-500 hover:text-white transition-colors" title="Copy Markdown Table" id="btn-export-md">
+                <span class="material-symbols-outlined">view_list</span>
+            </button>
+            <button class="text-slate-500 hover:text-white transition-colors" title="Copy Cisco Config" id="btn-export-cisco">
+                <span class="material-symbols-outlined">router</span>
+            </button>
+            <button class="text-slate-500 hover:text-white transition-colors" title="Copy Mikrotik Config" id="btn-export-mt">
+                <span class="material-symbols-outlined">memory</span>
+            </button>
+        </div>
     </div>
     <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
@@ -278,6 +294,45 @@ export function displayResults(subnets, stats, container, visualizerContainer) {
   });
 
   container.appendChild(tableWrapper);
+
+  // Attach event listeners for export
+  const btnCsv = tableWrapper.querySelector("#btn-export-csv-new");
+  if (btnCsv)
+    btnCsv.addEventListener("click", () => {
+      exportToCSV(subnets, stats);
+      showToast("Exported to CSV", "success");
+    });
+
+  const btnPdf = tableWrapper.querySelector("#btn-export-pdf");
+  if (btnPdf)
+    btnPdf.addEventListener("click", () => {
+      exportToPDF(subnets, stats);
+      showToast("Exported to PDF", "success");
+    });
+
+  const btnMd = tableWrapper.querySelector("#btn-export-md");
+  if (btnMd)
+    btnMd.addEventListener("click", async () => {
+      const success = await copyMarkdownTable(subnets);
+      if (success) showToast("Markdown copied to clipboard", "success");
+      else showToast("Failed to copy Markdown", "error");
+    });
+
+  const btnCisco = tableWrapper.querySelector("#btn-export-cisco");
+  if (btnCisco)
+    btnCisco.addEventListener("click", async () => {
+      const success = await copyCiscoConfig(subnets);
+      if (success) showToast("Cisco config copied to clipboard", "success");
+      else showToast("Failed to copy Cisco config", "error");
+    });
+
+  const btnMt = tableWrapper.querySelector("#btn-export-mt");
+  if (btnMt)
+    btnMt.addEventListener("click", async () => {
+      const success = await copyMikrotikConfig(subnets);
+      if (success) showToast("Mikrotik config copied to clipboard", "success");
+      else showToast("Failed to copy Mikrotik config", "error");
+    });
 }
 
 /**
@@ -320,7 +375,7 @@ function renderNetworkVisualizer(subnets, parentPrefix, container) {
 
     // Hover effect overlay
     bar.innerHTML =
-      "<div class=\"absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity\"></div>";
+      '<div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>';
 
     barContainer.appendChild(bar);
   });
@@ -346,6 +401,36 @@ function renderNetworkVisualizer(subnets, parentPrefix, container) {
         <span>Network End</span>
     `;
   wrapper.appendChild(footer);
+
+  // --- TREE VIEW ---
+  const treeContainer = document.createElement("div");
+  treeContainer.className = "mt-6 pt-6 border-t border-border-dark";
+
+  const treeTitle = document.createElement("h3");
+  treeTitle.className = "text-xs font-bold tracking-[0.2em] uppercase text-white mb-4";
+  treeTitle.textContent = "Subnet Tree View";
+  treeContainer.appendChild(treeTitle);
+
+  const treeContent = document.createElement("div");
+  treeContent.className = "mono-data text-sm text-slate-300 font-mono";
+
+  const parentNetwork = subnets.length > 0 ? subnets[0].network : "0.0.0.0";
+
+  let treeHTML = `<div class="text-signal-green mb-2">▼ ${parentNetwork}/${parentPrefix}</div>`;
+
+  subnets.forEach((subnet, index) => {
+    const isLast = index === subnets.length - 1 && freePercent < 0.1;
+    const prefix = isLast ? "└── " : "├── ";
+    treeHTML += `<div class="pl-4 hover:bg-white/5 py-1 rounded transition-colors"><span class="text-slate-500">${prefix}</span> <span class="text-white">Subred_${subnet.index}</span> <span class="text-primary">/${subnet.prefix}</span> <span class="text-slate-500 text-[10px] ml-2">(${subnet.network})</span></div>`;
+  });
+
+  if (freePercent >= 0.1) {
+    treeHTML += `<div class="pl-4 hover:bg-white/5 py-1 rounded transition-colors"><span class="text-slate-500">└── </span> <span class="text-slate-400">Reserva no asignada</span> <span class="text-yellow-500/70 text-[10px] ml-2">(${freePercent.toFixed(1)}% disponible)</span></div>`;
+  }
+
+  treeContent.innerHTML = treeHTML;
+  treeContainer.appendChild(treeContent);
+  wrapper.appendChild(treeContainer);
 
   container.appendChild(wrapper);
 }

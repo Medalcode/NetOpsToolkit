@@ -100,6 +100,10 @@
                 </button>
             </div>
             <div class="flex items-center gap-4">
+                <button id="btn-open-settings" class="text-slate-400 hover:text-white transition-colors" title="Settings">
+                    <span class="material-symbols-outlined text-lg">settings</span>
+                </button>
+                <div class="h-4 w-px bg-slate-800"></div>
                 <!-- Language Toggle -->
                 <button id="lang-toggle" class="text-xs font-bold text-slate-500 hover:text-white transition-colors" onclick="window.switchLang()">
                     🇪🇸 ES
@@ -204,6 +208,60 @@
                         </div>
                         <h3 class="text-lg font-bold text-white mb-2" data-i18n="ipref.title">IP Reference</h3>
                         <p class="text-slate-400 text-sm" data-i18n="ipref.desc">Classful IP ranges, private blocks, and special addresses.</p>
+                    </div>
+
+                    <!-- Template Library -->
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-templates')">
+                        <div class="text-indigo-500 mb-4 p-3 bg-indigo-500/10 rounded inline-block group-hover:bg-indigo-500 group-hover:text-white transition-colors">
+                            <span class="material-symbols-outlined">library_books</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="templates.title">Template Library</h3>
+                        <p class="text-slate-400 text-sm" data-i18n="templates.desc">Common configuration snippets for major vendors.</p>
+                    </div>
+
+                    <!-- Config Analyzer -->
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-config-analyzer')">
+                        <div class="text-sky-500 mb-4 p-3 bg-sky-500/10 rounded inline-block group-hover:bg-sky-500 group-hover:text-white transition-colors">
+                            <span class="material-symbols-outlined">plumbing</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="analyzer.title">Config Analyzer</h3>
+                        <p class="text-slate-400 text-sm" data-i18n="analyzer.desc">Paste config to extract interfaces and audit security.</p>
+                    </div>
+
+                    <!-- ACL Builder -->
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-acl-builder')">
+                        <div class="text-red-500 mb-4 p-3 bg-red-500/10 rounded inline-block group-hover:bg-red-500 group-hover:text-white transition-colors">
+                            <span class="material-symbols-outlined">rule_folder</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="acl.title">ACL Builder</h3>
+                        <p class="text-slate-400 text-sm" data-i18n="acl.desc">Visual generator for standard and extended Access Control Lists.</p>
+                    </div>
+
+                    <!-- Route Visualizer -->
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-route-vis')">
+                        <div class="text-fuchsia-500 mb-4 p-3 bg-fuchsia-500/10 rounded inline-block group-hover:bg-fuchsia-500 group-hover:text-white transition-colors">
+                            <span class="material-symbols-outlined">merge_type</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="routevis.title">Route Aggregator</h3>
+                        <p class="text-slate-400 text-sm" data-i18n="routevis.desc">Calculate supernets and visualize binary CIDR overlaps.</p>
+                    </div>
+
+                    <!-- Syntax Converter -->
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-syntax-converter')">
+                        <div class="text-lime-500 mb-4 p-3 bg-lime-500/10 rounded inline-block group-hover:bg-lime-500 group-hover:text-white transition-colors">
+                            <span class="material-symbols-outlined">translate</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="converter.title">Syntax Converter</h3>
+                        <p class="text-slate-400 text-sm" data-i18n="converter.desc">Translate basic configurations from Cisco IOS to Mikrotik.</p>
+                    </div>
+
+                    <!-- AI Chat Assistant -->
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-ai-chat')">
+                        <div class="text-signal-green mb-4 p-3 bg-signal-green/10 rounded inline-block group-hover:bg-signal-green group-hover:text-black transition-colors shadow-[0_0_15px_rgba(0,255,170,0.2)]">
+                            <span class="material-symbols-outlined">smart_toy</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="ai.title">AI Network Assistant</h3>
+                        <p class="text-slate-400 text-sm" data-i18n="ai.desc">Chat with an expert AI about networking, configs, and troubleshooting.</p>
                     </div>
                 </div>
 

@@ -121,3 +121,65 @@ export async function copyAllResults(subnets, stats) {
   const text = formatAllDataForClipboard(subnets, stats);
   return await copyToClipboard(text);
 }
+
+/**
+ * Formatea subredes como tabla Markdown
+ * @param {Array<Object>} subnets
+ * @returns {string}
+ */
+export function formatMarkdownTableForClipboard(subnets) {
+  let text = "| Subred | Red | Máscara | Rango de Hosts | Broadcast | Requeridos | Disponibles |\n";
+  text += "|---|---|---|---|---|---|---|\n";
+  subnets.forEach(s => {
+    text += `| ${s.index} | ${s.network}/${s.prefix} | ${s.mask} | ${s.firstHost} - ${s.lastHost} | ${s.broadcast} | ${s.hostsRequested} | ${s.hostsAvailable} |\n`;
+  });
+  return text;
+}
+
+/**
+ * Formatea subredes como configuración Cisco IOS
+ * @param {Array<Object>} subnets
+ * @returns {string}
+ */
+export function formatCiscoConfigForClipboard(subnets) {
+  let text = "! Configuración generada por NetOps Toolkit\n!\n";
+  subnets.forEach((s, i) => {
+    const vlanId = (i + 1) * 10;
+    text += `vlan ${vlanId}\n`;
+    text += ` name Subred_${s.index}\n`;
+    text += "!\n";
+    text += `interface Vlan${vlanId}\n`;
+    text += ` description Gateway for Subred_${s.index}\n`;
+    // Usamos el primer host como gateway por convención
+    text += ` ip address ${s.firstHost} ${s.mask}\n`;
+    text += " no shutdown\n!\n";
+  });
+  return text;
+}
+
+/**
+ * Formatea subredes como configuración Mikrotik
+ * @param {Array<Object>} subnets
+ * @returns {string}
+ */
+export function formatMikrotikConfigForClipboard(subnets) {
+  let text = "# Configuración generada por NetOps Toolkit\n";
+  subnets.forEach((s, i) => {
+    const vlanId = (i + 1) * 10;
+    text += `/interface vlan add name=vlan${vlanId} vlan-id=${vlanId} interface=ether1\n`;
+    text += `/ip address add address=${s.firstHost}/${s.prefix} interface=vlan${vlanId} comment="Gateway Subred_${s.index}"\n`;
+  });
+  return text;
+}
+
+export async function copyMarkdownTable(subnets) {
+  return await copyToClipboard(formatMarkdownTableForClipboard(subnets));
+}
+
+export async function copyCiscoConfig(subnets) {
+  return await copyToClipboard(formatCiscoConfigForClipboard(subnets));
+}
+
+export async function copyMikrotikConfig(subnets) {
+  return await copyToClipboard(formatMikrotikConfigForClipboard(subnets));
+}
