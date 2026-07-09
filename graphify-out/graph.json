@@ -1,0 +1,2113 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "name": "NetOpsToolkit",
+      "type": "module",
+      "file": null,
+      "doc": null
+    },
+    {
+      "id": 2,
+      "name": "src.core.convert",
+      "type": "module",
+      "file": "src/core/convert.js",
+      "doc": null
+    },
+    {
+      "id": 3,
+      "name": "src.core.convert.ipToDecimal",
+      "type": "function",
+      "file": "src/core/convert.js",
+      "doc": null
+    },
+    {
+      "id": 4,
+      "name": "src.core.convert.decimalToIP",
+      "type": "function",
+      "file": "src/core/convert.js",
+      "doc": null
+    },
+    {
+      "id": 5,
+      "name": "src.core.convert.prefixToMask",
+      "type": "function",
+      "file": "src/core/convert.js",
+      "doc": null
+    },
+    {
+      "id": 6,
+      "name": "src.core.convert.getNetworkAddress",
+      "type": "function",
+      "file": "src/core/convert.js",
+      "doc": null
+    },
+    {
+      "id": 7,
+      "name": "src.core.network",
+      "type": "module",
+      "file": "src/core/network.js",
+      "doc": null
+    },
+    {
+      "id": 8,
+      "name": "src.core.network.calculateVLSM",
+      "type": "function",
+      "file": "src/core/network.js",
+      "doc": null
+    },
+    {
+      "id": 9,
+      "name": "src.core.network.calculateTotalRequired",
+      "type": "function",
+      "file": "src/core/network.js",
+      "doc": null
+    },
+    {
+      "id": 10,
+      "name": "src.core.network.calculateTotalAvailable",
+      "type": "function",
+      "file": "src/core/network.js",
+      "doc": null
+    },
+    {
+      "id": 11,
+      "name": "src.core.validate",
+      "type": "module",
+      "file": "src/core/validate.js",
+      "doc": null
+    },
+    {
+      "id": 12,
+      "name": "src.core.validate.validateIPAddress",
+      "type": "function",
+      "file": "src/core/validate.js",
+      "doc": null
+    },
+    {
+      "id": 13,
+      "name": "src.core.validate.validateCIDRPrefix",
+      "type": "function",
+      "file": "src/core/validate.js",
+      "doc": null
+    },
+    {
+      "id": 14,
+      "name": "src.core.validate.validateNetworkAddress",
+      "type": "function",
+      "file": "src/core/validate.js",
+      "doc": null
+    },
+    {
+      "id": 15,
+      "name": "src.core.validate.validateHosts",
+      "type": "function",
+      "file": "src/core/validate.js",
+      "doc": null
+    },
+    {
+      "id": 16,
+      "name": "src.core.validate.validateNetworkCapacity",
+      "type": "function",
+      "file": "src/core/validate.js",
+      "doc": null
+    },
+    {
+      "id": 17,
+      "name": "src.platform.clipboard",
+      "type": "module",
+      "file": "src/platform/clipboard.js",
+      "doc": null
+    },
+    {
+      "id": 18,
+      "name": "src.platform.clipboard.writeText",
+      "type": "function",
+      "file": "src/platform/clipboard.js",
+      "doc": null
+    },
+    {
+      "id": 19,
+      "name": "src.platform.fetch",
+      "type": "module",
+      "file": "src/platform/fetch.js",
+      "doc": null
+    },
+    {
+      "id": 20,
+      "name": "src.platform.fetch.platformFetch",
+      "type": "function",
+      "file": "src/platform/fetch.js",
+      "doc": null
+    },
+    {
+      "id": 21,
+      "name": "src.platform.storage",
+      "type": "module",
+      "file": "src/platform/storage.js",
+      "doc": null
+    },
+    {
+      "id": 22,
+      "name": "src.ui.components.acl-builder",
+      "type": "module",
+      "file": "src/ui/components/acl-builder.js",
+      "doc": null
+    },
+    {
+      "id": 23,
+      "name": "src.ui.components.acl-builder.initAclBuilderTool",
+      "type": "function",
+      "file": "src/ui/components/acl-builder.js",
+      "doc": null
+    },
+    {
+      "id": 24,
+      "name": "src.ui.components.ai-chat",
+      "type": "module",
+      "file": "src/ui/components/ai-chat.js",
+      "doc": null
+    },
+    {
+      "id": 25,
+      "name": "src.ui.components.ai-chat.initAiChatTool",
+      "type": "function",
+      "file": "src/ui/components/ai-chat.js",
+      "doc": null
+    },
+    {
+      "id": 26,
+      "name": "src.ui.components.bandwidth",
+      "type": "module",
+      "file": "src/ui/components/bandwidth.js",
+      "doc": null
+    },
+    {
+      "id": 27,
+      "name": "src.ui.components.bandwidth.initBandwidthTool",
+      "type": "function",
+      "file": "src/ui/components/bandwidth.js",
+      "doc": null
+    },
+    {
+      "id": 28,
+      "name": "src.ui.components.base-converter",
+      "type": "module",
+      "file": "src/ui/components/base-converter.js",
+      "doc": null
+    },
+    {
+      "id": 29,
+      "name": "src.ui.components.base-converter.initConverter",
+      "type": "function",
+      "file": "src/ui/components/base-converter.js",
+      "doc": null
+    },
+    {
+      "id": 30,
+      "name": "src.ui.components.config-analyzer",
+      "type": "module",
+      "file": "src/ui/components/config-analyzer.js",
+      "doc": null
+    },
+    {
+      "id": 31,
+      "name": "src.ui.components.config-analyzer.initConfigAnalyzerTool",
+      "type": "function",
+      "file": "src/ui/components/config-analyzer.js",
+      "doc": null
+    },
+    {
+      "id": 32,
+      "name": "src.ui.components.config_gen",
+      "type": "module",
+      "file": "src/ui/components/config_gen.js",
+      "doc": null
+    },
+    {
+      "id": 33,
+      "name": "src.ui.components.config_gen.initConfigGenTool",
+      "type": "function",
+      "file": "src/ui/components/config_gen.js",
+      "doc": null
+    },
+    {
+      "id": 34,
+      "name": "src.ui.components.dns-core",
+      "type": "module",
+      "file": "src/ui/components/dns-core.js",
+      "doc": null
+    },
+    {
+      "id": 35,
+      "name": "src.ui.components.dns-core.buildDnsUrl",
+      "type": "function",
+      "file": "src/ui/components/dns-core.js",
+      "doc": null
+    },
+    {
+      "id": 36,
+      "name": "src.ui.components.dns-core.getDnsTypeName",
+      "type": "function",
+      "file": "src/ui/components/dns-core.js",
+      "doc": null
+    },
+    {
+      "id": 37,
+      "name": "src.ui.components.dns",
+      "type": "module",
+      "file": "src/ui/components/dns.js",
+      "doc": null
+    },
+    {
+      "id": 38,
+      "name": "src.ui.components.dns.initDnsTool",
+      "type": "function",
+      "file": "src/ui/components/dns.js",
+      "doc": null
+    },
+    {
+      "id": 39,
+      "name": "src.ui.components.ip_reference",
+      "type": "module",
+      "file": "src/ui/components/ip_reference.js",
+      "doc": null
+    },
+    {
+      "id": 40,
+      "name": "src.ui.components.ip_reference.initIpRefTool",
+      "type": "function",
+      "file": "src/ui/components/ip_reference.js",
+      "doc": null
+    },
+    {
+      "id": 41,
+      "name": "src.ui.components.ipv4-analyzer",
+      "type": "module",
+      "file": "src/ui/components/ipv4-analyzer.js",
+      "doc": null
+    },
+    {
+      "id": 42,
+      "name": "src.ui.components.ipv4-analyzer.initStandardCalc",
+      "type": "function",
+      "file": "src/ui/components/ipv4-analyzer.js",
+      "doc": null
+    },
+    {
+      "id": 43,
+      "name": "src.ui.components.ipv4-analyzer.createBinaryRow",
+      "type": "function",
+      "file": "src/ui/components/ipv4-analyzer.js",
+      "doc": null
+    },
+    {
+      "id": 44,
+      "name": "src.ui.components.ipv4-analyzer.getClass",
+      "type": "function",
+      "file": "src/ui/components/ipv4-analyzer.js",
+      "doc": null
+    },
+    {
+      "id": 45,
+      "name": "src.ui.components.ipv4-analyzer.getIPType",
+      "type": "function",
+      "file": "src/ui/components/ipv4-analyzer.js",
+      "doc": null
+    },
+    {
+      "id": 46,
+      "name": "src.ui.components.ipv6",
+      "type": "module",
+      "file": "src/ui/components/ipv6.js",
+      "doc": null
+    },
+    {
+      "id": 47,
+      "name": "src.ui.components.ipv6.initIPv6Tool",
+      "type": "function",
+      "file": "src/ui/components/ipv6.js",
+      "doc": null
+    },
+    {
+      "id": 48,
+      "name": "src.ui.components.keygen",
+      "type": "module",
+      "file": "src/ui/components/keygen.js",
+      "doc": null
+    },
+    {
+      "id": 49,
+      "name": "src.ui.components.keygen.initKeyGenTool",
+      "type": "function",
+      "file": "src/ui/components/keygen.js",
+      "doc": null
+    },
+    {
+      "id": 50,
+      "name": "src.ui.components.oui",
+      "type": "module",
+      "file": "src/ui/components/oui.js",
+      "doc": null
+    },
+    {
+      "id": 51,
+      "name": "src.ui.components.oui.initOuiTool",
+      "type": "function",
+      "file": "src/ui/components/oui.js",
+      "doc": null
+    },
+    {
+      "id": 52,
+      "name": "src.ui.components.ports",
+      "type": "module",
+      "file": "src/ui/components/ports.js",
+      "doc": null
+    },
+    {
+      "id": 53,
+      "name": "src.ui.components.ports.initPortTool",
+      "type": "function",
+      "file": "src/ui/components/ports.js",
+      "doc": null
+    },
+    {
+      "id": 54,
+      "name": "src.ui.components.public_ip",
+      "type": "module",
+      "file": "src/ui/components/public_ip.js",
+      "doc": null
+    },
+    {
+      "id": 55,
+      "name": "src.ui.components.public_ip.initPublicIpWidget",
+      "type": "function",
+      "file": "src/ui/components/public_ip.js",
+      "doc": null
+    },
+    {
+      "id": 56,
+      "name": "src.ui.components.route-vis",
+      "type": "module",
+      "file": "src/ui/components/route-vis.js",
+      "doc": null
+    },
+    {
+      "id": 57,
+      "name": "src.ui.components.route-vis.ipToNum",
+      "type": "function",
+      "file": "src/ui/components/route-vis.js",
+      "doc": null
+    },
+    {
+      "id": 58,
+      "name": "src.ui.components.route-vis.numToIp",
+      "type": "function",
+      "file": "src/ui/components/route-vis.js",
+      "doc": null
+    },
+    {
+      "id": 59,
+      "name": "src.ui.components.route-vis.numToBinString",
+      "type": "function",
+      "file": "src/ui/components/route-vis.js",
+      "doc": null
+    },
+    {
+      "id": 60,
+      "name": "src.ui.components.route-vis.initRouteVisTool",
+      "type": "function",
+      "file": "src/ui/components/route-vis.js",
+      "doc": null
+    },
+    {
+      "id": 61,
+      "name": "src.ui.components.settings",
+      "type": "module",
+      "file": "src/ui/components/settings.js",
+      "doc": null
+    },
+    {
+      "id": 62,
+      "name": "src.ui.components.settings.initSettings",
+      "type": "function",
+      "file": "src/ui/components/settings.js",
+      "doc": null
+    },
+    {
+      "id": 63,
+      "name": "src.ui.components.syntax-converter",
+      "type": "module",
+      "file": "src/ui/components/syntax-converter.js",
+      "doc": null
+    },
+    {
+      "id": 64,
+      "name": "src.ui.components.syntax-converter.initSyntaxConverterTool",
+      "type": "function",
+      "file": "src/ui/components/syntax-converter.js",
+      "doc": null
+    },
+    {
+      "id": 65,
+      "name": "src.ui.components.templates",
+      "type": "module",
+      "file": "src/ui/components/templates.js",
+      "doc": null
+    },
+    {
+      "id": 66,
+      "name": "src.ui.components.templates.initTemplateTool",
+      "type": "function",
+      "file": "src/ui/components/templates.js",
+      "doc": null
+    },
+    {
+      "id": 67,
+      "name": "src.ui.main",
+      "type": "module",
+      "file": "src/ui/main.js",
+      "doc": null
+    },
+    {
+      "id": 68,
+      "name": "src.ui.main.init",
+      "type": "function",
+      "file": "src/ui/main.js",
+      "doc": null
+    },
+    {
+      "id": 69,
+      "name": "src.ui.main.setupNavigation",
+      "type": "function",
+      "file": "src/ui/main.js",
+      "doc": null
+    },
+    {
+      "id": 70,
+      "name": "src.ui.main.showView",
+      "type": "function",
+      "file": "src/ui/main.js",
+      "doc": null
+    },
+    {
+      "id": 71,
+      "name": "src.ui.main.updateBreadcrumb",
+      "type": "function",
+      "file": "src/ui/main.js",
+      "doc": null
+    },
+    {
+      "id": 72,
+      "name": "src.ui.main.updateSidebarActiveState",
+      "type": "function",
+      "file": "src/ui/main.js",
+      "doc": null
+    },
+    {
+      "id": 73,
+      "name": "src.ui.main.loadToolLogic",
+      "type": "function",
+      "file": "src/ui/main.js",
+      "doc": null
+    },
+    {
+      "id": 74,
+      "name": "src.ui.main.initVLSM",
+      "type": "function",
+      "file": "src/ui/main.js",
+      "doc": null
+    },
+    {
+      "id": 75,
+      "name": "src.ui.main.runVLSMCalculation",
+      "type": "function",
+      "file": "src/ui/main.js",
+      "doc": null
+    },
+    {
+      "id": 76,
+      "name": "src.ui.main.setupGlobalActions",
+      "type": "function",
+      "file": "src/ui/main.js",
+      "doc": null
+    },
+    {
+      "id": 77,
+      "name": "src.ui.shared.analytics",
+      "type": "module",
+      "file": "src/ui/shared/analytics.js",
+      "doc": null
+    },
+    {
+      "id": 78,
+      "name": "src.ui.shared.analytics.isAnalyticsEnabled",
+      "type": "function",
+      "file": "src/ui/shared/analytics.js",
+      "doc": null
+    },
+    {
+      "id": 79,
+      "name": "src.ui.shared.analytics.initializeAnalytics",
+      "type": "function",
+      "file": "src/ui/shared/analytics.js",
+      "doc": null
+    },
+    {
+      "id": 80,
+      "name": "src.ui.shared.analytics.trackEvent",
+      "type": "function",
+      "file": "src/ui/shared/analytics.js",
+      "doc": null
+    },
+    {
+      "id": 81,
+      "name": "src.ui.shared.analytics.trackCalculation",
+      "type": "function",
+      "file": "src/ui/shared/analytics.js",
+      "doc": null
+    },
+    {
+      "id": 82,
+      "name": "src.ui.shared.analytics.trackExport",
+      "type": "function",
+      "file": "src/ui/shared/analytics.js",
+      "doc": null
+    },
+    {
+      "id": 83,
+      "name": "src.ui.shared.analytics.trackCopy",
+      "type": "function",
+      "file": "src/ui/shared/analytics.js",
+      "doc": null
+    },
+    {
+      "id": 84,
+      "name": "src.ui.shared.analytics.trackValidationError",
+      "type": "function",
+      "file": "src/ui/shared/analytics.js",
+      "doc": null
+    },
+    {
+      "id": 85,
+      "name": "src.ui.shared.analytics.trackPageView",
+      "type": "function",
+      "file": "src/ui/shared/analytics.js",
+      "doc": null
+    },
+    {
+      "id": 86,
+      "name": "src.ui.shared.analytics.setUserProperties",
+      "type": "function",
+      "file": "src/ui/shared/analytics.js",
+      "doc": null
+    },
+    {
+      "id": 87,
+      "name": "src.ui.shared.clipboard",
+      "type": "module",
+      "file": "src/ui/shared/clipboard.js",
+      "doc": null
+    },
+    {
+      "id": 88,
+      "name": "src.ui.shared.clipboard.copyToClipboard",
+      "type": "function",
+      "file": "src/ui/shared/clipboard.js",
+      "doc": null
+    },
+    {
+      "id": 89,
+      "name": "src.ui.shared.clipboard.copyToClipboardFallback",
+      "type": "function",
+      "file": "src/ui/shared/clipboard.js",
+      "doc": null
+    },
+    {
+      "id": 90,
+      "name": "src.ui.shared.clipboard.formatSubnetForClipboard",
+      "type": "function",
+      "file": "src/ui/shared/clipboard.js",
+      "doc": null
+    },
+    {
+      "id": 91,
+      "name": "src.ui.shared.clipboard.formatAllDataForClipboard",
+      "type": "function",
+      "file": "src/ui/shared/clipboard.js",
+      "doc": null
+    },
+    {
+      "id": 92,
+      "name": "src.ui.shared.clipboard.copySubnet",
+      "type": "function",
+      "file": "src/ui/shared/clipboard.js",
+      "doc": null
+    },
+    {
+      "id": 93,
+      "name": "src.ui.shared.clipboard.copyAllResults",
+      "type": "function",
+      "file": "src/ui/shared/clipboard.js",
+      "doc": null
+    },
+    {
+      "id": 94,
+      "name": "src.ui.shared.clipboard.formatMarkdownTableForClipboard",
+      "type": "function",
+      "file": "src/ui/shared/clipboard.js",
+      "doc": null
+    },
+    {
+      "id": 95,
+      "name": "src.ui.shared.clipboard.formatCiscoConfigForClipboard",
+      "type": "function",
+      "file": "src/ui/shared/clipboard.js",
+      "doc": null
+    },
+    {
+      "id": 96,
+      "name": "src.ui.shared.clipboard.formatMikrotikConfigForClipboard",
+      "type": "function",
+      "file": "src/ui/shared/clipboard.js",
+      "doc": null
+    },
+    {
+      "id": 97,
+      "name": "src.ui.shared.clipboard.copyMarkdownTable",
+      "type": "function",
+      "file": "src/ui/shared/clipboard.js",
+      "doc": null
+    },
+    {
+      "id": 98,
+      "name": "src.ui.shared.clipboard.copyCiscoConfig",
+      "type": "function",
+      "file": "src/ui/shared/clipboard.js",
+      "doc": null
+    },
+    {
+      "id": 99,
+      "name": "src.ui.shared.clipboard.copyMikrotikConfig",
+      "type": "function",
+      "file": "src/ui/shared/clipboard.js",
+      "doc": null
+    },
+    {
+      "id": 100,
+      "name": "src.ui.shared.error-handler",
+      "type": "module",
+      "file": "src/ui/shared/error-handler.js",
+      "doc": null
+    },
+    {
+      "id": 101,
+      "name": "src.ui.shared.error-handler.showErrorNotification",
+      "type": "function",
+      "file": "src/ui/shared/error-handler.js",
+      "doc": null
+    },
+    {
+      "id": 102,
+      "name": "src.ui.shared.error-handler.showSuccessNotification",
+      "type": "function",
+      "file": "src/ui/shared/error-handler.js",
+      "doc": null
+    },
+    {
+      "id": 103,
+      "name": "src.ui.shared.error-handler.logError",
+      "type": "function",
+      "file": "src/ui/shared/error-handler.js",
+      "doc": null
+    },
+    {
+      "id": 104,
+      "name": "src.ui.shared.error-handler.handleError",
+      "type": "function",
+      "file": "src/ui/shared/error-handler.js",
+      "doc": null
+    },
+    {
+      "id": 105,
+      "name": "src.ui.shared.error-handler.withErrorHandling",
+      "type": "function",
+      "file": "src/ui/shared/error-handler.js",
+      "doc": null
+    },
+    {
+      "id": 106,
+      "name": "src.ui.shared.error-handler.initGlobalErrorHandlers",
+      "type": "function",
+      "file": "src/ui/shared/error-handler.js",
+      "doc": null
+    },
+    {
+      "id": 107,
+      "name": "src.ui.shared.exporters",
+      "type": "module",
+      "file": "src/ui/shared/exporters.js",
+      "doc": null
+    },
+    {
+      "id": 108,
+      "name": "src.ui.shared.exporters.arrayToCSV",
+      "type": "function",
+      "file": "src/ui/shared/exporters.js",
+      "doc": null
+    },
+    {
+      "id": 109,
+      "name": "src.ui.shared.exporters.downloadFile",
+      "type": "function",
+      "file": "src/ui/shared/exporters.js",
+      "doc": null
+    },
+    {
+      "id": 110,
+      "name": "src.ui.shared.exporters.prepareSubnetsData",
+      "type": "function",
+      "file": "src/ui/shared/exporters.js",
+      "doc": null
+    },
+    {
+      "id": 111,
+      "name": "src.ui.shared.exporters.prepareStatsData",
+      "type": "function",
+      "file": "src/ui/shared/exporters.js",
+      "doc": null
+    },
+    {
+      "id": 112,
+      "name": "src.ui.shared.exporters.exportToCSV",
+      "type": "function",
+      "file": "src/ui/shared/exporters.js",
+      "doc": null
+    },
+    {
+      "id": 113,
+      "name": "src.ui.shared.exporters.exportToJSON",
+      "type": "function",
+      "file": "src/ui/shared/exporters.js",
+      "doc": null
+    },
+    {
+      "id": 114,
+      "name": "src.ui.shared.exporters.exportToText",
+      "type": "function",
+      "file": "src/ui/shared/exporters.js",
+      "doc": null
+    },
+    {
+      "id": 115,
+      "name": "src.ui.shared.exporters.exportToPDF",
+      "type": "function",
+      "file": "src/ui/shared/exporters.js",
+      "doc": null
+    },
+    {
+      "id": 116,
+      "name": "src.ui.shared.form-handlers",
+      "type": "module",
+      "file": "src/ui/shared/form-handlers.js",
+      "doc": null
+    },
+    {
+      "id": 117,
+      "name": "src.ui.shared.form-handlers.addIPValidation",
+      "type": "function",
+      "file": "src/ui/shared/form-handlers.js",
+      "doc": null
+    },
+    {
+      "id": 118,
+      "name": "src.ui.shared.form-handlers.addHostsValidation",
+      "type": "function",
+      "file": "src/ui/shared/form-handlers.js",
+      "doc": null
+    },
+    {
+      "id": 119,
+      "name": "src.ui.shared.form-handlers.addExampleButton",
+      "type": "function",
+      "file": "src/ui/shared/form-handlers.js",
+      "doc": null
+    },
+    {
+      "id": 120,
+      "name": "src.ui.shared.history",
+      "type": "module",
+      "file": "src/ui/shared/history.js",
+      "doc": null
+    },
+    {
+      "id": 121,
+      "name": "src.ui.shared.history.getHistory",
+      "type": "function",
+      "file": "src/ui/shared/history.js",
+      "doc": null
+    },
+    {
+      "id": 122,
+      "name": "src.ui.shared.history.saveHistory",
+      "type": "function",
+      "file": "src/ui/shared/history.js",
+      "doc": null
+    },
+    {
+      "id": 123,
+      "name": "src.ui.shared.history.addToHistory",
+      "type": "function",
+      "file": "src/ui/shared/history.js",
+      "doc": null
+    },
+    {
+      "id": 124,
+      "name": "src.ui.shared.history.removeFromHistory",
+      "type": "function",
+      "file": "src/ui/shared/history.js",
+      "doc": null
+    },
+    {
+      "id": 125,
+      "name": "src.ui.shared.history.clearHistory",
+      "type": "function",
+      "file": "src/ui/shared/history.js",
+      "doc": null
+    },
+    {
+      "id": 126,
+      "name": "src.ui.shared.history.getHistoryItem",
+      "type": "function",
+      "file": "src/ui/shared/history.js",
+      "doc": null
+    },
+    {
+      "id": 127,
+      "name": "src.ui.shared.history.generateId",
+      "type": "function",
+      "file": "src/ui/shared/history.js",
+      "doc": null
+    },
+    {
+      "id": 128,
+      "name": "src.ui.shared.history.formatTimestamp",
+      "type": "function",
+      "file": "src/ui/shared/history.js",
+      "doc": null
+    },
+    {
+      "id": 129,
+      "name": "src.ui.shared.history.getSummary",
+      "type": "function",
+      "file": "src/ui/shared/history.js",
+      "doc": null
+    },
+    {
+      "id": 130,
+      "name": "src.ui.shared.history.getHistoryStats",
+      "type": "function",
+      "file": "src/ui/shared/history.js",
+      "doc": null
+    },
+    {
+      "id": 131,
+      "name": "src.ui.shared.history.exportHistory",
+      "type": "function",
+      "file": "src/ui/shared/history.js",
+      "doc": null
+    },
+    {
+      "id": 132,
+      "name": "src.ui.shared.history.importHistory",
+      "type": "function",
+      "file": "src/ui/shared/history.js",
+      "doc": null
+    },
+    {
+      "id": 133,
+      "name": "src.ui.shared.i18n",
+      "type": "module",
+      "file": "src/ui/shared/i18n.js",
+      "doc": null
+    },
+    {
+      "id": 134,
+      "name": "src.ui.shared.i18n.setLanguage",
+      "type": "function",
+      "file": "src/ui/shared/i18n.js",
+      "doc": null
+    },
+    {
+      "id": 135,
+      "name": "src.ui.shared.i18n.applyTranslations",
+      "type": "function",
+      "file": "src/ui/shared/i18n.js",
+      "doc": null
+    },
+    {
+      "id": 136,
+      "name": "src.ui.shared.i18n.t",
+      "type": "function",
+      "file": "src/ui/shared/i18n.js",
+      "doc": null
+    },
+    {
+      "id": 137,
+      "name": "src.ui.shared.i18n.initI18n",
+      "type": "function",
+      "file": "src/ui/shared/i18n.js",
+      "doc": null
+    },
+    {
+      "id": 138,
+      "name": "src.ui.shared.i18n.updateLanguageToggleUI",
+      "type": "function",
+      "file": "src/ui/shared/i18n.js",
+      "doc": null
+    },
+    {
+      "id": 139,
+      "name": "src.ui.shared.statistics",
+      "type": "module",
+      "file": "src/ui/shared/statistics.js",
+      "doc": null
+    },
+    {
+      "id": 140,
+      "name": "src.ui.shared.statistics.calculateStatistics",
+      "type": "function",
+      "file": "src/ui/shared/statistics.js",
+      "doc": null
+    },
+    {
+      "id": 141,
+      "name": "src.ui.shared.statistics.formatStatisticsSummary",
+      "type": "function",
+      "file": "src/ui/shared/statistics.js",
+      "doc": null
+    },
+    {
+      "id": 142,
+      "name": "src.ui.shared.tabs",
+      "type": "module",
+      "file": "src/ui/shared/tabs.js",
+      "doc": null
+    },
+    {
+      "id": 143,
+      "name": "src.ui.shared.tabs.initTabs",
+      "type": "function",
+      "file": "src/ui/shared/tabs.js",
+      "doc": null
+    },
+    {
+      "id": 144,
+      "name": "src.ui.shared.theme",
+      "type": "module",
+      "file": "src/ui/shared/theme.js",
+      "doc": null
+    },
+    {
+      "id": 145,
+      "name": "src.ui.shared.theme.getSystemPreference",
+      "type": "function",
+      "file": "src/ui/shared/theme.js",
+      "doc": null
+    },
+    {
+      "id": 146,
+      "name": "src.ui.shared.theme.getCurrentTheme",
+      "type": "function",
+      "file": "src/ui/shared/theme.js",
+      "doc": null
+    },
+    {
+      "id": 147,
+      "name": "src.ui.shared.theme.getEffectiveTheme",
+      "type": "function",
+      "file": "src/ui/shared/theme.js",
+      "doc": null
+    },
+    {
+      "id": 148,
+      "name": "src.ui.shared.theme.applyTheme",
+      "type": "function",
+      "file": "src/ui/shared/theme.js",
+      "doc": null
+    },
+    {
+      "id": 149,
+      "name": "src.ui.shared.theme.saveTheme",
+      "type": "function",
+      "file": "src/ui/shared/theme.js",
+      "doc": null
+    },
+    {
+      "id": 150,
+      "name": "src.ui.shared.theme.toggleTheme",
+      "type": "function",
+      "file": "src/ui/shared/theme.js",
+      "doc": null
+    },
+    {
+      "id": 151,
+      "name": "src.ui.shared.theme.setTheme",
+      "type": "function",
+      "file": "src/ui/shared/theme.js",
+      "doc": null
+    },
+    {
+      "id": 152,
+      "name": "src.ui.shared.theme.initTheme",
+      "type": "function",
+      "file": "src/ui/shared/theme.js",
+      "doc": null
+    },
+    {
+      "id": 153,
+      "name": "src.ui.shared.theme.createThemeToggle",
+      "type": "function",
+      "file": "src/ui/shared/theme.js",
+      "doc": null
+    },
+    {
+      "id": 154,
+      "name": "src.ui.shared.theme.updateThemeToggleIcon",
+      "type": "function",
+      "file": "src/ui/shared/theme.js",
+      "doc": null
+    },
+    {
+      "id": 155,
+      "name": "src.ui.shared.ui-engine",
+      "type": "module",
+      "file": "src/ui/shared/ui-engine.js",
+      "doc": null
+    },
+    {
+      "id": 156,
+      "name": "src.ui.shared.ui-engine.clearResults",
+      "type": "function",
+      "file": "src/ui/shared/ui-engine.js",
+      "doc": null
+    },
+    {
+      "id": 157,
+      "name": "src.ui.shared.ui-engine.showError",
+      "type": "function",
+      "file": "src/ui/shared/ui-engine.js",
+      "doc": null
+    },
+    {
+      "id": 158,
+      "name": "src.ui.shared.ui-engine.showWarning",
+      "type": "function",
+      "file": "src/ui/shared/ui-engine.js",
+      "doc": null
+    },
+    {
+      "id": 159,
+      "name": "src.ui.shared.ui-engine.showInputError",
+      "type": "function",
+      "file": "src/ui/shared/ui-engine.js",
+      "doc": null
+    },
+    {
+      "id": 160,
+      "name": "src.ui.shared.ui-engine.showInputSuccess",
+      "type": "function",
+      "file": "src/ui/shared/ui-engine.js",
+      "doc": null
+    },
+    {
+      "id": 161,
+      "name": "src.ui.shared.ui-engine.resetInputValidation",
+      "type": "function",
+      "file": "src/ui/shared/ui-engine.js",
+      "doc": null
+    },
+    {
+      "id": 162,
+      "name": "src.ui.shared.ui-engine.displayStatistics",
+      "type": "function",
+      "file": "src/ui/shared/ui-engine.js",
+      "doc": null
+    },
+    {
+      "id": 163,
+      "name": "src.ui.shared.ui-engine.displaySubnet",
+      "type": "function",
+      "file": "src/ui/shared/ui-engine.js",
+      "doc": null
+    },
+    {
+      "id": 164,
+      "name": "src.ui.shared.ui-engine.displayResults",
+      "type": "function",
+      "file": "src/ui/shared/ui-engine.js",
+      "doc": null
+    },
+    {
+      "id": 165,
+      "name": "src.ui.shared.ui-engine.renderNetworkVisualizer",
+      "type": "function",
+      "file": "src/ui/shared/ui-engine.js",
+      "doc": null
+    },
+    {
+      "id": 166,
+      "name": "src.ui.shared.ui-engine.showSuccess",
+      "type": "function",
+      "file": "src/ui/shared/ui-engine.js",
+      "doc": null
+    },
+    {
+      "id": 167,
+      "name": "src.ui.shared.ui-engine.createActionButton",
+      "type": "function",
+      "file": "src/ui/shared/ui-engine.js",
+      "doc": null
+    },
+    {
+      "id": 168,
+      "name": "src.ui.shared.ui-engine.createActionsBar",
+      "type": "function",
+      "file": "src/ui/shared/ui-engine.js",
+      "doc": null
+    },
+    {
+      "id": 169,
+      "name": "src.ui.shared.ui-engine.addCopyButtonToSubnet",
+      "type": "function",
+      "file": "src/ui/shared/ui-engine.js",
+      "doc": null
+    },
+    {
+      "id": 170,
+      "name": "src.ui.shared.ui-engine.showToast",
+      "type": "function",
+      "file": "src/ui/shared/ui-engine.js",
+      "doc": null
+    },
+    {
+      "id": 171,
+      "name": "src.ui.shared.ui-engine.createHistoryPanel",
+      "type": "function",
+      "file": "src/ui/shared/ui-engine.js",
+      "doc": null
+    },
+    {
+      "id": 172,
+      "name": "src.ui.shared.ui-engine.updateHistoryPanel",
+      "type": "function",
+      "file": "src/ui/shared/ui-engine.js",
+      "doc": null
+    },
+    {
+      "id": 173,
+      "name": "src.ui.shared.ui-engine.createHistoryItem",
+      "type": "function",
+      "file": "src/ui/shared/ui-engine.js",
+      "doc": null
+    },
+    {
+      "id": 174,
+      "name": "src.ui.shared.ui-engine.formatHistoryTimestamp",
+      "type": "function",
+      "file": "src/ui/shared/ui-engine.js",
+      "doc": null
+    },
+    {
+      "id": 175,
+      "name": "src.ui.shared.visualization",
+      "type": "module",
+      "file": "src/ui/shared/visualization.js",
+      "doc": null
+    },
+    {
+      "id": 176,
+      "name": "src.ui.shared.visualization.renderAllocationChart",
+      "type": "function",
+      "file": "src/ui/shared/visualization.js",
+      "doc": null
+    }
+  ],
+  "edges": [
+    {
+      "source": 1,
+      "target": 2,
+      "label": "contains"
+    },
+    {
+      "source": 2,
+      "target": 3,
+      "label": "defines"
+    },
+    {
+      "source": 2,
+      "target": 4,
+      "label": "defines"
+    },
+    {
+      "source": 2,
+      "target": 5,
+      "label": "defines"
+    },
+    {
+      "source": 2,
+      "target": 6,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 7,
+      "label": "contains"
+    },
+    {
+      "source": 7,
+      "target": 8,
+      "label": "defines"
+    },
+    {
+      "source": 7,
+      "target": 9,
+      "label": "defines"
+    },
+    {
+      "source": 7,
+      "target": 10,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 11,
+      "label": "contains"
+    },
+    {
+      "source": 11,
+      "target": 12,
+      "label": "defines"
+    },
+    {
+      "source": 11,
+      "target": 13,
+      "label": "defines"
+    },
+    {
+      "source": 11,
+      "target": 14,
+      "label": "defines"
+    },
+    {
+      "source": 11,
+      "target": 15,
+      "label": "defines"
+    },
+    {
+      "source": 11,
+      "target": 16,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 17,
+      "label": "contains"
+    },
+    {
+      "source": 17,
+      "target": 18,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 19,
+      "label": "contains"
+    },
+    {
+      "source": 19,
+      "target": 20,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 21,
+      "label": "contains"
+    },
+    {
+      "source": 1,
+      "target": 22,
+      "label": "contains"
+    },
+    {
+      "source": 22,
+      "target": 23,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 24,
+      "label": "contains"
+    },
+    {
+      "source": 24,
+      "target": 25,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 26,
+      "label": "contains"
+    },
+    {
+      "source": 26,
+      "target": 27,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 28,
+      "label": "contains"
+    },
+    {
+      "source": 28,
+      "target": 29,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 30,
+      "label": "contains"
+    },
+    {
+      "source": 30,
+      "target": 31,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 32,
+      "label": "contains"
+    },
+    {
+      "source": 32,
+      "target": 33,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 34,
+      "label": "contains"
+    },
+    {
+      "source": 34,
+      "target": 35,
+      "label": "defines"
+    },
+    {
+      "source": 34,
+      "target": 36,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 37,
+      "label": "contains"
+    },
+    {
+      "source": 37,
+      "target": 38,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 39,
+      "label": "contains"
+    },
+    {
+      "source": 39,
+      "target": 40,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 41,
+      "label": "contains"
+    },
+    {
+      "source": 41,
+      "target": 42,
+      "label": "defines"
+    },
+    {
+      "source": 41,
+      "target": 43,
+      "label": "defines"
+    },
+    {
+      "source": 41,
+      "target": 44,
+      "label": "defines"
+    },
+    {
+      "source": 41,
+      "target": 45,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 46,
+      "label": "contains"
+    },
+    {
+      "source": 46,
+      "target": 47,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 48,
+      "label": "contains"
+    },
+    {
+      "source": 48,
+      "target": 49,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 50,
+      "label": "contains"
+    },
+    {
+      "source": 50,
+      "target": 51,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 52,
+      "label": "contains"
+    },
+    {
+      "source": 52,
+      "target": 53,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 54,
+      "label": "contains"
+    },
+    {
+      "source": 54,
+      "target": 55,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 56,
+      "label": "contains"
+    },
+    {
+      "source": 56,
+      "target": 57,
+      "label": "defines"
+    },
+    {
+      "source": 56,
+      "target": 58,
+      "label": "defines"
+    },
+    {
+      "source": 56,
+      "target": 59,
+      "label": "defines"
+    },
+    {
+      "source": 56,
+      "target": 60,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 61,
+      "label": "contains"
+    },
+    {
+      "source": 61,
+      "target": 62,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 63,
+      "label": "contains"
+    },
+    {
+      "source": 63,
+      "target": 64,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 65,
+      "label": "contains"
+    },
+    {
+      "source": 65,
+      "target": 66,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 67,
+      "label": "contains"
+    },
+    {
+      "source": 67,
+      "target": 68,
+      "label": "defines"
+    },
+    {
+      "source": 67,
+      "target": 69,
+      "label": "defines"
+    },
+    {
+      "source": 67,
+      "target": 70,
+      "label": "defines"
+    },
+    {
+      "source": 67,
+      "target": 71,
+      "label": "defines"
+    },
+    {
+      "source": 67,
+      "target": 72,
+      "label": "defines"
+    },
+    {
+      "source": 67,
+      "target": 73,
+      "label": "defines"
+    },
+    {
+      "source": 67,
+      "target": 74,
+      "label": "defines"
+    },
+    {
+      "source": 67,
+      "target": 75,
+      "label": "defines"
+    },
+    {
+      "source": 67,
+      "target": 76,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 77,
+      "label": "contains"
+    },
+    {
+      "source": 77,
+      "target": 78,
+      "label": "defines"
+    },
+    {
+      "source": 77,
+      "target": 79,
+      "label": "defines"
+    },
+    {
+      "source": 77,
+      "target": 80,
+      "label": "defines"
+    },
+    {
+      "source": 77,
+      "target": 81,
+      "label": "defines"
+    },
+    {
+      "source": 77,
+      "target": 82,
+      "label": "defines"
+    },
+    {
+      "source": 77,
+      "target": 83,
+      "label": "defines"
+    },
+    {
+      "source": 77,
+      "target": 84,
+      "label": "defines"
+    },
+    {
+      "source": 77,
+      "target": 85,
+      "label": "defines"
+    },
+    {
+      "source": 77,
+      "target": 86,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 87,
+      "label": "contains"
+    },
+    {
+      "source": 87,
+      "target": 88,
+      "label": "defines"
+    },
+    {
+      "source": 87,
+      "target": 89,
+      "label": "defines"
+    },
+    {
+      "source": 87,
+      "target": 90,
+      "label": "defines"
+    },
+    {
+      "source": 87,
+      "target": 91,
+      "label": "defines"
+    },
+    {
+      "source": 87,
+      "target": 92,
+      "label": "defines"
+    },
+    {
+      "source": 87,
+      "target": 93,
+      "label": "defines"
+    },
+    {
+      "source": 87,
+      "target": 94,
+      "label": "defines"
+    },
+    {
+      "source": 87,
+      "target": 95,
+      "label": "defines"
+    },
+    {
+      "source": 87,
+      "target": 96,
+      "label": "defines"
+    },
+    {
+      "source": 87,
+      "target": 97,
+      "label": "defines"
+    },
+    {
+      "source": 87,
+      "target": 98,
+      "label": "defines"
+    },
+    {
+      "source": 87,
+      "target": 99,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 100,
+      "label": "contains"
+    },
+    {
+      "source": 100,
+      "target": 101,
+      "label": "defines"
+    },
+    {
+      "source": 100,
+      "target": 102,
+      "label": "defines"
+    },
+    {
+      "source": 100,
+      "target": 103,
+      "label": "defines"
+    },
+    {
+      "source": 100,
+      "target": 104,
+      "label": "defines"
+    },
+    {
+      "source": 100,
+      "target": 105,
+      "label": "defines"
+    },
+    {
+      "source": 100,
+      "target": 106,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 107,
+      "label": "contains"
+    },
+    {
+      "source": 107,
+      "target": 108,
+      "label": "defines"
+    },
+    {
+      "source": 107,
+      "target": 109,
+      "label": "defines"
+    },
+    {
+      "source": 107,
+      "target": 110,
+      "label": "defines"
+    },
+    {
+      "source": 107,
+      "target": 111,
+      "label": "defines"
+    },
+    {
+      "source": 107,
+      "target": 112,
+      "label": "defines"
+    },
+    {
+      "source": 107,
+      "target": 113,
+      "label": "defines"
+    },
+    {
+      "source": 107,
+      "target": 114,
+      "label": "defines"
+    },
+    {
+      "source": 107,
+      "target": 115,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 116,
+      "label": "contains"
+    },
+    {
+      "source": 116,
+      "target": 117,
+      "label": "defines"
+    },
+    {
+      "source": 116,
+      "target": 118,
+      "label": "defines"
+    },
+    {
+      "source": 116,
+      "target": 119,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 120,
+      "label": "contains"
+    },
+    {
+      "source": 120,
+      "target": 121,
+      "label": "defines"
+    },
+    {
+      "source": 120,
+      "target": 122,
+      "label": "defines"
+    },
+    {
+      "source": 120,
+      "target": 123,
+      "label": "defines"
+    },
+    {
+      "source": 120,
+      "target": 124,
+      "label": "defines"
+    },
+    {
+      "source": 120,
+      "target": 125,
+      "label": "defines"
+    },
+    {
+      "source": 120,
+      "target": 126,
+      "label": "defines"
+    },
+    {
+      "source": 120,
+      "target": 127,
+      "label": "defines"
+    },
+    {
+      "source": 120,
+      "target": 128,
+      "label": "defines"
+    },
+    {
+      "source": 120,
+      "target": 129,
+      "label": "defines"
+    },
+    {
+      "source": 120,
+      "target": 130,
+      "label": "defines"
+    },
+    {
+      "source": 120,
+      "target": 131,
+      "label": "defines"
+    },
+    {
+      "source": 120,
+      "target": 132,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 133,
+      "label": "contains"
+    },
+    {
+      "source": 133,
+      "target": 134,
+      "label": "defines"
+    },
+    {
+      "source": 133,
+      "target": 135,
+      "label": "defines"
+    },
+    {
+      "source": 133,
+      "target": 136,
+      "label": "defines"
+    },
+    {
+      "source": 133,
+      "target": 137,
+      "label": "defines"
+    },
+    {
+      "source": 133,
+      "target": 138,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 139,
+      "label": "contains"
+    },
+    {
+      "source": 139,
+      "target": 140,
+      "label": "defines"
+    },
+    {
+      "source": 139,
+      "target": 141,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 142,
+      "label": "contains"
+    },
+    {
+      "source": 142,
+      "target": 143,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 144,
+      "label": "contains"
+    },
+    {
+      "source": 144,
+      "target": 145,
+      "label": "defines"
+    },
+    {
+      "source": 144,
+      "target": 146,
+      "label": "defines"
+    },
+    {
+      "source": 144,
+      "target": 147,
+      "label": "defines"
+    },
+    {
+      "source": 144,
+      "target": 148,
+      "label": "defines"
+    },
+    {
+      "source": 144,
+      "target": 149,
+      "label": "defines"
+    },
+    {
+      "source": 144,
+      "target": 150,
+      "label": "defines"
+    },
+    {
+      "source": 144,
+      "target": 151,
+      "label": "defines"
+    },
+    {
+      "source": 144,
+      "target": 152,
+      "label": "defines"
+    },
+    {
+      "source": 144,
+      "target": 153,
+      "label": "defines"
+    },
+    {
+      "source": 144,
+      "target": 154,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 155,
+      "label": "contains"
+    },
+    {
+      "source": 155,
+      "target": 156,
+      "label": "defines"
+    },
+    {
+      "source": 155,
+      "target": 157,
+      "label": "defines"
+    },
+    {
+      "source": 155,
+      "target": 158,
+      "label": "defines"
+    },
+    {
+      "source": 155,
+      "target": 159,
+      "label": "defines"
+    },
+    {
+      "source": 155,
+      "target": 160,
+      "label": "defines"
+    },
+    {
+      "source": 155,
+      "target": 161,
+      "label": "defines"
+    },
+    {
+      "source": 155,
+      "target": 162,
+      "label": "defines"
+    },
+    {
+      "source": 155,
+      "target": 163,
+      "label": "defines"
+    },
+    {
+      "source": 155,
+      "target": 164,
+      "label": "defines"
+    },
+    {
+      "source": 155,
+      "target": 165,
+      "label": "defines"
+    },
+    {
+      "source": 155,
+      "target": 166,
+      "label": "defines"
+    },
+    {
+      "source": 155,
+      "target": 167,
+      "label": "defines"
+    },
+    {
+      "source": 155,
+      "target": 168,
+      "label": "defines"
+    },
+    {
+      "source": 155,
+      "target": 169,
+      "label": "defines"
+    },
+    {
+      "source": 155,
+      "target": 170,
+      "label": "defines"
+    },
+    {
+      "source": 155,
+      "target": 171,
+      "label": "defines"
+    },
+    {
+      "source": 155,
+      "target": 172,
+      "label": "defines"
+    },
+    {
+      "source": 155,
+      "target": 173,
+      "label": "defines"
+    },
+    {
+      "source": 155,
+      "target": 174,
+      "label": "defines"
+    },
+    {
+      "source": 1,
+      "target": 175,
+      "label": "contains"
+    },
+    {
+      "source": 175,
+      "target": 176,
+      "label": "defines"
+    }
+  ]
+}

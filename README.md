@@ -196,6 +196,14 @@ npm run dev
 
 Ver [TODO.md](TODO.md) para más detalles.
 
+## Knowledge Graph
+
+`graphify-out/graph.json` contiene **176 nodos y 175 aristas** del AST del proyecto, permitiendo a agentes AI comprender la arquitectura sin escanear archivos.
+
+## Skills
+
+- **tdd** (skills.sh) — patrones de testing para mantener y expandir la cobertura (36 tests)
+
 ## 📄 Licencia
 
 MIT License - Ver [LICENSE](LICENSE)

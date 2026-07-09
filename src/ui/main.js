@@ -229,13 +229,11 @@ function updateBreadcrumb(path) {
   breadcrumbContainer.innerHTML = `
         <span class="text-slate-500 font-bold tracking-widest">NETOPS</span>
         ${parts
-          .map(
-            (part, i) => `
+    .map((part, i) => `
             <span class="text-slate-700">/</span>
             <span class="${i === parts.length - 1 ? "text-white" : "text-slate-400"}">${part}</span>
-        `
-          )
-          .join("")}
+          `)
+    .join("")}
     `;
 }
 
@@ -496,7 +494,7 @@ function setupGlobalActions() {
     historyBtn.className =
       "px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded bg-surface-dark text-slate-400 border border-border-dark hover:text-white hover:border-primary transition-all";
     historyBtn.innerHTML =
-      '<span class="material-symbols-outlined !text-sm" style="vertical-align: middle;">history</span>';
+      "<span class=\"material-symbols-outlined !text-sm\" style=\"vertical-align: middle;\">history</span>";
     historyBtn.title = "History";
     historyBtn.onclick = () => {
       refreshHistory();
