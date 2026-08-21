@@ -1,9 +1,10 @@
-# 🛡️ NetOps Toolkit v4.0.1 — Lean Architecture Edition
+# 🛡️ NetOps Toolkit v4.1.0 — Production Quality & Docker Edition
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Status](https://img.shields.io/badge/Status-Stable-green)](https://github.com/Medalcode/NetOpsToolkit)
 [![Deploy](https://img.shields.io/badge/Deploy-Netlify-00C7B7)](https://netops-toolkit.netlify.app)
-[![Tests](https://img.shields.io/badge/Tests-36%20passing-success)](https://github.com/Medalcode/NetOpsToolkit)
+[![Tests](https://img.shields.io/badge/Tests-59%20passing-success)](https://github.com/Medalcode/NetOpsToolkit)
+[![Docker](https://img.shields.io/badge/Docker-Ready-blue)](Dockerfile)
 [![CI](https://github.com/Medalcode/NetOpsToolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/Medalcode/NetOpsToolkit/actions)
 
 > **"La Navaja Suiza para Ingenieros de Red"**
@@ -14,13 +15,14 @@
 
 - ✅ **100% Client-Side** - Sin backend, máxima privacidad
 - ✅ **Interfaz Moderna** - Diseño Cyberpunk con Tailwind CSS
+- ✅ **Docker Ready** - Construcción multi-etapa con NGINX y docker-compose
 - ✅ **Validación en Tiempo Real** - Feedback instantáneo mientras escribes
 - ✅ **Animaciones Fluidas** - Transiciones suaves entre vistas
 - ✅ **Responsive** - Funciona en desktop y móvil
 - ✅ **PWA Ready** - Instalable como aplicación
 - ✅ **Internationalization** - Soporte nativo Español 🇪🇸 / Inglés 🇺🇸
-- ✅ **Secure** - CSP headers, XSS prevention
-- ✅ **Tested** - 36 tests unitarios pasando (Validators + VLSM Logic + Converters + DNS Core)
+- ✅ **Secure** - Event Delegation, CSP compliance, XSS prevention
+- ✅ **Tested** - 59 tests unitarios/regresión pasando (100% Cobertura en Core)
 - ✅ **Open Source** - MIT License
 
 ## 🎯 Herramientas Disponibles
@@ -202,7 +204,7 @@ Ver [TODO.md](TODO.md) para más detalles.
 
 ## Skills
 
-- **tdd** (skills.sh) — patrones de testing para mantener y expandir la cobertura (36 tests)
+- **tdd** (skills.sh) — patrones de testing para mantener y expandir la cobertura (59 tests passing)
 
 ## 📄 Licencia
 

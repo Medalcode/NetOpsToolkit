@@ -5,6 +5,22 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
+## [4.1.0] - 2026-08-21
+
+### Añadido ✨
+
+- 🐳 **Containerización Docker**: Creados `Dockerfile` (construcción multi-etapa `node:20-alpine` -> `nginx:alpine`) y `docker-compose.yml`.
+- 🧪 **Suite de Pruebas Automatizadas (QA)**: Creadas las suites `tests/platform.test.js`, `tests/shared-services.test.js` y `tests/smoke-regression.test.js` (59 tests pasando, 100% de cobertura en Core).
+- ⚙️ **Workflow de CI/CD Optimizado**: Actualizado `.github/workflows/ci.yml` a Node.js 20 con pasos de `build` y auditoría de `test:coverage`.
+
+### Refactorización & Calidad 💎
+
+- 🗑️ **Eliminación de Código Muerto**: Removidas las dependencias inútiles de Bootstrap (`bootstrap`, `@popperjs/core`) y alias `~bootstrap`.
+- 🔒 **Event Delegation & CSP Compliance**: Reemplazados todos los handlers `onclick="..."` inline por delegación declarativa de eventos (`data-tool-id`, `data-action`).
+- 🧠 **Prevención de Memory Leaks**: Limpieza de timers en `showToast` y desvinculación de nodos DOM.
+
+---
+
 ## [4.0.1] - 2026-05-21
 
 ### Añadido ✨
