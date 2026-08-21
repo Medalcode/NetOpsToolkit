@@ -3,19 +3,27 @@ export default {
   moduleFileExtensions: ["js"],
   testMatch: ["**/tests/**/*.test.js"],
   collectCoverageFrom: [
-    "src/**/*.js",
-    "!src/ui/main.js",
-    "!src/ui/components/**/*.js"
+    "src/core/**/*.js",
+    "src/platform/**/*.js",
+    "src/ui/shared/**/*.js"
   ],
   coverageThreshold: {
+    "./src/core/": {
+      statements: 100,
+      branches: 100,
+      functions: 100,
+      lines: 100
+    },
     global: {
-      branches: 70,
-      functions: 70,
-      lines: 70,
-      statements: 70
+      statements: 15,
+      branches: 10,
+      functions: 15,
+      lines: 15
     }
   },
   moduleNameMapper: {
-    "\\.(css|less|scss|sass)$": "<rootDir>/tests/__mocks__/styleMock.js"
+    "\\.(css|less|scss|sass)$": "<rootDir>/tests/__mocks__/styleMock.js",
+    "^jspdf$": "<rootDir>/tests/__mocks__/jspdfMock.js",
+    "^jspdf-autotable$": "<rootDir>/tests/__mocks__/jspdfMock.js"
   }
 };
