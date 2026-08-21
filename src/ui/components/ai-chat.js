@@ -1,10 +1,19 @@
 import { showToast } from "../shared/ui-engine.js";
+import { storage } from "../../platform/storage.js";
+import { escapeHtml } from "../shared/utils.js";
 
 const SYSTEM_PROMPT = `You are an expert CCIE level Network Engineer assistant. 
 Your goal is to help users design networks, troubleshoot configurations (Cisco, Mikrotik, Juniper), explain networking concepts (BGP, OSPF, VLANs, IPSec), and generate configs.
 Always provide precise, technical answers. Format code in markdown blocks. Keep explanations concise but extremely accurate.`;
 
+let authCheckInterval = null;
+
 export function initAiChatTool(container) {
+  if (authCheckInterval) {
+    clearInterval(authCheckInterval);
+    authCheckInterval = null;
+  }
+
   container.innerHTML = `
     <div class="flex flex-col h-[600px] bg-surface-dark cyber-border rounded p-4 relative">
        <!-- Header -->
@@ -42,7 +51,7 @@ export function initAiChatTool(container) {
           <span class="material-symbols-outlined text-4xl text-slate-500 mb-4">vpn_key</span>
           <h3 class="text-white font-bold text-lg mb-2">API Key Required</h3>
           <p class="text-slate-400 text-sm mb-6 max-w-md">You need to set your Gemini API Key in Settings to use the AI Assistant.</p>
-          <button class="bg-primary hover:bg-primary-hover text-black font-bold px-6 py-2 rounded transition-colors uppercase tracking-widest text-xs" onclick="document.getElementById('btn-open-settings').click()">
+          <button id="btn-ai-open-settings" class="bg-primary hover:bg-primary-hover text-black font-bold px-6 py-2 rounded transition-colors uppercase tracking-widest text-xs">
              Open Settings
           </button>
        </div>
@@ -55,11 +64,19 @@ export function initAiChatTool(container) {
   const aiStatus = container.querySelector("#ai-status");
   const aiIndicator = container.querySelector("#ai-indicator");
   const aiOverlay = container.querySelector("#ai-overlay");
+  const btnOpenSettings = container.querySelector("#btn-ai-open-settings");
 
-  let apiKey = localStorage.getItem("gemini_api_key");
+  if (btnOpenSettings) {
+    btnOpenSettings.addEventListener("click", () => {
+      const settingsBtn = document.getElementById("btn-open-settings");
+      if (settingsBtn) settingsBtn.click();
+    });
+  }
+
+  let apiKey = storage.get("gemini_api_key");
 
   function checkAuth() {
-    apiKey = localStorage.getItem("gemini_api_key");
+    apiKey = storage.get("gemini_api_key");
     if (!apiKey) {
       aiOverlay.classList.remove("hidden");
       aiStatus.textContent = "Offline (No Key)";
@@ -73,8 +90,8 @@ export function initAiChatTool(container) {
     }
   }
 
-  setInterval(checkAuth, 2000);
   checkAuth();
+  authCheckInterval = setInterval(checkAuth, 2000);
 
   const conversationContext = [
     { role: "user", parts: [{ text: SYSTEM_PROMPT }] },
@@ -100,12 +117,14 @@ export function initAiChatTool(container) {
       ? "bg-black/50 border border-border-dark rounded-tl-none prose prose-invert prose-sm max-w-none"
       : "bg-primary/10 text-primary border border-primary/20 rounded-tr-none";
 
+    const safeText = escapeHtml(text);
+
     msgDiv.innerHTML = `
         <div class="${outerBg} p-2 rounded-full h-fit flex-shrink-0">
            <span class="material-symbols-outlined !text-sm">${icon}</span>
         </div>
         <div class="${innerBg} rounded-lg p-3 text-sm text-slate-300 overflow-x-auto">
-           ${isModel ? contentHtml : text.replace(/\n/g, "<br/>")}
+           ${isModel ? contentHtml : safeText.replace(/\n/g, "<br/>")}
         </div>
      `;
     chatHistory.appendChild(msgDiv);

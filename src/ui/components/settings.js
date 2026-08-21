@@ -1,4 +1,5 @@
 import { showToast } from "../shared/ui-engine.js";
+import { storage } from "../../platform/storage.js";
 
 export function initSettings() {
   const modalHTML = `
@@ -42,8 +43,8 @@ export function initSettings() {
   const btnSave = document.getElementById("btn-save-settings");
   const inputKey = document.getElementById("input-gemini-key");
 
-  // Load existing key
-  const savedKey = localStorage.getItem("gemini_api_key");
+  // Load existing key via platform storage adapter
+  const savedKey = storage.get("gemini_api_key");
   if (savedKey) {
     inputKey.value = savedKey;
   }
@@ -72,10 +73,10 @@ export function initSettings() {
   btnSave.addEventListener("click", () => {
     const key = inputKey.value.trim();
     if (key) {
-      localStorage.setItem("gemini_api_key", key);
+      storage.set("gemini_api_key", key);
       showToast("Settings saved successfully", "success");
     } else {
-      localStorage.removeItem("gemini_api_key");
+      storage.remove("gemini_api_key");
       showToast("API Key removed", "notice");
     }
     closeModal();

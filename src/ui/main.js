@@ -14,6 +14,7 @@ import { initGlobalErrorHandlers } from "./shared/error-handler.js";
 import { initTheme } from "./shared/theme.js";
 import { initI18n } from "./shared/i18n.js";
 import { initSettings } from "./components/settings.js";
+import { initCommandPalette } from "./components/command-palette.js";
 
 // VLSM Imports (Critical)
 // VLSM Imports (Critical)
@@ -109,6 +110,20 @@ async function init() {
     // 5.5 Settings
     initSettings();
     console.log("✅ Settings BYOK System");
+
+    // 5.6 Command Palette
+    const cmdPalette = initCommandPalette(toolId => loadToolLogic(toolId));
+    const btnCmdPalette = document.getElementById("btn-open-cmd-palette");
+    if (btnCmdPalette) {
+      btnCmdPalette.addEventListener("click", () => cmdPalette.openPalette());
+    }
+    document.addEventListener("keydown", e => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        cmdPalette.openPalette();
+      }
+    });
+    console.log("✅ Command Palette (Cmd+K)");
 
     // 6. Initialize Public IP Widget (Always on dashboard)
     import("./components/public_ip.js").then(module => {

@@ -1,4 +1,5 @@
 import { showToast } from "../shared/ui-engine.js";
+import { escapeHtml } from "../shared/utils.js";
 
 // Regex patterns
 const interfaceRegex = /interface\s+([\w/.-]+)\s*([\s\S]*?)(?=\ninterface|\n!|$)/g;
@@ -118,7 +119,7 @@ export function initConfigAnalyzerTool(container) {
 
     if (interfacesFound === 0) {
       interfacesContainer.innerHTML =
-        "<div class=\"text-slate-500 text-sm\">No interface blocks found in configuration.</div>";
+        '<div class="text-slate-500 text-sm">No interface blocks found in configuration.</div>';
     }
 
     showToast("Analysis complete", "success");
@@ -140,7 +141,7 @@ export function initConfigAnalyzerTool(container) {
 
     let alertsHtml = "";
     if (alerts.length > 0) {
-      alertsHtml = "<div class=\"mt-3 flex flex-col gap-1\">";
+      alertsHtml = '<div class="mt-3 flex flex-col gap-1">';
       alerts.forEach(a => {
         const color = a.type === "warning" ? "text-yellow-500" : "text-blue-400";
         alertsHtml += `<div class="text-[10px] ${color}">• ${a.msg}</div>`;
@@ -148,16 +149,21 @@ export function initConfigAnalyzerTool(container) {
       alertsHtml += "</div>";
     }
 
+    const safeName = escapeHtml(name);
+    const safeDesc = escapeHtml(desc);
+    const safeIp = escapeHtml(ip);
+    const safeMask = escapeHtml(mask);
+
     card.innerHTML = `
       <div class="flex justify-between items-start mb-2">
         <div class="flex items-center gap-2">
           <div class="size-2 rounded-full ${statusColor}"></div>
-          <h5 class="text-white font-bold text-sm">${name}</h5>
+          <h5 class="text-white font-bold text-sm">${safeName}</h5>
         </div>
         <span class="text-[10px] text-slate-500 border border-border-dark px-2 py-0.5 rounded">${statusText}</span>
       </div>
-      ${desc ? `<div class="text-slate-400 text-xs italic mb-2">"${desc}"</div>` : ""}
-      <div class="mono-data text-xs text-primary">IP: <span class="text-white">${ip}</span> ${mask ? `<span class="text-slate-500">${mask}</span>` : ""}</div>
+      ${safeDesc ? `<div class="text-slate-400 text-xs italic mb-2">"${safeDesc}"</div>` : ""}
+      <div class="mono-data text-xs text-primary">IP: <span class="text-white">${safeIp}</span> ${safeMask ? `<span class="text-slate-500">${safeMask}</span>` : ""}</div>
       ${alertsHtml}
     `;
 
