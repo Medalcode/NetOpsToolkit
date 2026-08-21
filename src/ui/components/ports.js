@@ -1,3 +1,5 @@
+import { fuzzySearch } from "../shared/fuzzy-search.js";
+
 export const portDatabase = [
   { port: 20, protocol: "TCP", service: "FTP-DATA", desc: "File Transfer Protocol (Data)" },
   { port: 21, protocol: "TCP", service: "FTP", desc: "File Transfer Protocol (Control)" },
@@ -105,18 +107,20 @@ export function initPortTool(container) {
   searchInput.addEventListener("input", e => {
     const term = e.target.value.toLowerCase().trim();
     if (!term) {
-      render(portDatabase.slice(0, 12)); // Reset to top
+      render(portDatabase.slice(0, 12));
       return;
     }
 
-    const filtered = portDatabase.filter(
-      p =>
-        p.port.toString().includes(term) ||
-        p.service.toLowerCase().includes(term) ||
-        p.desc.toLowerCase().includes(term)
-    );
+    const filteredByService = fuzzySearch(portDatabase, term, "service");
+    const filteredByDesc = fuzzySearch(portDatabase, term, "desc");
+    const filteredByPort = portDatabase.filter(p => p.port.toString().includes(term));
 
-    render(filtered);
+    const combinedMap = new Map();
+    [...filteredByPort, ...filteredByService, ...filteredByDesc].forEach(p => {
+      combinedMap.set(p.port, p);
+    });
+
+    render(Array.from(combinedMap.values()));
   });
 
   // Initial render

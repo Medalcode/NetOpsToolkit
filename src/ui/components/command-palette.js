@@ -8,6 +8,13 @@ import { fuzzySearch } from "../shared/fuzzy-search.js";
 
 const COMMAND_LIST = [
   {
+    id: "tool-topology",
+    name: "Network Topology Mapper",
+    desc: "Interactive SVG diagram designer for Routers, Switches, and Subnets",
+    icon: "hub",
+    category: "Networking",
+  },
+  {
     id: "vlsm",
     name: "VLSM Subnet Calculator",
     desc: "Calculate IPv4 subnets using VLSM",

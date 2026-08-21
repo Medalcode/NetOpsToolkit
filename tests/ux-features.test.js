@@ -50,7 +50,7 @@ describe('UX Features & Command Palette Suite (v4.2.5)', () => {
       expect(firstItem).not.toBeNull();
       firstItem.click();
 
-      expect(onSelectMock).toHaveBeenCalledWith('vlsm');
+      expect(onSelectMock).toHaveBeenCalledWith('tool-topology');
     });
   });
 });

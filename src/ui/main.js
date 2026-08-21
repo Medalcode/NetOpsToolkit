@@ -74,6 +74,10 @@ const TOOL_REGISTRY = {
     fn: "initSyntaxConverterTool",
   },
   "tool-ai-chat": { load: () => import("./components/ai-chat.js"), fn: "initAiChatTool" },
+  "tool-topology": {
+    load: () => import("./components/topology-mapper.js"),
+    fn: "initTopologyMapper",
+  },
 };
 
 /**

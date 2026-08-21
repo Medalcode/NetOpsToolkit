@@ -1,3 +1,5 @@
+import { fuzzySearch } from "../shared/fuzzy-search.js";
+
 export const ouiDatabase = [
   { prefix: "00:00:0C", vendor: "Cisco Systems, Inc" },
   { prefix: "00:01:42", vendor: "Cisco Systems, Inc" },
@@ -172,7 +174,7 @@ export function initOuiTool(container) {
   }
 
   searchInput.addEventListener("input", e => {
-    const rawVal = e.target.value;
+    const rawVal = e.target.value.trim();
     const term = rawVal.replace(/[:.-]/g, "").toUpperCase();
 
     if (term.length === 0) {
@@ -184,11 +186,12 @@ export function initOuiTool(container) {
       return;
     }
 
-    const filtered = ouiDatabase.filter(e => {
-      const dbPrefix = e.prefix.replace(/:/g, "");
-      return dbPrefix.includes(term) || e.vendor.toLowerCase().includes(rawVal.toLowerCase());
-    });
+    const filteredPrefix = ouiDatabase.filter(e => e.prefix.replace(/:/g, "").includes(term));
+    const filteredVendor = fuzzySearch(ouiDatabase, rawVal, "vendor");
 
-    render(filtered.slice(0, 50));
+    const combinedMap = new Map();
+    [...filteredPrefix, ...filteredVendor].forEach(e => combinedMap.set(e.prefix, e));
+
+    render(Array.from(combinedMap.values()).slice(0, 50));
   });
 }
