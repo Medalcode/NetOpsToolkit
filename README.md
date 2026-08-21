@@ -1,9 +1,9 @@
-# 🛡️ NetOps Toolkit v4.1.0 — Production Quality & Docker Edition
+# 🛡️ NetOps Toolkit v4.2.5 — Power-User & Enterprise Edition
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Status](https://img.shields.io/badge/Status-Stable-green)](https://github.com/Medalcode/NetOpsToolkit)
 [![Deploy](https://img.shields.io/badge/Deploy-Netlify-00C7B7)](https://netops-toolkit.netlify.app)
-[![Tests](https://img.shields.io/badge/Tests-59%20passing-success)](https://github.com/Medalcode/NetOpsToolkit)
+[![Tests](https://img.shields.io/badge/Tests-67%20passing-success)](https://github.com/Medalcode/NetOpsToolkit)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue)](Dockerfile)
 [![CI](https://github.com/Medalcode/NetOpsToolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/Medalcode/NetOpsToolkit/actions)
 

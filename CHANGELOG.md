@@ -5,6 +5,27 @@ Todos los cambios notables en este proyecto son documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
+## [4.2.5] - 2026-08-21
+
+### Añadido ✨
+- ⌨️ **Command Palette Global (`Cmd+K` / `Ctrl+K`)**: Creado `src/ui/components/command-palette.js` para acceso instantáneo por teclado a cualquiera de las 17 herramientas de red.
+- 🔍 **Motor de Búsqueda Difusa (`fuzzy-search.js`)**: Algoritmo de filtrado difuso tolerante a erratas de tipeo para catálogos de puertos y registros OUI.
+- ⚙️ **Typechecking Estático JSDoc (`jsconfig.json`)**: Verificación de tipos sin agregar compilador TypeScript.
+- 📜 **Registros de Decisiones de Arquitectura (ADR)**: Documentados `ADR-001` (Vanilla ES Modules) y `ADR-002` (Puertos y Adaptadores Hexagonales) en `docs/adr/`.
+- 🧪 **Suite de Pruebas de UX**: Creado `tests/ux-features.test.js` aumentando la suite total a 10 archivos y 67 pruebas pasando (100% verde).
+
+---
+
+## [4.2.0] - 2026-08-21
+
+### Seguridad & Performance Core 🛡️
+- 🔒 **Sanitización DOM XSS**: Creado el helper `escapeHtml` en `src/ui/shared/utils.js` y aplicado en `config-analyzer.js` y `ai-chat.js`.
+- 🧠 **Corrección de Memory Leaks**: Limpieza reactiva de timers `authCheckInterval` (`clearInterval`) en `ai-chat.js`.
+- 🌐 **Cifrado HTTPS Serverless**: Endpoint migrado a `https://ip-api.com` en `netlify/functions/geo-ip.js`.
+- 🧱 **Storage Hexagonal**: Eliminado acceso directo a `localStorage` en `settings.js` y `ai-chat.js`, sustituido por el adaptador `storage.js`.
+
+---
+
 ## [4.1.0] - 2026-08-21
 
 ### Añadido ✨

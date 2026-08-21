@@ -5,6 +5,29 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
+## [4.2.5] - 2026-08-21
+
+### Añadido ✨
+
+- ⌨️ **Command Palette Global (`Cmd+K` / `Ctrl+K`)**: Acceso instantáneo a las 17 herramientas de red mediante atajo global y botón en la barra superior.
+- 🔍 **Motor de Búsqueda Difusa (`fuzzy-search.js`)**: Algoritmo tolerante a erratas para catálogos de puertos y registros OUI.
+- ⚙️ **Typechecking Estático JSDoc (`jsconfig.json`)**: Verificación de tipos sin compilador TypeScript.
+- 📜 **ADRs (Architecture Decision Records)**: Documentados `ADR-001` y `ADR-002` en `docs/adr/`.
+- 🧪 **Suite de Pruebas de UX (`tests/ux-features.test.js`)**: Cobertura total de 67 pruebas pasando (100% verde).
+
+---
+
+## [4.2.0] - 2026-08-21
+
+### Seguridad & Performance Core 🛡️
+
+- 🔒 **Sanitización DOM XSS**: Creado `escapeHtml` en `src/ui/shared/utils.js` y aplicado en `config-analyzer.js` y `ai-chat.js`.
+- 🧠 **Corrección de Memory Leaks**: Limpieza de timers `authCheckInterval` (`clearInterval`) en `ai-chat.js`.
+- 🌐 **Cifrado HTTPS Serverless**: Endpoint migrado a `https://ip-api.com` en `netlify/functions/geo-ip.js`.
+- 🧱 **Storage Hexagonal**: Eliminado acceso directo a `localStorage` en `settings.js` y `ai-chat.js`.
+
+---
+
 ## [4.1.0] - 2026-08-21
 
 ### Añadido ✨
