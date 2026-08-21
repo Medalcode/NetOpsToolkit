@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  netops-toolkit:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: netops-toolkit
+    ports:
+      - "8080:80"
+    restart: unless-stopped
