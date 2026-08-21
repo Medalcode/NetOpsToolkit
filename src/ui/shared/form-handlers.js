@@ -50,7 +50,7 @@ export function addIPValidation(input) {
     if (result.valid === true) {
       input.classList.add("border-green-500");
       feedback.innerHTML =
-        '<span class="material-symbols-outlined text-green-500 !text-sm">check_circle</span>';
+        "<span class=\"material-symbols-outlined text-green-500 !text-sm\">check_circle</span>";
     } else if (result.valid === false) {
       input.classList.add("border-red-500");
       feedback.innerHTML = `

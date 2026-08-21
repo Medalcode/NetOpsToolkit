@@ -45,8 +45,8 @@ export function calculateStatistics(subnets, totalAvailable) {
     averageUtilization:
       subnets.length > 0
         ? (
-            subnets.reduce((sum, s) => sum + parseFloat(s.utilizationPercent), 0) / subnets.length
-          ).toFixed(2)
+          subnets.reduce((sum, s) => sum + parseFloat(s.utilizationPercent), 0) / subnets.length
+        ).toFixed(2)
         : "0.00",
   };
 }

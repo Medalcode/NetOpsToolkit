@@ -145,7 +145,7 @@ export function initRouteVisTool(container) {
         const bit = net.binStr[i];
         const color = i < commonBits ? "text-signal-green" : "text-slate-600";
         formattedHtml += `<span class="${color}">${bit}</span>`;
-        if ((i + 1) % 8 === 0 && i < 31) formattedHtml += '<span class="text-slate-800">.</span>';
+        if ((i + 1) % 8 === 0 && i < 31) formattedHtml += "<span class=\"text-slate-800\">.</span>";
       }
 
       el.innerHTML = `

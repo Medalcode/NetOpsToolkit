@@ -157,7 +157,33 @@ function setupNavigation() {
     });
   });
 
-  // Expose helpers for HTML onclick events
+  // 2. Declarative Event Delegation for data attributes
+  document.addEventListener("click", e => {
+    // Tool card click
+    const toolCard = e.target.closest("[data-tool-id]");
+    if (toolCard) {
+      e.preventDefault();
+      const toolId = toolCard.getAttribute("data-tool-id");
+      loadToolLogic(toolId);
+      return;
+    }
+
+    // Action button click
+    const actionBtn = e.target.closest("[data-action]");
+    if (actionBtn) {
+      e.preventDefault();
+      const action = actionBtn.getAttribute("data-action");
+      if (action === "show-tools-grid") {
+        showView("view-tools", "UTILITIES GRID");
+      } else if (action === "show-vlsm") {
+        showView("view-vlsm", "VLSM CALCULATOR");
+      } else if (action === "reload-app") {
+        window.location.reload();
+      }
+    }
+  });
+
+  // Expose helpers for backward compatibility and automated tests
   window.switchToolView = toolId => {
     loadToolLogic(toolId);
   };
@@ -229,10 +255,12 @@ function updateBreadcrumb(path) {
   breadcrumbContainer.innerHTML = `
         <span class="text-slate-500 font-bold tracking-widest">NETOPS</span>
         ${parts
-    .map((part, i) => `
+    .map(
+      (part, i) => `
             <span class="text-slate-700">/</span>
             <span class="${i === parts.length - 1 ? "text-white" : "text-slate-400"}">${part}</span>
-          `)
+          `
+    )
     .join("")}
     `;
 }

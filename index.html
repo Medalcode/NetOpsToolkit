@@ -63,7 +63,7 @@
     
     <!-- Sidebar -->
     <aside class="w-16 flex-shrink-0 flex flex-col items-center py-6 bg-surface-dark border-r border-border-dark z-20">
-        <div class="mb-10 text-primary cursor-pointer group" onclick="location.reload()" title="Reload App">
+        <div class="mb-10 text-primary cursor-pointer group" data-action="reload-app" title="Reload App">
             <span class="material-symbols-outlined !text-3xl group-hover:scale-110 transition-transform">terminal</span>
         </div>
         <nav class="flex flex-col gap-6 flex-1">
@@ -90,11 +90,11 @@
                     <span class="text-white" data-i18n="header.bc.vlsm">VLSM CALCULATOR</span>
                 </nav>
                 <div class="h-4 w-px bg-slate-800 mx-2"></div>
-                <button class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-white transition-all ripple btn-press" onclick="showView('view-vlsm', 'VLSM CALCULATOR')">
+                <button class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-white transition-all ripple btn-press" data-action="show-vlsm">
                     <span class="material-symbols-outlined !text-sm mr-1">layers</span>
                     <span data-i18n="header.btn.vlsm">VLSM</span>
                 </button>
-                <button class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded bg-surface-dark text-slate-400 border border-border-dark hover:text-white hover:border-primary transition-all ripple btn-press" onclick="showToolsGrid();">
+                <button class="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded bg-surface-dark text-slate-400 border border-border-dark hover:text-white hover:border-primary transition-all ripple btn-press" data-action="show-tools-grid">
                     <span class="material-symbols-outlined !text-sm mr-1">build</span>
                     <span data-i18n="header.btn.tools">TOOLS</span>
                 </button>
@@ -105,7 +105,7 @@
                 </button>
                 <div class="h-4 w-px bg-slate-800"></div>
                 <!-- Language Toggle -->
-                <button id="lang-toggle" class="text-xs font-bold text-slate-500 hover:text-white transition-colors" onclick="window.switchLang()">
+                <button id="lang-toggle" class="text-xs font-bold text-slate-500 hover:text-white transition-colors">
                     🇪🇸 ES
                 </button>
                 <div class="h-4 w-px bg-slate-800"></div>
@@ -121,7 +121,7 @@
                 <div id="view-tools" class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     
                     <!-- Subnet Analyzer -->
-                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-subnet')">
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" data-tool-id="tool-subnet">
                         <div class="text-primary mb-4 p-3 bg-primary/10 rounded inline-block group-hover:bg-primary group-hover:text-white transition-colors">
                             <span class="material-symbols-outlined">network_check</span>
                         </div>
@@ -130,7 +130,7 @@
                     </div>
 
                     <!-- DNS Lookup -->
-                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-dns')">
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" data-tool-id="tool-dns">
                         <div class="text-signal-green mb-4 p-3 bg-signal-green/10 rounded inline-block group-hover:bg-signal-green group-hover:text-black transition-colors">
                             <span class="material-symbols-outlined">dns</span>
                         </div>
@@ -139,7 +139,7 @@
                     </div>
 
                     <!-- IPv6 Tools -->
-                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-ipv6')">
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" data-tool-id="tool-ipv6">
                         <div class="text-purple-500 mb-4 p-3 bg-purple-500/10 rounded inline-block group-hover:bg-purple-500 group-hover:text-white transition-colors">
                             <span class="material-symbols-outlined">public</span>
                         </div>
@@ -148,7 +148,7 @@
                     </div>
 
                     <!-- OUI Lookup -->
-                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-oui')">
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" data-tool-id="tool-oui">
                         <div class="text-yellow-500 mb-4 p-3 bg-yellow-500/10 rounded inline-block group-hover:bg-yellow-500 group-hover:text-black transition-colors">
                             <span class="material-symbols-outlined">tag</span>
                         </div>
@@ -157,7 +157,7 @@
                     </div>
 
                     <!-- Config Gen -->
-                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-config')">
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" data-tool-id="tool-config">
                         <div class="text-pink-500 mb-4 p-3 bg-pink-500/10 rounded inline-block group-hover:bg-pink-500 group-hover:text-white transition-colors">
                             <span class="material-symbols-outlined">description</span>
                         </div>
@@ -166,7 +166,7 @@
                     </div>
 
                     <!-- Key Gen -->
-                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-keygen')">
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" data-tool-id="tool-keygen">
                         <div class="text-cyan-500 mb-4 p-3 bg-cyan-500/10 rounded inline-block group-hover:bg-cyan-500 group-hover:text-black transition-colors">
                             <span class="material-symbols-outlined">key</span>
                         </div>
@@ -175,7 +175,7 @@
                     </div>
 
                     <!-- Ports -->
-                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-ports')">
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" data-tool-id="tool-ports">
                         <div class="text-orange-500 mb-4 p-3 bg-orange-500/10 rounded inline-block group-hover:bg-orange-500 group-hover:text-white transition-colors">
                             <span class="material-symbols-outlined">router</span>
                         </div>
@@ -184,7 +184,7 @@
                     </div>
 
                     <!-- Base Converter (formerly orphaned) -->
-                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-hex')">
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" data-tool-id="tool-hex">
                         <div class="text-emerald-500 mb-4 p-3 bg-emerald-500/10 rounded inline-block group-hover:bg-emerald-500 group-hover:text-white transition-colors">
                             <span class="material-symbols-outlined">conversion_path</span>
                         </div>
@@ -193,7 +193,7 @@
                     </div>
 
                     <!-- Bandwidth Calculator (formerly orphaned) -->
-                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-bw')">
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" data-tool-id="tool-bw">
                         <div class="text-violet-500 mb-4 p-3 bg-violet-500/10 rounded inline-block group-hover:bg-violet-500 group-hover:text-white transition-colors">
                             <span class="material-symbols-outlined">speed</span>
                         </div>
@@ -202,7 +202,7 @@
                     </div>
 
                     <!-- IP Reference (formerly orphaned) -->
-                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-ip-ref')">
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" data-tool-id="tool-ip-ref">
                         <div class="text-amber-500 mb-4 p-3 bg-amber-500/10 rounded inline-block group-hover:bg-amber-500 group-hover:text-white transition-colors">
                             <span class="material-symbols-outlined">info</span>
                         </div>
@@ -211,7 +211,7 @@
                     </div>
 
                     <!-- Template Library -->
-                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-templates')">
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" data-tool-id="tool-templates">
                         <div class="text-indigo-500 mb-4 p-3 bg-indigo-500/10 rounded inline-block group-hover:bg-indigo-500 group-hover:text-white transition-colors">
                             <span class="material-symbols-outlined">library_books</span>
                         </div>
@@ -220,7 +220,7 @@
                     </div>
 
                     <!-- Config Analyzer -->
-                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-config-analyzer')">
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" data-tool-id="tool-config-analyzer">
                         <div class="text-sky-500 mb-4 p-3 bg-sky-500/10 rounded inline-block group-hover:bg-sky-500 group-hover:text-white transition-colors">
                             <span class="material-symbols-outlined">plumbing</span>
                         </div>
@@ -229,7 +229,7 @@
                     </div>
 
                     <!-- ACL Builder -->
-                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-acl-builder')">
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" data-tool-id="tool-acl-builder">
                         <div class="text-red-500 mb-4 p-3 bg-red-500/10 rounded inline-block group-hover:bg-red-500 group-hover:text-white transition-colors">
                             <span class="material-symbols-outlined">rule_folder</span>
                         </div>
@@ -238,7 +238,7 @@
                     </div>
 
                     <!-- Route Visualizer -->
-                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-route-vis')">
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" data-tool-id="tool-route-vis">
                         <div class="text-fuchsia-500 mb-4 p-3 bg-fuchsia-500/10 rounded inline-block group-hover:bg-fuchsia-500 group-hover:text-white transition-colors">
                             <span class="material-symbols-outlined">merge_type</span>
                         </div>
@@ -247,7 +247,7 @@
                     </div>
 
                     <!-- Syntax Converter -->
-                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-syntax-converter')">
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" data-tool-id="tool-syntax-converter">
                         <div class="text-lime-500 mb-4 p-3 bg-lime-500/10 rounded inline-block group-hover:bg-lime-500 group-hover:text-white transition-colors">
                             <span class="material-symbols-outlined">translate</span>
                         </div>
@@ -256,7 +256,7 @@
                     </div>
 
                     <!-- AI Chat Assistant -->
-                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" onclick="switchToolView('tool-ai-chat')">
+                    <div class="bg-surface-dark cyber-border rounded p-6 hover:border-primary transition-colors cursor-pointer group card-hover" data-tool-id="tool-ai-chat">
                         <div class="text-signal-green mb-4 p-3 bg-signal-green/10 rounded inline-block group-hover:bg-signal-green group-hover:text-black transition-colors shadow-[0_0_15px_rgba(0,255,170,0.2)]">
                             <span class="material-symbols-outlined">smart_toy</span>
                         </div>
@@ -269,7 +269,7 @@
                 <div id="view-dynamic-tool" class="hidden bg-surface-dark cyber-border rounded p-6 min-h-[400px]">
                     <div class="flex items-center justify-between mb-6 pb-4 border-b border-border-dark">
                         <h3 class="text-xl font-bold text-white uppercase tracking-wider" id="dynamic-tool-title">Tool Name</h3>
-                        <button class="text-slate-400 hover:text-white flex items-center gap-2 text-xs uppercase font-bold" onclick="showToolsGrid()">
+                        <button class="text-slate-400 hover:text-white flex items-center gap-2 text-xs uppercase font-bold" data-action="show-tools-grid">
                             <span class="material-symbols-outlined !text-sm">arrow_back</span>
                             <span data-i18n="tools.back">Back to Grid</span>
                         </button>

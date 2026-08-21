@@ -118,7 +118,7 @@ export function initConfigAnalyzerTool(container) {
 
     if (interfacesFound === 0) {
       interfacesContainer.innerHTML =
-        '<div class="text-slate-500 text-sm">No interface blocks found in configuration.</div>';
+        "<div class=\"text-slate-500 text-sm\">No interface blocks found in configuration.</div>";
     }
 
     showToast("Analysis complete", "success");
@@ -140,7 +140,7 @@ export function initConfigAnalyzerTool(container) {
 
     let alertsHtml = "";
     if (alerts.length > 0) {
-      alertsHtml = '<div class="mt-3 flex flex-col gap-1">';
+      alertsHtml = "<div class=\"mt-3 flex flex-col gap-1\">";
       alerts.forEach(a => {
         const color = a.type === "warning" ? "text-yellow-500" : "text-blue-400";
         alertsHtml += `<div class="text-[10px] ${color}">• ${a.msg}</div>`;

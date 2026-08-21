@@ -375,7 +375,7 @@ function renderNetworkVisualizer(subnets, parentPrefix, container) {
 
     // Hover effect overlay
     bar.innerHTML =
-      '<div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>';
+      "<div class=\"absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity\"></div>";
 
     barContainer.appendChild(bar);
   });
@@ -566,29 +566,42 @@ export function showToast(message, type = "success", duration = 3000) {
   toast.setAttribute("role", "status");
   toast.setAttribute("aria-live", "polite");
 
-  toast.innerHTML = `
-    <span class="material-symbols-outlined !text-lg">${icons[type] || "info"}</span>
-    <span class="flex-1">${message}</span>
-    <button class="text-current opacity-50 hover:opacity-100 transition-opacity" onclick="this.parentElement.remove()">
-      <span class="material-symbols-outlined !text-sm">close</span>
-    </button>
-  `;
+  const closeBtn = document.createElement("button");
+  closeBtn.className = "text-current opacity-50 hover:opacity-100 transition-opacity";
+  closeBtn.innerHTML = "<span class=\"material-symbols-outlined !text-sm\">close</span>";
+
+  let autoRemoveTimer = null;
+  const removeToast = () => {
+    if (autoRemoveTimer) clearTimeout(autoRemoveTimer);
+    if (toast.parentElement) {
+      toast.remove();
+    }
+    if (toastContainer && toastContainer.children.length === 0) {
+      toastContainer.remove();
+    }
+  };
+
+  closeBtn.addEventListener("click", removeToast);
+
+  const iconSpan = document.createElement("span");
+  iconSpan.className = "material-symbols-outlined !text-lg";
+  iconSpan.textContent = icons[type] || "info";
+
+  const msgSpan = document.createElement("span");
+  msgSpan.className = "flex-1";
+  msgSpan.textContent = message;
+
+  toast.appendChild(iconSpan);
+  toast.appendChild(msgSpan);
+  toast.appendChild(closeBtn);
 
   // Add to container
   toastContainer.appendChild(toast);
 
   // Auto-remove after duration
-  setTimeout(() => {
+  autoRemoveTimer = setTimeout(() => {
     toast.style.animation = "slideOutRight 0.3s ease-out";
-    setTimeout(() => {
-      if (toast.parentElement) {
-        toast.remove();
-      }
-      // Remove container if empty
-      if (toastContainer.children.length === 0) {
-        toastContainer.remove();
-      }
-    }, 300);
+    setTimeout(removeToast, 300);
   }, duration);
 }
 

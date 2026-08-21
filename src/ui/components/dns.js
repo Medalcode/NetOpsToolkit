@@ -80,7 +80,7 @@ export function initDnsTool(container) {
     const domain = domainInput.value.trim();
     if (!domain) {
       resultsContainer.innerHTML =
-        '<span class="text-red-500">Error: Please enter a valid domain name.</span>';
+        "<span class=\"text-red-500\">Error: Please enter a valid domain name.</span>";
       return;
     }
 

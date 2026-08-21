@@ -32,19 +32,23 @@ export function showErrorNotification(message, type = "error") {
         : "bg-blue-500/10 border-blue-500/30 text-blue-300"
   }`;
 
-  notification.innerHTML = `
-    <div class="flex items-start gap-3">
-      <span class="material-symbols-outlined !text-xl">${
-        type === "error" ? "error" : type === "warning" ? "warning" : "info"
-      }</span>
-      <div class="flex-1">
-        <p class="text-sm font-medium">${message}</p>
-      </div>
-      <button class="text-slate-400 hover:text-white" onclick="this.parentElement.parentElement.remove()">
-        <span class="material-symbols-outlined !text-sm">close</span>
-      </button>
+  const closeBtn = document.createElement("button");
+  closeBtn.className = "text-slate-400 hover:text-white";
+  closeBtn.innerHTML = "<span class=\"material-symbols-outlined !text-sm\">close</span>";
+  closeBtn.addEventListener("click", () => notification.remove());
+
+  const content = document.createElement("div");
+  content.className = "flex items-start gap-3";
+  content.innerHTML = `
+    <span class="material-symbols-outlined !text-xl">${
+  type === "error" ? "error" : type === "warning" ? "warning" : "info"
+}</span>
+    <div class="flex-1">
+      <p class="text-sm font-medium">${message}</p>
     </div>
   `;
+  content.appendChild(closeBtn);
+  notification.appendChild(content);
 
   document.body.appendChild(notification);
 
@@ -64,17 +68,21 @@ export function showSuccessNotification(message) {
   notification.className =
     "fixed top-4 right-4 z-50 max-w-md p-4 rounded-lg shadow-lg border bg-green-500/10 border-green-500/30 text-green-300 transition-all duration-300";
 
-  notification.innerHTML = `
-    <div class="flex items-start gap-3">
-      <span class="material-symbols-outlined !text-xl">check_circle</span>
-      <div class="flex-1">
-        <p class="text-sm font-medium">${message}</p>
-      </div>
-      <button class="text-slate-400 hover:text-white" onclick="this.parentElement.parentElement.remove()">
-        <span class="material-symbols-outlined !text-sm">close</span>
-      </button>
+  const closeBtn = document.createElement("button");
+  closeBtn.className = "text-slate-400 hover:text-white";
+  closeBtn.innerHTML = "<span class=\"material-symbols-outlined !text-sm\">close</span>";
+  closeBtn.addEventListener("click", () => notification.remove());
+
+  const content = document.createElement("div");
+  content.className = "flex items-start gap-3";
+  content.innerHTML = `
+    <span class="material-symbols-outlined !text-xl">check_circle</span>
+    <div class="flex-1">
+      <p class="text-sm font-medium">${message}</p>
     </div>
   `;
+  content.appendChild(closeBtn);
+  notification.appendChild(content);
 
   document.body.appendChild(notification);
 

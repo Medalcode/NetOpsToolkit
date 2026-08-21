@@ -51,6 +51,7 @@ export function prefixToMask(prefix) {
  * getNetworkAddress("192.168.1.100", 24) // "192.168.1.0"
  */
 export function getNetworkAddress(ip, prefix) {
+  if (prefix === 0) return "0.0.0.0";
   const ipDecimal = ipToDecimal(ip);
   const mask = (0xffffffff << (32 - prefix)) >>> 0;
   const networkAddress = (ipDecimal & mask) >>> 0;

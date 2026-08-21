@@ -32,7 +32,7 @@ const ciscoToMikrotik = [
     },
   },
   // Description
-  { rx: /description\s+(.*)/gi, rep: 'comment="$1"' },
+  { rx: /description\s+(.*)/gi, rep: "comment=\"$1\"" },
   // No shutdown
   { rx: /no\s+shutdown/gi, rep: "disabled=no" },
 ];

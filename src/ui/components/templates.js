@@ -53,7 +53,7 @@ username admin privilege 15 secret Admin123!`,
     {
       title: "NAT Configuration",
       description: "Masquerade NAT for WAN interface",
-      code: '/ip firewall nat add chain=srcnat out-interface=ether1 action=masquerade comment="WAN NAT"',
+      code: "/ip firewall nat add chain=srcnat out-interface=ether1 action=masquerade comment=\"WAN NAT\"",
     },
     {
       title: "Enable SSH & Disable Telnet",
@@ -135,7 +135,7 @@ export function initTemplateTool(container) {
 
     if (!templates || templates.length === 0) {
       contentArea.innerHTML =
-        '<div class="text-slate-500 text-sm">No templates found for this vendor.</div>';
+        "<div class=\"text-slate-500 text-sm\">No templates found for this vendor.</div>";
       return;
     }
 
