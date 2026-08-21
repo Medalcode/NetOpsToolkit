@@ -5,6 +5,17 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
+## [4.3.0] - 2026-08-21
+
+### Añadido ✨
+
+- 🕸️ **Network Topology Mapper**: Creado `src/ui/components/topology-mapper.js` permitiendo diagramar Routers, Switches y Subredes con conexiones vectoriales SVG.
+- 💾 **Persistencia Masiva IndexedDB**: Creado `src/platform/indexed-db.js` para almacenamiento offline sin el límite de 5MB de `localStorage`.
+- 🔍 **Búsqueda Difusa en Puertos y OUI**: Integrado `fuzzySearch` en `ports.js` y `oui.js` para búsquedas tolerantes a erratas.
+- 🧪 **Suite de Pruebas v4.3.0**: Creado `tests/v430-features.test.js` aumentando la suite total a 11 archivos y **70 pruebas pasando (100% verde)**.
+
+---
+
 ## [4.2.5] - 2026-08-21
 
 ### Añadido ✨

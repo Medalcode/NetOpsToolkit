@@ -1,28 +1,28 @@
-# 🛡️ NetOps Toolkit v4.2.5 — Power-User & Enterprise Edition
+# 🛡️ NetOps Toolkit v4.3.0 — Topology Mapper & Enterprise Edition
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Status](https://img.shields.io/badge/Status-Stable-green)](https://github.com/Medalcode/NetOpsToolkit)
 [![Deploy](https://img.shields.io/badge/Deploy-Netlify-00C7B7)](https://netops-toolkit.netlify.app)
-[![Tests](https://img.shields.io/badge/Tests-67%20passing-success)](https://github.com/Medalcode/NetOpsToolkit)
+[![Tests](https://img.shields.io/badge/Tests-70%20passing-success)](https://github.com/Medalcode/NetOpsToolkit)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue)](Dockerfile)
 [![CI](https://github.com/Medalcode/NetOpsToolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/Medalcode/NetOpsToolkit/actions)
 
 > **"La Navaja Suiza para Ingenieros de Red"**
 >
-> Suite integral de herramientas de red 100% client-side. Cálculo VLSM, análisis de subredes, DNS lookup, generación de configuraciones y más. Todo ejecutándose en tu navegador con máxima privacidad.
+> Suite integral de herramientas de red 100% client-side. Cálculo VLSM, análisis de subredes, DNS lookup, diagramador de topologías SVG, generación de configuraciones y más. Todo ejecutándose en tu navegador con máxima privacidad.
 
 ## ✨ Características Principales
 
 - ✅ **100% Client-Side** - Sin backend, máxima privacidad
 - ✅ **Interfaz Moderna** - Diseño Cyberpunk con Tailwind CSS
+- ✅ **Topology Mapper** - Diagramador de topologías SVG interactivo (NUEVO)
+- ✅ **Command Palette** - Atajo global `Cmd+K` para navegación por teclado
+- ✅ **IndexedDB Storage** - Almacenamiento masivo offline sin cuotas
 - ✅ **Docker Ready** - Construcción multi-etapa con NGINX y docker-compose
 - ✅ **Validación en Tiempo Real** - Feedback instantáneo mientras escribes
-- ✅ **Animaciones Fluidas** - Transiciones suaves entre vistas
 - ✅ **Responsive** - Funciona en desktop y móvil
-- ✅ **PWA Ready** - Instalable como aplicación
-- ✅ **Internationalization** - Soporte nativo Español 🇪🇸 / Inglés 🇺🇸
-- ✅ **Secure** - Event Delegation, CSP compliance, XSS prevention
-- ✅ **Tested** - 59 tests unitarios/regresión pasando (100% Cobertura en Core)
+- ✅ **Secure** - Event Delegation, CSP compliance, sanitización DOM XSS
+- ✅ **Tested** - 70 tests unitarios/regresión pasando (100% Cobertura en Core)
 - ✅ **Open Source** - MIT License
 
 ## 🎯 Herramientas Disponibles
